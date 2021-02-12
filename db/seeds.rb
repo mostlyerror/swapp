@@ -10,24 +10,32 @@
 User.create([
   {
     email: 'bpoon@codeforamerica.org',
+    first_name: 'Ben',
+    last_name: 'Poon',
     password: 'password',
     password_confirmation: 'password',
     admin: true,
   },
   {
     email: 'ftang@codeforamerica.org',
+    first_name: 'Fiona',
+    last_name: 'Tang',
     password: 'password',
     password_confirmation: 'password',
     admin: true,
   },
   {
     email: 'bjohnson@codeforamerica.org',
+    first_name: 'Brandon',
+    last_name: 'Johnson',
     password: 'password',
     password_confirmation: 'password',
     admin: true,
   },
   {
     email: 'ashleydunn@almosthome.org',
+    first_name: 'Ashley',
+    last_name: 'Dunn',
     password: 'password',
     password_confirmation: 'password',
     admin: true,
@@ -38,21 +46,29 @@ User.create([
 User.create([
   {
     email: 'heather@adcogov.org',
+    first_name: 'Heather',
+    last_name: 'McClure',
     password: 'password',
     password_confirmation: 'password',
   },
   {
     email: 'myra@cityofthornton.org',
+    first_name: 'Myra',
+    last_name: 'Someone',
     password: 'password',
     password_confirmation: 'password',
   },
   {
     email: 'mario@cityofthornton.org',
+    first_name: 'Mario',
+    last_name: 'Someone',
     password: 'password',
     password_confirmation: 'password',
   },
   {
     email: 'jessica@cityofnorthglenn.org',
+    first_name: 'Jessica',
+    last_name: 'Someone',
     password: 'password',
     password_confirmation: 'password',
   }
@@ -62,16 +78,22 @@ User.create([
 motel_users = User.create!([
   {
     email: 'carol@comfortinn.com',
+    first_name: 'Carol',
+    last_name: 'Motel',
     password: 'password',
     password_confirmation: 'password',
   },
   {
     email: 'harriet@hometownestudios.com',
+    first_name: 'Harriett',
+    last_name: 'Motel',
     password: 'password',
     password_confirmation: 'password',
   },
   {
     email: 'quincey@qualityinn.com',
+    first_name: 'Quincey',
+    last_name: 'Motel',
     password: 'password',
     password_confirmation: 'password',
   }
