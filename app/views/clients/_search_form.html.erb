@@ -1,5 +1,4 @@
 <%= search_form_for @q do |f| %>
-  <%= f.label :first_name_or_last_name_cont %>
-  <%= f.search_field :first_name_or_last_name_cont, autofocus: true %>
+  <%= f.search_field :first_name_or_last_name_cont, placeholder: 'John Doe', autofocus: true %>
   <%= f.submit %>
 <% end %>

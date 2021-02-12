@@ -6,6 +6,32 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.create([
+  {
+    email: 'bpoon@codeforamerica.org',
+    password: 'password',
+    password_confirmation: 'password',
+    admin: true,
+  },
+  {
+    email: 'ftang@codeforamerica.org',
+    password: 'password',
+    password_confirmation: 'password',
+    admin: true,
+  },
+  {
+    email: 'bjohnson@codeforamerica.org',
+    password: 'password',
+    password_confirmation: 'password',
+    admin: true,
+  },
+  {
+    email: 'heather@adcogov.org',
+    password: 'password',
+    password_confirmation: 'password',
+  }
+])
+
 100.times do
   Client.create(
     first_name: Faker::Name.first_name,
