@@ -59,7 +59,7 @@ User.create([
 ])
 
 # motel users
-User.create([
+motel_users = User.create!([
   {
     email: 'carol@comfortinn.com',
     password: 'password',
@@ -74,7 +74,7 @@ User.create([
     email: 'quincey@qualityinn.com',
     password: 'password',
     password_confirmation: 'password',
-  },
+  }
 ])
 
 100.times do
@@ -85,7 +85,9 @@ User.create([
     gender: Faker::Gender.type
   )
 
-  client.incident_reports.create(
+  IncidentReport.create!(
+    client: client,
+    reporter_id: motel_users.sample.id,
     occurred_at: Faker::Date.between(from: 60.days.ago, to: Date.today),
     description: Faker::Quote.jack_handey,
   )
