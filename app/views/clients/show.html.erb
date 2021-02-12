@@ -1,24 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @client.first_name %>
-</p>
+<div>
+  <p><strong>First name:</strong> <%= @client.first_name %></p>
+  <p><strong>Last name:</strong> <%= @client.last_name %></p>
+  <p><strong>Date of birth:</strong><%= @client.date_of_birth %></p>
+  <p><strong>Gender:</strong> <%= @client.gender %></p>
+</div>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @client.last_name %>
-</p>
+<div>
+  <h2>Incident Reports</h2>
+  <% @client.incident_reports.each do |incident| %>
+    <p><strong>Occurred At:</strong> <%= formatted_date(incident.occurred_at) %></p>
+    <p><strong>Reported By:</strong> <%= "incident.reporter" %></p>
+    <p><strong>Description:</strong> <%= incident.description %></p>
+  <% end %>
+</div>
 
-<p>
-  <strong>Date of birth:</strong>
-  <%= @client.date_of_birth %>
-</p>
-
-<p>
-  <strong>Gender:</strong>
-  <%= @client.gender %>
-</p>
-
-<%= link_to 'Edit', edit_client_path(@client) %> |
 <%= link_to 'Back', clients_path %>

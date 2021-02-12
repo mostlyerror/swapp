@@ -1,10 +1,11 @@
 <table>
   <thead>
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Date of Birth</th>
-      <th>Gender</th>
+      <th style="text-align: left;">First Name</th>
+      <th style="text-align: left;">Last Name</th>
+      <th style="text-align: left;">Date of Birth</th>
+      <th style="text-align: left;">Gender</th>
+      <th style="text-align: left;"></th>
     </tr>
   </thead>
 
@@ -15,6 +16,7 @@
         <td><%= client.last_name %></td>
         <td><%= formatted_date(client.date_of_birth) %></td>
         <td><%= client.gender %></td>
+        <td><%= link_to 'show', client_path(client) %></td>
       </tr>
     <% end %>
   </tbody>

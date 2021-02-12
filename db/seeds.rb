@@ -33,10 +33,15 @@ User.create([
 ])
 
 100.times do
-  Client.create(
+  client = Client.create(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     date_of_birth: Faker::Date.birthday,
     gender: Faker::Gender.type
+  )
+
+  client.incident_reports.create(
+    occurred_at: Faker::Date.between(from: 60.days.ago, to: Date.today),
+    description: Faker::Quote.jack_handey
   )
 end
