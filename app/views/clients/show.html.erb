@@ -9,11 +9,7 @@
 
 <div>
   <h2>Incident Reports</h2>
-  <% @client.incident_reports.each do |incident| %>
-    <p><strong>Occurred At:</strong> <%= formatted_date(incident.occurred_at) %></p>
-    <p><strong>Reported By:</strong> <%= "incident.reporter" %></p>
-    <p><strong>Description:</strong> <%= incident.description %></p>
-  <% end %>
+  <%= render partial: 'incident_reports', locals: { client: @client } %>
 </div>
 
 <%= link_to 'Back', clients_path %>
