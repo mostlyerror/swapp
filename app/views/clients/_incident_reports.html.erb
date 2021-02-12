@@ -1,0 +1,5 @@
+<% client.incident_reports.each do |incident| %>
+  <p><strong>Occurred At:</strong> <%= formatted_date(incident.occurred_at) %></p>
+  <p><strong>Reported By:</strong> <%= incident.reporter %></p>
+  <p><strong>Description:</strong> <%= incident.description %></p>
+<% end %>
