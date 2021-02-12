@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# admin users
 User.create([
   {
     email: 'bpoon@codeforamerica.org',
@@ -26,10 +27,54 @@ User.create([
     admin: true,
   },
   {
+    email: 'ashleydunn@almosthome.org',
+    password: 'password',
+    password_confirmation: 'password',
+    admin: true,
+  }
+])
+
+# field intake users
+User.create([
+  {
     email: 'heather@adcogov.org',
     password: 'password',
     password_confirmation: 'password',
+  },
+  {
+    email: 'myra@cityofthornton.org',
+    password: 'password',
+    password_confirmation: 'password',
+  },
+  {
+    email: 'mario@cityofthornton.org',
+    password: 'password',
+    password_confirmation: 'password',
+  },
+  {
+    email: 'jessica@cityofnorthglenn.org',
+    password: 'password',
+    password_confirmation: 'password',
   }
+])
+
+# motel users
+User.create([
+  {
+    email: 'carol@comfortinn.com',
+    password: 'password',
+    password_confirmation: 'password',
+  },
+  {
+    email: 'harriet@hometownestudios.com',
+    password: 'password',
+    password_confirmation: 'password',
+  },
+  {
+    email: 'quincey@qualityinn.com',
+    password: 'password',
+    password_confirmation: 'password',
+  },
 ])
 
 100.times do
@@ -42,6 +87,6 @@ User.create([
 
   client.incident_reports.create(
     occurred_at: Faker::Date.between(from: 60.days.ago, to: Date.today),
-    description: Faker::Quote.jack_handey
+    description: Faker::Quote.jack_handey,
   )
 end
