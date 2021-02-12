@@ -1,34 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Search Red Flag List</h1>
+<h1>Swap Red Flag List</h1>
 
 <div>
   <%= render partial: 'search_form' %>
 </div>
 
-<hr />
-
 <% if @searched %>
-  <table>
-    <thead>
-      <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Date of birth</th>
-        <th>Gender</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @clients.each do |client| %>
-        <tr>
-          <td><%= client.first_name %></td>
-          <td><%= client.last_name %></td>
-          <td><%= client.date_of_birth %></td>
-          <td><%= client.gender %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render partial: 'table' %>
 <% end %>
