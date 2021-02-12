@@ -7,5 +7,9 @@
 </div>
 
 <% if @searched %>
-  <%= render partial: 'table' %>
+  <% if @clients.any? %>
+    <%= render partial: 'table' %>
+  <% else %>
+    <p>No matching clients found.</p>
+  <% end %>
 <% end %>
