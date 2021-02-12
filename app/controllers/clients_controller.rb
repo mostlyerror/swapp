@@ -4,6 +4,7 @@ class ClientsController < ApplicationController
   # GET /clients or /clients.json
   def index
     @q = Client.ransack(params[:q])
+    @searched = !params[:q].nil?
     @clients = @q.result(distinct: true)
   end
 
