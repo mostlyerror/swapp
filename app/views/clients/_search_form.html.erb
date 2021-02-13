@@ -2,13 +2,13 @@
   <h1 class="text-7xl text-black font-bold mt-32">Red Flag List</h1>
 
   <%= search_form_for @q do |f| %>
-      <div class="mt-16 flex items-center space-x-4 justify-center">
+      <div class="mt-16 flex items-center space-x-4 justify-center text-4xl">
         <%= f.search_field :first_name_or_last_name_cont, 
           placeholder: 'Search by client first or last name', 
           autofocus: true,
-          class: "rounded py-2 px-4 text-xl text-gray-900 outline-black focus:shadow-outline h-14 w-1/2" %>
+          class: "rounded-lg py-2 px-4 text-gray-900 outline-gray focus:shadow-outline h-14 w-1/2" %>
 
-        <%= f.submit 'Search', class: "btn btn-blue text-2xl h-16" %>
+        <%= f.submit 'Search', class: "btn btn-blue h-16" %>
       </div>
   <% end %>
 </div>
