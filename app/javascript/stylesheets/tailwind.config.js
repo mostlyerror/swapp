@@ -10,7 +10,7 @@ module.exports = {
 		extend: {
 			outline: {
 				black: ['2px solid black', '2px'],
-				gray: ['2px solid #808080', '2px']
+				gray: ['2px solid #d3d3d3', '2px'],
 			}
 		},
 	},
