@@ -1,15 +1,15 @@
-<div class="container mx-auto">
-  <h1>Swap Red Flag List</h1>
+<section class="text-center">
+  <h1 class="text-6xl text-white font-bold mt-32">Red Flag List</h1>
+  <%= render partial: 'search_form' %>
+</section>
 
-  <div>
-    <%= render partial: 'search_form' %>
-  </div>
-
+<main class="mt-32 text-xl min-h-screen p-4 bg-white">
   <% if @searched %>
     <% if @clients.any? %>
       <%= render partial: 'table' %>
     <% else %>
-      <p>No matching clients found.</p>
+      <p class="my-8 text-4xl text-center font-bold">No matches found!</p>
+      <p class="text-4xl text-center font-bold">Continue to <%= link_to 'intake?', '', class: 'btn btn-blue' %></p>
     <% end %>
   <% end %>
-</div>
+</main>

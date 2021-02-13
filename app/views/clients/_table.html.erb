@@ -1,23 +1,29 @@
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left;">First Name</th>
-      <th style="text-align: left;">Last Name</th>
-      <th style="text-align: left;">Date of Birth</th>
-      <th style="text-align: left;">Gender</th>
-      <th style="text-align: left;"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @clients.each do |client| %>
-      <tr>
-        <td><%= client.first_name %></td>
-        <td><%= client.last_name %></td>
-        <td><%= formatted_date(client.date_of_birth) %></td>
-        <td><%= client.gender %></td>
-        <td><%= link_to 'show', client_path(client) %></td>
+<div class="container mx-auto max-w-4xl rounded-lg bg-white">
+  <table class="text-left text-sm w-full">
+    <thead>
+      <tr class="bg-gray-200">
+        <th class="rounded-tl-lg py-4 pl-4 uppercase">First Name</th>
+        <th class="py-4 uppercase">Last Name</th>
+        <th class="py-4 uppercase">Date of Birth</th>
+        <th class="py-4 uppercase">Gender</th>
+        <th class="rounded-tr-lg py-4 pr-4"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @clients.each do |client| %>
+        <tr>
+          <td class="py-4 pl-4 text-lg text-left mx-0 px-0"><%= client.first_name %></td>
+          <td class="py-4 text-lg text-left mx-0 px-0"><%= client.last_name %></td>
+          <td class="py-4 text-lg text-left mx-0 px-0"><%= formatted_date(client.date_of_birth) %></td>
+          <td class="py-4 text-lg text-left mx-0 px-0"><%= client.gender.first %></td>
+          <td class="py-4 pr-4 text-lg text-left mx-0 px-0">
+            <%= link_to client_path(client) do %>
+              show
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
