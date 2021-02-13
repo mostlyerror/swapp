@@ -4,3 +4,22 @@
 
 /* Add any custom CSS here */
 @import "tailwindcss/utilities";
+
+.btn {
+	@apply font-bold py-2 px-4 rounded;
+}
+.btn-outline {
+	@apply outline-black
+}
+.btn-outline {
+	@apply bg-gray-100;
+}
+.btn-blue {
+	@apply bg-blue-500 text-white;
+}
+.btn-blue:hover {
+	@apply bg-blue-700;
+}
+.link {
+	@apply text-green-600 no-underline;
+}
