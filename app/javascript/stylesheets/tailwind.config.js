@@ -9,7 +9,8 @@ module.exports = {
 	theme: {
 		extend: {
 			outline: {
-				black: '2px solid black',
+				black: ['2px solid black', '2px'],
+				gray: ['2px solid #808080', '2px']
 			}
 		},
 	},
