@@ -3,7 +3,7 @@
   <%= render partial: 'search_form' %>
 </section>
 
-<main class="mt-32 py-16 bg-white rounded-lg">
+<main class="mt-24 py-16 lg:rounded-lg w-full">
   <% if @searched %>
     <% if @clients.any? %>
       <%= render partial: 'table' %>
