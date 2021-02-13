@@ -1,15 +1,21 @@
 <section class="text-center">
-  <h1 class="text-6xl text-white font-bold mt-32">Red Flag List</h1>
+  <h1 class="text-6xl text-black font-bold mt-32">Red Flag List</h1>
   <%= render partial: 'search_form' %>
 </section>
 
-<main class="mt-32 text-xl min-h-screen p-4 bg-white">
+<main class="mt-32 py-16 bg-white rounded-lg">
   <% if @searched %>
     <% if @clients.any? %>
       <%= render partial: 'table' %>
+      <div class="mt-32">
+        <p class="text-5xl text-center font-bold leading-loose">Don't see your client above?</p>
+        <p class="text-5xl text-center font-bold leading-loose">Continue to <%= link_to 'intake!', nil, class: 'btn btn-outline text-green-600' %></p>
+      </div>
     <% else %>
-      <p class="my-8 text-4xl text-center font-bold">No matches found!</p>
-      <p class="text-4xl text-center font-bold">Continue to <%= link_to 'intake?', '', class: 'btn btn-blue' %></p>
+      <div class="mt-32">
+        <p class="text-5xl text-center font-bold leading-loose">No matches found.</p>
+        <p class="text-5xl text-center font-bold leading-loose">Continue to <%= link_to 'intake!', nil, class: 'btn btn-outline text-green-600' %></p>
+      </div>
     <% end %>
   <% end %>
 </main>
