@@ -14,13 +14,13 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <h1 class="text-9xl text-center font-bold">swapp.</h1>
 
-      <div class="flex flex-col space-y-16 mt-24 text-5xl text-gray-700">
+      <div class="flex flex-col space-y-16 mt-24 text-5xl text-gray-600">
         <div class="field">
           <%= f.label :email, class: "block leading-relaxed" %>
           <%= f.email_field :email, 
             autofocus: true, 
             autocomplete: "email",
-            class: "outline-gray py-4 px-6"
+            class: "outline-gray py-8 px-8 text-gray-700"
           %>
         </div>
 
@@ -28,7 +28,7 @@
           <%= f.label :password, class: "block leading-relaxed" %>
           <%= f.password_field :password, 
             autocomplete: "current-password",
-            class: "outline-gray py-4 px-6"
+            class: "outline-gray py-8 px-8 text-gray-700"
           %>
         </div>
 
