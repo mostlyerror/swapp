@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_14_171357) do
+ActiveRecord::Schema.define(version: 2021_02_14_173340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,8 +72,28 @@ ActiveRecord::Schema.define(version: 2021_02_14_171357) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vouchers", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "intake_id", null: false
+    t.bigint "motel_id", null: false
+    t.datetime "start_date", null: false
+    t.datetime "end_date", null: false
+    t.string "number", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_vouchers_on_client_id"
+    t.index ["intake_id"], name: "index_vouchers_on_intake_id"
+    t.index ["motel_id"], name: "index_vouchers_on_motel_id"
+    t.index ["user_id"], name: "index_vouchers_on_user_id"
+  end
+
   add_foreign_key "incident_reports", "clients"
   add_foreign_key "incident_reports", "users", column: "reporter_id"
   add_foreign_key "intakes", "clients"
   add_foreign_key "intakes", "users"
+  add_foreign_key "vouchers", "clients"
+  add_foreign_key "vouchers", "intakes"
+  add_foreign_key "vouchers", "motels"
+  add_foreign_key "vouchers", "users"
 end

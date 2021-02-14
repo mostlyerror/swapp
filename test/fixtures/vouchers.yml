@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client: one
+  intake: one
+  motel: one
+  start_date: 2021-02-14 10:33:40
+  end_date: 2021-02-14 10:33:40
+  number: MyString
+
+two:
+  client: two
+  intake: two
+  motel: two
+  start_date: 2021-02-14 10:33:40
+  end_date: 2021-02-14 10:33:40
+  number: MyString
