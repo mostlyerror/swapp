@@ -1,15 +1,11 @@
-<header class="w-full text-2xl flex items-center justify-between pt-4">
-  <span class="font-semibold pl-6">
-    swapp
+<header class="w-full flex items-center justify-between pt-4">
+  <span class="font-semibold text-5xl">
+    swapp.
   </span>
   <% if user_signed_in? %>
-    <ul class="list-none lg:px-16 pr-6 flex space-x-4 justify-end">
-      <li class="">
-        <span class="text-gray-700"><%= current_user.email %></span>
-      </li>
-      <li class="">
+    <ul class="list-none flex space-x-3 justify-end text-3xl">
+        <span class="text-gray-500 tracking-tight"><%= current_user.email %></span>
         <%= link_to('logout', destroy_user_session_path, method: :delete, class: "link underline") %>
-      </li>
     <% end %>
     </ul>
 </header>
