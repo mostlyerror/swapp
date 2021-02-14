@@ -8,12 +8,12 @@
       <%= render partial: 'table' %>
       <div class="mt-32">
         <p class="text-5xl text-center font-bold leading-loose">Don't see your client above?</p>
-        <p class="text-5xl text-center font-bold leading-loose">Continue to <%= link_to 'intake!', nil, class: 'btn btn-outline text-green-600' %></p>
+        <p class="text-5xl text-center font-bold leading-loose">Continue to <%= link_to 'intake!', new_client_path, class: 'btn btn-outline text-green-600' %></p>
       </div>
     <% else %>
       <div class="mt-32">
         <p class="text-5xl text-center font-bold leading-loose">No matches found.</p>
-        <p class="text-5xl text-center font-bold leading-loose">Continue to <%= link_to 'intake!', nil, class: 'btn btn-outline text-green-600' %></p>
+        <p class="text-5xl text-center font-bold leading-loose">Continue to <%= link_to 'intake!', new_client_path, class: 'btn btn-outline text-green-600' %></p>
       </div>
     <% end %>
   <% end %>

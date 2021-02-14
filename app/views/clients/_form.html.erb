@@ -1,4 +1,6 @@
 <%= form_with(model: client, local: true) do |form| %>
+  <p>lorem ipsum placeholder for intake form instructions.</p>
+
   <% if client.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(client.errors.count, "error") %> prohibited this client from being saved:</h2>
@@ -11,27 +13,108 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
+  <div class="w-full flex flex-col space-y-4 mt-12 text-md">
+    <div class="flex justify-between space-x-2">
+      <div class="field">
+        <%= form.label :first_name, class: "block"  %>
+        <%= form.text_field :first_name, class: "border" %>
+      </div>
+
+      <div class="field">
+        <%= form.label :last_name, class: "block"  %>
+        <%= form.text_field :last_name, class: "border" %>
+      </div>
+    </div>
+
+    <div class="field flex justify-between">
+      <%= form.label :date_of_birth, class: ""  %>
+      <%= form.date_select :date_of_birth, {}, class: "border" %>
+    </div>
+
+    <div class="flex justify-between space-x-2">
+      <div class="field">
+        <%= form.label :gender, class: "block"  %>
+        <%= form.text_field :gender, class: "border" %>
+      </div>
+
+      <div class="field">
+        <%= form.label :race, class: "block"  %>
+        <%= form.text_field :race, class: "border" %>
+      </div>
+    </div>
+
+    <div class="flex justify-start space-x-2">
+      <div class="field">
+        <%= form.label :ethnicity, class: "block"  %>
+        <%= form.text_field :ethnicity, class: "border" %>
+      </div>
+    </div>
+
+    <div class="flex justify-start space-x-2">
+      <div class="field">
+        <%= form.label :phone_number, class: "block"  %>
+        <%= form.telephone_field :phone_number, class: "border" %>
+      </div>
+
+      <div class="field">
+        <%= form.label :email_address, class: "block"  %>
+        <%= form.email_field :email_address, class: "border" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :king_soopers_card, class: "font-semibold"  %><br />
+      <%= form.label :king_soopers_card, "Yes", :value => "true"  %>
+      <%= form.radio_button :king_soopers_card, true %>
+      <%= form.label :king_soopers_card, "No", :value => "false" %>
+      <%= form.radio_button :king_soopers_card, false, :checked => true %>
+    </div>
+
+    <div class="field">
+      <%= form.label :bus_pass, class: "font-semibold"  %><br />
+      <%= form.label :bus_pass, "Yes", :value => "true"  %>
+      <%= form.radio_button :bus_pass, true %>
+      <%= form.label :bus_pass, "No", :value => "false" %>
+      <%= form.radio_button :bus_pass, false, :checked => true %>
+    </div>
+
+    <div class="field">
+      <%= form.label :num_nights, 'Number of Nights', class: "font-semibold"  %><br />
+      <%= form.number_field :num_nights, min: 1, step: 1, class: "border" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :hotel, class: "font-semibold"  %><br />
+      <%= form.text_field :hotel, class: "border" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :homelessness_first_time, class: "font-semibold"  %><br />
+      <%= form.label :homelessness_first_time, "Yes", :value => "true"  %>
+      <%= form.radio_button :homelessness_first_time, true %>
+      <%= form.label :homelessness_first_time, "No", :value => "false" %>
+      <%= form.radio_button :homelessness_first_time, false, :checked => true %>
+    </div>
+
+    <div class="field">
+      <%= form.label :homelessness_how_long_this_time, class: "font-semibold"  %><br />
+      <%= form.text_field :homelessness_how_long_this_time, class: "border" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :homelessness_episodes_last_three_years, class: "font-semibold"  %><br />
+      <%= form.text_field :homelessness_episodes_last_three_years, class: "border" %>
+    </div>
+
+    <!-- In total, how long did you stay in shelters or on the streets those times? -->
+    <div class="field">
+      <%= form.label :homelessness_episodes_how_long, class: "font-semibold"  %><br />
+      <%= form.text_field :homelessness_episodes_how_long, class: "border" %>
+    </div>
+
   </div>
 
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :date_of_birth %>
-    <%= form.datetime_select :date_of_birth %>
-  </div>
-
-  <div class="field">
-    <%= form.label :gender %>
-    <%= form.text_field :gender %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions mt-12">
+    <%= link_to 'Create', nil, class: 'btn btn-blue' %>
   </div>
 <% end %>
