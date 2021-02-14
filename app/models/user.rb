@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :incident_reports, as: :reporter
+  has_many :intakes
 
   def to_s
     "#{name} (#{email})"

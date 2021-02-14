@@ -6,7 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# admin users
 User.create([
   {
     email: 'bpoon@codeforamerica.org',
@@ -42,8 +41,7 @@ User.create([
   }
 ])
 
-# field intake users
-User.create([
+intake_users = User.create([
   {
     email: 'heather@adcogov.org',
     first_name: 'Heather',
@@ -97,7 +95,6 @@ motels = Motel.create!([
   }
 ])
 
-# motel users
 motel_users = User.create!([
   {
     email: 'carol@comfortinn.com',
@@ -122,18 +119,39 @@ motel_users = User.create!([
   }
 ])
 
-100.times do
-  client = Client.create(
+clients = []
+50.times do
+  client = Client.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     date_of_birth: Faker::Date.birthday,
-    gender: Faker::Gender.type
+    gender: Client::GENDER.sample,
+    race: Client::RACE.sample,
+    ethnicity: Client::ETHNICITY.sample,
+    phone_number: Faker::PhoneNumber.cell_phone,
+    email_address: Faker::Internet.email,
   )
+  clients << client
+end
 
+20.times do
   IncidentReport.create!(
-    client: client,
+    client: clients.sample,
     reporter_id: motel_users.sample.id,
     occurred_at: Faker::Date.between(from: 60.days.ago, to: Date.today),
     description: Faker::Quote.jack_handey,
+  )
+end
+
+10.times do
+  client = clients.sample
+  user = intake_users.sample
+  Intake.create!(
+    client: client,
+    user: user,
+    survey: {
+      king_soopers_card: ['yes', 'no'].sample,
+      bus_pass: ['yes', 'no'].sample,
+    }
   )
 end
