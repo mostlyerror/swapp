@@ -1,8 +1,8 @@
 <%= form_with(model: client, local: true) do |form| %>
+
   <% if client.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(client.errors.count, "error") %> prohibited this client from being saved:</h2>
-
       <ul>
         <% client.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -11,27 +11,111 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
-  </div>
+  <div class="w-full flex flex-col space-y-14 mt-24 text-4xl text-gray-800 leading-snug tracking-wide px-4">
+    <div class="flex flex-1 space-x-4">
+      <div class="field w-full">
+        <%= form.label :first_name, "First Name", class: "block"  %>
+        <%= form.text_field :first_name, size: 23, class: "border w-full" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
-  </div>
+      <div class="field w-full">
+        <%= form.label :last_name, "Last Name", class: "block"  %>
+        <%= form.text_field :last_name, size: 23, class: "border w-full" %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :date_of_birth %>
-    <%= form.datetime_select :date_of_birth %>
-  </div>
+    <div class="flex flex-1 space-x-4">
+      <div class="field w-full">
+        <%= form.label :date_of_birth, class: "block"  %>
+        <%= form.date_select :date_of_birth, {}, class: "border " %>
+      </div>
 
-  <div class="field">
-    <%= form.label :gender %>
-    <%= form.text_field :gender %>
-  </div>
+      <div class="field w-full">
+        <%= form.label :gender, class: "block"  %>
+        <%= form.text_field :gender, class: "border w-full" %>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= form.submit %>
+    <div class="flex flex-1 space-x-4">
+      <div class="field w-full">
+        <%= form.label :race, class: "block"  %>
+        <%= form.text_field :race, class: "border w-full" %>
+      </div>
+
+      <div class="field w-full">
+        <%= form.label :ethnicity, class: "block"  %>
+        <%= form.text_field :ethnicity, class: "border w-full" %>
+      </div>
+    </div>
+
+    <div class="flex flex-1 space-x-4">
+      <div class="field w-full">
+        <%= form.label :phone_number, class: "block"  %>
+        <%= form.telephone_field :phone_number, class: "w-full border" %>
+      </div>
+
+      <div class="field w-full">
+        <%= form.label :email_address, class: "block"  %>
+        <%= form.email_field :email_address, class: "w-full border" %>
+      </div>
+    </div>
+
+    <div class="flex flex-1 space-x-4">
+      <div class="field w-full">
+        <%= form.label :king_soopers_card, class: "g"  %><br />
+        <%= form.label :king_soopers_card, "Yes", :value => "true"  %>
+        <%= form.radio_button :king_soopers_card, true %>
+        <%= form.label :king_soopers_card, "No", :value => "false" %>
+        <%= form.radio_button :king_soopers_card, false, :checked => true %>
+      </div>
+
+      <div class="field w-full">
+        <%= form.label :bus_pass, class: "g"  %><br />
+        <%= form.label :bus_pass, "Yes", :value => "true"  %>
+        <%= form.radio_button :bus_pass, true %>
+        <%= form.label :bus_pass, "No", :value => "false" %>
+        <%= form.radio_button :bus_pass, false, :checked => true %>
+      </div>
+    </div>
+
+    <div class="flex flex-1 space-x-4">
+      <div class="field w-full">
+        <%= form.label :num_nights, 'Number of Nights', class: "g"  %><br />
+        <%= form.number_field :num_nights, min: 1, step: 1, class: "border w-full" %>
+      </div>
+
+      <div class="field w-full">
+        <%= form.label :hotel, class: "g"  %><br />
+        <%= form.text_field :hotel, class: "border w-full" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.label :homelessness_first_time, class: "g"  %><br />
+      <%= form.label :homelessness_first_time, "Yes", :value => "true"  %>
+      <%= form.radio_button :homelessness_first_time, true %>
+      <%= form.label :homelessness_first_time, "No", :value => "false" %>
+      <%= form.radio_button :homelessness_first_time, false, :checked => true %>
+    </div>
+
+    <div class="field">
+      <%= form.label :homelessness_how_long_this_time, class: "g"  %><br />
+      <%= form.text_field :homelessness_how_long_this_time, class: "border" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :homelessness_episodes_last_three_years, class: "g"  %><br />
+      <%= form.text_field :homelessness_episodes_last_three_years, class: "border" %>
+    </div>
+
+    <!-- In total, how long did you stay in shelters or on the streets those times? -->
+    <div class="field">
+      <%= form.label :homelessness_episodes_how_long, class: "g"  %><br />
+      <%= form.text_field :homelessness_episodes_how_long, class: "border" %>
+    </div>
+
+    <div class="actions mt-12">
+      <%= link_to 'Complete Intake', nil, class: 'btn btn-blue' %>
+    </div>
   </div>
 <% end %>

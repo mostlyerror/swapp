@@ -7,40 +7,41 @@
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
-<body class="min-h-screen bg-white overscroll-x-contain overflow-x-hidden">
-  <div class="flex mx-auto justify-center mt-48">
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <h1 class="text-4xl text-center font-bold">swapp</h1>
 
-      <div class="flex flex-col space-y-6 mt-12">
+<body class="min-h-screen bg-white overscroll-x-contain">
+  <div class="flex mx-auto justify-center mt-96">
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <h1 class="text-9xl text-center font-bold">swapp.</h1>
+
+      <div class="flex flex-col space-y-16 mt-24 text-5xl text-gray-700">
         <div class="field">
+          <%= f.label :email, class: "block leading-relaxed" %>
           <%= f.email_field :email, 
             autofocus: true, 
             autocomplete: "email",
-            placeholder: "Email",
-            class: "outline-gray"
+            class: "outline-gray py-4 px-6"
           %>
         </div>
 
         <div class="field">
+          <%= f.label :password, class: "block leading-relaxed" %>
           <%= f.password_field :password, 
             autocomplete: "current-password",
-            placeholder: "password",
-            class: "outline-gray"
+            class: "outline-gray py-4 px-6"
           %>
         </div>
 
-
         <div class="actions">
           <%= f.submit "Log in", class: "btn btn-blue w-full" %>
-        </div>
 
         <% if devise_mapping.rememberable? %>
-          <div class="field">
+          <div class="field text-center">
             <%= f.check_box :remember_me %>
-            <%= f.label :remember_me, class: "text-gray-800 text-sm" %>
+            <%= f.label :remember_me, class: "text-4xl" %>
           </div>
         <% end %>
+        </div>
       </div>
     <% end %>
   </div>
