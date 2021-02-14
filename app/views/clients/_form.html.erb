@@ -37,19 +37,28 @@
 
       <div class="field w-full">
         <%= form.label :gender, class: "block"  %>
-        <%= form.text_field :gender, class: "border w-full p-6" %>
+        <%= form.select :gender, 
+          options_for_select(Client::GENDER), 
+          {include_blank: true},
+          class: "bg-white border w-full p-6" %>
       </div>
     </div>
 
     <div class="flex flex-1 space-x-4">
       <div class="field w-full">
         <%= form.label :race, class: "block"  %>
-        <%= form.text_field :race, class: "border w-full p-6" %>
+        <%= form.select :race, 
+          options_for_select(Client::RACE), 
+          {include_blank: true},
+          class: "bg-white border w-full p-6" %>
       </div>
 
       <div class="field w-full">
         <%= form.label :ethnicity, class: "block"  %>
-        <%= form.text_field :ethnicity, class: "border w-full p-6" %>
+        <%= form.select :race, 
+          options_for_select(Client::ETHNICITY), 
+          {include_blank: true},
+          class: "bg-white border w-full p-6" %>
       </div>
     </div>
 
@@ -116,7 +125,13 @@
       <%= form.label :homelessness_episodes_last_three_years, 
         "Including this time, how many separate times have you stayed in shelters or on the streets in the past 3 years?", 
         class: "block"  %>
-      <%= form.text_field :homelessness_episodes_last_three_years, class: "border w-full p-6" %>
+      <%= form.select :homelessness_episodes_last_three_years, 
+        options_for_select([
+          ["Fewer than 4 times"],
+          ["4 or more times"]
+        ]), 
+        {include_blank: true},
+        class: "bg-white border w-full p-6" %>
     </div>
 
     <div class="field">
@@ -136,15 +151,42 @@
     <div class="field">
       <%= form.label :where_did_you_sleep_last_night, 
         "Where did you sleep last night?",
-        class: "block"  %>
-      <%= form.text_field :where_did_you_sleep_last_night, class: "border w-full p-6" %>
+        class: "block" %>
+      <%= form.select :where_did_you_sleep_last_night,
+        options_for_select([
+          ["In own home"], 
+          ["In a shelter"], 
+          ["In a motel"], 
+          ["Double Up"],
+          ["In a car/RV"],
+          ["On the streets or in a tent"],
+          ["In the hospital"],
+          ["Incarcerated"],
+        ]),
+        {include_blank: true},
+        class: "bg-white border w-full p-6"
+      %>
     </div>
 
     <div class="field">
       <%= form.label :why_not_shelter, 
         "What is the reason you have not accessed shelter?",
         class: "block"  %>
-      <%= form.text_field :why_not_shelter, class: "border w-full p-6" %>
+      <%= form.select :why_not_shelter,
+        options_for_select([
+          ["No room"],
+          ["Safety Concerns"],
+          ["No transportation"],
+          ["No ID"],
+          ["Prior background issues"], 
+          ["Banned from shelter"], 
+          ["Doesn't accept pets"], 
+          ["Current restraining order"], 
+          ["Other"], 
+        ]),
+        {include_blank: true},
+        class: "bg-white border w-full p-6"
+      %>
     </div>
 
     <div class="field">
