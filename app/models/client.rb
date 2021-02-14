@@ -25,4 +25,8 @@ class Client < ApplicationRecord
     "Hispanic or Latino",
     "Not Hispanic or Latino",
   ]
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end
