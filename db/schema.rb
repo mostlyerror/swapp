@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(version: 2021_02_14_173340) do
   create_table "vouchers", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "user_id", null: false
-    t.bigint "intake_id", null: false
     t.bigint "motel_id", null: false
     t.datetime "start_date", null: false
     t.datetime "end_date", null: false
@@ -83,7 +82,6 @@ ActiveRecord::Schema.define(version: 2021_02_14_173340) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_vouchers_on_client_id"
-    t.index ["intake_id"], name: "index_vouchers_on_intake_id"
     t.index ["motel_id"], name: "index_vouchers_on_motel_id"
     t.index ["user_id"], name: "index_vouchers_on_user_id"
   end
@@ -93,7 +91,6 @@ ActiveRecord::Schema.define(version: 2021_02_14_173340) do
   add_foreign_key "intakes", "clients"
   add_foreign_key "intakes", "users"
   add_foreign_key "vouchers", "clients"
-  add_foreign_key "vouchers", "intakes"
   add_foreign_key "vouchers", "motels"
   add_foreign_key "vouchers", "users"
 end
