@@ -5,8 +5,13 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :incident_reports, as: :reporter
+  has_many :intakes
 
   def to_s
-    "#{first_name}, #{last_name} (#{email})"
+    "#{name} (#{email})"
+  end
+  
+  def name
+    "#{first_name} #{last_name}"
   end
 end

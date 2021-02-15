@@ -2,6 +2,7 @@ class Client < ApplicationRecord
   validates_presence_of :first_name, :last_name, :date_of_birth, :gender
 
   has_many :incident_reports
+  has_many :intakes
 
   GENDER = [
     "Female",
@@ -25,4 +26,8 @@ class Client < ApplicationRecord
     "Hispanic or Latino",
     "Not Hispanic or Latino",
   ]
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end
