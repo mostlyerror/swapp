@@ -1,0 +1,2 @@
+class Motel < ApplicationRecord
+end
