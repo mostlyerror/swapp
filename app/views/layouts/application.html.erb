@@ -11,10 +11,9 @@
   </head>
 
 
-  <body class="min-h-screen bg-gray-100 overscroll-x-contain px-4">
-    <div class="lg:container lg:mx-auto">
-      <%= render partial: 'layouts/header' %>
-      <%= yield %>
-    </div>
+  <body class="min-h-screen bg-gray-100 overscroll-x-contain font-sans">
+    <%= render partial: 'layouts/header' %>
+    <%= yield %>
+    <%= render partial: 'layouts/footer' %>
   </body>
 </html>

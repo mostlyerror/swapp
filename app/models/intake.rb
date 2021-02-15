@@ -7,7 +7,7 @@ class Intake < ApplicationRecord
   belongs_to :user
 
   def asdf
-    errors[:base] << "dafuq this intake?!"
     false
+    true
   end
 end
