@@ -19,10 +19,6 @@
     <% end %>
     <section class="text-5xl px-4 py-16">
       <p class="help-text">Some kinda help text lorem ipsum dolor est pro patria etc describing what to do in the event of incident reports and how to proceed, or whether to not proceed?</p>
-      <div class="flex flex-1 justify-around text-6xl text-center font-bold py-12">
-        <div class="w-1/2">Back<br/> to <%= link_to 'search', request.referrer, class: 'link' %></div>
-        <div class="w-1/2">Continue <br/>to <%= link_to 'intake', new_intake_path, class: 'link' %></div>
-      </div>
     </section>
   <% else %>
     <div class="bg-white text-6xl font-bold text-center py-12 leading-relaxed border border-b-1 border-black">
@@ -46,14 +42,17 @@
     <% end %>
     <section class="text-5xl px-4 py-16">
       <p class="help-text">Some kinda help text lorem ipsum dolor est pro patria etc describing what to do in the event of incident reports and how to proceed, or whether to not proceed?</p>
-      <div class="flex flex-1 justify-around text-6xl text-center font-bold py-12">
-        <div class="w-1/2">Back<br/> to <%= link_to 'search', request.referrer, class: 'link' %></div>
-        <div class="w-1/2">Continue <br/>to <%= link_to 'intake', new_intake_path, class: 'link' %></div>
-      </div>
     </section>
   <% else %>
-    <div class="bg-white text-6xl font-bold text-center py-12 leading-relaxed">
+    <div class="bg-white text-6xl font-bold text-center py-12 leading-relaxed border border-b-1 border-black">
       <p>No vouchers found.</p>
     </div>
   <% end %>
+</section>
+
+<section class="text-5xl px-4 py-16">
+  <div class="flex flex-1 justify-around text-6xl text-center font-bold py-12">
+    <div class="w-1/2">Back<br/> to <%= link_to 'search', request.referrer, class: 'link' %></div>
+    <div class="w-1/2">Continue <br/>to <%= link_to 'intake', new_intake_path, class: 'link' %></div>
+  </div>
 </section>
