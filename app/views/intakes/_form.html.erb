@@ -180,30 +180,37 @@
           <%= form.label "survey[where_did_you_sleep_last_night]", "In own home" %>
           <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In own home" %>
         </div>
+
         <div>
           <%= form.label "survey[where_did_you_sleep_last_night]", "In a shelter" %>
           <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a shelter" %>
         </div>
+
         <div>
           <%= form.label "survey[where_did_you_sleep_last_night]", "In a motel" %>
           <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a motel" %>
         </div>
+
         <div>
           <%= form.label "survey[where_did_you_sleep_last_night]", "Double Up" %>
           <%= form.radio_button "survey[where_did_you_sleep_last_night]", "Double Up" %>
         </div>
+
         <div>
           <%= form.label "survey[where_did_you_sleep_last_night]", "In a car/RV" %>
           <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a car/RV" %>
         </div>
+
         <div>
           <%= form.label "survey[where_did_you_sleep_last_night]", "On the streets or in a tent" %>
           <%= form.radio_button "survey[where_did_you_sleep_last_night]", "On the streets or in a tent" %>
         </div>
+
         <div>
           <%= form.label "survey[where_did_you_sleep_last_night]", "In the hospital" %>
           <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In the hospital" %>
         </div>
+
         <div>
           <%= form.label "survey[where_did_you_sleep_last_night]", "Incarcerated" %>
           <%= form.radio_button "survey[where_did_you_sleep_last_night]", "Incarcerated" %>
@@ -215,21 +222,51 @@
       <%= form.label "survey[why_not_shelter]", 
         "What is the reason you have not accessed shelter?",
         class: "block"  %>
-      <%= form.select "survey[why_not_shelter]",
-        options_for_select([
-          ["No room"],
-          ["Safety Concerns"],
-          ["No transportation"],
-          ["No ID"],
-          ["Prior background issues"], 
-          ["Banned from shelter"], 
-          ["Doesn't accept pets"], 
-          ["Current restraining order"], 
-          ["Other"], 
-      ]),
-      {include_blank: true},
-      class: "bg-white border w-full p-6"
-    %>
+
+      <div>
+        <%= form.label "survey[why_not_shelter]", "No room" %>
+        <%= form.radio_button "survey[why_not_shelter]", "No room" %>
+      </div>
+
+      <div>
+        <%= form.label "survey[why_not_shelter]", "No transportation" %>
+        <%= form.radio_button "survey[why_not_shelter]", "No transportation" %>
+      </div>
+
+      <div>
+        <%= form.label "survey[why_not_shelter]", "Prior background issues" %>
+        <%= form.radio_button "survey[why_not_shelter]", "Prior background issues" %>
+      </div>
+
+      <div>
+        <%= form.label "survey[why_not_shelter]", "Doesn't accept pets" %>
+        <%= form.radio_button "survey[why_not_shelter]", "Doesn't accept pets" %>
+      </div>
+
+      <div>
+        <%= form.label "survey[why_not_shelter]", "Safety Concerns" %>
+        <%= form.radio_button "survey[why_not_shelter]", "Safety Concerns" %>
+      </div>
+
+      <div>
+        <%= form.label "survey[why_not_shelter]", "No ID" %>
+        <%= form.radio_button "survey[why_not_shelter]", "No ID" %>
+      </div>
+
+      <div>
+        <%= form.label "survey[why_not_shelter]", "Banned from shelter" %>
+        <%= form.radio_button "survey[why_not_shelter]", "Banned from shelter" %>
+      </div>
+
+      <div>
+        <%= form.label "survey[why_not_shelter]", "Current restraining order" %>
+        <%= form.radio_button "survey[why_not_shelter]", "Current restraining order" %>
+      </div>
+
+      <div>
+        <%= form.label "survey[why_not_shelter]", "Other" %>
+        <%= form.radio_button "survey[why_not_shelter]", "Other" %>
+      </div>
     </div>
 
     <div class="field">
