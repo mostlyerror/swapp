@@ -13,15 +13,17 @@ class IntakesController < ApplicationController
     @intake.user = current_user
     @client = Client.new(intake_params['client_attributes'])
 
-    if !@client.save
-      @client.errors.full_messages.each do |message|
-        @intake.errors[:client] << message
+    Intake.transaction do |t|
+      if !@client.save
+        @client.errors.full_messages.each do |message|
+          @intake.errors[:client] << message
+        end
+        return render :new
       end
-      return render :new
-    end
 
-    if !@intake.save
-      return render :new
+      if !@intake.save
+        return render :new
+      end
     end
 
     redirect_to @intake

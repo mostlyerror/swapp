@@ -144,28 +144,4 @@ ActiveRecord::Base.transaction do |t|
       description: Faker::Quote.jack_handey,
     )
   end
-
-  10.times do
-    client = clients.sample
-    user = intake_users.sample
-    motel = motels.sample
-
-    intake = Intake.create!(
-      client: client,
-      user: user,
-      survey: {
-        king_soopers_card: ['yes', 'no'].sample,
-        bus_pass: ['yes', 'no'].sample,
-      }
-    )
-
-    Voucher.create!(
-      client: client,
-      user: user,
-      motel: motel,
-      start_date: Date.today,
-      end_date: Date.today + 2.days,
-      number: 'AH123',
-    )
-  end
 end
