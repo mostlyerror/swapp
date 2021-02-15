@@ -52,7 +52,7 @@
       </div>
 
       <div class="field w-full">
-        <%= client_attributes.label :ethnicity, class: "block leading-relaxed" %>
+        <%= client_attributes.label :ethnicity, "Hispanic or Latino?", class: "block leading-relaxed" %>
         <%= client_attributes.select :ethnicity, 
           options_for_select(Client::ETHNICITY, @client.ethnicity), 
           {include_blank: true},
