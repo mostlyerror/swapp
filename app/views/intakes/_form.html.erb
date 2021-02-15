@@ -1,5 +1,4 @@
 <%= form_with(model: @intake, local: true) do |form| %>
-
   <% if @intake.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@intake.errors.count, "error") %> prohibited this intake from being saved:</h2>
