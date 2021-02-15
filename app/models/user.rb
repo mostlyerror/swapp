@@ -7,10 +7,6 @@ class User < ApplicationRecord
   has_many :incident_reports, as: :reporter
   has_many :intakes
 
-  def to_s
-    "#{name} (#{email})"
-  end
-  
   def name
     "#{first_name} #{last_name}"
   end
