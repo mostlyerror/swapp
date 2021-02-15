@@ -81,10 +81,9 @@
     <div class="flex flex-1 space-x-4">
       <div class="field w-full">
         <%= form.label "survey[king_soopers_card]", "King Soopers Card?", class: "block" %>
-
         <%= form.label "survey[king_soopers_card]", "Yes", value: "true"  %>
-        <%= form.radio_button "survey[king_soopers_card]", true, checked: @intake.survey&.dig('king_soopers_card') == 'true' %>
-
+        <%= form.radio_button "survey[king_soopers_card]", true, checked:
+          @intake.survey&.dig('king_soopers_card') == 'true' %>
         <%= form.label "survey[king_soopers_card]", "No", value: "false" %>
         <%= form.radio_button "survey[king_soopers_card]", false,
           checked: @intake.survey ? @intake.survey['king_soopers_card'] == 'false' : true
@@ -94,7 +93,8 @@
       <div class="field w-full">
         <%= form.label "survey[bus_pass]", "Bus Pass?", class: "block" %>
         <%= form.label "survey[bus_pass]", "Yes", value: "true"  %>
-        <%= form.radio_button "survey[bus_pass]", true, checked: @intake.survey&.dig('bus_pass') == 'true' %>
+        <%= form.radio_button "survey[bus_pass]", true, checked:
+          @intake.survey&.dig('bus_pass') == 'true' %>
         <%= form.label "survey[bus_pass]", "No", value: "false" %>
         <%= form.radio_button "survey[bus_pass]", false,
           checked: @intake.survey ? @intake.survey['bus_pass'] == 'false' : true
@@ -122,17 +122,22 @@
       <%= form.label "survey[homelessness_first_time]", 
         "Is this the first time you have been homeless?", 
         class: "block" %>
-      <%= form.label "survey[homelessness_first_time]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[homelessness_first_time]", true %>
-      <%= form.label "survey[homelessness_first_time]", "No", :value => "false" %>
-      <%= form.radio_button "survey[homelessness_first_time]", false, :checked => true %>
+      <%= form.label "survey[homelessness_first_time]", "Yes", value: "true"  %>
+      <%= form.radio_button "survey[homelessness_first_time]", true, checked:
+        @intake.survey&.dig('homelessness_first_time') == 'true' %>
+      <%= form.label "survey[homelessness_first_time]", "No", value: "false"%>
+      <%= form.radio_button "survey[homelessness_first_time]", false, 
+        checked: @intake.survey ? @intake.survey['homelessness_first_time'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[homelessness_how_long_this_time]", 
         "How long have you been homeless this time?", 
         class: "block" %>
-      <%= form.text_field "survey[homelessness_how_long_this_time]", class: "border w-full p-6" %>
+      <%= form.text_field "survey[homelessness_how_long_this_time]", 
+        class: "border w-full p-6",
+        value: @intake.survey&.dig('homelessness_how_long_this_time')
+      %>
     </div>
 
     <div class="field">
