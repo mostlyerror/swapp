@@ -1,8 +1,13 @@
-<section class="mt-12">
+<section class="px-4 mt-12">
   <p class="text-4xl leading-loose text-gray-500 font-semibold">3. Dispense Voucher</p>
   <h1 class="mt-24 text-8xl text-black font-bold">Hotel voucher created!</h1>
   <p class="mt-8 text-5xl leading-tight text-gray-800">lorem ipsum placeholder for instructions on issuing vouchers. Some kind of note here about the digital voucher, and writing stuff down, and directing the client generally.
-  <div class="mt-24">
-    <%= render @voucher %>
-  </div>
+</section>
+
+<section class="mt-24">
+  <%= render @voucher %>
+</section>
+
+<section class="py-24">
+  <h2 class="text-7xl text-center  font-bold">Help another <%= link_to 'client', clients_path, class: 'link' %>.</h1>
 </section>
