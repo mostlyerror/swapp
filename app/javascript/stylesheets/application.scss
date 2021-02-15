@@ -8,19 +8,31 @@
 .btn {
 	@apply font-bold py-4 px-6 rounded;
 }
+
 .btn-outline {
 	@apply outline-black
 }
+
 .btn-blue {
 	@apply bg-blue-500 text-white;
 }
+
 .btn-blue:hover {
 	@apply bg-blue-700;
 }
+
 .link {
 	@apply text-blue-600 underline;
 }
 
+h1 {
+	@apply text-9xl
+}
+
+.step-description {
+	@apply text-4xl leading-loose tracking-wide text-gray-500 font-semibold
+}
+
 .help-text {
-	@apply text-gray-700 leading-snug
+	@apply text-5xl text-gray-700 leading-snug
 }
