@@ -1,18 +1,33 @@
-<%= link_to 'Back', clients_path %>
-<section class="">
-  <h2 class="bg-gray-500 text-white text-2xl font-semibold py-4 px-4">Client Data</h2>
-  <div class="py-4 px-4">
-    <p class="text-xl"><strong>First name:</strong> <%= @client.first_name %></p>
-    <p class="text-xl mt-2"><strong>Last name:</strong> <%= @client.last_name %></p>
-    <p class="text-xl mt-2"><strong>Date of birth:</strong> <%= formatted_date(@client.date_of_birth) %></p>
-    <p class="text-xl mt-2"><strong>Gender:</strong> <%= @client.gender %></p>
-  </div>
+<section class="px-4 mt-12">
+  <h1 class="mt-24 text-9xl text-black font-bold"><%= @client.name %></h1>
+  <section class="mt-12">
+    <p class="text-6xl"><strong>Date of birth:</strong> <%= formatted_date(@client.date_of_birth) %></p>
+    <p class="text-6xl leading-loose"><strong>Gender:</strong> <%= @client.gender %></p>
+  </section>
 </section>
 
-<main class="min-h-screen bg-white">
-  <h2 class="bg-gray-500 text-white text-2xl font-semibold py-4 px-4">Incident Reports</h2>
-  <div class="py-4 px-4">
-    <%= render partial: 'incident_reports', locals: { client: @client } %>
-  </div>
-</main>
-
+<section class="mt-12 px-4">
+  <h2 class="bg-gray-800 text-white text-7xl font-semibold py-4 px-4">Incident Reports</h2>
+  <% if @client.incident_reports.any? %>
+    <% @client.incident_reports.each do |incident| %>
+      <div class="flex flex-col flex-1 space-y-4 p-4 border border-b-1 border-black bg-white">
+        <p class="text-5xl"><strong>Occurred At:</strong> <%= formatted_date(incident.occurred_at) %></p>
+        <p class="text-5xl"><strong>Reported By:</strong> <%= incident.reporter.name %></p>
+        <p class="text-5xl"><strong>Reporter Email:</strong> <%= incident.reporter.email %></p>
+        <p class="text-5xl"><strong>Description:</strong> <%= incident.description %></p>
+      </div>
+    <% end %>
+    <section class="text-5xl px-4 py-16">
+      <p class="help-text">Some kinda help text lorem ipsum dolor est pro patria etc describing what to do in the event of incident reports and how to proceed, or whether to not proceed?</p>
+      <div class="flex flex-1 justify-around text-6xl text-center font-bold  py-12">
+        <div class="w-1/2">Back<br/> to <%= link_to 'search', request.referrer, class: 'link' %></div>
+        <div class="w-1/2">Continue <br/>to <%= link_to 'intake', new_intake_path, class: 'link' %></div>
+      </div>
+    </section>
+  <% else %>
+    <div class="bg-white text-6xl font-bold text-center py-12 leading-relaxed">
+      <p>No incidents found.</p>
+      <p>Continue to <%= link_to 'intake', new_intake_path, class: 'link' %>!</p>
+    </div>
+  <% end %>
+</section>
