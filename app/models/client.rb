@@ -1,8 +1,9 @@
 class Client < ApplicationRecord
   validates_presence_of :first_name, :last_name, :date_of_birth, :gender
 
-  has_many :incident_reports
   has_many :intakes
+  has_many :vouchers
+  has_many :incident_reports
 
   GENDER = [
     "Female",
