@@ -24,23 +24,23 @@ class IntakesController < ApplicationController
       return render :new
     end
 
-    
-      # 
-      # @intake = Intake.create(intake_params.merge(
-      #   client: @client,
-      #   user: current_user
-      # ))
-      # @voucher = Voucher.create(
-      #   client: @client,
-      #   user: current_user,
-      #   motel: Motel.last,
-      #   start_date: Date.tomorrow,
-      #   end_date: Date.tomorrow + 3.days
-      # )
-      # 
-      # redirect_to intake_path(@intake)
+    redirect_to @intake
 
-    redirect_to new_intake_path(@intake)
+
+    # 
+    # @intake = Intake.create(intake_params.merge(
+    #   client: @client,
+    #   user: current_user
+    # ))
+    # @voucher = Voucher.create(
+    #   client: @client,
+    #   user: current_user,
+    #   motel: Motel.last,
+    #   start_date: Date.tomorrow,
+    #   end_date: Date.tomorrow + 3.days
+    # )
+    # 
+    # redirect_to intake_path(@intake)
   end
 
   private
@@ -62,10 +62,10 @@ class IntakesController < ApplicationController
         "num_adults_household", "num_children_household",
         "last_permanent_residence_city_and_state",
         "last_permanent_residence_county"],
-      client_attributes: [
-        ["first_name", "last_name", "date_of_birth(2i)", "date_of_birth(3i)",
-         "date_of_birth(1i)", "gender", "race", "ethnicity", "phone_number",
-         "email_address"]
-      ])
+        client_attributes: [
+          ["first_name", "last_name", "date_of_birth(2i)", "date_of_birth(3i)",
+           "date_of_birth(1i)", "gender", "race", "ethnicity", "phone_number",
+           "email_address"]
+        ])
   end
 end
