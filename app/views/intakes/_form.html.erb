@@ -231,58 +231,60 @@
         "What is the reason you have not accessed shelter?",
         class: "block"  %>
 
-      <div>
-        <%= form.label "survey[why_not_shelter]", "No room" %>
-        <%= form.radio_button "survey[why_not_shelter]", "No room",
-          checked: @intake.survey&.dig('why_not_shelter') == "No room" %>
-      </div>
+      <div class="flex flex-col">
+        <div>
+          <%= form.label "survey[why_not_shelter]", "No room" %>
+          <%= form.radio_button "survey[why_not_shelter]", "No room",
+            checked: @intake.survey&.dig('why_not_shelter') == "No room" %>
+        </div>
 
-      <div>
-        <%= form.label "survey[why_not_shelter]", "No transportation" %>
-        <%= form.radio_button "survey[why_not_shelter]", "No transportation",
-          checked: @intake.survey&.dig('why_not_shelter') == "No transportation" %>
-      </div>
+        <div>
+          <%= form.label "survey[why_not_shelter]", "No transportation" %>
+          <%= form.radio_button "survey[why_not_shelter]", "No transportation",
+            checked: @intake.survey&.dig('why_not_shelter') == "No transportation" %>
+        </div>
 
-      <div>
-        <%= form.label "survey[why_not_shelter]", "Prior background issues" %>
-        <%= form.radio_button "survey[why_not_shelter]", "Prior background issues",
-          checked: @intake.survey&.dig('why_not_shelter') == "Prior background issues" %>
-      </div>
+        <div>
+          <%= form.label "survey[why_not_shelter]", "Prior background issues" %>
+          <%= form.radio_button "survey[why_not_shelter]", "Prior background issues",
+            checked: @intake.survey&.dig('why_not_shelter') == "Prior background issues" %>
+        </div>
 
-      <div>
-        <%= form.label "survey[why_not_shelter]", "Doesn't accept pets" %>
-        <%= form.radio_button "survey[why_not_shelter]", "Doesn't accept pets",
-          checked: @intake.survey&.dig('why_not_shelter') == "Doesn't accept pets" %>
-      </div>
+        <div>
+          <%= form.label "survey[why_not_shelter]", "Doesn't accept pets" %>
+          <%= form.radio_button "survey[why_not_shelter]", "Doesn't accept pets",
+            checked: @intake.survey&.dig('why_not_shelter') == "Doesn't accept pets" %>
+        </div>
 
-      <div>
-        <%= form.label "survey[why_not_shelter]", "Safety Concerns" %>
-        <%= form.radio_button "survey[why_not_shelter]", "Safety Concerns",
-          checked: @intake.survey&.dig('why_not_shelter') == "Safety Concerns" %>
-      </div>
+        <div>
+          <%= form.label "survey[why_not_shelter]", "Safety Concerns" %>
+          <%= form.radio_button "survey[why_not_shelter]", "Safety Concerns",
+            checked: @intake.survey&.dig('why_not_shelter') == "Safety Concerns" %>
+        </div>
 
-      <div>
-        <%= form.label "survey[why_not_shelter]", "No ID" %>
-        <%= form.radio_button "survey[why_not_shelter]", "No ID",
-          checked: @intake.survey&.dig('why_not_shelter') == "No ID" %>
-      </div>
+        <div>
+          <%= form.label "survey[why_not_shelter]", "No ID" %>
+          <%= form.radio_button "survey[why_not_shelter]", "No ID",
+            checked: @intake.survey&.dig('why_not_shelter') == "No ID" %>
+        </div>
 
-      <div>
-        <%= form.label "survey[why_not_shelter]", "Banned from shelter" %>
-        <%= form.radio_button "survey[why_not_shelter]", "Banned from shelter",
-          checked: @intake.survey&.dig('why_not_shelter') == "Banned from shelter" %>
-      </div>
+        <div>
+          <%= form.label "survey[why_not_shelter]", "Banned from shelter" %>
+          <%= form.radio_button "survey[why_not_shelter]", "Banned from shelter",
+            checked: @intake.survey&.dig('why_not_shelter') == "Banned from shelter" %>
+        </div>
 
-      <div>
-        <%= form.label "survey[why_not_shelter]", "Current restraining order" %>
-        <%= form.radio_button "survey[why_not_shelter]", "Current restraining order",
-          checked: @intake.survey&.dig('why_not_shelter') == "Current restraining order" %>
-      </div>
+        <div>
+          <%= form.label "survey[why_not_shelter]", "Current restraining order" %>
+          <%= form.radio_button "survey[why_not_shelter]", "Current restraining order",
+            checked: @intake.survey&.dig('why_not_shelter') == "Current restraining order" %>
+        </div>
 
-      <div>
-        <%= form.label "survey[why_not_shelter]", "Other" %>
-        <%= form.radio_button "survey[why_not_shelter]", "Other",
-          checked: @intake.survey&.dig('why_not_shelter') == "Other" %>
+        <div>
+          <%= form.label "survey[why_not_shelter]", "Other" %>
+          <%= form.radio_button "survey[why_not_shelter]", "Other",
+            checked: @intake.survey&.dig('why_not_shelter') == "Other" %>
+        </div>
       </div>
     </div>
 
@@ -290,161 +292,196 @@
       <%= form.label "survey[are_you_working]", 
         "Are you working?", 
         class: "block"  %>
-      <%= form.label "survey[are_you_working]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[are_you_working]", true %>
-      <%= form.label "survey[are_you_working]", "No", :value => "false" %>
-      <%= form.radio_button "survey[are_you_working]", false, :checked => true %>
+        <%= form.label "survey[are_you_working]", "Yes" %>
+        <%= form.radio_button "survey[are_you_working]", true, checked:
+          @intake.survey&.dig('are_you_working') == 'true' %>
+        <%= form.label "survey[are_you_working]", "No" %>
+        <%= form.radio_button "survey[are_you_working]", false,
+          checked: @intake.survey ? @intake.survey['are_you_working'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[armed_forces]", 
         "Have you ever served in the US Armed Forces (Army, Navy, Air Force, Marines or Coast Guard)?", 
         class: "block" %>
-      <%= form.label "survey[armed_forces]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[armed_forces]", true %>
-      <%= form.label "survey[armed_forces]", "No", :value => "false" %>
-      <%= form.radio_button "survey[armed_forces]", false, :checked => true %>
+        <%= form.label "survey[armed_forces]", "Yes" %>
+        <%= form.radio_button "survey[armed_forces]", true, checked:
+          @intake.survey&.dig('armed_forces') == 'true' %>
+        <%= form.label "survey[armed_forces]", "No" %>
+        <%= form.radio_button "survey[armed_forces]", false,
+          checked: @intake.survey ? @intake.survey['armed_forces'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[active_duty]", 
         "Were you ever called into active duty as a member of the National Guard or as a Reservist?",
         class: "block" %>
-      <%= form.label "survey[active_duty]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[active_duty]", true %>
-      <%= form.label "survey[active_duty]", "No", :value => "false" %>
-      <%= form.radio_button "survey[active_duty]", false, :checked => true %>
+        <%= form.label "survey[active_duty]", "Yes" %>
+        <%= form.radio_button "survey[active_duty]", true, checked:
+          @intake.survey&.dig('active_duty') == 'true' %>
+        <%= form.label "survey[active_duty]", "No" %>
+        <%= form.radio_button "survey[active_duty]", false,
+          checked: @intake.survey ? @intake.survey['active_duty'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[substance_abuse]", 
         "Do you have any Substance Abuse Issues?",
         class: "block" %>
-      <%= form.label "survey[substance_abuse]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[substance_abuse]", true %>
-      <%= form.label "survey[substance_abuse]", "No", :value => "false" %>
-      <%= form.radio_button "survey[substance_abuse]", false, :checked => true %>
+        <%= form.label "survey[substance_abuse]", "Yes" %>
+        <%= form.radio_button "survey[substance_abuse]", true, checked:
+          @intake.survey&.dig('substance_abuse') == 'true' %>
+        <%= form.label "survey[substance_abuse]", "No" %>
+        <%= form.radio_button "survey[substance_abuse]", false,
+          checked: @intake.survey ? @intake.survey['substance_abuse'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[substance_abuse_impairment]", 
         "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
         class: "block" %>
-      <%= form.label "survey[substance_abuse_impairment]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[substance_abuse_impairment]", true %>
-      <%= form.label "survey[substance_abuse_impairment]", "No", :value => "false" %>
-      <%= form.radio_button "survey[substance_abuse_impairment]", false, :checked => true %>
+        <%= form.label "survey[substance_abuse_impairment]", "Yes" %>
+        <%= form.radio_button "survey[substance_abuse_impairment]", true, checked:
+          @intake.survey&.dig('substance_abuse_impairment') == 'true' %>
+        <%= form.label "survey[substance_abuse_impairment]", "No" %>
+        <%= form.radio_button "survey[substance_abuse_impairment]", false,
+          checked: @intake.survey ? @intake.survey['substance_abuse_impairment'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[chronic_health_condition]", 
         "Do you have a Chronic Health Condition?",
         class: "block" %>
-      <%= form.label "survey[chronic_health_condition]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[chronic_health_condition]", true %>
-      <%= form.label "survey[chronic_health_condition]", "No", :value => "false" %>
-      <%= form.radio_button "survey[chronic_health_condition]", false, :checked => true %>
+        <%= form.label "survey[chronic_health_condition]", "Yes" %>
+        <%= form.radio_button "survey[chronic_health_condition]", true, checked:
+          @intake.survey&.dig('chronic_health_condition') == 'true' %>
+        <%= form.label "survey[chronic_health_condition]", "No" %>
+        <%= form.radio_button "survey[chronic_health_condition]", false,
+          checked: @intake.survey ? @intake.survey['chronic_health_condition'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[chronic_health_condition_impairment]", 
         "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
         class: "block" %>
-      <%= form.label "survey[chronic_health_condition_impairment]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[chronic_health_condition_impairment]", true %>
-      <%= form.label "survey[chronic_health_condition_impairment]", "No", :value => "false" %>
-      <%= form.radio_button "survey[chronic_health_condition_impairment]", false, :checked => true %>
+        <%= form.label "survey[chronic_health_condition_impairment]", "Yes" %>
+        <%= form.radio_button "survey[chronic_health_condition_impairment]", true, checked:
+          @intake.survey&.dig('chronic_health_condition_impairment') == 'true' %>
+        <%= form.label "survey[chronic_health_condition_impairment]", "No" %>
+        <%= form.radio_button "survey[chronic_health_condition_impairment]", false,
+          checked: @intake.survey ? @intake.survey['chronic_health_condition_impairment'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[mental_health_disability]", 
         "Do you have a Mental Health disability?",
         class: "block" %>
-      <%= form.label "survey[mental_health_disability]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[mental_health_disability]", true %>
-      <%= form.label "survey[mental_health_disability]", "No", :value => "false" %>
-      <%= form.radio_button "survey[mental_health_disability]", false, :checked => true %>
+        <%= form.label "survey[mental_health_disability]", "Yes" %>
+        <%= form.radio_button "survey[mental_health_disability]", true, checked:
+          @intake.survey&.dig('mental_health_disability') == 'true' %>
+        <%= form.label "survey[mental_health_disability]", "No" %>
+        <%= form.radio_button "survey[mental_health_disability]", false,
+          checked: @intake.survey ? @intake.survey['mental_health_disability'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[mental_health_disability_impairment]", 
         "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
         class: "block" %>
-      <%= form.label "survey[mental_health_disability_impairment]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[mental_health_disability_impairment]", true %>
-      <%= form.label "survey[mental_health_disability_impairment]", "No", :value => "false" %>
-      <%= form.radio_button "survey[mental_health_disability_impairment]", false, :checked => true %>
+        <%= form.label "survey[mental_health_disability_impairment]", "Yes" %>
+        <%= form.radio_button "survey[mental_health_disability_impairment]", true, checked:
+          @intake.survey&.dig('mental_health_disability_impairment') == 'true' %>
+        <%= form.label "survey[mental_health_disability_impairment]", "No" %>
+        <%= form.radio_button "survey[mental_health_disability_impairment]", false,
+          checked: @intake.survey ? @intake.survey['mental_health_disability_impairment'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[physical_disability]", 
         "Do you have a Physical Disability?",
         class: "block" %>
-      <%= form.label "survey[physical_disability]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[physical_disability]", true %>
-      <%= form.label "survey[physical_disability]", "No", :value => "false" %>
-      <%= form.radio_button "survey[physical_disability]", false, :checked => true %>
+        <%= form.label "survey[physical_disability]", "Yes" %>
+        <%= form.radio_button "survey[physical_disability]", true, checked:
+          @intake.survey&.dig('physical_disability') == 'true' %>
+        <%= form.label "survey[physical_disability]", "No" %>
+        <%= form.radio_button "survey[physical_disability]", false,
+          checked: @intake.survey ? @intake.survey['physical_disability'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[physical_disability_impairment]", 
         "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
         class: "block" %>
-      <%= form.label "survey[physical_disability_impairment]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[physical_disability_impairment]", true %>
-      <%= form.label "survey[physical_disability_impairment]", "No", :value => "false" %>
-      <%= form.radio_button "survey[physical_disability_impairment]", false, :checked => true %>
+        <%= form.label "survey[physical_disability_impairment]", "Yes" %>
+        <%= form.radio_button "survey[physical_disability_impairment]", true, checked:
+          @intake.survey&.dig('physical_disability_impairment') == 'true' %>
+        <%= form.label "survey[physical_disability_impairment]", "No" %>
+        <%= form.radio_button "survey[physical_disability_impairment]", false,
+          checked: @intake.survey ? @intake.survey['physical_disability_impairment'] == 'false' : true %>
     </div>
-
 
     <div class="field">
       <%= form.label "survey[developmental_disability]", 
         "Do you have a Developmental Disability?",
         class: "block" %>
-      <%= form.label "survey[developmental_disability]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[developmental_disability]", true %>
-      <%= form.label "survey[developmental_disability]", "No", :value => "false" %>
-      <%= form.radio_button "survey[developmental_disability]", false, :checked => true %>
+        <%= form.label "survey[developmental_disability]", "Yes" %>
+        <%= form.radio_button "survey[developmental_disability]", true, checked:
+          @intake.survey&.dig('developmental_disability') == 'true' %>
+        <%= form.label "survey[developmental_disability]", "No" %>
+        <%= form.radio_button "survey[developmental_disability]", false,
+          checked: @intake.survey ? @intake.survey['developmental_disability'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[developmental_disability_impairment]", 
         "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
         class: "block" %>
-      <%= form.label "survey[developmental_disability_impairment]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[developmental_disability_impairment]", true %>
-      <%= form.label "survey[developmental_disability_impairment]", "No", :value => "false" %>
-      <%= form.radio_button "survey[developmental_disability_impairment]", false, :checked => true %>
+        <%= form.label "survey[developmental_disability_impairment]", "Yes" %>
+        <%= form.radio_button "survey[developmental_disability_impairment]", true, checked:
+          @intake.survey&.dig('developmental_disability_impairment') == 'true' %>
+        <%= form.label "survey[developmental_disability_impairment]", "No" %>
+        <%= form.radio_button "survey[developmental_disability_impairment]", false,
+          checked: @intake.survey ? @intake.survey['developmental_disability_impairment'] == 'false' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[fleeing_domestic_violence]", 
         "Are you experiencing homelessness because you are fleeing Domestic Violence, Sexual Assault or Stalking?",
         class: "block" %>
-      <%= form.label "survey[fleeing_domestic_violence]", "Yes", :value => "true"  %>
-      <%= form.radio_button "survey[fleeing_domestic_violence]", true %>
-      <%= form.label "survey[fleeing_domestic_violence]", "No", :value => "false" %>
-      <%= form.radio_button "survey[fleeing_domestic_violence]", false, :checked => true %>
+        <%= form.label "survey[fleeing_domestic_violence]", "Yes" %>
+        <%= form.radio_button "survey[fleeing_domestic_violence]", true, checked:
+          @intake.survey&.dig('fleeing_domestic_violence') == 'true' %>
+        <%= form.label "survey[fleeing_domestic_violence]", "No" %>
+        <%= form.radio_button "survey[fleeing_domestic_violence]", false,
+          checked: @intake.survey ? @intake.survey['fleeing_domestic_violence'] == 'false' : true %>
     </div>
 
     <div class="field w-full">
       <%= form.label "survey[num_adults_household]", 'Number of adults in household', class: "block" %>
-      <%= form.number_field "survey[num_adults_household]", min: 0, step: 1, class: "border w-full p-6" %>
+        <%= form.number_field "survey[num_adults_household]", min: 0, step: 1, 
+          class: "border w-full p-6", 
+          value: @intake.survey&.dig('num_adults_household') %>
     </div>
 
     <div class="field w-full">
       <%= form.label "survey[num_children_household]", 'Number of children in household', class: "block" %>
-      <%= form.number_field "survey[num_children_household]", min: 0, step: 1, class: "border w-full p-6" %>
+        <%= form.number_field "survey[num_children_household]", min: 0, step: 1, 
+          class: "border w-full p-6", 
+          value: @intake.survey&.dig('num_children_household') %>
     </div>
 
     <div class="field w-full">
       <%= form.label "survey[last_permanent_residence_city_and_state]", "City and State of Last Permanent Residence", class: "block"  %>
-      <%= form.text_field "survey[last_permanent_residence_city_and_state]", size: 23, class: "border w-full p-6" %>
+      <%= form.text_field "survey[last_permanent_residence_city_and_state]", 
+        class: "border w-full p-6", 
+        value: @intake.survey&.dig('last_permanent_residence_city_and_state') %>
     </div>
 
     <div class="field w-full">
       <%= form.label "survey[last_permanent_residence_county]", "County of Last Permanent Residence", class: "block"  %>
-      <%= form.text_field "survey[last_permanent_residence_county]", size: 23, class: "border w-full p-6" %>
+      <%= form.text_field "survey[last_permanent_residence_county]", 
+        class: "border w-full p-6", 
+        value: @intake.survey&.dig('last_permanent_residence_county') %>
     </div>
 
     <div class="actions mt-12">
