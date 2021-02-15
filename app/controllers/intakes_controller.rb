@@ -24,25 +24,19 @@ class IntakesController < ApplicationController
       if !@intake.save
         return render :new
       end
+
+      @voucher = Voucher.create!(
+        client: @client,
+        user: current_user,
+        motel: Motel.last,
+        start_date: Date.tomorrow,
+        end_date: Date.tomorrow + 3.days,
+        number: "AH0001"
+      )
+      return redirect_to @voucher
     end
 
     redirect_to @intake
-
-
-    # 
-    # @intake = Intake.create(intake_params.merge(
-    #   client: @client,
-    #   user: current_user
-    # ))
-    # @voucher = Voucher.create(
-    #   client: @client,
-    #   user: current_user,
-    #   motel: Motel.last,
-    #   start_date: Date.tomorrow,
-    #   end_date: Date.tomorrow + 3.days
-    # )
-    # 
-    # redirect_to intake_path(@intake)
   end
 
   private

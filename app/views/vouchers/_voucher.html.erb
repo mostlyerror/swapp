@@ -1,0 +1,35 @@
+<div class="bg-white border-8 border-black shadow-xl text-6xl">
+
+  <section class="p-24 border-b-8 border-gray-400 border-dashed">
+    <div class="flex flex-1 justify-between">
+      <strong>Voucher #</strong> AH0014
+    </div>
+    <div class="mt-12 flex flex-1 justify-between">
+      <strong>Holder</strong> <%= @voucher.client.name %>
+    </div>
+  </section>
+
+  <section class="p-16 border-b-8 border-gray-400 border-dashed flex flex-1">
+    <div class="w-full">
+        <strong class="leading-loose">Check In</strong>
+        <br />
+        <%= formatted_date(@voucher.start_date) %>
+    </div>
+    <div class="w-full">
+        <strong class="leading-loose">Check Out</strong>
+        <br />
+        <%= formatted_date(@voucher.end_date) %>
+    </div>
+  </section>
+
+  <section class="p-16">
+    <p>
+      <strong><%= @voucher.motel.name %></strong>
+    </p>
+    <div class="mt-12">
+      <p><%= @voucher.motel.street_address %></p>
+      <p><%= @voucher.motel.address_second %></p>
+      <p class="leading-loose"><%= @voucher.motel.phone %></p>
+    </div>
+  </section>
+</div>
