@@ -29,8 +29,8 @@ class IntakesController < ApplicationController
         client: @client,
         user: current_user,
         motel: Motel.last,
-        start_date: Date.tomorrow,
-        end_date: Date.tomorrow + 3.days,
+        check_in: Date.tomorrow,
+        check_out: Date.tomorrow + 3.days,
         number: "AH0001"
       )
       return redirect_to @voucher
