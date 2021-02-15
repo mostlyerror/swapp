@@ -12,7 +12,6 @@
   <% end %>
 
   <div class="w-full flex flex-col space-y-14 mt-24 text-4xl text-gray-800 leading-snug tracking-wide px-4">
-    <!-- nested client fields -->
     <%= form.fields_for :client, @client do |client_attributes|%>
 
       <div class="flex flex-1 space-x-4">
@@ -30,10 +29,11 @@
       <div class="flex flex-1 space-x-4">
         <div class="field w-full">
           <%= client_attributes.label :date_of_birth, class: "block"  %>
-          <%= client_attributes.date_select :date_of_birth, 
-            {
+          <%= client_attributes.date_select :date_of_birth, {
             use_short_month: true,
-            order: [:month, :day, :year]
+            order: [:month, :day, :year],
+            start_year: Date.today.year - 120,
+            end_year: Date.today.year
           },
           class: "bg-white border p-6" %>
         </div>
