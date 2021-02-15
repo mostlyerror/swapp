@@ -1,29 +1,28 @@
 <div class="bg-white border-8 border-black shadow-xl text-6xl">
-
-  <section class="p-24 border-b-8 border-gray-400 border-dashed">
+  <section class="p-16 border-b-8 border-gray-400 border-dashed">
     <div class="flex flex-1 justify-between">
-      <strong>Voucher #</strong> AH0014
+      <strong>Voucher #</strong> 
+      <p><%= @voucher.number %></p>
     </div>
     <div class="mt-12 flex flex-1 justify-between">
-      <strong>Holder</strong> <%= @voucher.client.name %>
+      <strong>Holder</strong>
+      <p><%= @voucher.client.name %></p>
     </div>
   </section>
 
-  <section class="p-16 border-b-8 border-gray-400 border-dashed flex flex-1">
+  <section class="p-16 border-b-8 border-gray-400 border-dashed flex flex-1 space-x-16">
     <div class="w-full">
-        <strong class="leading-loose">Check In</strong>
-        <br />
-        <%= formatted_date(@voucher.start_date) %>
+        <strong>Check In</strong>
+        <p class="mt-8"><%= formatted_date(@voucher.start_date) %></p>
     </div>
     <div class="w-full">
-        <strong class="leading-loose">Check Out</strong>
-        <br />
-        <%= formatted_date(@voucher.end_date) %>
+        <strong>Check Out</strong>
+        <p class="mt-8"><%= formatted_date(@voucher.end_date) %></p>
     </div>
   </section>
 
   <section class="p-16">
-    <p>
+    <p class="mt-4">
       <strong><%= @voucher.motel.name %></strong>
     </p>
     <div class="mt-12">
