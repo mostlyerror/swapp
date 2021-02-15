@@ -11,9 +11,8 @@
     </div>
   <% end %>
 
-  <div class="w-full flex flex-col space-y-20 mt-24 text-5xl text-gray-800 leading-snug tracking-wide px-4">
+  <div class="w-full flex flex-col space-y-24 mt-24 text-5xl text-gray-800 tracking-wide px-4">
     <%= form.fields_for :client, @client do |client_attributes|%>
-
       <div class="flex flex-1 space-x-4">
         <div class="field w-full">
           <%= client_attributes.label :first_name, "First Name", class: "block leading-relaxed"  %>
