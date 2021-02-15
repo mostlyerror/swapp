@@ -65,17 +65,6 @@
         </div>
       </div>
 
-      <div class="flex flex-1 space-x-4">
-        <div class="field w-full">
-          <%= client_attributes.label :phone_number, class: "block leading-relaxed"  %>
-          <%= client_attributes.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
-        </div>
-
-        <div class="field w-full">
-          <%= client_attributes.label :email_address, class: "block leading-relaxed"  %>
-          <%= client_attributes.email_field :email_address, class: "w-full border border-gray-300 p-6" %>
-        </div>
-      </div>
     <% end %>
 
     <div class="flex flex-1 space-x-4">
@@ -99,22 +88,6 @@
         <%= form.radio_button "survey[bus_pass]", false, class: "m-2.5 h-10 w-10",
           checked: @intake.survey ? @intake.survey['bus_pass'] == 'false' : true
         %>
-      </div>
-    </div>
-
-    <div class="flex flex-1 space-x-4">
-      <div class="field w-full">
-        <%= form.label "survey[num_nights]", "Number of Nights", class: "block leading-relaxed" %>
-        <%= form.number_field "survey[num_nights]", min: 1, step: 1, 
-          class: "rounded-lg border border-gray-300 w-full p-6", 
-          value: @intake.survey&.dig('num_nights') %>
-      </div>
-
-      <div class="field w-full">
-        <%= form.label "survey[hotel]", "Hotel", class: "block leading-relaxed" %>
-        <%= form.text_field "survey[hotel]", 
-          class: "rounded-lg border border-gray-300 w-full p-6", 
-          value: @intake.survey&.dig('hotel') %>
       </div>
     </div>
 
@@ -483,6 +456,40 @@
         class: "rounded-lg border border-gray-300 w-full p-6", 
         value: @intake.survey&.dig('last_permanent_residence_county') %>
     </div>
+
+    <!-- voucher-specific questions -->
+    <div class="flex flex-1 space-x-4">
+      <div class="field w-full">
+        <%= form.label "survey[num_nights]", "Number of Nights", class: "block leading-relaxed" %>
+        <%= form.number_field "survey[num_nights]", min: 1, step: 1, 
+          class: "rounded-lg border border-gray-300 w-full p-6", 
+          value: @intake.survey&.dig('num_nights') %>
+      </div>
+
+      <div class="field w-full">
+        <%= form.label "survey[hotel]", "Hotel", class: "block leading-relaxed" %>
+        <%= form.text_field "survey[hotel]", 
+          class: "rounded-lg border border-gray-300 w-full p-6", 
+          value: @intake.survey&.dig('hotel') %>
+      </div>
+    </div>
+
+    <div class="flex flex-1 space-x-4">
+      <div class="flex flex-1 space-x-4">
+        <div class="field w-full">
+          <!-- optional -->
+          <%= form.label :phone_number, class: "block leading-relaxed"  %>
+          <%= form.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
+        </div>
+
+        <div class="field w-full">
+          <!-- optional -->
+          <%= form.label :email_address, class: "block leading-relaxed"  %>
+          <%= form.email_field :email_address, class: "w-full border border-gray-300 p-6" %>
+        </div>
+      </div>
+    </div>
+    <!-- end voucher-specific questions -->
 
     <div class="actions mt-12">
       <%= form.submit 'Submit', class: 'w-full btn btn-blue h-32 text-6xl' %>
