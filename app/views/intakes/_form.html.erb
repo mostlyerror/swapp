@@ -83,10 +83,10 @@
         <%= form.label "survey[king_soopers_card]", "King Soopers Card?", class: "block leading-relaxed" %>
         <%= form.label "survey[king_soopers_card]", "Yes" %>
         <%= form.radio_button "survey[king_soopers_card]", true, checked:
-          @intake.survey&.dig('king_soopers_card') == 'true' %>
+          @intake.survey&.dig('king_soopers_card') == 'true', class: "m-3 h-8 w-8" %>
         <%= form.label "survey[king_soopers_card]", "No" %>
         <%= form.radio_button "survey[king_soopers_card]", false,
-          checked: @intake.survey ? @intake.survey['king_soopers_card'] == 'false' : true
+        class: "m-3 h-8 w-8", checked: @intake.survey ? @intake.survey['king_soopers_card'] == 'false' : true
         %>
       </div>
 
