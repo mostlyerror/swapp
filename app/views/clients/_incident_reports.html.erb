@@ -1,5 +1,0 @@
-<% client.incident_reports.each do |incident| %>
-  <p class="text-xl"><strong>Occurred At:</strong> <%= formatted_date(incident.occurred_at) %></p>
-  <p class="text-xl mt-2"><strong>Reported By:</strong> <%= incident.reporter %></p>
-  <p class="text-xl mt-2"><strong>Description:</strong> <%= incident.description %></p>
-<% end %>
