@@ -81,10 +81,10 @@
     <div class="flex flex-1 space-x-4">
       <div class="field w-full">
         <%= form.label "survey[king_soopers_card]", "King Soopers Card?", class: "block" %>
-        <%= form.label "survey[king_soopers_card]", "Yes", value: "true"  %>
+        <%= form.label "survey[king_soopers_card]", "Yes" %>
         <%= form.radio_button "survey[king_soopers_card]", true, checked:
           @intake.survey&.dig('king_soopers_card') == 'true' %>
-        <%= form.label "survey[king_soopers_card]", "No", value: "false" %>
+        <%= form.label "survey[king_soopers_card]", "No" %>
         <%= form.radio_button "survey[king_soopers_card]", false,
           checked: @intake.survey ? @intake.survey['king_soopers_card'] == 'false' : true
         %>
@@ -122,10 +122,12 @@
       <%= form.label "survey[homelessness_first_time]", 
         "Is this the first time you have been homeless?", 
         class: "block" %>
-      <%= form.label "survey[homelessness_first_time]", "Yes", value: "true"  %>
+
+      <%= form.label "survey[homelessness_first_time]", "Yes" %>
       <%= form.radio_button "survey[homelessness_first_time]", true, checked:
         @intake.survey&.dig('homelessness_first_time') == 'true' %>
-      <%= form.label "survey[homelessness_first_time]", "No", value: "false"%>
+
+      <%= form.label "survey[homelessness_first_time]", "No" %>
       <%= form.radio_button "survey[homelessness_first_time]", false, 
         checked: @intake.survey ? @intake.survey['homelessness_first_time'] == 'false' : true %>
     </div>
@@ -144,47 +146,69 @@
       <%= form.label "survey[homelessness_episodes_last_three_years]", 
         "Including this time, how many separate times have you stayed in shelters or on the streets in the past 3 years?", 
         class: "block"  %>
-      <%= form.select "survey[homelessness_episodes_last_three_years]", 
-        options_for_select([
-          ["Fewer than 4 times"],
-          ["4 or more times"]
-      ]), 
-      {include_blank: true},
-      class: "bg-white border w-full p-6" %>
+
+      <%= form.label "survey[homelessness_episodes_last_three_years]", "Fewer than 4 times" %>
+      <%= form.radio_button "survey[homelessness_episodes_last_three_years]", "Fewer than 4 times", 
+        checked: @intake.survey&.dig('homelessness_episodes_last_three_years') == 'Fewer than 4 times' %>
+
+      <%= form.label "survey[homelessness_episodes_last_three_years]", "4 or more times" %>
+      <%= form.radio_button "survey[homelessness_episodes_last_three_years]", "4 or more times", 
+        checked: @intake.survey ? @intake.survey['homelessness_episodes_last_three_years'] == '4 or more times' : true %>
     </div>
 
     <div class="field">
       <%= form.label "survey[homelessness_episodes_how_long]", 
         "In total, how long did you stay in shelters or on the streets those times?", 
         class: "block" %>
-      <%= form.text_field "survey[homelessness_episodes_how_long]", class: "border w-full p-6" %>
+      <%= form.text_field "survey[homelessness_episodes_how_long]", 
+        class: "border w-full p-6", value: @intake.survey&.dig('homelessness_episodes_how_long') %>
     </div>
 
     <div class="field">
       <%= form.label "survey[how_long_living_in_this_community]", 
         "How long have you been living in this community?",
         class: "block"  %>
-      <%= form.text_field "survey[how_long_living_in_this_community]", class: "border w-full p-6" %>
+      <%= form.text_field "survey[how_long_living_in_this_community]",
+        class: "border w-full p-6", value: @intake.survey&.dig('how_long_living_in_this_community') %>
     </div>
 
     <div class="field">
-      <%= form.label "survey[where_did_you_sleep_last_night]", 
-        "Where did you sleep last night?",
-        class: "block" %>
-      <%= form.select "survey[where_did_you_sleep_last_night]",
-        options_for_select([
-          ["In own home"], 
-          ["In a shelter"], 
-          ["In a motel"], 
-          ["Double Up"],
-          ["In a car/RV"],
-          ["On the streets or in a tent"],
-          ["In the hospital"],
-          ["Incarcerated"],
-      ]),
-      {include_blank: true},
-      class: "bg-white border w-full p-6"
-    %>
+      <%= form.label "survey[where_did_you_sleep_last_night]", "Where did you sleep last night?", class: "block" %>
+
+      <div class="flex flex-col">
+        <div>
+          <%= form.label "survey[where_did_you_sleep_last_night]", "In own home" %>
+          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In own home" %>
+        </div>
+        <div>
+          <%= form.label "survey[where_did_you_sleep_last_night]", "In a shelter" %>
+          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a shelter" %>
+        </div>
+        <div>
+          <%= form.label "survey[where_did_you_sleep_last_night]", "In a motel" %>
+          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a motel" %>
+        </div>
+        <div>
+          <%= form.label "survey[where_did_you_sleep_last_night]", "Double Up" %>
+          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "Double Up" %>
+        </div>
+        <div>
+          <%= form.label "survey[where_did_you_sleep_last_night]", "In a car/RV" %>
+          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a car/RV" %>
+        </div>
+        <div>
+          <%= form.label "survey[where_did_you_sleep_last_night]", "On the streets or in a tent" %>
+          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "On the streets or in a tent" %>
+        </div>
+        <div>
+          <%= form.label "survey[where_did_you_sleep_last_night]", "In the hospital" %>
+          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In the hospital" %>
+        </div>
+        <div>
+          <%= form.label "survey[where_did_you_sleep_last_night]", "Incarcerated" %>
+          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "Incarcerated" %>
+        </div>
+      </div>
     </div>
 
     <div class="field">
@@ -202,10 +226,10 @@
           ["Doesn't accept pets"], 
           ["Current restraining order"], 
           ["Other"], 
-        ]),
-        {include_blank: true},
-        class: "bg-white border w-full p-6"
-      %>
+      ]),
+      {include_blank: true},
+      class: "bg-white border w-full p-6"
+    %>
     </div>
 
     <div class="field">
