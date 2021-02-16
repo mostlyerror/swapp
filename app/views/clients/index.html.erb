@@ -17,9 +17,9 @@
       <% if @clients.any? %>
         <section class="mt-16">
           <p class="help-text">
-          <strong><%= @clients.size %> results were found for "<%= @searched_term %>"</strong>. If you see
-            your client in the table, click on the row to check if they have
-            been previously red flagged.
+          <strong><%= @clients.size %> results found for "<%= @searched_term
+            %>"</strong>. If you see your client in the table above,
+        click on the row to check if they have been previously red flagged.
           </p>
         </section>
 
@@ -29,17 +29,13 @@
       <% end %>
 
       <section class="py-16 px-4">
-        <h2 class="text-7xl font-bold leading-relaxed">
-          Don't see your client?
-        </h2>
 
         <p class="help-text">
-        There were no client records found for "SEARCHTERM" Try
-        searching for a different name or...
+        <strong><%= @clients.size %> results found for "<%= @searched_term %>"</strong>.<br />
+          If you think your client is already in Swapp, try searching for a different name.
         </p>
-
-        <h2 class="text-7xl font-bold">
-          proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.
+        <h2 class="mt-16 text-7xl font-bold">
+          Still can't find your client?  Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.
         </h2>
       </section>
     <% end %>
