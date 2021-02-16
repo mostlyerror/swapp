@@ -17,7 +17,7 @@
       <% if @clients.any? %>
         <section class="mt-16">
           <p class="help-text">
-            <strong>2 results were found for "SEARCHTERM"</strong>. If you see
+          <strong><%= @clients.size %> results were found for "<%= @searched_term %>"</strong>. If you see
             your client in the table, click on the row to check if they have
             been previously red flagged.
           </p>
