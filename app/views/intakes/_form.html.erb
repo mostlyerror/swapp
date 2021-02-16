@@ -79,7 +79,8 @@
           class: "block leading-relaxed" %>
         <%= form.text_field "survey[homelessness_how_long_this_time]", 
           class: "rounded-lg border border-gray-300 w-full p-6",
-          value: @intake.survey&.dig('homelessness_how_long_this_time', required: true)
+          value: @intake.survey&.dig('homelessness_how_long_this_time', required: true),
+          placeholder: "(e.g, 2 months, 5 years, etc.)"
         %>
       </div>
 
@@ -103,7 +104,8 @@
           class: "block leading-relaxed" %>
         <%= form.text_field "survey[homelessness_episodes_how_long]", 
           class: "rounded-lg border border-gray-300 w-full p-6", 
-          value: @intake.survey&.dig('homelessness_episodes_how_long'), required: true %>
+          value: @intake.survey&.dig('homelessness_episodes_how_long'), required: true,
+          placeholder: "(e.g, 2 months, 5 years, etc.)" %>
       </div>
 
       <div class="field">
@@ -113,7 +115,8 @@
         <%= form.text_field "survey[how_long_living_in_this_community]",
           class: "rounded-lg border border-gray-300 w-full p-6", 
           required: true,
-          value: @intake.survey&.dig('how_long_living_in_this_community') %>
+          value: @intake.survey&.dig('how_long_living_in_this_community'),
+          placeholder: "(e.g, 2 months, 5 years, etc.)" %>
       </div>
 
       <div class="field">
@@ -417,7 +420,8 @@
         <%= form.number_field "survey[num_adults_household]", min: 0, step: 1, 
           class: "rounded-lg border border-gray-300 w-full p-6", 
           required: true,
-          value: @intake.survey&.dig('num_adults_household') %>
+          value: @intake.survey&.dig('num_adults_household'),
+          placeholder: "enter numeric value" %>
       </div>
 
       <div class="field w-full">
@@ -425,7 +429,8 @@
         <%= form.number_field "survey[num_children_household]", min: 0, step: 1, 
           class: "rounded-lg border border-gray-300 w-full p-6", 
           required: true,
-          value: @intake.survey&.dig('num_children_household') %>
+          value: @intake.survey&.dig('num_children_household'),
+          placeholder: "enter numeric value" %>
       </div>
 
       <div class="field w-full">
@@ -433,7 +438,8 @@
         <%= form.text_field "survey[last_permanent_residence_city_and_state]", 
           class: "rounded-lg border border-gray-300 w-full p-6", 
           required: true,
-          value: @intake.survey&.dig('last_permanent_residence_city_and_state') %>
+          value: @intake.survey&.dig('last_permanent_residence_city_and_state'),
+          placeholder: "e.g, Denver, CO" %>
       </div>
 
       <div class="field w-full">
@@ -441,7 +447,8 @@
         <%= form.text_field "survey[last_permanent_residence_county]", 
           class: "rounded-lg border border-gray-300 w-full p-6", 
           required: true,
-          value: @intake.survey&.dig('last_permanent_residence_county') %>
+          value: @intake.survey&.dig('last_permanent_residence_county'),
+          placeholder: "e.g, Adams, Arapahoe, etc." %>
       </div>
 
       <div class="field w-full">
@@ -474,7 +481,8 @@
         <%= form.number_field "survey[num_nights]", min: 1, step: 1, 
           class: "rounded-lg border border-gray-300 w-full p-6", 
           required: true,
-          value: @intake.survey&.dig('num_nights') %>
+          value: @intake.survey&.dig('num_nights'),
+          placeholder: "enter numeric value" %>
       </div>
 
       <div class="field w-full">
@@ -482,7 +490,8 @@
         <%= form.text_field "survey[hotel]", 
           class: "rounded-lg border border-gray-300 w-full p-6", 
           required: true,
-          value: @intake.survey&.dig('hotel') %>
+          value: @intake.survey&.dig('hotel'),
+          placeholder: "e.g, Comfort Inn, etc." %>
       </div>
 
       <div class="field w-full">
