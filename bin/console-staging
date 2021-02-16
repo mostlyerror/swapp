@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+heroku run rails console --app swapp-staging-1

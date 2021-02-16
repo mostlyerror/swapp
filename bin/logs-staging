@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+heroku logs --tail --app swapp-staging-1
