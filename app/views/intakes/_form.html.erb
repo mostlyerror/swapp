@@ -245,7 +245,7 @@
           @intake.survey&.dig('are_you_working') == 'true' %>
         <%= form.label "survey[are_you_working]", "No" %>
         <%= form.radio_button "survey[are_you_working]", false, class: "m-2.5 h-10 w-10",
-              required: true,
+          required: true,
           checked: @intake.survey ? @intake.survey['are_you_working'] == 'false' : true %>
       </div>
 
@@ -258,7 +258,7 @@
           @intake.survey&.dig('armed_forces') == 'true' %>
         <%= form.label "survey[armed_forces]", "No" %>
         <%= form.radio_button "survey[armed_forces]", false, class: "m-2.5 h-10 w-10",
-              required: true,
+          required: true,
           checked: @intake.survey ? @intake.survey['armed_forces'] == 'false' : true %>
       </div>
 
@@ -271,7 +271,7 @@
           @intake.survey&.dig('active_duty') == 'true' %>
         <%= form.label "survey[active_duty]", "No" %>
         <%= form.radio_button "survey[active_duty]", false, class: "m-2.5 h-10 w-10",
-              required: true,
+          required: true,
           checked: @intake.survey ? @intake.survey['active_duty'] == 'false' : true %>
       </div>
 
@@ -309,7 +309,7 @@
           @intake.survey&.dig('chronic_health_condition') == 'true' %>
         <%= form.label "survey[chronic_health_condition]", "No" %>
         <%= form.radio_button "survey[chronic_health_condition]", false, class: "m-2.5 h-10 w-10",
-              required: true,
+          required: true,
           checked: @intake.survey ? @intake.survey['chronic_health_condition'] == 'false' : true %>
       </div>
 
@@ -334,7 +334,7 @@
           @intake.survey&.dig('mental_health_disability') == 'true' %>
         <%= form.label "survey[mental_health_disability]", "No" %>
         <%= form.radio_button "survey[mental_health_disability]", false, class: "m-2.5 h-10 w-10",
-              required: true,
+          required: true,
           checked: @intake.survey ? @intake.survey['mental_health_disability'] == 'false' : true %>
       </div>
 
