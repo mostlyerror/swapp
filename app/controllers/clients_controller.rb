@@ -5,6 +5,7 @@ class ClientsController < ApplicationController
   def index
     @q = Client.ransack(params[:q])
     @searched = !params[:q].nil?
+    @searched_term = params[:q]&.values&.first
     @clients = @q.result(distinct: true)
   end
 

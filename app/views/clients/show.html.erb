@@ -19,7 +19,7 @@
     <% end %>
     <section class="text-5xl px-4 mt-16">
       <p class="help-text">
-      <strong class="text-red-500">CLIENTNAME has been red flagged at MOTEL</strong>. If you send them to a motel, be sure you DON'T send them to MOTEL!
+      <strong class="text-red-500"><%= @client.first_name %> has been red flagged at MOTEL</strong>. If you send them to a motel, be sure you DON'T send them to MOTEL!
       </p>
     </section>
   <% else %>
