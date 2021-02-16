@@ -10,75 +10,440 @@
     </div>
   <% end %>
 
-  <div class="w-full flex flex-col space-y-24 mt-24 text-5xl text-gray-800 tracking-wide px-4">
+  <div class="w-full flex flex-col space-y-24 mt-24 text-6xl text-gray-800 tracking-wide px-4">
     <%= form.fields_for :client, @client do |client_attributes|%>
-      <div class="flex flex-1 space-x-4">
-        <div class="field w-full">
-          <%= client_attributes.label :first_name, "First Name", class: "block leading-relaxed"  %>
-          <%= client_attributes.text_field :first_name, size: 23, class: "rounded-lg border border-gray-300 w-full p-6" %>
-        </div>
-
-        <div class="field w-full">
-          <%= client_attributes.label :last_name, "Last Name", class: "block leading-relaxed"  %>
-          <%= client_attributes.text_field :last_name, size: 23, class: "rounded-lg border border-gray-300 w-full p-6" %>
-        </div>
+      <div class="field w-full">
+        <%= client_attributes.label :first_name, "First Name", class: "block leading-relaxed"  %>
+        <%= client_attributes.text_field :first_name, size: 23, class: "rounded-lg border border-gray-300 w-full p-6", required: true %>
       </div>
 
-      <div class="flex flex-1 space-x-4">
-        <div class="field w-full">
-          <%= client_attributes.label :date_of_birth, class: "block leading-relaxed"  %>
-          <span class="flex flex-1">
+      <div class="field w-full">
+        <%= client_attributes.label :last_name, "Last Name", class: "block leading-relaxed"  %>
+        <%= client_attributes.text_field :last_name, size: 23, class: "rounded-lg border border-gray-300 w-full p-6", required: true %>
+      </div>
+
+      <div class="field w-full">
+        <%= client_attributes.label :date_of_birth, class: "block leading-relaxed", required: true  %>
+        <span class="flex flex-1">
           <%= client_attributes.date_select :date_of_birth, {
             use_short_month: true,
             order: [:month, :day, :year],
             start_year: Date.today.year - 120,
             end_year: Date.today.year
           },
-          class: "w-full bg-white rounded-lg border border-gray-300 pl-4 py-6" %>
-          </span>
-        </div>
+          class: "w-full bg-white rounded-lg border border-gray-300 pl-4 py-6", required: true %>
+        </span>
+      </div>
 
-        <div class="field w-full">
-          <%= client_attributes.label :gender, class: "block leading-relaxed"  %>
-          <%= client_attributes.select :gender, 
-            options_for_select(Client::GENDER, @client.gender), 
-            {include_blank: true},
-            class: "bg-white rounded-lg border border-gray-300 w-full p-6" %>
+      <div class="field w-full">
+        <%= client_attributes.label :gender, class: "block leading-relaxed"  %>
+        <%= client_attributes.select :gender, 
+          options_for_select(Client::GENDER, @client.gender), 
+          {include_blank: true},
+          class: "bg-white rounded-lg border border-gray-300 w-full p-6", required: true %>
+      </div>
+
+      <div class="field w-full">
+        <%= client_attributes.label :race, class: "block leading-relaxed"  %>
+        <%= client_attributes.select :race, 
+          options_for_select(Client::RACE, @client.race), 
+          {include_blank: true},
+          class: "bg-white rounded-lg border border-gray-300 w-full p-6", required: true %>
+      </div>
+
+      <div class="field w-full">
+        <%= client_attributes.label :ethnicity, "Hispanic or Latino?", class: "block leading-relaxed" %>
+        <%= client_attributes.select :ethnicity, 
+          options_for_select(Client::ETHNICITY, @client.ethnicity), 
+          {include_blank: true},
+          class: "bg-white border border-gray-300 w-full p-6", required: true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[homelessness_first_time]", 
+          "Is this the first time you have been homeless?", 
+          class: "block leading-relaxed" %>
+
+        <%= form.label "survey[homelessness_first_time]", "Yes" %>
+        <%= form.radio_button "survey[homelessness_first_time]", true, class: "m-2.5 h-10 w-10",
+          checked: @intake.survey&.dig('homelessness_first_time') == 'true', required: true %>
+
+        <%= form.label "survey[homelessness_first_time]", "No" %>
+        <%= form.radio_button "survey[homelessness_first_time]", false, class: "m-2.5 h-10 w-10",
+          checked: @intake.survey ? @intake.survey['homelessness_first_time'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[homelessness_how_long_this_time]", 
+          "How long have you been homeless this time?", 
+          class: "block leading-relaxed" %>
+        <%= form.text_field "survey[homelessness_how_long_this_time]", 
+          class: "rounded-lg border border-gray-300 w-full p-6",
+          value: @intake.survey&.dig('homelessness_how_long_this_time', required: true)
+        %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[homelessness_episodes_last_three_years]", 
+          "Including this time, how many separate times have you stayed in shelters or on the streets in the past 3 years?", 
+          class: "block leading-relaxed"  %>
+
+        <%= form.label "survey[homelessness_episodes_last_three_years]", "Fewer than 4 times" %>
+        <%= form.radio_button "survey[homelessness_episodes_last_three_years]", "Fewer than 4 times", class: "m-2.5 h-10 w-10",
+          checked: @intake.survey&.dig('homelessness_episodes_last_three_years') == 'Fewer than 4 times', required: true %>
+
+        <%= form.label "survey[homelessness_episodes_last_three_years]", "4 or more times" %>
+        <%= form.radio_button "survey[homelessness_episodes_last_three_years]", "4 or more times", class: "m-2.5 h-10 w-10",
+          checked: @intake.survey ? @intake.survey['homelessness_episodes_last_three_years'] == '4 or more times' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[homelessness_episodes_how_long]", 
+          "In total, how long did you stay in shelters or on the streets those times?", 
+          class: "block leading-relaxed" %>
+        <%= form.text_field "survey[homelessness_episodes_how_long]", 
+          class: "rounded-lg border border-gray-300 w-full p-6", 
+          value: @intake.survey&.dig('homelessness_episodes_how_long'), required: true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[how_long_living_in_this_community]", 
+          "How long have you been living in this community?",
+          class: "block leading-relaxed"  %>
+        <%= form.text_field "survey[how_long_living_in_this_community]",
+          class: "rounded-lg border border-gray-300 w-full p-6", 
+          required: true,
+          value: @intake.survey&.dig('how_long_living_in_this_community') %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[where_did_you_sleep_last_night]", "Where did you sleep last night?", 
+          class: "block leading-relaxed" %>
+
+        <div class="flex flex-col">
+          <div>
+            <%= form.label "survey[where_did_you_sleep_last_night]", "In own home" %>
+            <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In own home", 
+              class: "m-2.5 h-10 w-10",
+              required: true,
+              checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "In own home" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[where_did_you_sleep_last_night]", "In a shelter" %>
+            <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a shelter", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "In a shelter" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[where_did_you_sleep_last_night]", "In a motel" %>
+            <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a motel", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "In a motel" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[where_did_you_sleep_last_night]", "Double Up" %>
+            <%= form.radio_button "survey[where_did_you_sleep_last_night]", "Double Up", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "Double Up" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[where_did_you_sleep_last_night]", "In a car/RV" %>
+            <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a car/RV", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "In a car/RV" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[where_did_you_sleep_last_night]", "On the streets or in a tent" %>
+            <%= form.radio_button "survey[where_did_you_sleep_last_night]", "On the streets or in a tent", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "On the streets or in a tent" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[where_did_you_sleep_last_night]", "In the hospital" %>
+            <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In the hospital", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "In the hospital" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[where_did_you_sleep_last_night]", "Incarcerated" %>
+            <%= form.radio_button "survey[where_did_you_sleep_last_night]", "Incarcerated", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "Incarcerated" %>
+          </div>
         </div>
       </div>
 
-      <div class="flex flex-1 space-x-4">
-        <div class="field w-full">
-          <%= client_attributes.label :race, class: "block leading-relaxed"  %>
-          <%= client_attributes.select :race, 
-            options_for_select(Client::RACE, @client.race), 
-            {include_blank: true},
-            class: "bg-white rounded-lg border border-gray-300 w-full p-6" %>
-        </div>
+      <div class="field">
+        <%= form.label "survey[why_not_shelter]", 
+          "What is the reason you have not accessed shelter?",
+          class: "block leading-relaxed"  %>
 
-        <div class="field w-full">
-          <%= client_attributes.label :ethnicity, class: "block leading-relaxed" %>
-          <%= client_attributes.select :ethnicity, 
-            options_for_select(Client::ETHNICITY, @client.ethnicity), 
-            {include_blank: true},
-            class: "bg-white border border-gray-300 w-full p-6" %>
+        <div class="flex flex-col">
+          <div>
+            <%= form.label "survey[why_not_shelter]", "No room" %>
+            <%= form.radio_button "survey[why_not_shelter]", "No room", class: "m-2.5 h-10 w-10",
+              required: true,
+              checked: @intake.survey&.dig('why_not_shelter') == "No room" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[why_not_shelter]", "No transportation" %>
+            <%= form.radio_button "survey[why_not_shelter]", "No transportation", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('why_not_shelter') == "No transportation" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[why_not_shelter]", "Prior background issues" %>
+            <%= form.radio_button "survey[why_not_shelter]", "Prior background issues", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('why_not_shelter') == "Prior background issues" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[why_not_shelter]", "Doesn't accept pets" %>
+            <%= form.radio_button "survey[why_not_shelter]", "Doesn't accept pets", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('why_not_shelter') == "Doesn't accept pets" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[why_not_shelter]", "Safety Concerns" %>
+            <%= form.radio_button "survey[why_not_shelter]", "Safety Concerns", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('why_not_shelter') == "Safety Concerns" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[why_not_shelter]", "No ID" %>
+            <%= form.radio_button "survey[why_not_shelter]", "No ID", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('why_not_shelter') == "No ID" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[why_not_shelter]", "Banned from shelter" %>
+            <%= form.radio_button "survey[why_not_shelter]", "Banned from shelter", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('why_not_shelter') == "Banned from shelter" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[why_not_shelter]", "Current restraining order" %>
+            <%= form.radio_button "survey[why_not_shelter]", "Current restraining order", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('why_not_shelter') == "Current restraining order" %>
+          </div>
+
+          <div>
+            <%= form.label "survey[why_not_shelter]", "Other" %>
+            <%= form.radio_button "survey[why_not_shelter]", "Other", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('why_not_shelter') == "Other" %>
+          </div>
         </div>
       </div>
 
-      <div class="flex flex-1 space-x-4">
-        <div class="field w-full">
-          <%= client_attributes.label :phone_number, class: "block leading-relaxed"  %>
-          <%= client_attributes.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
-        </div>
-
-        <div class="field w-full">
-          <%= client_attributes.label :email_address, class: "block leading-relaxed"  %>
-          <%= client_attributes.email_field :email_address, class: "w-full border border-gray-300 p-6" %>
-        </div>
+      <div class="field">
+        <%= form.label "survey[are_you_working]", 
+          "Are you working?", 
+          class: "block leading-relaxed"  %>
+        <%= form.label "survey[are_you_working]", "Yes" %>
+        <%= form.radio_button "survey[are_you_working]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('are_you_working') == 'true' %>
+        <%= form.label "survey[are_you_working]", "No" %>
+        <%= form.radio_button "survey[are_you_working]", false, class: "m-2.5 h-10 w-10",
+          required: true,
+          checked: @intake.survey ? @intake.survey['are_you_working'] == 'false' : true %>
       </div>
-    <% end %>
 
-    <div class="flex flex-1 space-x-4">
+      <div class="field">
+        <%= form.label "survey[armed_forces]", 
+          "Have you ever served in the US Armed Forces (Army, Navy, Air Force, Marines or Coast Guard)?", 
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[armed_forces]", "Yes" %>
+        <%= form.radio_button "survey[armed_forces]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('armed_forces') == 'true' %>
+        <%= form.label "survey[armed_forces]", "No" %>
+        <%= form.radio_button "survey[armed_forces]", false, class: "m-2.5 h-10 w-10",
+          required: true,
+          checked: @intake.survey ? @intake.survey['armed_forces'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[active_duty]", 
+          "Were you ever called into active duty as a member of the National Guard or as a Reservist?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[active_duty]", "Yes" %>
+        <%= form.radio_button "survey[active_duty]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('active_duty') == 'true' %>
+        <%= form.label "survey[active_duty]", "No" %>
+        <%= form.radio_button "survey[active_duty]", false, class: "m-2.5 h-10 w-10",
+          required: true,
+          checked: @intake.survey ? @intake.survey['active_duty'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[substance_abuse]", 
+          "Do you have any Substance Abuse Issues?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[substance_abuse]", "Yes" %>
+        <%= form.radio_button "survey[substance_abuse]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('substance_abuse') == 'true' %>
+        <%= form.label "survey[substance_abuse]", "No" %>
+        <%= form.radio_button "survey[substance_abuse]", false, class: "m-2.5 h-10 w-10",
+          required: true,
+          checked: @intake.survey ? @intake.survey['substance_abuse'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[substance_abuse_impairment]", 
+          "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[substance_abuse_impairment]", "Yes" %>
+        <%= form.radio_button "survey[substance_abuse_impairment]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('substance_abuse_impairment') == 'true' %>
+        <%= form.label "survey[substance_abuse_impairment]", "No" %>
+        <%= form.radio_button "survey[substance_abuse_impairment]", false, class: "m-2.5 h-10 w-10",
+          checked: @intake.survey ? @intake.survey['substance_abuse_impairment'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[chronic_health_condition]", 
+          "Do you have a Chronic Health Condition?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[chronic_health_condition]", "Yes" %>
+        <%= form.radio_button "survey[chronic_health_condition]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('chronic_health_condition') == 'true' %>
+        <%= form.label "survey[chronic_health_condition]", "No" %>
+        <%= form.radio_button "survey[chronic_health_condition]", false, class: "m-2.5 h-10 w-10",
+          required: true,
+          checked: @intake.survey ? @intake.survey['chronic_health_condition'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[chronic_health_condition_impairment]", 
+          "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[chronic_health_condition_impairment]", "Yes" %>
+        <%= form.radio_button "survey[chronic_health_condition_impairment]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('chronic_health_condition_impairment') == 'true' %>
+        <%= form.label "survey[chronic_health_condition_impairment]", "No" %>
+        <%= form.radio_button "survey[chronic_health_condition_impairment]", false, class: "m-2.5 h-10 w-10",
+          checked: @intake.survey ? @intake.survey['chronic_health_condition_impairment'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[mental_health_disability]", 
+          "Do you have a Mental Health disability?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[mental_health_disability]", "Yes" %>
+        <%= form.radio_button "survey[mental_health_disability]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('mental_health_disability') == 'true' %>
+        <%= form.label "survey[mental_health_disability]", "No" %>
+        <%= form.radio_button "survey[mental_health_disability]", false, class: "m-2.5 h-10 w-10",
+          required: true,
+          checked: @intake.survey ? @intake.survey['mental_health_disability'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[mental_health_disability_impairment]", 
+          "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[mental_health_disability_impairment]", "Yes" %>
+        <%= form.radio_button "survey[mental_health_disability_impairment]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('mental_health_disability_impairment') == 'true' %>
+        <%= form.label "survey[mental_health_disability_impairment]", "No" %>
+        <%= form.radio_button "survey[mental_health_disability_impairment]", false, class: "m-2.5 h-10 w-10",
+          checked: @intake.survey ? @intake.survey['mental_health_disability_impairment'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[physical_disability]", 
+          "Do you have a Physical Disability?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[physical_disability]", "Yes" %>
+        <%= form.radio_button "survey[physical_disability]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('physical_disability') == 'true' %>
+        <%= form.label "survey[physical_disability]", "No" %>
+        <%= form.radio_button "survey[physical_disability]", false, class: "m-2.5 h-10 w-10",
+          checked: @intake.survey ? @intake.survey['physical_disability'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[physical_disability_impairment]", 
+          "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[physical_disability_impairment]", "Yes" %>
+        <%= form.radio_button "survey[physical_disability_impairment]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('physical_disability_impairment') == 'true' %>
+        <%= form.label "survey[physical_disability_impairment]", "No" %>
+        <%= form.radio_button "survey[physical_disability_impairment]", false, class: "m-2.5 h-10 w-10",
+          checked: @intake.survey ? @intake.survey['physical_disability_impairment'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[developmental_disability]", 
+          "Do you have a Developmental Disability?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[developmental_disability]", "Yes" %>
+        <%= form.radio_button "survey[developmental_disability]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('developmental_disability') == 'true' %>
+        <%= form.label "survey[developmental_disability]", "No" %>
+        <%= form.radio_button "survey[developmental_disability]", false, class: "m-2.5 h-10 w-10",
+          required: true,
+          checked: @intake.survey ? @intake.survey['developmental_disability'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[developmental_disability_impairment]", 
+          "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[developmental_disability_impairment]", "Yes" %>
+        <%= form.radio_button "survey[developmental_disability_impairment]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('developmental_disability_impairment') == 'true' %>
+        <%= form.label "survey[developmental_disability_impairment]", "No" %>
+        <%= form.radio_button "survey[developmental_disability_impairment]", false, class: "m-2.5 h-10 w-10",
+          checked: @intake.survey ? @intake.survey['developmental_disability_impairment'] == 'false' : true %>
+      </div>
+
+      <div class="field">
+        <%= form.label "survey[fleeing_domestic_violence]", 
+          "Are you experiencing homelessness because you are fleeing Domestic Violence, Sexual Assault or Stalking?",
+          class: "block leading-relaxed" %>
+        <%= form.label "survey[fleeing_domestic_violence]", "Yes" %>
+        <%= form.radio_button "survey[fleeing_domestic_violence]", true, class: "m-2.5 h-10 w-10", checked:
+          @intake.survey&.dig('fleeing_domestic_violence') == 'true' %>
+        <%= form.label "survey[fleeing_domestic_violence]", "No" %>
+        <%= form.radio_button "survey[fleeing_domestic_violence]", false, class: "m-2.5 h-10 w-10",
+          required: true,
+          checked: @intake.survey ? @intake.survey['fleeing_domestic_violence'] == 'false' : true %>
+      </div>
+
+      <div class="field w-full">
+        <%= form.label "survey[num_adults_household]", 'Number of adults in household', class: "block leading-relaxed" %>
+        <%= form.number_field "survey[num_adults_household]", min: 0, step: 1, 
+          class: "rounded-lg border border-gray-300 w-full p-6", 
+          required: true,
+          value: @intake.survey&.dig('num_adults_household') %>
+      </div>
+
+      <div class="field w-full">
+        <%= form.label "survey[num_children_household]", 'Number of children in household', class: "block leading-relaxed" %>
+        <%= form.number_field "survey[num_children_household]", min: 0, step: 1, 
+          class: "rounded-lg border border-gray-300 w-full p-6", 
+          required: true,
+          value: @intake.survey&.dig('num_children_household') %>
+      </div>
+
+      <div class="field w-full">
+        <%= form.label "survey[last_permanent_residence_city_and_state]", "City and State of Last Permanent Residence", class: "block leading-relaxed"  %>
+        <%= form.text_field "survey[last_permanent_residence_city_and_state]", 
+          class: "rounded-lg border border-gray-300 w-full p-6", 
+          required: true,
+          value: @intake.survey&.dig('last_permanent_residence_city_and_state') %>
+      </div>
+
+      <div class="field w-full">
+        <%= form.label "survey[last_permanent_residence_county]", "County of Last Permanent Residence", class: "block leading-relaxed"  %>
+        <%= form.text_field "survey[last_permanent_residence_county]", 
+          class: "rounded-lg border border-gray-300 w-full p-6", 
+          required: true,
+          value: @intake.survey&.dig('last_permanent_residence_county') %>
+      </div>
+
       <div class="field w-full">
         <%= form.label "survey[king_soopers_card]", "King Soopers Card?", class: "block leading-relaxed" %>
         <%= form.label "survey[king_soopers_card]", "Yes" %>
@@ -86,7 +451,8 @@
           @intake.survey&.dig('king_soopers_card') == 'true', class: "m-2.5 h-10 w-10" %>
         <%= form.label "survey[king_soopers_card]", "No" %>
         <%= form.radio_button "survey[king_soopers_card]", false,
-        class: "m-2.5 h-10 w-10", checked: @intake.survey ? @intake.survey['king_soopers_card'] == 'false' : true
+          required: true,
+          class: "m-2.5 h-10 w-10", checked: @intake.survey ? @intake.survey['king_soopers_card'] == 'false' : true
         %>
       </div>
 
@@ -97,16 +463,17 @@
           @intake.survey&.dig('bus_pass') == 'true' %>
         <%= form.label "survey[bus_pass]", "No", value: "false" %>
         <%= form.radio_button "survey[bus_pass]", false, class: "m-2.5 h-10 w-10",
+          required: true,
           checked: @intake.survey ? @intake.survey['bus_pass'] == 'false' : true
         %>
       </div>
-    </div>
 
-    <div class="flex flex-1 space-x-4">
+      <!-- voucher-specific questions -->
       <div class="field w-full">
         <%= form.label "survey[num_nights]", "Number of Nights", class: "block leading-relaxed" %>
         <%= form.number_field "survey[num_nights]", min: 1, step: 1, 
           class: "rounded-lg border border-gray-300 w-full p-6", 
+          required: true,
           value: @intake.survey&.dig('num_nights') %>
       </div>
 
@@ -114,375 +481,21 @@
         <%= form.label "survey[hotel]", "Hotel", class: "block leading-relaxed" %>
         <%= form.text_field "survey[hotel]", 
           class: "rounded-lg border border-gray-300 w-full p-6", 
+          required: true,
           value: @intake.survey&.dig('hotel') %>
       </div>
-    </div>
 
-    <div class="field">
-      <%= form.label "survey[homelessness_first_time]", 
-        "Is this the first time you have been homeless?", 
-        class: "block leading-relaxed" %>
-
-      <%= form.label "survey[homelessness_first_time]", "Yes" %>
-      <%= form.radio_button "survey[homelessness_first_time]", true, class: "m-2.5 h-10 w-10", checked:
-        @intake.survey&.dig('homelessness_first_time') == 'true' %>
-
-      <%= form.label "survey[homelessness_first_time]", "No" %>
-      <%= form.radio_button "survey[homelessness_first_time]", false, class: "m-2.5 h-10 w-10",
-        checked: @intake.survey ? @intake.survey['homelessness_first_time'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[homelessness_how_long_this_time]", 
-        "How long have you been homeless this time?", 
-        class: "block leading-relaxed" %>
-      <%= form.text_field "survey[homelessness_how_long_this_time]", 
-        class: "rounded-lg border border-gray-300 w-full p-6",
-        value: @intake.survey&.dig('homelessness_how_long_this_time')
-      %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[homelessness_episodes_last_three_years]", 
-        "Including this time, how many separate times have you stayed in shelters or on the streets in the past 3 years?", 
-        class: "block leading-relaxed"  %>
-
-      <%= form.label "survey[homelessness_episodes_last_three_years]", "Fewer than 4 times" %>
-      <%= form.radio_button "survey[homelessness_episodes_last_three_years]", "Fewer than 4 times", class: "m-2.5 h-10 w-10",
-        checked: @intake.survey&.dig('homelessness_episodes_last_three_years') == 'Fewer than 4 times' %>
-
-      <%= form.label "survey[homelessness_episodes_last_three_years]", "4 or more times" %>
-      <%= form.radio_button "survey[homelessness_episodes_last_three_years]", "4 or more times", class: "m-2.5 h-10 w-10",
-        checked: @intake.survey ? @intake.survey['homelessness_episodes_last_three_years'] == '4 or more times' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[homelessness_episodes_how_long]", 
-        "In total, how long did you stay in shelters or on the streets those times?", 
-        class: "block leading-relaxed" %>
-      <%= form.text_field "survey[homelessness_episodes_how_long]", 
-        class: "rounded-lg border border-gray-300 w-full p-6", value: @intake.survey&.dig('homelessness_episodes_how_long') %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[how_long_living_in_this_community]", 
-        "How long have you been living in this community?",
-        class: "block leading-relaxed"  %>
-      <%= form.text_field "survey[how_long_living_in_this_community]",
-        class: "rounded-lg border border-gray-300 w-full p-6", value: @intake.survey&.dig('how_long_living_in_this_community') %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[where_did_you_sleep_last_night]", "Where did you sleep last night?", class: "block leading-relaxed" %>
-
-      <div class="flex flex-col">
-        <div>
-          <%= form.label "survey[where_did_you_sleep_last_night]", "In own home" %>
-          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In own home", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "In own home" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[where_did_you_sleep_last_night]", "In a shelter" %>
-          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a shelter", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "In a shelter" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[where_did_you_sleep_last_night]", "In a motel" %>
-          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a motel", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "In a motel" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[where_did_you_sleep_last_night]", "Double Up" %>
-          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "Double Up", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "Double Up" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[where_did_you_sleep_last_night]", "In a car/RV" %>
-          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In a car/RV", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "In a car/RV" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[where_did_you_sleep_last_night]", "On the streets or in a tent" %>
-          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "On the streets or in a tent", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "On the streets or in a tent" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[where_did_you_sleep_last_night]", "In the hospital" %>
-          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "In the hospital", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "In the hospital" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[where_did_you_sleep_last_night]", "Incarcerated" %>
-          <%= form.radio_button "survey[where_did_you_sleep_last_night]", "Incarcerated", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "Incarcerated" %>
-        </div>
+      <div class="field w-full">
+        <%= client_attributes.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
+        <%= client_attributes.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
       </div>
-    </div>
 
-    <div class="field">
-      <%= form.label "survey[why_not_shelter]", 
-        "What is the reason you have not accessed shelter?",
-        class: "block leading-relaxed"  %>
-
-      <div class="flex flex-col">
-        <div>
-          <%= form.label "survey[why_not_shelter]", "No room" %>
-          <%= form.radio_button "survey[why_not_shelter]", "No room", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('why_not_shelter') == "No room" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[why_not_shelter]", "No transportation" %>
-          <%= form.radio_button "survey[why_not_shelter]", "No transportation", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('why_not_shelter') == "No transportation" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[why_not_shelter]", "Prior background issues" %>
-          <%= form.radio_button "survey[why_not_shelter]", "Prior background issues", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('why_not_shelter') == "Prior background issues" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[why_not_shelter]", "Doesn't accept pets" %>
-          <%= form.radio_button "survey[why_not_shelter]", "Doesn't accept pets", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('why_not_shelter') == "Doesn't accept pets" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[why_not_shelter]", "Safety Concerns" %>
-          <%= form.radio_button "survey[why_not_shelter]", "Safety Concerns", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('why_not_shelter') == "Safety Concerns" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[why_not_shelter]", "No ID" %>
-          <%= form.radio_button "survey[why_not_shelter]", "No ID", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('why_not_shelter') == "No ID" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[why_not_shelter]", "Banned from shelter" %>
-          <%= form.radio_button "survey[why_not_shelter]", "Banned from shelter", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('why_not_shelter') == "Banned from shelter" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[why_not_shelter]", "Current restraining order" %>
-          <%= form.radio_button "survey[why_not_shelter]", "Current restraining order", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('why_not_shelter') == "Current restraining order" %>
-        </div>
-
-        <div>
-          <%= form.label "survey[why_not_shelter]", "Other" %>
-          <%= form.radio_button "survey[why_not_shelter]", "Other", class: "m-2.5 h-10 w-10",
-            checked: @intake.survey&.dig('why_not_shelter') == "Other" %>
-        </div>
+      <div class="field w-full">
+        <%= client_attributes.label :email_address, "Email (optional)", class: "block leading-relaxed"  %>
+        <%= client_attributes.email_field :email_address, class: "w-full border border-gray-300 p-6" %>
       </div>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[are_you_working]", 
-        "Are you working?", 
-        class: "block leading-relaxed"  %>
-        <%= form.label "survey[are_you_working]", "Yes" %>
-        <%= form.radio_button "survey[are_you_working]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('are_you_working') == 'true' %>
-        <%= form.label "survey[are_you_working]", "No" %>
-        <%= form.radio_button "survey[are_you_working]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['are_you_working'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[armed_forces]", 
-        "Have you ever served in the US Armed Forces (Army, Navy, Air Force, Marines or Coast Guard)?", 
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[armed_forces]", "Yes" %>
-        <%= form.radio_button "survey[armed_forces]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('armed_forces') == 'true' %>
-        <%= form.label "survey[armed_forces]", "No" %>
-        <%= form.radio_button "survey[armed_forces]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['armed_forces'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[active_duty]", 
-        "Were you ever called into active duty as a member of the National Guard or as a Reservist?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[active_duty]", "Yes" %>
-        <%= form.radio_button "survey[active_duty]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('active_duty') == 'true' %>
-        <%= form.label "survey[active_duty]", "No" %>
-        <%= form.radio_button "survey[active_duty]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['active_duty'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[substance_abuse]", 
-        "Do you have any Substance Abuse Issues?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[substance_abuse]", "Yes" %>
-        <%= form.radio_button "survey[substance_abuse]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('substance_abuse') == 'true' %>
-        <%= form.label "survey[substance_abuse]", "No" %>
-        <%= form.radio_button "survey[substance_abuse]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['substance_abuse'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[substance_abuse_impairment]", 
-        "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[substance_abuse_impairment]", "Yes" %>
-        <%= form.radio_button "survey[substance_abuse_impairment]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('substance_abuse_impairment') == 'true' %>
-        <%= form.label "survey[substance_abuse_impairment]", "No" %>
-        <%= form.radio_button "survey[substance_abuse_impairment]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['substance_abuse_impairment'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[chronic_health_condition]", 
-        "Do you have a Chronic Health Condition?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[chronic_health_condition]", "Yes" %>
-        <%= form.radio_button "survey[chronic_health_condition]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('chronic_health_condition') == 'true' %>
-        <%= form.label "survey[chronic_health_condition]", "No" %>
-        <%= form.radio_button "survey[chronic_health_condition]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['chronic_health_condition'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[chronic_health_condition_impairment]", 
-        "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[chronic_health_condition_impairment]", "Yes" %>
-        <%= form.radio_button "survey[chronic_health_condition_impairment]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('chronic_health_condition_impairment') == 'true' %>
-        <%= form.label "survey[chronic_health_condition_impairment]", "No" %>
-        <%= form.radio_button "survey[chronic_health_condition_impairment]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['chronic_health_condition_impairment'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[mental_health_disability]", 
-        "Do you have a Mental Health disability?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[mental_health_disability]", "Yes" %>
-        <%= form.radio_button "survey[mental_health_disability]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('mental_health_disability') == 'true' %>
-        <%= form.label "survey[mental_health_disability]", "No" %>
-        <%= form.radio_button "survey[mental_health_disability]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['mental_health_disability'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[mental_health_disability_impairment]", 
-        "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[mental_health_disability_impairment]", "Yes" %>
-        <%= form.radio_button "survey[mental_health_disability_impairment]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('mental_health_disability_impairment') == 'true' %>
-        <%= form.label "survey[mental_health_disability_impairment]", "No" %>
-        <%= form.radio_button "survey[mental_health_disability_impairment]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['mental_health_disability_impairment'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[physical_disability]", 
-        "Do you have a Physical Disability?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[physical_disability]", "Yes" %>
-        <%= form.radio_button "survey[physical_disability]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('physical_disability') == 'true' %>
-        <%= form.label "survey[physical_disability]", "No" %>
-        <%= form.radio_button "survey[physical_disability]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['physical_disability'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[physical_disability_impairment]", 
-        "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[physical_disability_impairment]", "Yes" %>
-        <%= form.radio_button "survey[physical_disability_impairment]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('physical_disability_impairment') == 'true' %>
-        <%= form.label "survey[physical_disability_impairment]", "No" %>
-        <%= form.radio_button "survey[physical_disability_impairment]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['physical_disability_impairment'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[developmental_disability]", 
-        "Do you have a Developmental Disability?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[developmental_disability]", "Yes" %>
-        <%= form.radio_button "survey[developmental_disability]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('developmental_disability') == 'true' %>
-        <%= form.label "survey[developmental_disability]", "No" %>
-        <%= form.radio_button "survey[developmental_disability]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['developmental_disability'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[developmental_disability_impairment]", 
-        "If yes, is this a long-term disease that impairs your ability to hold a job or live independently?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[developmental_disability_impairment]", "Yes" %>
-        <%= form.radio_button "survey[developmental_disability_impairment]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('developmental_disability_impairment') == 'true' %>
-        <%= form.label "survey[developmental_disability_impairment]", "No" %>
-        <%= form.radio_button "survey[developmental_disability_impairment]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['developmental_disability_impairment'] == 'false' : true %>
-    </div>
-
-    <div class="field">
-      <%= form.label "survey[fleeing_domestic_violence]", 
-        "Are you experiencing homelessness because you are fleeing Domestic Violence, Sexual Assault or Stalking?",
-        class: "block leading-relaxed" %>
-        <%= form.label "survey[fleeing_domestic_violence]", "Yes" %>
-        <%= form.radio_button "survey[fleeing_domestic_violence]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('fleeing_domestic_violence') == 'true' %>
-        <%= form.label "survey[fleeing_domestic_violence]", "No" %>
-        <%= form.radio_button "survey[fleeing_domestic_violence]", false, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey ? @intake.survey['fleeing_domestic_violence'] == 'false' : true %>
-    </div>
-
-    <div class="field w-full">
-      <%= form.label "survey[num_adults_household]", 'Number of adults in household', class: "block leading-relaxed" %>
-        <%= form.number_field "survey[num_adults_household]", min: 0, step: 1, 
-          class: "rounded-lg border border-gray-300 w-full p-6", 
-          value: @intake.survey&.dig('num_adults_household') %>
-    </div>
-
-    <div class="field w-full">
-      <%= form.label "survey[num_children_household]", 'Number of children in household', class: "block leading-relaxed" %>
-        <%= form.number_field "survey[num_children_household]", min: 0, step: 1, 
-          class: "rounded-lg border border-gray-300 w-full p-6", 
-          value: @intake.survey&.dig('num_children_household') %>
-    </div>
-
-    <div class="field w-full">
-      <%= form.label "survey[last_permanent_residence_city_and_state]", "City and State of Last Permanent Residence", class: "block leading-relaxed"  %>
-      <%= form.text_field "survey[last_permanent_residence_city_and_state]", 
-        class: "rounded-lg border border-gray-300 w-full p-6", 
-        value: @intake.survey&.dig('last_permanent_residence_city_and_state') %>
-    </div>
-
-    <div class="field w-full">
-      <%= form.label "survey[last_permanent_residence_county]", "County of Last Permanent Residence", class: "block leading-relaxed"  %>
-      <%= form.text_field "survey[last_permanent_residence_county]", 
-        class: "rounded-lg border border-gray-300 w-full p-6", 
-        value: @intake.survey&.dig('last_permanent_residence_county') %>
-    </div>
+    <% end %>
+    <!-- end voucher-specific questions -->
 
     <div class="actions mt-12">
       <%= form.submit 'Submit', class: 'w-full btn btn-blue h-32 text-6xl' %>
