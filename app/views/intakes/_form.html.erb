@@ -448,36 +448,28 @@
       </div>
 
       <!-- voucher-specific questions -->
-      <div class="flex flex-1 space-x-4">
-        <div class="field w-full">
-          <%= form.label "survey[num_nights]", "Number of Nights", class: "block leading-relaxed" %>
-          <%= form.number_field "survey[num_nights]", min: 1, step: 1, 
-            class: "rounded-lg border border-gray-300 w-full p-6", 
-            value: @intake.survey&.dig('num_nights') %>
-        </div>
-
-        <div class="field w-full">
-          <%= form.label "survey[hotel]", "Hotel", class: "block leading-relaxed" %>
-          <%= form.text_field "survey[hotel]", 
-            class: "rounded-lg border border-gray-300 w-full p-6", 
-            value: @intake.survey&.dig('hotel') %>
-        </div>
+      <div class="field w-full">
+        <%= form.label "survey[num_nights]", "Number of Nights", class: "block leading-relaxed" %>
+        <%= form.number_field "survey[num_nights]", min: 1, step: 1, 
+          class: "rounded-lg border border-gray-300 w-full p-6", 
+          value: @intake.survey&.dig('num_nights') %>
       </div>
 
-      <div class="flex flex-1 space-x-4">
-        <div class="flex flex-1 space-x-4">
-          <div class="field w-full">
-            <!-- optional -->
-            <%= client_attributes.label :phone_number, class: "block leading-relaxed"  %>
-            <%= client_attributes.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
-          </div>
+      <div class="field w-full">
+        <%= form.label "survey[hotel]", "Hotel", class: "block leading-relaxed" %>
+        <%= form.text_field "survey[hotel]", 
+          class: "rounded-lg border border-gray-300 w-full p-6", 
+          value: @intake.survey&.dig('hotel') %>
+      </div>
 
-          <div class="field w-full">
-            <!-- optional -->
-            <%= client_attributes.label :email_address, class: "block leading-relaxed"  %>
-            <%= client_attributes.email_field :email_address, class: "w-full border border-gray-300 p-6" %>
-          </div>
-        </div>
+      <div class="field w-full">
+        <%= client_attributes.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
+        <%= client_attributes.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
+      </div>
+
+      <div class="field w-full">
+        <%= client_attributes.label :email_address, "Email (optional)", class: "block leading-relaxed"  %>
+        <%= client_attributes.email_field :email_address, class: "w-full border border-gray-300 p-6" %>
       </div>
     <% end %>
     <!-- end voucher-specific questions -->
