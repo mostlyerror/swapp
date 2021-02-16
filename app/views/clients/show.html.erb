@@ -1,4 +1,4 @@
-<section class="px-4 mt-16">
+<section class="px-6 mt-16">
   <h1 class="mt-24 text-9xl text-black font-bold"><%= @client.name %></h1>
   <section class="mt-12">
     <p class="text-6xl"><strong>Date of birth:</strong> <%= formatted_date(@client.date_of_birth) %></p>
@@ -6,8 +6,8 @@
   </section>
 </section>
 
-<section class="mt-16 px-4">
-  <h2 class="bg-gray-800 text-white text-7xl font-semibold py-4 px-4">Incident Reports</h2>
+<section class="mt-16 px-6">
+  <h2 class="bg-gray-800 text-white text-7xl font-semibold py-4 px-6">Incident Reports</h2>
   <% if @client.incident_reports.any? %>
     <% @client.incident_reports.each do |incident| %>
       <div class="flex flex-col flex-1 space-y-4 p-4 border border-b-1 border-black bg-white">
@@ -17,7 +17,7 @@
         <p class="text-5xl"><strong>Description:</strong> <%= incident.description %></p>
       </div>
     <% end %>
-    <section class="text-5xl px-4 mt-16">
+    <section class="text-5xl px-6 mt-16">
       <p class="help-text">
       <strong class="text-red-500"><%= @client.first_name %> has been red flagged at MOTEL</strong>. If you send them to a motel, be sure you DON'T send them to MOTEL!
       </p>
@@ -29,11 +29,11 @@
   <% end %>
 </section>
 
-<section class="mt-16 px-4">
-  <h2 class="bg-gray-800 text-white text-7xl font-semibold py-4 px-4">Vouchers</h2>
+<section class="mt-16 px-6">
+  <h2 class="bg-gray-800 text-white text-7xl font-semibold py-4 px-6">Vouchers</h2>
   <% if @client.vouchers.any? %>
     <% @client.vouchers.each do |voucher| %>
-      <div class="flex flex-col flex-1 space-y-4 py-8 px-4 border border-b-1 border-black bg-white">
+      <div class="flex flex-col flex-1 space-y-4 py-8 px-6 border border-b-1 border-black bg-white">
         <p class="text-5xl"><strong>Number:</strong> <%= voucher.number %></p>
         <p class="text-5xl"><strong>Motel:</strong> <%= voucher.motel.name %></p>
         <p class="text-5xl"><strong>Check In:</strong> <%= formatted_date(voucher.check_in) %></p>
@@ -49,7 +49,7 @@
   <% end %>
 </section>
 
-<section class="text-5xl px-4 mt-16">
+<section class="text-5xl px-6 mt-16">
   <div class="flex flex-1 justify-around text-6xl text-center font-bold py-12">
     <div class="w-1/2">Back<br/> to <%= link_to 'search', request.referrer, class: 'link' %></div>
     <div class="w-1/2">Continue <br/>to <%= link_to 'intake', new_intake_path, class: 'link' %></div>

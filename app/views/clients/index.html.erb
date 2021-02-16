@@ -1,13 +1,13 @@
-<div class="px-4">
+<div class="px-6">
   <section class="mt-16">
     <p class="step-description">1. Search the red flag list</p>
     <h1 class="mt-24 text-9xl text-black font-bold">Start here. 🌱</h1>
-    <p class="mt-12 help-text">
+    <p class="mt-6 help-text">
       Look up client to see if they have used SWAP before. Use broad search terms: "Ben" instead of "Benjamin," or "Jo" instead of "Joseph."
     </p>
   </section>
 
-  <section class="mt-16 px-4">
+  <section class="mt-16">
     <%= render partial: 'search_form' %>
   </section>
 
@@ -15,6 +15,7 @@
     <% if @searched %>
 
       <% if @clients.any? %>
+
         <section class="mt-16">
           <p class="help-text">
           <strong><%= @clients.size %> results found for "<%= @searched_term
@@ -23,19 +24,26 @@
           </p>
         </section>
 
-        <section class="mt-16">
+        <section class="mt-16 shadow-lg">
           <%= render partial: 'table' %>
         </section>
+
+      <% else %>
+
+        <div class="help-text px-6">
+          <strong>0 results found for "<%= @searched_term %>"</strong>
+        </div>
+
       <% end %>
 
-      <section class="py-16 px-4">
+      <section class="py-16">
 
         <p class="help-text">
-        <strong><%= @clients.size %> results found for "<%= @searched_term %>"</strong>.<br />
-          If you think your client is already in Swapp, try searching for a different name.
+        Still don't see your client?  If you think your client is already in
+        Swapp, try searching for a different name.
         </p>
         <h2 class="mt-16 text-7xl font-bold">
-          Still can't find your client?  Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.
+          Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.
         </h2>
       </section>
     <% end %>
