@@ -45,33 +45,19 @@ ActiveRecord::Base.transaction do |t|
 
   intake_users = User.create([
     {
-      email: 'heather@adcogov.org',
+      email: 'hmcclure@adcogov.org',
       first_name: 'Heather',
       last_name: 'McClure',
-      password: 'password',
-      password_confirmation: 'password',
+      password: 'bosmer',
+      password_confirmation: 'bosmer',
     },
     {
-      email: 'myra@cityofthornton.org',
-      first_name: 'Myra',
-      last_name: 'Someone',
-      password: 'password',
-      password_confirmation: 'password',
+      email: 'learl@adcogov.org',
+      first_name: 'Heather',
+      last_name: 'McClure',
+      password: 'bosmer',
+      password_confirmation: 'bosmer',
     },
-    {
-      email: 'mario@cityofthornton.org',
-      first_name: 'Mario',
-      last_name: 'Someone',
-      password: 'password',
-      password_confirmation: 'password',
-    },
-    {
-      email: 'jessica@cityofnorthglenn.org',
-      first_name: 'Jessica',
-      last_name: 'Someone',
-      password: 'password',
-      password_confirmation: 'password',
-    }
   ])
 
   motels = Motel.create!([
