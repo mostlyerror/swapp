@@ -47,4 +47,12 @@ class SwapPeriodTest < ActiveSupport::TestCase
     swap = create(:swap_period, :future)
     refute SwapPeriod.current == swap
   end
+
+  test "::current returns ongoing event when there's also a future event planned" do
+    present = create(:swap_period, :current)
+    assert_equal SwapPeriod.current, present
+
+    future = create(:swap_period, :future)
+    assert_equal SwapPeriod.current, present
+  end
 end
