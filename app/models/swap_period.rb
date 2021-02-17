@@ -6,6 +6,10 @@ class SwapPeriod < ApplicationRecord
   def self.current
     where("start_date <= ? AND end_date >= ?", Date.today, Date.today).first
   end
+
+  def duration
+    ((end_date - start_date) + 1).to_i
+  end
   
   private 
 
