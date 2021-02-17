@@ -49,7 +49,6 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
-  gem "database_cleaner-active_record", "~> 2.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -60,6 +59,5 @@ gem "devise", "~> 4.7"
 gem "faker", "~> 2.16"
 
 gem 'ransack', github: 'activerecord-hackery/ransack'
-
 
 
