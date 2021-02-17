@@ -1,0 +1,2 @@
+class SwapPeriod < ApplicationRecord
+end
