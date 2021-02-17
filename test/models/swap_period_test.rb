@@ -20,6 +20,17 @@ class SwapPeriodTest < ActiveSupport::TestCase
     assert swap.valid?
   end
 
+  test "overlapping events" do
+    swap = create(:swap_period, start_date: 1.day.ago, end_date: Date.today)
+    assert swap.persisted?
+
+    swap = build_stubbed(:swap_period, start_date: Date.today, end_date: 1.day.from_now)
+    refute swap.valid?
+
+    swap = build_stubbed(:swap_period, start_date: 2.days.ago, end_date: 1.day.ago)
+    refute swap.valid?
+  end
+
   test "::current returns ongoing event" do
     refute SwapPeriod.current
 
