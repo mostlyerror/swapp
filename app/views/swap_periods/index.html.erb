@@ -1,0 +1,13 @@
+<div>
+  Today: <%= formatted_date(Date.today) %>
+</div>
+
+<div>
+  Current Swap Period: <%= debug SwapPeriod.current %><br/>
+  Current Swap Status: <%= SwapPeriod.current ? 'active' : 'inactive' %>
+</div>
+
+<ul>
+  <li><%= link_to "Client Search", clients_path, class: 'link' %></li>
+  <li><%= link_to "Intake", new_intake_path, class: 'link' %></li>
+</ul>
