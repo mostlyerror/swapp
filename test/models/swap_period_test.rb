@@ -1,6 +1,17 @@
 require 'test_helper'
 
 class SwapPeriodTest < ActiveSupport::TestCase
+  test "single-day events are valid" do
+    swap = build_stubbed(:swap_period, start_date: Date.today, end_date: Date.today)
+    assert swap.valid?
+
+    swap = build_stubbed(:swap_period, start_date: 1.day.ago, end_date: 1.day.ago)
+    assert swap.valid?
+
+    swap = build_stubbed(:swap_period, start_date: 1.day.from_now, end_date: 1.day.from_now)
+    assert swap.valid?
+  end
+
   test "::current returns ongoing event" do
     refute SwapPeriod.current
 
@@ -12,16 +23,20 @@ class SwapPeriodTest < ActiveSupport::TestCase
     swap = create(:swap_period, start_date: 1.day.ago, end_date: Date.today)
     assert_equal swap, SwapPeriod.current
 
+
     # straddling today
+    SwapPeriod.destroy_all
     swap = create(:swap_period, :current)
     assert_equal swap, SwapPeriod.current
 
     # starting today
+    SwapPeriod.destroy_all
     swap = create(:swap_period, start_date: Date.today, end_date: 1.day.from_now)
-    refute SwapPeriod.current == swap
+    assert_equal swap, SwapPeriod.current
 
     # future (starts after today)
-    swap = create(:future)
+    SwapPeriod.destroy_all
+    swap = create(:swap_period, :future)
     refute SwapPeriod.current == swap
   end
 end
