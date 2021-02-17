@@ -60,7 +60,7 @@ class IntakesController < ApplicationController
         client_attributes: [
           ["first_name", "last_name", "date_of_birth(2i)", "date_of_birth(3i)",
            "date_of_birth(1i)", "gender", "race", "ethnicity", "phone_number",
-           "email_address"]
+           "email"]
         ])
   end
 end
