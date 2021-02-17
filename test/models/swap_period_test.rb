@@ -9,6 +9,11 @@ class SwapPeriodTest < ActiveSupport::TestCase
     assert_equal swap.duration, 2, "expected 2, got: #{swap.duration}"
   end
 
+  test "#num_nights" do
+    swap = build_stubbed(:swap_period, start_date: Date.today, end_date: 1.day.from_now)
+    assert_equal swap.num_nights, 1
+  end
+
   test "start/end dates make sense (start <= end)" do
     swap = build_stubbed(:swap_period, start_date: Date.today, end_date: 1.day.ago)
     refute swap.valid?, "end_date: #{swap.end_date}  must be later than start_date: #{swap.start_date}"

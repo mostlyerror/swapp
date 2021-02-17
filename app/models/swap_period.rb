@@ -10,6 +10,11 @@ class SwapPeriod < ApplicationRecord
   def duration
     ((end_date - start_date) + 1).to_i
   end
+
+  # maybe you can't actually have a single day swap period
+  def num_nights
+    duration - 1
+  end
   
   private 
 
