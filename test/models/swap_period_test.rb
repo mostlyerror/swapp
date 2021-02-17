@@ -1,6 +1,14 @@
 require 'test_helper'
 
 class SwapPeriodTest < ActiveSupport::TestCase
+  test "start/end dates make sense (start <= end)" do
+    swap = build_stubbed(:swap_period, start_date: Date.today, end_date: 1.day.ago)
+    refute swap.valid?, "end_date: #{swap.end_date}  must be later than start_date: #{swap.start_date}"
+
+    swap.end_date = 1.day.from_now
+    assert swap.valid?
+  end
+
   test "single-day events are valid" do
     swap = build_stubbed(:swap_period, start_date: Date.today, end_date: Date.today)
     assert swap.valid?
