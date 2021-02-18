@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :clients
   resources :intakes
   resources :vouchers
-  
-  root to: "clients#index"
+  resources :swap_periods
+ 
+  root to: "swap_periods#index"
 end
