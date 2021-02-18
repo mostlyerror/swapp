@@ -62,26 +62,6 @@ ActiveRecord::Base.transaction do |t|
 
   motels = Motel.create!([
     {
-      name: 'Quality Inn Denver Westminster',
-      address: {
-        street: '8500 Turnpike Dr',
-        city:'Westminster',
-        state: 'CO', 
-        ip: 80030
-      },
-      phone: '+13034283333'
-    },
-    {
-      name: 'Comfort Inn & Suites Denver Northeast Brighton',
-      address: {
-        street: '2180 South Medical Center Dr', 
-        city: 'Brighton',
-        state: 'CO',
-        zip: 80601
-      },
-      phone: '+17206851500'
-    },
-    {
       name: 'City Inn',
       address: {
         street: '7151 Federal Boulevard', 

@@ -5,6 +5,7 @@ class IntakesController < ApplicationController
   def new
     @intake = Intake.new
     @client = Client.new
+    @motel = Motel.all
   end
 
   # POST /intakes or /intakes.json
