@@ -25,11 +25,11 @@ class IntakesController < ApplicationController
       if !@intake.save
         return render :new
       end
-
+      
       @voucher = Voucher.create!(
         client: @client,
         user: current_user,
-        motel: Motel.last,
+        motel: Motel.find(intake_params['survey']["motel_id"]),
         check_in: Date.tomorrow,
         check_out: Date.tomorrow + 3.days
       )
@@ -44,7 +44,7 @@ class IntakesController < ApplicationController
   def intake_params
     params.require(:intake).permit(
       survey: [
-        "king_soopers_card", "bus_pass", "num_nights", "hotel",
+        "king_soopers_card", "bus_pass", "num_nights", "motel_id",
         "homelessness_first_time", "homelessness_how_long_this_time",
         "homelessness_episodes_last_three_years",
         "homelessness_episodes_how_long", "how_long_living_in_this_community",
