@@ -5,7 +5,10 @@
   <% if user_signed_in? %>
     <ul class="list-none flex space-x-3 justify-end text-3xl">
         <span class="text-gray-500 tracking-tight"><%= current_user.email %></span>
-        <%= link_to('logout', destroy_user_session_path, method: :delete, class: "link underline") %>
-    <% end %>
+        <% if current_user.admin? %>
+          <%= link_to 'admin', admin_home_path, class: "link"  %>
+        <% end %>
+        <%= link_to 'logout', destroy_user_session_path, method: :delete, class: "link" %>
+      <% end %>
     </ul>
 </header>

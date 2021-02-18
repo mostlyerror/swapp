@@ -1,11 +1,11 @@
 <h1>Admin Home#Index</h1>
 <div>
-  Today: <%= formatted_date(Date.today) %>
+  <h2>Today: <%= formatted_date(Date.today) %></h2>
 </div>
 
 <div>
-  Current Swap Period: <%= debug SwapPeriod.current %><br/>
-  Current Swap Status: <%= SwapPeriod.current ? 'active' : 'inactive' %>
+  <p>Current Swap Period: <%= SwapPeriod.current.start_date %> to <%= SwapPeriod.current.end_date %></p>
+  <p>Current Swap Status: <%= SwapPeriod.current ? 'active' : 'inactive' %></p>
 </div>
 
 <ul>
