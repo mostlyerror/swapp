@@ -35,7 +35,7 @@ class SwapPeriod < ApplicationRecord
 
     def at_least_one_night 
       if nights <= 0
-        errors.add(:duration, "duration: (#{num_nights} nights) must be for at least one night")
+        errors.add(:duration, "duration: (#{nights} nights) must be for at least one night")
       end
     end
 

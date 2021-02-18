@@ -477,11 +477,11 @@
 
       <!-- voucher-specific questions -->
       <div class="field w-full">
-        <%= form.label "survey[num_nights]", "Number of Nights", class: "block leading-relaxed" %>
-        <%= form.number_field "survey[num_nights]", min: 1, step: 1, 
+        <%= form.label "survey[nights]", "Number of Nights", class: "block leading-relaxed" %>
+        <%= form.number_field "survey[nights]", min: 1, step: 1, 
           class: "rounded-lg border border-gray-300 w-full p-6", 
           required: true,
-          value: @intake.survey&.dig('num_nights'),
+          value: @intake.survey&.dig('nights'),
           placeholder: "enter numeric value" %>
       </div>
 

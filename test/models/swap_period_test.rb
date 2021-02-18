@@ -15,9 +15,9 @@ class SwapPeriodTest < ActiveSupport::TestCase
     assert_equal swap.duration, 2, "expected 2, got: #{swap.duration}"
   end
 
-  test "#num_nights" do
+  test "#nights" do
     swap = build_stubbed(:swap_period, start_date: Date.today, end_date: 1.day.from_now)
-    assert_equal swap.num_nights, 1
+    assert_equal swap.nights, 1
   end
 
   test "start/end dates make sense (start <= end)" do
@@ -31,11 +31,11 @@ class SwapPeriodTest < ActiveSupport::TestCase
   test "single-day events are invalid - events must cross at least one night" do
     swap = build_stubbed(:swap_period, start_date: Date.today, end_date: Date.today)
     refute swap.valid?
-    assert_equal 0, swap.num_nights
+    assert_equal 0, swap.nights
 
     swap.end_date = 1.day.from_now
     assert swap.valid?
-    assert_equal 1, swap.num_nights
+    assert_equal 1, swap.nights
   end
 
   test "overlapping events" do
