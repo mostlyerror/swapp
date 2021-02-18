@@ -486,12 +486,11 @@
       </div>
 
       <div class="field w-full">
-        <%= form.label "survey[hotel]", "Hotel", class: "block leading-relaxed" %>
-        <%= form.text_field "survey[hotel]", 
-          class: "rounded-lg border border-gray-300 w-full p-6", 
-          required: true,
-          value: @intake.survey&.dig('hotel'),
-          placeholder: "e.g, Comfort Inn, etc." %>
+        <%= form.label "survey[motel_id]", "Hotel", class: "block leading-relaxed" %>
+        <%= form.select "survey[motel_id]",
+        options_from_collection_for_select(@motel, 'id', 'name'), 
+          {include_blank: true},
+          class: "bg-white rounded-lg border border-gray-300 w-full p-6", required: true %>
       </div>
 
       <div class="field w-full">
