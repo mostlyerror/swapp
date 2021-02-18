@@ -25,13 +25,10 @@
 	@apply text-blue-600 underline;
 }
 
-h1 {
-	@apply text-9xl
-}
-
-h2 {
-	@apply text-8xl
-}
+h1 { @apply text-9xl }
+h2 { @apply text-8xl }
+h3 { @apply text-7xl }
+h4 { @apply text-6xl }
 
 .step-description {
 	@apply text-4xl leading-loose tracking-wide text-gray-500 font-semibold
