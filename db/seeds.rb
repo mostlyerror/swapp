@@ -117,7 +117,7 @@ ActiveRecord::Base.transaction do |t|
       race: Client::RACE.sample,
       ethnicity: Client::ETHNICITY.sample,
       phone_number: Faker::PhoneNumber.cell_phone,
-      email_address: Faker::Internet.email,
+      email: Faker::Internet.email,
     )
     clients << client
   end
