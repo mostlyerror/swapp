@@ -1,14 +1,50 @@
-<h1>Admin Home#Index</h1>
-<div>
-  <h2>Today: <%= formatted_date(Date.today) %></h2>
-</div>
+<div class="px-4 text-6xl">
+  <!-- current swap period info -->
+  <section class="mt-16 px-4">
+    <% if @current&.active? %>
+      <div class="leading-tight">
+        <span class="bold">Status:</span> <span class="font-bold uppercase tracking-wide text-green-500">active</span>
+        <div class="mt-8 flex flex-1 flex-wrap text-center bg-white">
+          <div class="w-1/2 border border-black">
+            <p class="p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Start</p>
+            <p class="p-10 text-7xl tracking-wide"><%= @current.start_date.to_formatted_s(:short) %></p>
+          </div>
+          <div class="w-1/2 border border-black">
+            <p class="p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">End</p>
+            <p class="p-10 text-7xl tracking-wide"><%= @current.end_date.to_formatted_s(:short) %></p>
+          </div>
+          <div class="w-1/2 border border-black">
+            <p class="p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Nights From Start</p>
+            <p class="p-10 text-7xl tabular-nums"><%= @current.nights %></p>
+          </div>
+          <div class="w-1/2 border border-black">
+            <p class="p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Nights From Today</p>
+            <p class="p-10 text-7xl tabular-nums"><%= @current.remaining_nights %></p>
+          </div>
+        </div>
+      </div>
+      <!-- voucher supply -->
+      <section class="border border-black mt-16 px-4">
+        <h2 class="bg-gray-800 text-white text-7xl font-semibold py-4 px-4">Voucher Supply</h2>
+        <div class="bg-white p-6 text-6xl space-y-8">
+          <% Motel.all.each do |motel| %>
+            <div class="flex flex-1 justify-between gap-x-2">
+              <p><%= motel.name %></p>
+              <p class="tabular-nums"><%= Random.rand(30) %></p>
+            </div>
+          <% end %>
+        </div>
+      </section>
+      <!-- end voucher supply -->
 
-<div>
-  <p>Current Swap Period: <%= SwapPeriod.current.start_date %> to <%= SwapPeriod.current.end_date %></p>
-  <p>Current Swap Status: <%= SwapPeriod.current ? 'active' : 'inactive' %></p>
-</div>
+    <% else %>
+      SWAP is currently <span class="font-bold uppercase tracking-wide text-red-500">inactive</span>
+    <% end %>
+  </section>
+  <!-- end current swap period info -->
 
-<ul>
-  <li><%= link_to "Client Search", clients_path, class: 'link' %></li>
-  <li><%= link_to "Intake", new_intake_path, class: 'link' %></li>
-</ul>
+  <!-- swap period form -->
+  <section>
+  </section>
+  <!-- end swap period form -->
+</div>

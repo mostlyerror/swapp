@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class SwapPeriodTest < ActiveSupport::TestCase
+  test "should not be deactivated if ongoing" do
+  end
+
+  test "extend must be positive integer" do
+  end
+
   test "#duration" do
     swap = build_stubbed(:swap_period, start_date: Date.today, end_date: Date.today)
     assert_equal swap.duration, 1, "expected 1, got: #{swap.duration}"

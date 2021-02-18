@@ -12,12 +12,17 @@ class SwapPeriod < ApplicationRecord
     ((end_date - start_date) + 1).to_i
   end
 
-  def num_nights
+  def nights 
     duration - 1
+  end
+
+  def remaining_nights
+    [(end_date -  Date.today.to_date).to_i, 0].max
   end
 
   def extend nights
     self.end_date = self.end_date.to_date + nights.days
+    self
   end
   
   private 
@@ -29,7 +34,7 @@ class SwapPeriod < ApplicationRecord
     end
 
     def at_least_one_night 
-      if num_nights <= 0
+      if nights <= 0
         errors.add(:duration, "duration: (#{num_nights} nights) must be for at least one night")
       end
     end
