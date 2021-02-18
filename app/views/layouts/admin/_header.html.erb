@@ -1,6 +1,9 @@
 <header class="px-4 w-full flex items-center justify-between pt-4">
   <span class="font-semibold text-5xl">
    <%= link_to'swapp', clients_path %>
+   <% if current_user.admin? %>
+     <span class="text-blue-500">admin</span>
+   <% end %>
   </span>
   <% if user_signed_in? %>
     <ul class="list-none flex space-x-3 justify-end text-3xl">

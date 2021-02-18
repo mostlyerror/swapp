@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Swapp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="bg-gray-100 overscroll-x-contain font-sans">
+    <%= render partial: 'layouts/admin/header' %>
+
+    <div class="min-h-screen">
+      <%= yield %>
+    </div>
+
+    <%= render partial: 'layouts/admin/footer' %>
+  </body>
+</html>
