@@ -27,6 +27,16 @@ class VouchersController < ApplicationController
       swap_period: SwapPeriod.current
     )
 
+    if client_phone_number = params['client']['phone_number']
+      client.phone_number = client_phone_number
+    end
+
+    if client_email = params['client']['email']
+      client.email = client_email
+    end
+
+    client.save!
+
     redirect_to @voucher
   end
 
