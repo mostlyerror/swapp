@@ -14,7 +14,7 @@ class SwapPeriod < ApplicationRecord
     duration - 1
   end
 
-  def remaining_nights
+  def nights_remaining
     [(end_date -  Date.today.to_date).to_i, 0].max
   end
 
