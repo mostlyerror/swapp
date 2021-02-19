@@ -1,11 +1,12 @@
 class IntakesController < ApplicationController
   def new
     @swap = SwapPeriod.current
-    if @can_intake = @swap && @swap.nights_remaining > 0
-      @intake = Intake.new
-      @client = Client.new
-      @max_nights = @swap.current.nights_remaining
-      @motel = Motel.all
+    @motels = Motel.all
+    @intake = Intake.new
+    @client = Client.new
+
+    if @swap && @swap.nights_remaining > 0
+      @max_nights = @swap.nights_remaining
     end
   end
 
