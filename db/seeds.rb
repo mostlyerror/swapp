@@ -40,6 +40,14 @@ ActiveRecord::Base.transaction do |t|
       password: 'password',
       password_confirmation: 'password',
       admin: true,
+    },
+    {
+      email: "learl@adcogov.org",
+      first_name: "Lindsey",
+      last_name: "Earl",
+      password: "password",
+      password_confirmation: "password",
+      admin: true,
     }
   ])
 
