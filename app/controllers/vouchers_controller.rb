@@ -1,6 +1,10 @@
 class VouchersController < ApplicationController
   before_action :set_voucher, only: %i[ show ]
 
+  def new
+    @client = Client.find(params['client_id'])
+  end
+
   def show
   end
 

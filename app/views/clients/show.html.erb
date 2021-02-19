@@ -5,16 +5,14 @@
     <p class="text-6xl leading-loose"><strong>Gender:</strong> <%= @client.gender %></p>
   </section>
 </section>
-
 <section class="text-5xl px-6 mt-16">
   <div class="flex flex-1 justify-around text-6xl text-center font-bold py-12">
     <div class="w-1/2">
-       <%= link_to 'Search Again', :back, class: 'link' %></div>
+      <%= link_to 'Search Again', :back, class: 'link' %></div>
     <div class="w-1/2">
-      <%= link_to 'New Voucher', new_voucher_path(), class: 'link' %></div>
+      <%= link_to 'New Voucher', new_voucher_path(client_id: @client.id), class: 'link' %></div>
   </div>
 </section>
-
 <section class="mt-16 px-6">
   <h2 class="bg-gray-800 text-white text-7xl font-semibold py-4 px-6">Incident Reports</h2>
   <% if @client.incident_reports.any? %>
