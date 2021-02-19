@@ -3,7 +3,11 @@ class SwapPeriod < ApplicationRecord
   validate :order_of_dates, :overlapping_events, :at_least_one_night
 
   def self.current
-    where("start_date <= ? AND end_date >= ?", Date.today, Date.today).first
+    where("start_date <= ? AND end_date >= ?", Date.tomorrow, Date.today).first
+  end
+
+  def intake_period
+    (start_date - 1.day)..(end_date - 1.day)
   end
 
   def duration

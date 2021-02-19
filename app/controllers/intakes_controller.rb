@@ -1,10 +1,12 @@
 class IntakesController < ApplicationController
   def new
-    if SwapPeriod.current
-      @intake = Intake.new
-      @client = Client.new
-      @max_nights = SwapPeriod.current.nights_remaining
-      @motel = Motel.all
+    @swap = SwapPeriod.current
+    @motels = Motel.all
+    @intake = Intake.new
+    @client = Client.new
+
+    if @swap && @swap.nights_remaining > 0
+      @max_nights = @swap.nights_remaining
     end
   end
 
@@ -25,12 +27,14 @@ class IntakesController < ApplicationController
         return render :new
       end
       
+      @swap = SwapPeriod.current
+
       @voucher = Voucher.create!(
         client: @client,
         user: current_user,
         motel: Motel.find(intake_params['survey']["motel_id"]),
-        check_in: Date.tomorrow,
-        check_out: Date.tomorrow + 3.days,
+        check_in: [@swap.start_date, Date.today].max,
+        check_out: @swap.end_date,
         swap_period: SwapPeriod.current
       )
       return redirect_to @voucher
