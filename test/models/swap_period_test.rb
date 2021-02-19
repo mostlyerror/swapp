@@ -42,11 +42,20 @@ class SwapPeriodTest < ActiveSupport::TestCase
     swap = create(:swap_period, start_date: 1.day.ago, end_date: Date.today)
     assert swap.persisted?
 
+    swap = build_stubbed(:swap_period, start_date: 2.days.ago, end_date: 2.days.from_now )
+    refute swap.valid?
+
     swap = build_stubbed(:swap_period, start_date: Date.today, end_date: 1.day.from_now)
     refute swap.valid?
+    swap.start_date = 1.day.from_now
+    swap.end_date = 2.days.from_now
+    assert swap.valid?
 
     swap = build_stubbed(:swap_period, start_date: 2.days.ago, end_date: 1.day.ago)
     refute swap.valid?
+    swap.start_date = 3.days.ago
+    swap.end_date = 2.days.ago
+    assert swap.valid?
   end
 
   test "swap periods must have at least one day between them to be distinct" do

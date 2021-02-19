@@ -6,7 +6,7 @@ class Admin::SwapPeriodsController < Admin::BaseController
       return redirect_to admin_home_path
     else
       swap.errors.add(:extend, "Couldn't extend SwapPeriod")
-      reuturn redirect_to admin_home_path
+      return redirect_to admin_home_path
     end
   end
 end
