@@ -27,6 +27,7 @@ class IntakesController < ApplicationController
         return render :new
       end
       
+
       @swap = SwapPeriod.current
 
       @voucher = Voucher.create!(

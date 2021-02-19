@@ -436,6 +436,7 @@
         <%= form.label "survey[motel_id]", "Hotel", class: "block leading-relaxed" %>
         <%= form.select "survey[motel_id]",
         options_from_collection_for_select(@motels, 'id', 'name'), 
+
           {include_blank: true},
           class: "bg-white rounded-lg border border-gray-300 w-full p-6", required: true %>
       </div>
