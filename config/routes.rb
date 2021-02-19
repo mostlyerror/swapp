@@ -14,5 +14,5 @@ Rails.application.routes.draw do
     put "swap_periods/:id/extend" => "swap_periods#extend", as: :extend_swap_period
   end
  
-  root to: "swap_periods#index"
+  root to: "clients#index"
 end
