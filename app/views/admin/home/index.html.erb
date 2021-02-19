@@ -1,0 +1,143 @@
+<div class="bg-gray-100  text-6xl">
+  <section class="mt-16">
+    <% if @current&.active? %>
+      <!-- current period info -->
+      <div class="bg-white shadow-lg rounded-lg">
+        <p class="p-6"><span class="font-bold">Status:</span> <span class="font-bold uppercase tracking-wide text-green-500">active</span></p>
+        <div class="flex flex-1 flex-wrap text-center bg-white">
+          <div class="w-1/2 border border-gray-400">
+            <p class="p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Start</p>
+            <p class="p-10 text-7xl font-bold tracking-wide"><%= @current.start_date.to_formatted_s(:short) %>
+            </p>
+          </div>
+          <div class="w-1/2 border border-gray-400">
+            <p class="w-full p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">End</p>
+            <p class="p-10 text-7xl font-bold tracking-wide"><%= @current.end_date.to_formatted_s(:short) %></p>
+          </div>
+          <div class="w-1/2 border border-gray-400">
+            <p class="p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Nights From Start</p>
+            <p class="p-10 text-7xl font-bold tabular-nums"><%= @current.nights %></p>
+          </div>
+          <div class="w-1/2 border border-gray-400">
+            <p class="p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Nights From Today</p>
+            <p class="p-10 text-7xl font-bold tabular-nums"><%= @current.remaining_nights %></p>
+          </div>
+        </div>
+        <!-- end current period info -->
+        <!-- swap period actions -->
+        <div class="p-12 bg-gray-100 border border-gray-500 flex flex-1 flex-col gap-y-6">
+          <!-- extend swap period -->
+          <%= form_for(@current, url: admin_extend_swap_period_path(@current), method: :put) do |form| %>
+            <div class="flex flex-1 justify-center">
+              <%= number_field_tag "days", 1, min: 1, step: 1, 
+                class: "pl-8 w-24 rounded-l-lg p-4 border-t mr-0  text-gray-800 bg-white border border-gray-500"
+              %>
+              <%= 
+              form.submit "additional swap day(s)", 
+                data: { confirm: "WARNING: The current Swap Period will be extended. This action cannot be undone, except by a database administrator. Are you certain this is what you want to do?" },
+                class:"py-4 px-8 rounded-r-lg bg-yellow-400 text-gray-800 font-bold border-b border-gray-800 shadow-lg"
+              %>
+            </div>
+          <% end %>
+          <!-- end extend swap period -->
+          <!-- schedule swap period -->
+          <!--
+            <%= form_for(@current, url: admin_extend_swap_period_path(@current), method: :post) do |form| %>
+              <div class="flex flex-1 flex-col justify-center">
+              <div class="flex flex-1 justify-around">
+              <span class="">Start</span>
+              <div>
+              <%= form.date_select :start_date, {
+                use_short_month: true,
+                order: [:month, :day, :year],
+                start_year: Date.today.year - 120,
+                end_year: Date.today.year
+              } %>
+              </div>
+              </div>
+              <div class="flex flex-1 justify-around">
+              <span class="">End</span>
+              <div>
+              <%= form.date_select :end_date, {
+                use_short_month: true,
+                order: [:month, :day, :year],
+                start_year: Date.today.year - 120,
+                end_year: Date.today.year
+              } %>
+              </div>
+              </div>
+              <%#= form.date_select
+                class: "pl-8 w-24 rounded-l-lg p-4 border-t mr-0  text-gray-800 bg-white border border-gray-500"
+              %>
+            <%= 
+              form.submit "schedule swap period", 
+                data: { confirm: "WARNING: The current Swap Period will be extended. This action cannot be undone, except by a database administrator. Are you certain this is what you want to do?" },
+                class:"py-4 px-8 rounded-r-lg bg-blue-400 text-gray-800 font-bold border-b border-gray-800 shadow-lg"
+              %>
+              </div>
+            <% end %>
+          -->
+          <!-- end schedule swap period -->
+        </div>
+      </div>
+      <!-- swap period actions -->
+      <!-- voucher supply -->
+      <section class="border border-gray-500 mt-16 shadow-xl">
+        <h2 class="bg-gray-800 text-white text-6xl font-semibold p-6">Voucher Supply</h2>
+        <div class="bg-white p-6 text-6xl space-y-12">
+          <% Motel.all.each do |motel| %>
+            <div class="flex flex-1 justify-between gap-x-2 ">
+              <p><%= motel.name %></p>
+              <p class="text-7xl tabular-nums"><%= Random.rand(30) %></p>
+            </div>
+          <% end %>
+        </div>
+      </section>
+      <!-- end voucher supply -->
+    <% else %>
+      SWAP is currently <span class="font-bold uppercase tracking-wide text-red-500">inactive</span>
+    <% end %>
+  </section>
+  <!-- vouchers issued -->
+  <section class="border border-gray-500 mt-16 shadow-xl">
+    <h2 class="bg-gray-800 text-white text-6xl font-semibold p-6">Vouchers Issued</h2>
+    <table class=" bg-white rounded text-left text-4xl w-full">
+      <thead>
+        <tr class="bg-gray-800 text-white tracking-wide">
+          <th class="lg:rounded-tl-lg py-8 px-2 pl-3">#</th>
+          <th class="lg:rounded-tl-lg py-8 px-2">Hotel</th>
+          <th class="py-8 px-2">In</th>
+          <th class="py-8 px-2">Out</th>
+          <th class="py-8 px-2">By</th>
+          <th class="lg:rounded-tr-lg py-8 px-2 pr-8">Issued</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @vouchers.each do |voucher| %>
+          <tr>
+            <td class="pl-4 px-2 py-4 text-left tabular-nums">
+              <%= voucher.number %>
+            </td>
+            <td class="pl-4 px-2 py-4 text-left tabular-nums">
+              <%= voucher.motel.name %>
+            </td>
+            <td class="py-4 px-2 text-left">
+              <%= voucher.check_in.to_date.to_formatted_s(:short) %>
+            </td>
+            <td class="py-4 px-2 text-left">
+              <%= voucher.check_out.to_date.to_formatted_s(:short) %>
+            </td>
+            <td class="py-4 px-2 text-left">
+              <%= voucher.user.name %>
+            </td>
+            <td class="py-4 px-2 text-left pr-4">
+              <%= voucher.created_at %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+  <!-- end vouchers issued -->
+  <!-- end current swap period info -->
+</div>

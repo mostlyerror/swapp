@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_17_215306) do
+ActiveRecord::Schema.define(version: 2021_02_18_214745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2021_02_17_215306) do
     t.date "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "active", default: false, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -87,8 +88,10 @@ ActiveRecord::Schema.define(version: 2021_02_17_215306) do
     t.string "number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "swap_period_id"
     t.index ["client_id"], name: "index_vouchers_on_client_id"
     t.index ["motel_id"], name: "index_vouchers_on_motel_id"
+    t.index ["swap_period_id"], name: "index_vouchers_on_swap_period_id"
     t.index ["user_id"], name: "index_vouchers_on_user_id"
   end
 
@@ -98,5 +101,6 @@ ActiveRecord::Schema.define(version: 2021_02_17_215306) do
   add_foreign_key "intakes", "users"
   add_foreign_key "vouchers", "clients"
   add_foreign_key "vouchers", "motels"
+  add_foreign_key "vouchers", "swap_periods"
   add_foreign_key "vouchers", "users"
 end
