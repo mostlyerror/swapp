@@ -1,13 +1,11 @@
 class IntakesController < ApplicationController
-  # before_action :set_client, only: %i[ show edit update destroy ]
-
-  # GET /intakes/new
   def new
     @intake = Intake.new
     @client = Client.new
+    @max_nights = SwapPeriod.current.nights_remaining
+    @motel = Motel.all
   end
 
-  # POST /intakes or /intakes.json
   def create
     @intake = Intake.new(intake_params)
     @intake.user = current_user
@@ -24,13 +22,14 @@ class IntakesController < ApplicationController
       if !@intake.save
         return render :new
       end
-
+      
       @voucher = Voucher.create!(
         client: @client,
         user: current_user,
-        motel: Motel.last,
+        motel: Motel.find(intake_params['survey']["motel_id"]),
         check_in: Date.tomorrow,
-        check_out: Date.tomorrow + 3.days
+        check_out: Date.tomorrow + 3.days,
+        swap_period: SwapPeriod.current
       )
       return redirect_to @voucher
     end
@@ -43,7 +42,7 @@ class IntakesController < ApplicationController
   def intake_params
     params.require(:intake).permit(
       survey: [
-        "king_soopers_card", "bus_pass", "num_nights", "hotel",
+        "king_soopers_card", "bus_pass", "num_nights", "motel_id",
         "homelessness_first_time", "homelessness_how_long_this_time",
         "homelessness_episodes_last_three_years",
         "homelessness_episodes_how_long", "how_long_living_in_this_community",
@@ -60,7 +59,7 @@ class IntakesController < ApplicationController
         client_attributes: [
           ["first_name", "last_name", "date_of_birth(2i)", "date_of_birth(3i)",
            "date_of_birth(1i)", "gender", "race", "ethnicity", "phone_number",
-           "email_address"]
+           "email"]
         ])
   end
 end
