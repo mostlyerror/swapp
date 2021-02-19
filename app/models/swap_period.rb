@@ -2,6 +2,7 @@ class SwapPeriod < ApplicationRecord
   validates_presence_of :start_date, :end_date
   validate :order_of_dates, :overlapping_events, :at_least_one_night
 
+
   def self.current
     where("start_date <= ? AND end_date >= ?", Date.today, Date.today).first
   end
@@ -30,6 +31,7 @@ class SwapPeriod < ApplicationRecord
   private 
 
     def order_of_dates
+
       if end_date&.< start_date
         errors.add(:base, "end_date: #{end_date} must be same day or later than start_date: #{start_date}")
       end

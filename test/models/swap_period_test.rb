@@ -15,6 +15,7 @@ class SwapPeriodTest < ActiveSupport::TestCase
     assert_equal swap.duration, 2, "expected 2, got: #{swap.duration}"
   end
 
+
   test "#nights" do
     swap = build_stubbed(:swap_period, start_date: Date.today, end_date: 1.day.from_now)
     assert_equal swap.nights, 1
