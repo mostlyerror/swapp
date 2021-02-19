@@ -59,13 +59,6 @@ ActiveRecord::Base.transaction do |t|
       password: 'bosmer',
       password_confirmation: 'bosmer',
     },
-    {
-      email: 'learl@adcogov.org',
-      first_name: 'Heather',
-      last_name: 'McClure',
-      password: 'bosmer',
-      password_confirmation: 'bosmer',
-    },
   ])
 
   motels = Motel.create!([
