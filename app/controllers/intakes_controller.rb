@@ -4,7 +4,7 @@ class IntakesController < ApplicationController
     if @can_intake = @swap && @swap.nights_remaining > 0
       @intake = Intake.new
       @client = Client.new
-      @max_nights = SwapPeriod.current.nights_remaining
+      @max_nights = @swap.current.nights_remaining
       @motel = Motel.all
     end
   end
