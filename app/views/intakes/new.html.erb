@@ -3,7 +3,14 @@
   <h1 class="mt-24 text-9xl text-black font-bold">Interview. 💬</h1>
   <p class="mt-6 help-text">
     Collect some basic information from your client and context about their housing
-    situation. Once submitted, you can issue a voucher.
+    situation in this form. Once submitted, you can issue a voucher.
   </p>
-  <%= render partial: 'form' %>
+  <% if SwapPeriod.current %>
+    <%= render partial: 'form' %>
+  <% else %>
+    <section class="mt-16 p-8 text-7xl bg-red-400">
+      <p>Whoops! There is currently no active SWAP Period.</p>
+      <p class="mt-6">Administrators may enable intakes by activating the program for the current period.</p>
+    </section>
+  <% end %>
 </div>

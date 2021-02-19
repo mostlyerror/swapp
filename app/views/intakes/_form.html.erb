@@ -426,7 +426,7 @@
         <%= form.number_field "survey[nights]", 
           step: 1, 
           min: 1, 
-          max: @swap_period.nights_remaining,
+          max: @max_nights,
           class: "rounded-lg border border-gray-300 w-full p-6", 
           required: true,
           value: @intake.survey&.dig('nights'),

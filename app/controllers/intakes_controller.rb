@@ -1,9 +1,11 @@
 class IntakesController < ApplicationController
   def new
-    @intake = Intake.new
-    @client = Client.new
-    @max_nights = SwapPeriod.current.nights_remaining
-    @motel = Motel.all
+    if SwapPeriod.current
+      @intake = Intake.new
+      @client = Client.new
+      @max_nights = SwapPeriod.current.nights_remaining
+      @motel = Motel.all
+    end
   end
 
   def create
