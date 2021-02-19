@@ -1,3 +1,3 @@
-if Rails.env == "development" || "test"
+if Rails.env == "development" || Rails.env == "test"
   include FactoryBot::Syntax::Methods
 end
