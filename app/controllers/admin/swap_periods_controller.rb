@@ -1,12 +1,12 @@
 class Admin::SwapPeriodsController < Admin::BaseController
   def extend
-    puts "========"
-    puts params
-    puts swap_period_params
-    puts "========"
-
     swap = SwapPeriod.find(params[:id])
-
-    redirect_to admin_home_path
+    swap.extend(params['days'])
+    if swap.save
+      return redirect_to admin_home_path
+    else
+      swap.errors.add(:extend, "Couldn't extend SwapPeriod")
+      reuturn redirect_to admin_home_path
+    end
   end
 end

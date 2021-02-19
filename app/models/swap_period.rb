@@ -21,7 +21,7 @@ class SwapPeriod < ApplicationRecord
   end
 
   def extend nights
-    self.end_date = self.end_date.to_date + nights.days
+    self.end_date = self.end_date.to_date + nights.to_i.days
     self
   end
   
