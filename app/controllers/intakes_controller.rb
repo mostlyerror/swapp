@@ -1,14 +1,15 @@
 class IntakesController < ApplicationController
-  # before_action :set_client, only: %i[ show edit update destroy ]
-
-  # GET /intakes/new
   def new
+    @swap = SwapPeriod.current
+    @motels = Motel.all
     @intake = Intake.new
     @client = Client.new
-    @motel = Motel.all
+
+    if @swap && @swap.nights_remaining > 0
+      @max_nights = @swap.nights_remaining
+    end
   end
 
-  # POST /intakes or /intakes.json
   def create
     @intake = Intake.new(intake_params)
     @intake.user = current_user
@@ -26,12 +27,16 @@ class IntakesController < ApplicationController
         return render :new
       end
       
+
+      @swap = SwapPeriod.current
+
       @voucher = Voucher.create!(
         client: @client,
         user: current_user,
         motel: Motel.find(intake_params['survey']["motel_id"]),
-        check_in: Date.tomorrow,
-        check_out: Date.tomorrow + 3.days
+        check_in: [@swap.start_date, Date.today].max,
+        check_out: @swap.end_date,
+        swap_period: SwapPeriod.current
       )
       return redirect_to @voucher
     end

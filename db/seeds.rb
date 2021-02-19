@@ -105,6 +105,13 @@ ActiveRecord::Base.transaction do |t|
 
   motel_users = User.create!([
     {
+      email: 'charles@cityinn.com',
+      first_name: 'Charles',
+      last_name: 'Motel',
+      password: 'password',
+      password_confirmation: 'password',
+    },
+    {
       email: 'carol@comfortinn.com',
       first_name: 'Carol',
       last_name: 'Motel',
