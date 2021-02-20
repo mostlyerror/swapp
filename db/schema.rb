@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_20_145749) do
+ActiveRecord::Schema.define(version: 2021_02_20_193025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_145749) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "swap_period_id"
+    t.index ["client_id", "swap_period_id"], name: "index_vouchers_on_client_id_and_swap_period_id"
     t.index ["client_id"], name: "index_vouchers_on_client_id"
     t.index ["motel_id"], name: "index_vouchers_on_motel_id"
     t.index ["swap_period_id"], name: "index_vouchers_on_swap_period_id"
