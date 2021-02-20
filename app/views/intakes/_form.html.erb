@@ -22,13 +22,12 @@
       <div class="field w-full">
         <%= client_attributes.label :date_of_birth, class: "block leading-relaxed", required: true  %>
         <span class="flex flex-1">
-          <%= client_attributes.date_select :date_of_birth, {
-            use_short_month: true,
-            order: [:month, :day, :year],
-            start_year: Date.current.year - 120,
-            end_year: Date.current.year
-          },
-          class: "w-full bg-white rounded-lg border border-gray-300 pl-4 py-6", required: true %>
+          <%=
+              client_attributes.date_field :date_of_birth, 
+                value: Date.current - 50.years,
+                required: true,
+                class: "w-full bg-white rounded-lg border border-gray-400 p-6"
+          %>
         </span>
       </div>
       <div class="field w-full">
