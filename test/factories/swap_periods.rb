@@ -1,18 +1,18 @@
 FactoryBot.define do
   factory :swap_period do
     trait :past do
-      start_date { 7.days.ago }
-      end_date { 4.days.ago }
+      start_date { Date.current - 7 }
+      end_date { Date.current - 4 }
     end
 
     trait :current do
-      start_date { 1.day.ago }
-      end_date { 1.day.from_now }
+      start_date { Date.current.yesterday }
+      end_date { Date.current.tomorrow }
     end
 
     trait :future do
-      start_date { 3.days.from_now }
-      end_date { 4.days.from_now }
+      start_date { Date.current + 3 }
+      end_date { Date.current + 4 }
     end
   end
 end

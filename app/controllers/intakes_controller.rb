@@ -34,7 +34,7 @@ class IntakesController < ApplicationController
         client: @client,
         user: current_user,
         motel: Motel.find(intake_params['survey']["motel_id"]),
-        check_in: [@swap.start_date, Date.today].max,
+        check_in: [@swap.start_date, Date.current.today].max,
         check_out: @swap.end_date,
         swap_period: SwapPeriod.current
       )

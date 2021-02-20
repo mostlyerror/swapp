@@ -11,7 +11,7 @@ class CurrentSwapPeriodTest < ActiveSupport::TestCase
 
     # ending today
     SwapPeriod.destroy_all
-    swap = create(:swap_period, start_date: 1.day.ago, end_date: Date.today)
+    swap = create(:swap_period, start_date: 1.day.ago, end_date: Date.current)
     assert_equal swap, SwapPeriod.current
 
     # straddling today
@@ -21,12 +21,12 @@ class CurrentSwapPeriodTest < ActiveSupport::TestCase
 
     # starting today
     SwapPeriod.destroy_all
-    swap = create(:swap_period, start_date: Date.today, end_date: 1.day.from_now)
+    swap = create(:swap_period, start_date: Date.current, end_date: 1.day.from_now)
     assert_equal swap, SwapPeriod.current
 
     # starting tomorrow is still "current"
     SwapPeriod.destroy_all
-    swap = create(:swap_period, start_date: Date.tomorrow, end_date: 2.days.from_now)
+    swap = create(:swap_period, start_date: Date.current.tomorrow, end_date: 2.days.from_now)
     assert_equal swap, SwapPeriod.current
 
     # future (starts after today)

@@ -25,8 +25,8 @@
           <%= client_attributes.date_select :date_of_birth, {
             use_short_month: true,
             order: [:month, :day, :year],
-            start_year: Date.today.year - 120,
-            end_year: Date.today.year
+            start_year: Date.current.year - 120,
+            end_year: Date.current.year
           },
           class: "w-full bg-white rounded-lg border border-gray-300 pl-4 py-6", required: true %>
         </span>
