@@ -5,7 +5,7 @@ class Voucher < ApplicationRecord
   belongs_to :swap_period
 
   validate :dates_must_be_today_or_later_when_issued, on: :create
-  validate :dates_must_fall_within_swap_period
+  validate :order_of_dates, :dates_must_fall_within_swap_period
 
   after_create :save_number
 
@@ -13,6 +13,12 @@ class Voucher < ApplicationRecord
     def save_number
       self.number = "AH%.5d" % id
       save!
+    end
+
+    def order_of_dates
+      if check_out&.< check_in
+        errors.add(:dates, "check_out: #{check_out} must be same day or later than check_in: #{check_in}")
+      end
     end
 
     def dates_must_be_today_or_later_when_issued
