@@ -14,56 +14,45 @@
     <section class="p-16 border-b-8 border-gray-400 border-dashed flex flex-1 space-x-16">
       <div class="w-full">
         <strong>Check In</strong>
-        <p class="mt-8">
-          <div class="field w-full">
-            <%=
-              form.date_field :check_in, 
-                value: [@swap.start_date, Date.current].max,
-                min: [@swap.start_date, Date.current].max,
-                max: @swap.end_date,
-                required: true,
-                class: "bg-white rounded-lg border border-gray-400 py-6"
-            %>
-          </div>
-        </p>
+        <%= form.date_field :check_in, 
+              value: [@swap.start_date, Date.current].max,
+              min: [@swap.start_date, Date.current].max,
+              max: @swap.end_date,
+              required: true,
+              class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
       </div>
       <div class="w-full">
         <strong>Check Out</strong>
-        <p class="mt-8">
-          <div class="field w-full">
-            <%=
-              form.date_field :check_out, 
+        <%= form.date_field :check_out, 
                 value: [@swap.end_date, Date.current].max,
                 min: [@swap.start_date, Date.current].max + 1,
                 max: @swap.end_date,
                 required: true,
-                class: "bg-white rounded-lg border border-gray-400 py-6"
-            %>
-          </div>
-        </p>
-      </div>
-    </section>
-    <section class="p-16">
-      <div class="field w-full">
-        <%= form.label "motel_id", "Hotel", class: "font-bold block leading-relaxed" %>
-        <%= form.select "motel_id", options_from_collection_for_select(@motels, 'id', 'name'), 
+                class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
+      </p>
+    </div>
+  </section>
+  <section class="p-16">
+    <div class="field w-full">
+      <%= form.label "motel_id", "Hotel", class: "font-bold block leading-relaxed" %>
+      <%= form.select "motel_id", options_from_collection_for_select(@motels, 'id', 'name'), 
           {include_blank: true},
           class: "p-8 w-full bg-white rounded-lg border border-gray-400",
           required: true %>
-      </div>
-    </section>
-  </div>
-  <div class="p-12 text-5xl">
-    <div class="field w-full">
-      <%= form.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
-      <%= form.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
     </div>
-    <div class="mt-12 field w-full">
-      <%= form.label :email, "Email (optional)", class: "block leading-relaxed"  %>
-      <%= form.email_field :email, class: "w-full border border-gray-300 p-6" %>
-    </div>
+  </section>
+</div>
+<div class="p-12 text-5xl">
+  <div class="field w-full">
+    <%= form.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
+    <%= form.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
   </div>
-  <div class="actions p-12">
-    <%= form.submit 'Create', class: 'w-full btn btn-blue h-32 text-6xl' %>
+  <div class="mt-12 field w-full">
+    <%= form.label :email, "Email (optional)", class: "block leading-relaxed"  %>
+    <%= form.email_field :email, class: "w-full border border-gray-300 p-6" %>
   </div>
+</div>
+<div class="actions p-12">
+  <%= form.submit 'Create', class: 'w-full btn btn-blue h-32 text-6xl' %>
+</div>
 <% end %>
