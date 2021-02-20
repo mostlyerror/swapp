@@ -29,10 +29,10 @@ class CurrentSwapPeriodTest < ActiveSupport::TestCase
     swap = create(:swap_period, start_date: Date.current.tomorrow, end_date: 2.days.from_now)
     assert_equal swap, SwapPeriod.current
 
-    # future (starts after today)
+    # starts tomorrow 
     SwapPeriod.destroy_all
-    swap = create(:swap_period, :future)
-    refute SwapPeriod.current == swap
+    swap = create(:swap_period, :tomorrow)
+    assert SwapPeriod.current == swap
   end
 
   test "::current returns ongoing event when there's also a future event planned" do

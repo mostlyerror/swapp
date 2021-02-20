@@ -2,6 +2,8 @@ class SwapPeriod < ApplicationRecord
   validates_presence_of :start_date, :end_date
   validate :order_of_dates, :overlapping_events, :at_least_one_night
 
+  has_many :vouchers
+
   def self.current
     where("start_date <= ? AND end_date >= ?", Date.current.tomorrow, Date.current).first
   end

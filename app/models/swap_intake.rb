@@ -1,4 +1,9 @@
 class SwapIntake
+  def self.current_check_in_date swap
+    return nil if !can_issue_voucher_today?
+    [Date.current, swap.start_date].max
+  end
+
   def self.can_issue_voucher_on? date, swap
     date.in? swap.intake_period
   end
