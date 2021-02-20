@@ -7,9 +7,9 @@ class VoucherTest < ActiveSupport::TestCase
     voucher = build(:voucher, 
       swap_period: swap, 
       client: voucher.client,
-      check_out: swap.start_date,
       check_in: swap.start_date,
-      )
+      check_out: swap.end_date,
+    )
     refute voucher.valid?
     assert voucher.errors.key?(:client_id)
 
