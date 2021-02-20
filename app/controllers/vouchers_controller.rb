@@ -6,10 +6,6 @@ class VouchersController < ApplicationController
     @swap = SwapPeriod.current
     @motels = Motel.all
     @client = Client.find(params['client_id'])
-
-    if @swap && @swap.nights_remaining > 0
-      @max_nights = @swap.nights_remaining
-    end
   end
 
   def create
