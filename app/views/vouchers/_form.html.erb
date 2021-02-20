@@ -24,11 +24,11 @@
       <div class="w-full">
         <strong>Check Out</strong>
         <%= form.date_field :check_out, 
-                value: [@swap.end_date, Date.current].max,
-                min: [@swap.start_date, Date.current].max + 1,
-                max: @swap.end_date,
-                required: true,
-                class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
+              value: [@swap.end_date, Date.current].max,
+              min: [@swap.start_date, Date.current].max + 1,
+              max: @swap.end_date,
+              required: true,
+              class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
       </p>
     </div>
   </section>

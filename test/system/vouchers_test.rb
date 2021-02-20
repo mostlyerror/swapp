@@ -12,9 +12,16 @@ class VouchersTest < ApplicationSystemTestCase
     client = create(:client)
     visit new_voucher_path(client_id: client.id)
 
+    assert_selector "[value='#{Date.current.strftime("%Y-%m-%d")}']"
+
+
+
     select motel.name, from: "Hotel"
     click_on "Create"
 
     assert_text /Hotel voucher created!/i
+
+    # voucher ID saved after creation
+    assert_text "AH%.5d" % Voucher.last.id
   end
 end
