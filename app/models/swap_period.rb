@@ -6,6 +6,10 @@ class SwapPeriod < ApplicationRecord
     where("start_date <= ? AND end_date >= ?", Date.current.tomorrow, Date.current).first
   end
 
+  def swap_period
+    start_date..end_date
+  end
+
   def intake_period
     (start_date - 1.day)..(end_date - 1.day)
   end
