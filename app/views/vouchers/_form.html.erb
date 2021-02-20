@@ -19,6 +19,7 @@
             <%= form.date_select :check_in, {
             use_short_month: true,
             order: [:month, :day],
+            default: @swap.start_date,
           },
           class: "w-full bg-white rounded-lg border border-gray-300 pl-4 py-6", required: true %>
           </div>
@@ -31,6 +32,7 @@
             <%= form.date_select :check_out, {
             use_short_month: true,
             order: [:month, :day],
+            default: @swap.end_date,
           },
           class: "w-full bg-white rounded-lg border border-gray-300 pl-4 py-6", required: true %>
           </div>
