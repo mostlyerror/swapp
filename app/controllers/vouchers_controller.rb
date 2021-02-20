@@ -9,17 +9,12 @@ class VouchersController < ApplicationController
   end
 
   def create
-    client = Client.find(params['client']['id'])
-    motel = Motel.find(params['voucher']['motel_id'])
-    check_in = Date.new *%w(1 2 3).map {|e| params["voucher"]["check_in(#{e}i)"].to_i }
-    check_out = Date.new *%w(1 2 3).map {|e| params["voucher"]["check_out(#{e}i)"].to_i }
-
     @voucher = Voucher.create!(
       user: current_user,
-      client: client,
-      motel: motel,
-      check_in: check_in,
-      check_out: check_out,
+      client_id: params['client']['id'],
+      motel_id: params['voucher']['motel_id'],
+      check_in: params['voucher']['check_in'],
+      check_out: params['voucher']['check_out'],
       swap_period: SwapPeriod.current
     )
 
