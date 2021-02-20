@@ -17,7 +17,7 @@
         <%= form.date_field :check_in, 
               value: [@swap.start_date, Date.current].max,
               min: [@swap.start_date, Date.current].max,
-              max: @swap.end_date,
+              max: @swap.end_date - 1,
               required: true,
               class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
       </div>
