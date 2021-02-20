@@ -4,15 +4,19 @@ class Voucher < ApplicationRecord
   belongs_to :motel
   belongs_to :swap_period
 
-  validate :dates_must_be_in_swap_period
+  validate :dates_must_be_today_or_later_when_issued, on: :create
 
   after_create :save_number
-  def save_number
-    self.number = "AH%.5d" % id
-    save!
+
+  def dates_must_be_today_or_later_when_issued
+    if (check_in < Date.current) or (check_out < Date.current)
+      errors.add(:backdated, "Can't issue backdated voucher dates")
+    end
   end
 
-  def dates_must_be_in_swap_period
-    true
-  end
+  private 
+    def save_number
+      self.number = "AH%.5d" % id
+      save!
+    end
 end
