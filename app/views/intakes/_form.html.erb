@@ -204,16 +204,13 @@
         </div>
       </div>
       <div class="field">
-        <%= form.label "survey[are_you_working]", 
-          "Are you working?", 
-          class: "block leading-relaxed"  %>
-        <%= form.label "survey[are_you_working]", "Yes" %>
-        <%= form.radio_button "survey[are_you_working]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('are_you_working') == 'true' %>
-        <%= form.label "survey[are_you_working]", "No" %>
-        <%= form.radio_button "survey[are_you_working]", false, class: "m-2.5 h-10 w-10",
-          required: true,
-          checked: @intake.survey ? @intake.survey['are_you_working'] == 'false' : true %>
+        <%= form.label "Are you working?", class: "block leading-relaxed"  %>
+        <%= form.select "survey[are_you_working]", 
+          options_for_select(Intake::WORKING, 'survey[are_you_working]'), 
+          {include_blank: true},
+          class: "bg-white rounded-lg border border-gray-300 w-full p-6", 
+          required: true
+        %>
       </div>
       <div class="field">
         <%= form.label "survey[armed_forces]", 
