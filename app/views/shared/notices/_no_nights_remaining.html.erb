@@ -1,6 +1,6 @@
 <% if @swap.present? && @swap.nights_remaining == 0 %>
-  <section class="mt-16 p-5 text-6xl bg-red-400">
-    <p class="font-bold">The intake period for the most recent SWAP activation has ended.</p>
-    <p class="mt-6 text-5xl">Vouchers can only be issued during the intake period, which runs from 1 day before the swap period begins to 1 day before the swap period ends.</p>
+  <section class="notice bg-red-300">
+    <h3>The intake period for the most recent SWAP activation has ended.</h3>
+    <p>Vouchers can only be issued during the intake period, which runs from 1 day before the swap period begins to 1 day before the swap period ends.</p>
   </section>
 <% end %>

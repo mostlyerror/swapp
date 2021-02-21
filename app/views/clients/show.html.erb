@@ -16,7 +16,7 @@
           <p class="px-6 mt-16">Hotel vouchers can only be issued during a SWAP period.</p>
         <% end %>
       <% else %>
-        <p class="notice bg-blue-400">
+        <p class="notice bg-green-400">
           <%= @client.first_name %> has already been issued a <%= link_to 'voucher', @existing_voucher %> for this SWAP period!
         </p>
       <% end %>
@@ -48,7 +48,7 @@
     </div>
   <% end %>
 </section>
-<section class="mt-16 px-6">
+<section class="mt-16 px-6 pb-16">
   <h2 class="bg-gray-800 text-white text-7xl font-semibold py-4 px-6">Vouchers</h2>
   <% if @client.vouchers.any? %>
     <% @client.vouchers.each do |voucher| %>

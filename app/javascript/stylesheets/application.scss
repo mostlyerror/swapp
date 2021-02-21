@@ -55,10 +55,16 @@ h4 {
 }
 
 .notice {
-  @apply p-6 text-6xl font-bold border-b-2 border-gray-500;
-}
-.notice a {
-  @apply text-white font-semibold underline;
+  @apply p-6 border-b-2 border-gray-500;
+  h3 {
+    @apply font-bold text-6xl;
+  }
+  p {
+    @apply mt-6 text-5xl;
+  }
+  a {
+    @apply font-semibold text-blue-600 underline;
+  }
 }
 
 .hazard-tape {

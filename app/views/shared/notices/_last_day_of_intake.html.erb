@@ -1,6 +1,6 @@
 <% if @swap.present? && SwapIntake.today_is_last_intake_day?(@swap) %>
-  <section class="mt-16 p-6 text-6xl bg-yellow-400">
-    <p class="font-bold">Today is the last day to issue vouchers for the current SWAP period.</p>
-    <p class="mt-6 text-5xl">However, be on the lookout! Administrators may extend.</p>
+  <section class="notice bg-yellow-400">
+    <h3 >Today is the last day to issue vouchers for the current SWAP period.</h3>
+    <p>However, be on the lookout! Administrators may extend.</p>
   </section>
 <% end %>
