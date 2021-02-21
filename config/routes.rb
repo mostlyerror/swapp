@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :clients
   resources :intakes
   resources :vouchers
-  get "vouchers/:id/created" => "vouchers#created"
+  get "vouchers/:id/created" => "vouchers#created", as: :voucher_created
   resources :swaps
 
   # get "admin" => "admin/home#index"
