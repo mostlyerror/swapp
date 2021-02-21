@@ -6,7 +6,9 @@
     situation in this form. Once submitted, you can issue a voucher.
   </p>
 </div>
-<%= render partial: 'shared/swap_notices' %>
+<section class="mt-16">
+  <%= render partial: 'shared/swap_notices' %>
+</section >
 <% if SwapIntake.can_issue_voucher_today?(@swap) %>
   <section class="px-6 mt-16">
     <%= render partial: 'form' %>
