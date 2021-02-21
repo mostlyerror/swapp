@@ -6,11 +6,17 @@
   </section>
 </section>
 <section class="text-5xl px-6 mt-16">
-  <div class="flex flex-1 justify-around text-6xl text-center font-bold py-12">
-    <div class="w-1/2">
-      <%= link_to 'Search Again', :back, class: 'link' %></div>
-    <div class="w-1/2">
-      <%= link_to 'New Voucher', new_voucher_path(client_id: @client.id), class: 'link' %></div>
+  <div class="px-6 flex flex-1 flex-col text-6xl font-bold space-y-8 ">
+    <div class="w-full">
+      <% if @existing_voucher.blank? %>
+        <%= link_to 'Issue Voucher', new_voucher_path(client_id: @client.id), class: 'link' %>
+      <% else %>
+        <%= @client.first_name %> has already been issued a <%= link_to 'voucher', @existing_voucher, class: 'link' %> for this SWAP period!
+      <% end %>
+    </div>
+    <div class="w-full">
+      <%= link_to 'Search Again', :back, class: 'link' %>
+    </div>
   </div>
 </section>
 <section class="mt-16 px-6">

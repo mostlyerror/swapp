@@ -6,26 +6,28 @@ class VouchersController < ApplicationController
     @swap = SwapPeriod.current
     @motels = Motel.all
     @client = Client.find(params['client_id'])
-
-    if @swap && @swap.nights_remaining > 0
-      @max_nights = @swap.nights_remaining
-    end
   end
 
   def create
-    client = Client.find(params['client']['id'])
-    motel = Motel.find(params['voucher']['motel_id'])
-    check_in = Date.new *%w(1 2 3).map {|e| params["voucher"]["check_in(#{e}i)"].to_i }
-    check_out = Date.new *%w(1 2 3).map {|e| params["voucher"]["check_out(#{e}i)"].to_i }
+    @swap = SwapPeriod.current
+    @motels = Motel.all
+    @client = Client.find(params['client']['id'])
 
-    @voucher = Voucher.create!(
+    @voucher = Voucher.new(
       user: current_user,
-      client: client,
-      motel: motel,
-      check_in: check_in,
-      check_out: check_out,
+      client_id: params['client']['id'],
+      motel_id: params['voucher']['motel_id'],
+      check_in: params['voucher']['check_in'],
+      check_out: params['voucher']['check_out'],
       swap_period: SwapPeriod.current
     )
+
+    if !@voucher.save
+      if @voucher.errors[:client_id].include? "has already been taken"
+        @existing_voucher = SwapPeriod.current.vouchers.find_by(client: @voucher.client)
+      end
+      return render :new
+    end
 
     redirect_to @voucher
   end

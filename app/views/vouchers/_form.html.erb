@@ -1,5 +1,23 @@
   <%= form_with(model: @voucher, local: true) do |form| %>
   <%= hidden_field :client, :id %>
+  <% if @voucher.errors.any? %>
+    <div id="error_explanation" class="my-16 p-8 text-7xl bg-red-400 font-bold">
+      <p><%= pluralize(@voucher.errors.count, "error") %> prohibited this voucher from being saved:</p>
+      <ul class="mt-8">
+        <% if @existing_voucher.present? %>
+          <li class="font-bold">
+            <%= @client.first_name %> has already been issued a <%= link_to 'voucher', @existing_voucher, class: 'link' %> for this SWAP period!
+          </li>
+        <% else %>
+          <% if @voucher.errors.any? %>
+            <% @voucher.errors.full_messages.each do |message| %>
+              <li class="text-6xl"><%= message %></li>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="mt-16 bg-white border-8 border-black text-5xl">
     <section class="p-16 border-b-8 border-gray-400 border-dashed">
       <div class="flex flex-1 justify-between">
@@ -14,50 +32,45 @@
     <section class="p-16 border-b-8 border-gray-400 border-dashed flex flex-1 space-x-16">
       <div class="w-full">
         <strong>Check In</strong>
-        <p class="mt-8">
-          <div class="field w-full">
-            <%= form.date_select :check_in, {
-            use_short_month: true,
-            order: [:month, :day],
-          },
-          class: "w-full bg-white rounded-lg border border-gray-300 pl-4 py-6", required: true %>
-          </div>
-        </p>
+        <%= form.date_field :check_in, 
+                value: [@swap.start_date, Date.current].max,
+                min: [@swap.start_date, Date.current].max,
+                max: @swap.end_date - 1,
+                required: true,
+                class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
       </div>
       <div class="w-full">
         <strong>Check Out</strong>
-        <p class="mt-8">
-          <div class="field w-full">
-            <%= form.date_select :check_out, {
-            use_short_month: true,
-            order: [:month, :day],
-          },
-          class: "w-full bg-white rounded-lg border border-gray-300 pl-4 py-6", required: true %>
-          </div>
-        </p>
-      </div>
-    </section>
-    <section class="p-16">
-      <div class="field w-full">
-        <%= form.label "motel_id", "Hotel", class: "font-bold block leading-relaxed" %>
-        <%= form.select "motel_id",
-        options_from_collection_for_select(@motels, 'id', 'name'), 
-          {include_blank: true},
-          class: "bg-white rounded-lg border border-gray-300 w-full p-6", required: true %>
-      </div>
-    </section>
-  </div>
-  <div class="p-12 text-5xl">
+        <%= form.date_field :check_out, 
+                value: [@swap.end_date, Date.current].max,
+                min: [@swap.start_date, Date.current].max + 1,
+                max: @swap.end_date,
+                required: true,
+                class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
+      </p>
+    </div>
+  </section>
+  <section class="p-16">
     <div class="field w-full">
-      <%= form.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
-      <%= form.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
+      <%= form.label "motel_id", "Hotel", class: "font-bold block leading-relaxed" %>
+      <%= form.select "motel_id", options_from_collection_for_select(@motels, 'id', 'name'), 
+            {include_blank: true},
+            class: "p-8 w-full bg-white rounded-lg border border-gray-400",
+            required: true %>
     </div>
-    <div class="mt-12 field w-full">
-      <%= form.label :email, "Email (optional)", class: "block leading-relaxed"  %>
-      <%= form.email_field :email, class: "w-full border border-gray-300 p-6" %>
-    </div>
+  </section>
+</div>
+<div class="p-12 text-5xl">
+  <div class="field w-full">
+    <%= form.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
+    <%= form.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
   </div>
-  <div class="actions p-12">
-    <%= form.submit 'Create', class: 'w-full btn btn-blue h-32 text-6xl' %>
+  <div class="mt-12 field w-full">
+    <%= form.label :email, "Email (optional)", class: "block leading-relaxed"  %>
+    <%= form.email_field :email, class: "w-full border border-gray-300 p-6" %>
   </div>
+</div>
+<div class="actions p-12">
+  <%= form.submit 'Create', class: 'w-full btn btn-blue h-32 text-6xl' %>
+</div>
 <% end %>
