@@ -41,5 +41,8 @@ class CurrentSwapTest < ActiveSupport::TestCase
 
     future = create(:swap, :future)
     assert_equal Swap.current, present
+
+    past = create(:swap, :past)
+    assert_equal Swap.current, present
   end
 end
