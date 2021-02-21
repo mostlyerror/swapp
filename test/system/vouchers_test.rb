@@ -14,8 +14,6 @@ class VouchersTest < ApplicationSystemTestCase
 
     assert_selector "[value='#{Date.current.strftime("%Y-%m-%d")}']"
 
-
-
     select motel.name, from: "Hotel"
     click_on "Create"
 
