@@ -3,13 +3,11 @@ class VouchersController < ApplicationController
 
   def new
     @voucher = Voucher.new
-    @swap = Swap.current
     @motels = Motel.all
     @client = Client.find(params['client_id'])
   end
 
   def create
-    @swap = Swap.current
     @motels = Motel.all
     @client = Client.find(params['client']['id'])
 
@@ -19,7 +17,7 @@ class VouchersController < ApplicationController
       motel_id: params['voucher']['motel_id'],
       check_in: params['voucher']['check_in'],
       check_out: params['voucher']['check_out'],
-      swap: Swap.current
+      swap: @swap
     )
 
     if !@voucher.save

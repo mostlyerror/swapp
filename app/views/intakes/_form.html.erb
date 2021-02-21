@@ -9,7 +9,7 @@
       </ul>
     </div>
   <% end %>
-  <div class="w-full flex flex-col space-y-24 mt-24 text-6xl text-gray-800 tracking-wide">
+  <div class="w-full flex flex-col space-y-24 mt-24 pb-24 text-6xl text-gray-800 tracking-wide">
     <%= form.fields_for :client, @client do |client_attributes|%>
       <div class="field w-full">
         <%= client_attributes.label :first_name, "First Name", class: "block leading-relaxed"  %>
@@ -439,27 +439,26 @@
                   class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
       </p>
     </div>
-  </section>
-  <div class="field w-full">
-    <%= form.label "survey[motel_id]", "Hotel", class: "block leading-relaxed" %>
-    <%= form.select "survey[motel_id]",
+    <div class="field w-full">
+      <%= form.label "survey[motel_id]", "Hotel", class: "block leading-relaxed" %>
+      <%= form.select "survey[motel_id]",
         options_from_collection_for_select(@motels, 'id', 'name'), 
 
           {include_blank: true},
           class: "bg-white rounded-lg border border-gray-300 w-full p-6", required: true %>
+    </div>
+    <div class="field w-full">
+      <%= client_attributes.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
+      <%= client_attributes.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
+    </div>
+    <div class="field w-full">
+      <%= client_attributes.label :email, "Email (optional)", class: "block leading-relaxed"  %>
+      <%= client_attributes.email_field :email, class: "w-full border border-gray-300 p-6" %>
+    </div>
+  <% end %>
+  <!-- end voucher-specific questions -->
+  <div class="actions mt-12">
+    <%= form.submit 'Submit', class: 'w-full btn btn-blue h-32 text-6xl' %>
   </div>
-  <div class="field w-full">
-    <%= client_attributes.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
-    <%= client_attributes.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
-  </div>
-  <div class="field w-full">
-    <%= client_attributes.label :email, "Email (optional)", class: "block leading-relaxed"  %>
-    <%= client_attributes.email_field :email, class: "w-full border border-gray-300 p-6" %>
-  </div>
-<% end %>
-<!-- end voucher-specific questions -->
-<div class="actions mt-12">
-  <%= form.submit 'Submit', class: 'w-full btn btn-blue h-32 text-6xl' %>
-</div>
 </div>
 <% end %>

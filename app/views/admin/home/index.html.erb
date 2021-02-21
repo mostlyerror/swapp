@@ -1,18 +1,30 @@
 <div class="bg-gray-100  text-6xl">
   <section class="mt-16">
+    <%= render partial: 'shared/swap_notices' %>
+  </section>
+  <section class="mt-16">
     <% if @current %>
       <!-- current period info -->
       <div class="bg-white shadow-lg rounded-lg">
         <p class="p-6"><span class="font-bold">Status:</span> <span class="font-bold uppercase tracking-wide text-green-500">active</span></p>
         <div class="flex flex-1 flex-wrap text-center bg-white">
           <div class="w-1/2 border border-gray-400">
-            <p class="p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Start</p>
+            <p class="p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Check In</p>
             <p class="p-10 text-7xl font-bold tracking-wide"><%= @current.start_date.to_formatted_s(:short) %>
             </p>
           </div>
           <div class="w-1/2 border border-gray-400">
-            <p class="w-full p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">End</p>
+            <p class="w-full p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Check Out</p>
             <p class="p-10 text-7xl font-bold tracking-wide"><%= @current.end_date.to_formatted_s(:short) %></p>
+          </div>
+          <div class="w-1/2 border border-gray-400">
+            <p class="p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Intake Start</p>
+            <p class="p-10 text-7xl font-bold tracking-wide"><%= (@current.start_date - 1).to_formatted_s(:short) %>
+            </p>
+          </div>
+          <div class="w-1/2 border border-gray-400">
+            <p class="w-full p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Intake End</p>
+            <p class="p-10 text-7xl font-bold tracking-wide"><%= (@current.end_date - 1).to_formatted_s(:short) %></p>
           </div>
           <div class="w-1/2 border border-gray-400">
             <p class="p-6 tracking-wide bg-gray-800 text-white text-4xl font-semibold">Nights Total</p>
