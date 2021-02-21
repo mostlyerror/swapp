@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2021_02_20_193025) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "swap_periods", force: :cascade do |t|
+  create_table "swaps", force: :cascade do |t|
     t.date "start_date", null: false
     t.date "end_date"
     t.datetime "created_at", precision: 6, null: false
@@ -89,11 +89,11 @@ ActiveRecord::Schema.define(version: 2021_02_20_193025) do
     t.string "number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "swap_period_id"
-    t.index ["client_id", "swap_period_id"], name: "index_vouchers_on_client_id_and_swap_period_id"
+    t.bigint "swap_id"
+    t.index ["client_id", "swap_id"], name: "index_vouchers_on_client_id_and_swap_id"
     t.index ["client_id"], name: "index_vouchers_on_client_id"
     t.index ["motel_id"], name: "index_vouchers_on_motel_id"
-    t.index ["swap_period_id"], name: "index_vouchers_on_swap_period_id"
+    t.index ["swap_id"], name: "index_vouchers_on_swap_id"
     t.index ["user_id"], name: "index_vouchers_on_user_id"
   end
 
@@ -103,6 +103,6 @@ ActiveRecord::Schema.define(version: 2021_02_20_193025) do
   add_foreign_key "intakes", "users"
   add_foreign_key "vouchers", "clients"
   add_foreign_key "vouchers", "motels"
-  add_foreign_key "vouchers", "swap_periods"
+  add_foreign_key "vouchers", "swaps"
   add_foreign_key "vouchers", "users"
 end

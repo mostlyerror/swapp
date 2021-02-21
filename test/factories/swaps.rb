@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :swap_period do
+  factory :swap do
     trait :past do
       start_date { Date.current - 7 }
       end_date { Date.current - 4 }

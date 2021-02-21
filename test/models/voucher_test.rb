@@ -2,23 +2,23 @@ require 'test_helper'
 
 class VoucherTest < ActiveSupport::TestCase
   test "voucher has to be for at least one night" do
-    swap = create(:swap_period,
+    swap = create(:swap,
       start_date: Date.current.yesterday,
       end_date: Date.current
     )
     assert_equal 1, swap.nights
     assert_equal 0, swap.nights_remaining
 
-    voucher = build_stubbed(:voucher, swap_period: swap)
+    voucher = build_stubbed(:voucher, swap: swap)
     refute voucher.valid?
     assert voucher.errors.key?(:nights)
   end
 
   test "one voucher per period per client" do
-    swap = create(:swap_period, :future)
-    voucher = create(:voucher, swap_period: swap)
+    swap = create(:swap, :future)
+    voucher = create(:voucher, swap: swap)
     voucher = build(:voucher, 
-      swap_period: swap, 
+      swap: swap, 
       client: voucher.client,
       check_in: swap.start_date,
       check_out: swap.end_date,
@@ -31,9 +31,9 @@ class VoucherTest < ActiveSupport::TestCase
   end
 
   test "voucher dates must be in order" do
-    swap = build_stubbed(:swap_period, :future)
+    swap = build_stubbed(:swap, :future)
     voucher = build_stubbed(:voucher, 
-      swap_period: swap,
+      swap: swap,
       check_in: swap.end_date,
       check_out: swap.start_date
     )
@@ -46,9 +46,9 @@ class VoucherTest < ActiveSupport::TestCase
   end
 
   test "check_in/out only during swap period" do
-    swap = build_stubbed(:swap_period, :current)
+    swap = build_stubbed(:swap, :current)
     voucher = build_stubbed(:voucher, 
-      swap_period: swap,
+      swap: swap,
       check_in: swap.start_date,
       check_out: swap.end_date
     )
@@ -66,26 +66,26 @@ class VoucherTest < ActiveSupport::TestCase
   end
 
   test "dates must be today or later at creation (no backdated vouchers)" do
-    swap = create(:swap_period, :past)
+    swap = create(:swap, :past)
     assert_raises do
       create(:voucher, 
-        swap_period: swap, 
+        swap: swap, 
         check_in: swap.start_date, 
         check_out: swap.end_date,
       )
     end
 
-    swap = create(:swap_period, :current)
+    swap = create(:swap, :current)
     assert_raises do
       create(:voucher, 
-        swap_period: swap, 
+        swap: swap, 
         check_in: swap.start_date, 
         check_out: swap.end_date,
       )
     end
 
     assert_nothing_raised do
-      create(:voucher, swap_period: swap, check_in: Date.current)
+      create(:voucher, swap: swap, check_in: Date.current)
     end
   end
 end

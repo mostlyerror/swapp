@@ -1,4 +1,4 @@
-class SwapPeriod < ApplicationRecord
+class Swap < ApplicationRecord
   validates_presence_of :start_date, :end_date
   validate :order_of_dates, :overlapping_events, :at_least_one_night
 
@@ -8,7 +8,7 @@ class SwapPeriod < ApplicationRecord
     where("start_date <= ? AND end_date >= ?", Date.current.tomorrow, Date.current).first
   end
 
-  def swap_period
+  def swap
     start_date..end_date
   end
 

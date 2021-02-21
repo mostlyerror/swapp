@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SwapIntakeTest < ActiveSupport::TestCase
   setup do
-    @swap = build_stubbed(:swap_period, start_date: Date.current.tomorrow, end_date: Date.current.tomorrow  + 1)
+    @swap = build_stubbed(:swap, start_date: Date.current.tomorrow, end_date: Date.current.tomorrow  + 1)
   end
 
   test "can issue vouchers 1 day before @swap period start" do

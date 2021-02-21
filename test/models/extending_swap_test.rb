@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class ExtendingSwapPeriodTest < ActiveSupport::TestCase
+class ExtendingSwapTest < ActiveSupport::TestCase
   test "extending the period" do
-    swap = build_stubbed(:swap_period, :current)
+    swap = build_stubbed(:swap, :current)
     assert_equal 2, swap.nights
 
     swap.extend(1)
