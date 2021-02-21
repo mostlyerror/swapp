@@ -1,0 +1,22 @@
+<section class="px-6 mt-12">
+  <p class="step-description">3. Dispense voucher with instructions</p>
+  <h1 class="mt-24 text-9xl text-black font-bold">Hotel voucher created! 🎉</h1>
+  <p class="mt-16 help-text">
+    This is a digital record of a motel voucher. <strong>This does NOT replace
+      a physical voucher!</strong> ONLY the paper voucher will be accepted by
+    the motel front desk.
+  </p>
+  <p class="mt-6 help-text">
+    Write down the voucher details on your physical voucher slip. It may also
+    help to copy the below voucher details and text/email them to the client,
+    if possible.
+  </p>
+</section>
+
+<section class="mt-24">
+  <%= render @voucher %>
+</section>
+
+<section class="py-24 px-6">
+  <h2 class="text-7xl text-center  font-bold">Help another <%= link_to 'client', clients_path, class: 'link' %>.</h1>
+</section>
