@@ -5,6 +5,19 @@
 /* Add any custom CSS here */
 @import "tailwindcss/utilities";
 
+h1 {
+  @apply text-9xl;
+}
+h2 {
+  @apply text-8xl;
+}
+h3 {
+  @apply text-7xl;
+}
+h4 {
+  @apply text-6xl;
+}
+
 .btn {
   @apply font-bold py-4 px-6 rounded;
 }
@@ -25,17 +38,12 @@
   @apply text-blue-600 underline;
 }
 
-h1 {
-  @apply text-9xl;
+.link-blue {
+  @apply text-blue-600 underline;
 }
-h2 {
-  @apply text-8xl;
-}
-h3 {
-  @apply text-7xl;
-}
-h4 {
-  @apply text-6xl;
+
+.link-yellow {
+  @apply text-yellow-400 underline;
 }
 
 .step-description {
@@ -44,6 +52,10 @@ h4 {
 
 .help-text {
   @apply text-5xl text-gray-800 leading-tight;
+}
+
+.notice {
+  @apply p-4 text-7xl font-bold border-b-2 border-gray-500;
 }
 
 .hazard-tape {
@@ -68,7 +80,7 @@ h4 {
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
-  
+
 select {
   background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+)
     no-repeat 100% 50%;
