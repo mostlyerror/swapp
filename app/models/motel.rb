@@ -1,4 +1,6 @@
 class Motel < ApplicationRecord
+  has_many :availabilities
+
   def street_address
     address['street']
   end

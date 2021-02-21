@@ -3,6 +3,7 @@ class Swap < ApplicationRecord
   validate :order_of_dates, :overlapping_events, :at_least_one_night
 
   has_many :vouchers
+  has_many :availabilities
 
   def self.current
     where("start_date <= ? AND end_date >= ?", Date.current.tomorrow, Date.current).first
@@ -14,6 +15,10 @@ class Swap < ApplicationRecord
 
   def intake_period
     (start_date - 1.day)..(end_date - 1.day)
+  end
+
+  def stay_period
+    start_date..end_date
   end
 
   def duration
