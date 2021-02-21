@@ -1,5 +1,5 @@
 class VouchersController < ApplicationController
-  before_action :set_voucher, only: %i[ show ]
+  before_action :set_voucher, only: %i[ show created ]
 
   def new
     @voucher = Voucher.new
@@ -29,7 +29,7 @@ class VouchersController < ApplicationController
       return render :new
     end
 
-    redirect_to @voucher
+    redirect_to action: :created, id: @voucher.id
   end
 
   def created
