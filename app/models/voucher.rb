@@ -2,12 +2,12 @@ class Voucher < ApplicationRecord
   belongs_to :client
   belongs_to :user
   belongs_to :motel
-  belongs_to :swap_period
+  belongs_to :swap
 
   validates_presence_of :check_in, :check_out
-  validates_uniqueness_of :client_id, scope: :swap_period_id
+  validates_uniqueness_of :client_id, scope: :swap_id
   validate :dates_must_be_today_or_later_when_issued, on: :create
-  validate :order_of_dates, :dates_must_fall_within_swap_period, :at_least_one_night_remaining
+  validate :order_of_dates, :dates_must_fall_within_swap, :at_least_one_night_remaining
 
   after_create :save_number
 
@@ -58,13 +58,13 @@ class Voucher < ApplicationRecord
       end
     end
 
-    def dates_must_fall_within_swap_period
-      if swap_period && !(check_in.in? swap_period.swap_period)
-        errors.add(:check_in, "check_in (#{check_in}) does not fall within swap period: #{swap_period.swap_period}")
+    def dates_must_fall_within_swap
+      if swap && !(check_in.in? swap.swap)
+        errors.add(:check_in, "check_in (#{check_in}) does not fall within swap period: #{swap.swap}")
       end
 
-      if swap_period && !(check_out.in? swap_period.swap_period)
-        errors.add(:check_out, "check_out (#{check_out}) does not fall within swap period: #{swap_period.swap_period}")
+      if swap && !(check_out.in? swap.swap)
+        errors.add(:check_out, "check_out (#{check_out}) does not fall within swap period: #{swap.swap}")
       end
     end
 

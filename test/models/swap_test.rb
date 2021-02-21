@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SwapPeriodTest < ActiveSupport::TestCase
+class SwapTest < ActiveSupport::TestCase
   test "should not be deactivated if ongoing" do
   end
 
@@ -8,19 +8,19 @@ class SwapPeriodTest < ActiveSupport::TestCase
   end
 
   test "#duration" do
-    swap = build_stubbed(:swap_period, start_date: Date.current, end_date: Date.current)
+    swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current)
     assert_equal swap.duration, 1, "expected 1, got: #{swap.duration}"
 
-    swap = build_stubbed(:swap_period, start_date: Date.current, end_date: Date.current.tomorrow) 
+    swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current.tomorrow) 
   end
 
   test "#nights" do
-    swap = build_stubbed(:swap_period, start_date: Date.current, end_date: Date.current.tomorrow)
+    swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current.tomorrow)
     assert_equal swap.nights, 1
   end
 
   test "start/end dates make sense (start <= end)" do
-    swap = build_stubbed(:swap_period, start_date: Date.current, end_date: Date.current.yesterday)
+    swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current.yesterday)
     refute swap.valid?, "end_date: #{swap.end_date}  must be later than start_date: #{swap.start_date}"
 
     swap.end_date = Date.current.tomorrow
@@ -28,7 +28,7 @@ class SwapPeriodTest < ActiveSupport::TestCase
   end
 
   test "single-day events are invalid - events must cross at least one night" do
-    swap = build_stubbed(:swap_period, start_date: Date.current, end_date: Date.current)
+    swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current)
     refute swap.valid?
     assert_equal 0, swap.nights
 
@@ -38,19 +38,19 @@ class SwapPeriodTest < ActiveSupport::TestCase
   end
 
   test "overlapping events" do
-    swap = create(:swap_period, start_date: Date.current.yesterday, end_date: Date.current)
+    swap = create(:swap, start_date: Date.current.yesterday, end_date: Date.current)
     assert swap.persisted?
 
-    swap = build_stubbed(:swap_period, start_date: Date.current - 2, end_date: Date.current + 2)
+    swap = build_stubbed(:swap, start_date: Date.current - 2, end_date: Date.current + 2)
     refute swap.valid?
 
-    swap = build_stubbed(:swap_period, start_date: Date.current, end_date: Date.current.tomorrow)
+    swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current.tomorrow)
     refute swap.valid?
     swap.start_date = Date.current.tomorrow
     swap.end_date = Date.current + 2
     assert swap.valid?
 
-    swap = build_stubbed(:swap_period, start_date: Date.current - 2, end_date: Date.current.yesterday)
+    swap = build_stubbed(:swap, start_date: Date.current - 2, end_date: Date.current.yesterday)
     refute swap.valid?
     swap.start_date = Date.current - 3
     swap.end_date = Date.current - 2
@@ -58,9 +58,9 @@ class SwapPeriodTest < ActiveSupport::TestCase
   end
 
   test "swap periods must have at least one day between them to be distinct" do
-    create(:swap_period, start_date: Date.current, end_date: Date.current.tomorrow)
+    create(:swap, start_date: Date.current, end_date: Date.current.tomorrow)
 
-    swap = build_stubbed(:swap_period, start_date: Date.current.tomorrow, end_date: Date.current + 3)
+    swap = build_stubbed(:swap, start_date: Date.current.tomorrow, end_date: Date.current + 3)
     refute swap.valid?
 
     swap.start_date = Date.current + 2

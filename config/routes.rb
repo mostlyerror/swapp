@@ -7,12 +7,12 @@ Rails.application.routes.draw do
   resources :intakes
   resources :vouchers
   get "vouchers/:id/created" => "vouchers#created"
-  resources :swap_periods
+  resources :swaps
 
   # get "admin" => "admin/home#index"
   namespace :admin do
     get "/" => "home#index", as: :home
-    put "swap_periods/:id/extend" => "swap_periods#extend", as: :extend_swap_period
+    put "swaps/:id/extend" => "swaps#extend", as: :extend_swap
   end
  
   root to: "clients#index"

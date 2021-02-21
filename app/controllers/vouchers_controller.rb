@@ -3,13 +3,13 @@ class VouchersController < ApplicationController
 
   def new
     @voucher = Voucher.new
-    @swap = SwapPeriod.current
+    @swap = Swap.current
     @motels = Motel.all
     @client = Client.find(params['client_id'])
   end
 
   def create
-    @swap = SwapPeriod.current
+    @swap = Swap.current
     @motels = Motel.all
     @client = Client.find(params['client']['id'])
 
@@ -19,12 +19,12 @@ class VouchersController < ApplicationController
       motel_id: params['voucher']['motel_id'],
       check_in: params['voucher']['check_in'],
       check_out: params['voucher']['check_out'],
-      swap_period: SwapPeriod.current
+      swap: Swap.current
     )
 
     if !@voucher.save
       if @voucher.errors[:client_id].include? "has already been taken"
-        @existing_voucher = SwapPeriod.current.vouchers.find_by(client: @voucher.client)
+        @existing_voucher = Swap.current.vouchers.find_by(client: @voucher.client)
       end
       return render :new
     end

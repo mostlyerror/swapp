@@ -2,8 +2,8 @@
   Today: <%= formatted_date(Date.current) %>
 </div>
 <div>
-  Current Swap Period: <%= debug SwapPeriod.current %><br/>
-  Current Swap Status: <%= SwapPeriod.current ? 'active' : 'inactive' %>
+  Current Swap Period: <%= debug Swap.current %><br/>
+  Current Swap Status: <%= Swap.current ? 'active' : 'inactive' %>
 </div>
 <ul>
   <li><%= link_to "Client Search", clients_path, class: 'link' %></li>
