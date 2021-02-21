@@ -5,19 +5,24 @@
     <p class="text-6xl leading-loose"><strong>Gender:</strong> <%= @client.gender %></p>
   </section>
 </section>
-<section class="text-5xl px-6 mt-16">
+<section class="text-5xl mt-16">
+  <%= render partial: 'shared/swap_notices' %>
   <div class="flex flex-1 flex-col text-6xl font-bold space-y-16 ">
     <div class="w-full">
       <% if @existing_voucher.blank? %>
-        <p>Create a <%= link_to 'hotel voucher', new_voucher_path(client_id: @client.id), class: 'link' %>.</p>
+        <% if @swap.present? %>
+          <p class="px-6 mt-16">Create a <%= link_to 'hotel voucher', new_voucher_path(client_id: @client.id), class: 'link' %>.</p>
+        <% else %>
+          <p class="px-6 mt-16">Hotel vouchers can only be issued during a SWAP period.</p>
+        <% end %>
       <% else %>
-        <p class="notice bg-blue-300">
-          <%= @client.first_name %> has already been issued a <%= link_to 'voucher', @existing_voucher, class: 'link' %> for this SWAP period!
+        <p class="notice bg-blue-400">
+          <%= @client.first_name %> has already been issued a <%= link_to 'voucher', @existing_voucher %> for this SWAP period!
         </p>
       <% end %>
     </div>
-    <div class="w-full">
-      Not who you're looking for? <%= link_to 'Search Again', :back, class: 'link' %>.
+    <div class="px-6 w-full">
+      Not who you're looking for? <%= link_to 'Search again', :back, class: 'link' %>.
     </div>
   </div>
 </section>
@@ -61,7 +66,4 @@
       <p>No vouchers found.</p>
     </div>
   <% end %>
-</section>
-<section class="py-24 px-6">
-  <h2 class="text-7xl text-center  font-bold">Back to <%= link_to 'client search', clients_path, class: 'link' %>.</h1>
 </section>

@@ -6,5 +6,11 @@
     Try to collect phone/email at this stage if you can, in order to share the digital voucher easily.
     You may want to copy the created voucher info and send it to your client.
   </p>
-  <%= render partial: 'shared/swap_notices' %>
+  <%= render partial: 'shared/notices/first_day_of_intake' %>
+  <%= render partial: 'shared/notices/last_day_of_intake' %>
+  <%= render partial: 'shared/notices/no_nights_remaining' %>
+  <%= render partial: 'shared/notices/no_swap' %>
+  <% if SwapIntake.can_issue_voucher_today?(@swap) %>
+    <%= render partial: 'form' %>
+  <% end %>
 </div>
