@@ -23,9 +23,12 @@ class Voucher < ApplicationRecord
     [(check_out -  Date.current).to_i, 0].max
   end
 
-  def extend nights
-    self.check_out = self.check_out.to_date + nights.to_i.days
-    self
+  def extend! nights
+    nights = nights.to_i
+    raise :cannot_extend_voucher_by_negative_number_of_days if nights.negative?
+
+    self.check_out = self.check_out + nights
+    save!
   end
 
   private 
