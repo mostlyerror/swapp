@@ -41,8 +41,20 @@ class Voucher < ApplicationRecord
     end
 
     def dates_must_be_today_or_later_when_issued
-      if (check_in < Date.current) or (check_out < Date.current)
-        errors.add(:backdated, "Can't issue backdated voucher dates")
+      if check_in.blank?
+        return errors.add(:check_in, "Must provide a check in date")
+      end
+
+      if check_out.blank?
+        return errors.add(:check_out, "Must provide a check out date")
+      end
+
+      if (check_in < Date.current)
+        errors.add(:check_in, "Can't issue backdated voucher dates")
+      end
+
+      if (check_out < Date.current)
+        errors.add(:check_out, "Can't issue backdated voucher dates")
       end
     end
 

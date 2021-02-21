@@ -65,7 +65,7 @@ class VoucherTest < ActiveSupport::TestCase
     assert voucher.errors.key? :check_out
   end
 
-  test "dates must be today or later at creation" do
+  test "dates must be today or later at creation (no backdated vouchers)" do
     swap = create(:swap_period, :past)
     assert_raises do
       create(:voucher, 
