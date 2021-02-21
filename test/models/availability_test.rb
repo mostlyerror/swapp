@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AvailabilityTest < ActiveSupport::TestCase
-  test "availibility date must be within swap period" do
+  test "availability date must be within swap period" do
     swap = build_stubbed(:swap, :tomorrow)
     avail = build_stubbed(:availability, swap: swap)
     assert avail.valid?
@@ -15,7 +15,7 @@ class AvailabilityTest < ActiveSupport::TestCase
     skip 'wip'
   end
 
-  test "Swap#motel_availibility" do
+  test "Swap#motel_availability" do
     swap = create(:swap, :tomorrow)
     motel = create(:motel)
     swap.availabilities.create(
