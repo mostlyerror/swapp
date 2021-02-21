@@ -1,6 +1,5 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: %i[ show ]
-  # skip_before_action :set_swap_current, only: %[  ]
 
   # GET /clients or /clients.json
   def index
