@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module SwapRedFlag
+module Swapp
   class Application < Rails::Application
     config.time_zone = "Mountain Time (US & Canada)"
     # Initialize configuration defaults for originally generated Rails version.
