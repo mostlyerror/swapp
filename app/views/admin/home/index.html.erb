@@ -50,8 +50,8 @@
               <%= form.date_select :start_date, {
                 use_short_month: true,
                 order: [:month, :day, :year],
-                start_year: Date.today.year - 120,
-                end_year: Date.today.year
+                start_year: Date.current.year - 120,
+                end_year: Date.current.year
               } %>
               </div>
               </div>
@@ -61,8 +61,8 @@
               <%= form.date_select :end_date, {
                 use_short_month: true,
                 order: [:month, :day, :year],
-                start_year: Date.today.year - 120,
-                end_year: Date.today.year
+                start_year: Date.current.year - 120,
+                end_year: Date.current.year
               } %>
               </div>
               </div>

@@ -2,8 +2,14 @@ class SwapPeriod < ApplicationRecord
   validates_presence_of :start_date, :end_date
   validate :order_of_dates, :overlapping_events, :at_least_one_night
 
+  has_many :vouchers
+
   def self.current
-    where("start_date <= ? AND end_date >= ?", Date.tomorrow, Date.today).first
+    where("start_date <= ? AND end_date >= ?", Date.current.tomorrow, Date.current).first
+  end
+
+  def swap_period
+    start_date..end_date
   end
 
   def intake_period
@@ -19,7 +25,7 @@ class SwapPeriod < ApplicationRecord
   end
 
   def nights_remaining
-    [(end_date -  Date.today.to_date).to_i, 0].max
+    [(end_date -  Date.current.to_date).to_i, 0].max
   end
 
   def extend nights

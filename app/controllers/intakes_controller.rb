@@ -4,10 +4,6 @@ class IntakesController < ApplicationController
     @motels = Motel.all
     @intake = Intake.new
     @client = Client.new
-
-    if @swap && @swap.nights_remaining > 0
-      @max_nights = @swap.nights_remaining
-    end
   end
 
   def create
@@ -26,7 +22,6 @@ class IntakesController < ApplicationController
       if !@intake.save
         return render :new
       end
-      
 
       @swap = SwapPeriod.current
 
@@ -34,7 +29,7 @@ class IntakesController < ApplicationController
         client: @client,
         user: current_user,
         motel: Motel.find(intake_params['survey']["motel_id"]),
-        check_in: [@swap.start_date, Date.today].max,
+        check_in: [@swap.start_date, Date.current.today].max,
         check_out: @swap.end_date,
         swap_period: SwapPeriod.current
       )
