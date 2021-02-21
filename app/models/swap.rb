@@ -28,9 +28,15 @@ class Swap < ApplicationRecord
     [(end_date -  Date.current.to_date).to_i, 0].max
   end
 
-  def extend nights
-    self.end_date = self.end_date.to_date + nights.to_i.days
-    self
+  def extend! nights
+    nights = nights.to_i
+    raise :cannot_extend_swap_by_negative_number_of_days if nights.negative?
+
+    self.transaction do
+      self.end_date = self.end_date.to_date + nights
+      save!
+      vouchers.each { |voucher| voucher.extend!(nights) }
+    end
   end
 
   def to_s
