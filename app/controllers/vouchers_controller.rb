@@ -32,6 +32,9 @@ class VouchersController < ApplicationController
     redirect_to @voucher
   end
 
+  def created
+  end
+
   def show
   end
 
