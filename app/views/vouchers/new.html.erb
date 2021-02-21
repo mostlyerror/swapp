@@ -3,35 +3,8 @@
   <h1 class="mt-24 text-9xl text-black font-bold">Create a voucher. 🎫</h1>
   <p class="mt-6 help-text">
     Which hotel is the client headed to and for how long?
-    Also, it's good to collect phone/email at this stage if you can. You may
-    want to copy the created voucher info and send it to your client.
+    Try to collect phone/email at this stage if you can, in order to share the digital voucher easily.
+    You may want to copy the created voucher info and send it to your client.
   </p>
-  <% if @swap %>
-    <% if SwapIntake.today_is_first_intake_day?(@swap) %>
-      <section class="mt-16 p-8 text-7xl bg-blue-400">
-        <p class="">SWAP stays begin <strong>tomorrow, <%= (@swap.end_date - 1.day).to_formatted_s(:short) %></strong>.</p>
-        <p class="mt-6 font-bol">Vouchers may be issued starting today. Please help clients realize their check-in is actually for <em>tomorrow!</em></p>
-      </section>
-    <% end %>
-    <% if SwapIntake.today_is_last_intake_day?(@swap) %>
-      <section class="mt-16 p-8 text-7xl bg-yellow-400">
-        <p class="font-bold">Today is the last day to issue vouchers for the current SWAP period.</p>
-        <p class="mt-6 text-6xl">However, be on the lookout! Administrators may extend.</p>
-      </section>
-    <% end %>
-    <% if @swap.nights_remaining == 0 %>
-      <section class="mt-16 p-8 text-7xl bg-red-400">
-        <p class="font-bold">Whoops! The last day to issue vouchers for the current period was: <%= (@swap.end_date - 1.day).to_formatted_s(:short) %></p>
-        <p class="mt-6">Next time make sure to issue vouchers during the intake period, so clients can stay at least 1 night.</p>
-      </section>
-    <% end %>
-    <% if SwapIntake.can_issue_voucher_today?(@swap) %>
-      <%= render partial: 'form' %>
-    <% end %>
-  <% else %>
-    <section class="mt-16 p-8 text-7xl bg-red-400">
-      <p class="font-bold">Whoops! There is currently no scheduled SWAP Period.</p>
-      <p class="mt-6">Administrators may enable vouchers by activating the program.</p>
-    </section>
-  <% end %>
+  <%= render partial: 'shared/swap_notices' %>
 </div>
