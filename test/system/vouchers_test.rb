@@ -19,9 +19,8 @@ class VouchersTest < ApplicationSystemTestCase
     select motel.name, from: "Hotel"
     click_on "Create"
 
-    assert_text /Hotel voucher created!/i
-
     # voucher ID saved after creation
     assert_text "AH%.5d" % Voucher.last.id
+    assert_text client.name
   end
 end
