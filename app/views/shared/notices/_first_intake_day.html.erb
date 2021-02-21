@@ -1,0 +1,6 @@
+<% if @swap.present? && SwapIntake.today_is_first_intake_day?(@swap) %>
+  <section id="notice--first-intake-day" class="notice bg-blue-300">
+    <h3>SWAP stays begin tomorrow, <%= (@swap.end_date - 1.day).to_formatted_s(:short) %>. Vouchers can be issued now!</h3>
+    <p class="text-blue-900">Please help clients realize their check-in is actually for <em>tomorrow!</em></p>
+  </section>
+<% end %>

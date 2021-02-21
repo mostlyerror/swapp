@@ -1,6 +1,5 @@
 class IntakesController < ApplicationController
   def new
-    @swap = Swap.current
     @motels = Motel.all
     @intake = Intake.new
     @client = Client.new
@@ -8,7 +7,6 @@ class IntakesController < ApplicationController
   end
 
   def create
-    @swap = Swap.current
     @intake = Intake.new(intake_params)
     @intake.user = current_user
     @client = Client.new(intake_params['client_attributes'])
@@ -31,7 +29,7 @@ class IntakesController < ApplicationController
         motel: Motel.find(intake_params["survey"]["motel_id"]),
         check_in: intake_params["survey"]["check_in"],
         check_out: intake_params["survey"]["check_out"],
-        swap: Swap.current
+        swap: @swap
       )
       return redirect_to voucher_created_path(@voucher)
     end
