@@ -1,67 +1,42 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 ActiveRecord::Base.transaction do |t|
-
-  User.create([
+  user_data = [
     {
-      email: 'bpoon@codeforamerica.org',
-      first_name: 'Ben',
-      last_name: 'Poon',
+      email: 'sudney@cityinn.com',
+      first_name: 'Sydney',
+      last_name: 'Motel',
       password: 'password',
       password_confirmation: 'password',
-      admin: true,
+      admin: false,
     },
     {
-      email: 'ftang@codeforamerica.org',
-      first_name: 'Fiona',
-      last_name: 'Tang',
+      email: 'carol@comfortinn.com',
+      first_name: 'Carol',
+      last_name: 'Motel',
       password: 'password',
       password_confirmation: 'password',
-      admin: true,
+      admin: false,
     },
     {
-      email: 'bjohnson@codeforamerica.org',
-      first_name: 'Brandon',
-      last_name: 'Johnson',
+      email: 'harriet@hometownestudios.com',
+      first_name: 'Harriett',
+      last_name: 'Motel',
       password: 'password',
       password_confirmation: 'password',
-      admin: true,
+      admin: false,
     },
     {
-      email: 'ashleydunn@almosthome.org',
-      first_name: 'Ashley',
-      last_name: 'Dunn',
+      email: 'quincey@qualityinn.com',
+      first_name: 'Quincey',
+      last_name: 'Motel',
       password: 'password',
       password_confirmation: 'password',
-      admin: true,
-    },
-    {
-      email: "learl@adcogov.org",
-      first_name: "Lindsey",
-      last_name: "Earl",
-      password: "password",
-      password_confirmation: "password",
-      admin: true,
+      admin: false
     }
-  ])
+  ]
 
-  intake_users = User.create([
-    {
-      email: 'hmcclure@adcogov.org',
-      first_name: 'Heather',
-      last_name: 'McClure',
-      password: 'bosmer',
-      password_confirmation: 'bosmer',
-    },
-  ])
+  User.create!(user_data)
 
-  motels = Motel.create!([
+  motel_data = [
     {
       name: 'City Inn',
       address: {
@@ -102,60 +77,7 @@ ActiveRecord::Base.transaction do |t|
       },
       phone: '+13036541400'
     }
-  ])
+  ]
 
-  motel_users = User.create!([
-    {
-      email: 'charles@cityinn.com',
-      first_name: 'Charles',
-      last_name: 'Motel',
-      password: 'password',
-      password_confirmation: 'password',
-    },
-    {
-      email: 'carol@comfortinn.com',
-      first_name: 'Carol',
-      last_name: 'Motel',
-      password: 'password',
-      password_confirmation: 'password',
-    },
-    {
-      email: 'harriet@hometownestudios.com',
-      first_name: 'Harriett',
-      last_name: 'Motel',
-      password: 'password',
-      password_confirmation: 'password',
-    },
-    {
-      email: 'quincey@qualityinn.com',
-      first_name: 'Quincey',
-      last_name: 'Motel',
-      password: 'password',
-      password_confirmation: 'password',
-    }
-  ])
-
-  clients = []
-  50.times do
-    client = Client.create!(
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      date_of_birth: Faker::Date.birthday,
-      gender: Client::GENDER.sample,
-      race: Client::RACE.sample,
-      ethnicity: Client::ETHNICITY.sample,
-      phone_number: Faker::PhoneNumber.cell_phone,
-      email: Faker::Internet.email,
-    )
-    clients << client
-  end
-
-  20.times do
-    IncidentReport.create!(
-      client: clients.sample,
-      reporter_id: motel_users.sample.id,
-      occurred_at: Faker::Date.between(from: 60.days.ago, to: Date.current),
-      description: Faker::Quote.jack_handey,
-    )
-  end
+  Motel.create! motel_data
 end
