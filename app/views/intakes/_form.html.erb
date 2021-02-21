@@ -420,37 +420,46 @@
         %>
       </div>
       <!-- voucher-specific questions -->
-      <div class="field w-full">
-        <%= form.label "survey[nights]", "Number of Nights", class: "block leading-relaxed" %>
-        <%= form.number_field "survey[nights]", 
-          step: 1, 
-          min: 1, 
-          max: @max_nights,
-          class: "rounded-lg border border-gray-300 w-full p-6", 
-          required: true,
-          value: @intake.survey&.dig('nights'),
-          placeholder: "enter numeric value" %>
+      <div class="w-full">
+        <strong>Check In</strong>
+        <%= form.date_field "survey[check_in]",
+                  value: [@swap.start_date, Date.current].max,
+                  min: [@swap.start_date, Date.current].max,
+                  max: @swap.end_date - 1,
+                  required: true,
+                  class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
       </div>
-      <div class="field w-full">
-        <%= form.label "survey[motel_id]", "Hotel", class: "block leading-relaxed" %>
-        <%= form.select "survey[motel_id]",
+      <div class="w-full">
+        <strong>Check Out</strong>
+        <%= form.date_field "survey[check_out]",
+                  value: [@swap.end_date, Date.current].max,
+                  min: [@swap.start_date, Date.current].max + 1,
+                  max: @swap.end_date,
+                  required: true,
+                  class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
+      </p>
+    </div>
+  </section>
+  <div class="field w-full">
+    <%= form.label "survey[motel_id]", "Hotel", class: "block leading-relaxed" %>
+    <%= form.select "survey[motel_id]",
         options_from_collection_for_select(@motels, 'id', 'name'), 
 
           {include_blank: true},
           class: "bg-white rounded-lg border border-gray-300 w-full p-6", required: true %>
-      </div>
-      <div class="field w-full">
-        <%= client_attributes.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
-        <%= client_attributes.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
-      </div>
-      <div class="field w-full">
-        <%= client_attributes.label :email, "Email (optional)", class: "block leading-relaxed"  %>
-        <%= client_attributes.email_field :email, class: "w-full border border-gray-300 p-6" %>
-      </div>
-    <% end %>
-    <!-- end voucher-specific questions -->
-    <div class="actions mt-12">
-      <%= form.submit 'Submit', class: 'w-full btn btn-blue h-32 text-6xl' %>
-    </div>
   </div>
+  <div class="field w-full">
+    <%= client_attributes.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
+    <%= client_attributes.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
+  </div>
+  <div class="field w-full">
+    <%= client_attributes.label :email, "Email (optional)", class: "block leading-relaxed"  %>
+    <%= client_attributes.email_field :email, class: "w-full border border-gray-300 p-6" %>
+  </div>
+<% end %>
+<!-- end voucher-specific questions -->
+<div class="actions mt-12">
+  <%= form.submit 'Submit', class: 'w-full btn btn-blue h-32 text-6xl' %>
+</div>
+</div>
 <% end %>

@@ -4,9 +4,11 @@ class IntakesController < ApplicationController
     @motels = Motel.all
     @intake = Intake.new
     @client = Client.new
+    @voucher = Voucher.new
   end
 
   def create
+    @swap = Swap.current
     @intake = Intake.new(intake_params)
     @intake.user = current_user
     @client = Client.new(intake_params['client_attributes'])
@@ -23,17 +25,15 @@ class IntakesController < ApplicationController
         return render :new
       end
 
-      @swap = Swap.current
-
       @voucher = Voucher.create!(
         client: @client,
         user: current_user,
-        motel: Motel.find(intake_params['survey']["motel_id"]),
-        check_in: [@swap.start_date, Date.current.today].max,
-        check_out: @swap.end_date,
+        motel: Motel.find(intake_params["survey"]["motel_id"]),
+        check_in: intake_params["survey"]["check_in"],
+        check_out: intake_params["survey"]["check_out"],
         swap: Swap.current
       )
-      return redirect_to @voucher
+      return redirect_to voucher_created_path(@voucher)
     end
 
     redirect_to @intake
@@ -44,7 +44,7 @@ class IntakesController < ApplicationController
   def intake_params
     params.require(:intake).permit(
       survey: [
-        "king_soopers_card", "bus_pass", "num_nights", "motel_id",
+        "king_soopers_card", "bus_pass", 
         "homelessness_first_time", "homelessness_how_long_this_time",
         "homelessness_episodes_last_three_years",
         "homelessness_episodes_how_long", "how_long_living_in_this_community",
@@ -57,11 +57,10 @@ class IntakesController < ApplicationController
         "developmental_disability_impairment", "fleeing_domestic_violence",
         "num_adults_household", "num_children_household",
         "last_permanent_residence_city_and_state",
-        "last_permanent_residence_county"],
-        client_attributes: [
-          ["first_name", "last_name", "date_of_birth(2i)", "date_of_birth(3i)",
-           "date_of_birth(1i)", "gender", "race", "ethnicity", "phone_number",
-           "email"]
-        ])
+        "last_permanent_residence_county",
+        "motel_id", "check_in", "check_out"
+      ],
+      client_attributes: ["first_name", "last_name", "date_of_birth", "gender", "race", "ethnicity", "phone_number", "email"],
+    )
   end
 end

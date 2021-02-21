@@ -1,4 +1,4 @@
-<% if @swap %>
+<% if @swap.present? %>
   <% if SwapIntake.today_is_first_intake_day?(@swap) %>
     <section class="mt-16 p-8 text-7xl bg-blue-400">
       <p class="">SWAP stays begin <strong>tomorrow, <%= (@swap.end_date - 1.day).to_formatted_s(:short) %></strong>.</p>
