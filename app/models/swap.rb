@@ -5,6 +5,12 @@ class Swap < ApplicationRecord
   has_many :vouchers
   has_many :availabilities
 
+  def motel_availability
+    availabilities.reduce({}) do |memo, av|
+      memo.merge({"#{av.date}": {name: av.motel.name, rooms: av.rooms}})
+    end
+  end
+
   def self.current
     where("start_date <= ? AND end_date >= ?", Date.current.tomorrow, Date.current).first
   end

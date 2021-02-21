@@ -2,6 +2,7 @@ class Availability < ApplicationRecord
   belongs_to :motel
   belongs_to :swap
 
+  validates_presence_of :date, :rooms
   validate :date_must_be_within_swap_period
 
   private 
