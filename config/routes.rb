@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   get "vouchers/:id/created" => "vouchers#created"
   resources :swap_periods
 
-  get "admin" => "admin/home#index"
+  # get "admin" => "admin/home#index"
   namespace :admin do
-    get "home" => "home#index"
+    get "/" => "home#index", as: :home
     put "swap_periods/:id/extend" => "swap_periods#extend", as: :extend_swap_period
   end
  
