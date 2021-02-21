@@ -4,6 +4,13 @@ class Intake < ApplicationRecord
   belongs_to :user
   before_save :trim_survey_fields
 
+  WORKING = [
+    "No",
+    "Yes - Full-Time",
+    "Yes - Part-Time",
+    "Yes - Seasonal/Temporary"
+  ]
+
   private 
 
     def trim_survey_fields
