@@ -154,7 +154,7 @@ ActiveRecord::Base.transaction do |t|
     IncidentReport.create!(
       client: clients.sample,
       reporter_id: motel_users.sample.id,
-      occurred_at: Faker::Date.between(from: 60.days.ago, to: Date.today),
+      occurred_at: Faker::Date.between(from: 60.days.ago, to: Date.current),
       description: Faker::Quote.jack_handey,
     )
   end
