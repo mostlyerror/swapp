@@ -25,5 +25,15 @@ class AvailabilityTest < ActiveSupport::TestCase
     )
 
     assert_equal({"#{swap.start_date}": {name: motel.name, rooms: 10}}, swap.motel_availability)
+
+    motel = create(:motel)
+    swap.availabilities.create(
+      motel: motel, 
+      date: swap.start_date,
+      rooms: 10
+    )
+
+    assert_equal({}, swap.motel_availability)
+    assert swap.motel_availability
   end
 end

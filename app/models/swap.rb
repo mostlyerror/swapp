@@ -6,8 +6,9 @@ class Swap < ApplicationRecord
   has_many :availabilities
 
   def motel_availability
-    availabilities.reduce({}) do |memo, av|
-      memo.merge({"#{av.date}": {name: av.motel.name, rooms: av.rooms}})
+    availabilities.each_with_object({}) do |av, memo|
+      memo["#{av.date}"] ||= []
+      memo["#{av.date}"] << {name: av.motel.name, motel_id: av.motel_id, rooms: av.rooms}
     end
   end
 
