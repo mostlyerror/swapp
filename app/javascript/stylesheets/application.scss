@@ -18,6 +18,15 @@ h4 {
   @apply text-6xl;
 }
 
+// fix ios element rounding
+input {
+  border-radius: 0;
+}
+
+input[type="search"] {
+  -webkit-appearance: none;
+}
+
 .btn {
   @apply font-bold py-4 px-6 rounded;
 }
