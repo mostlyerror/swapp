@@ -3,16 +3,27 @@ require 'test_helper'
 class AvailabilityTest < ActiveSupport::TestCase
   test "availability date must be within swap period" do
     swap = build_stubbed(:swap, :tomorrow)
-    avail = build_stubbed(:availability, swap: swap)
-    assert avail.valid?
+    av = build_stubbed(:availability, swap: swap)
+    assert av.valid?
 
-    avail.date = Date.current
-    refute avail.valid?
-    assert avail.errors.key?(:date_must_be_within_swap_period)
+    av.date = Date.current
+    refute av.valid?
+    assert av.errors.key?(:date_must_be_within_swap_period)
   end
 
   test "one availability per date per motel per swap" do
-    skip 'wip'
+    swap = create(:swap, :tomorrow)
+    motel = create(:motel)
+    av = create(:availability, swap: swap, motel: motel, date: swap.start_date, rooms: 1)
+    assert av.persisted?
+    av = build_stubbed(:availability, swap: swap, motel: motel, date: swap.start_date, rooms: 1)
+    refute av.valid?
+    assert av.errors.key?(:one_per_date_per_motel_per_swap)
+
+    # skipping validations to test custom multi-column index using dates:
+    # see: db/migrate/20210223163318_add_unique_index_to_availabilities.rb
+    av = build(:availability, swap: swap, motel: motel, date: swap.start_date, rooms: 1)
+    assert_raise(ActiveRecord::RecordNotUnique) { av.save(validate: false) }
   end
 
   test "RoomAvailability::by_motel" do
