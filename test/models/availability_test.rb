@@ -15,25 +15,31 @@ class AvailabilityTest < ActiveSupport::TestCase
     skip 'wip'
   end
 
-  test "Swap#motel_availability" do
+  test "RoomAvailability::by_motel" do
     swap = create(:swap, :tomorrow)
-    motel = create(:motel)
+    motel_1 = create(:motel)
     swap.availabilities.create(
-      motel: motel, 
+      motel: motel_1, 
       date: swap.start_date,
       rooms: 10
     )
 
-    assert_equal({"#{swap.start_date}": {name: motel.name, rooms: 10}}, swap.motel_availability)
+    rooms = RoomAvailability.by_motel(swap)
 
-    motel = create(:motel)
+    expected = Hash[ motel_1.id, Hash[swap.start_date, 10] ]
+    assert_equal(expected, rooms)
+    assert_equal(10, rooms[motel_1.id][swap.start_date])
+
+    motel_2 = create(:motel)
     swap.availabilities.create(
-      motel: motel, 
+      motel: motel_2, 
       date: swap.start_date,
-      rooms: 10
+      rooms: 20
     )
 
-    assert_equal({}, swap.motel_availability)
-    assert swap.motel_availability
+    rooms = RoomAvailability.by_motel(swap)
+
+    assert_equal(10, rooms[motel_1.id][swap.start_date])
+    assert_equal(20, rooms[motel_2.id][swap.start_date])
   end
 end

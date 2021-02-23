@@ -5,13 +5,6 @@ class Swap < ApplicationRecord
   has_many :vouchers
   has_many :availabilities
 
-  def motel_availability
-    availabilities.each_with_object({}) do |av, memo|
-      memo["#{av.date}"] ||= []
-      memo["#{av.date}"] << {name: av.motel.name, motel_id: av.motel_id, rooms: av.rooms}
-    end
-  end
-
   def self.current
     where("start_date <= ? AND end_date >= ?", Date.current.tomorrow, Date.current).first
   end
