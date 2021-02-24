@@ -15,47 +15,48 @@ class AvailabilityTest < ActiveSupport::TestCase
   test "one availability per date per motel per swap" do
     swap = create(:swap, :tomorrow)
     motel = create(:motel)
-    av = create(:availability, swap: swap, motel: motel, date: swap.start_date, rooms: 1)
+    av = create(:availability, swap: swap, motel: motel, date: swap.start_date, vacant: 1)
     assert av.persisted?
-    av = build_stubbed(:availability, swap: swap, motel: motel, date: swap.start_date, rooms: 1)
+    av = build_stubbed(:availability, swap: swap, motel: motel, date: swap.start_date, vacant: 1)
     refute av.valid?
     assert av.errors.key?(:one_per_date_per_motel_per_swap)
 
     # skipping validations to test custom multi-column index using dates:
     # see: db/migrate/20210223163318_add_unique_index_to_availabilities.rb
-    av = build(:availability, swap: swap, motel: motel, date: swap.start_date, rooms: 1)
+    av = build(:availability, swap: swap, motel: motel, date: swap.start_date, vacant: 1)
     assert_raise(ActiveRecord::RecordNotUnique) { av.save(validate: false) }
   end
 
   test "availability should include motels even when they haven't responded" do
     swap = create(:swap, :tomorrow)
     motel = create(:motel)
-    rooms = RoomSupply.by_motel(swap)
-    assert rooms.key?(motel)
+    supply = RoomSupply.by_motel(swap)
+    assert supply.key?(motel)
   end
 
   test "RoomSupply::by_motel" do
+    Availability.destroy_all
     swap = create(:swap, :tomorrow)
     motel = create(:motel)
     swap.availabilities.create(
       motel: motel, 
       date: swap.start_date,
-      rooms: 1
+      vacant: 1
     )
 
-    rooms = RoomSupply.by_motel(swap)
-    assert_equal(1, rooms[motel][swap.start_date])
-    assert_nil rooms[motel][swap.start_date + 1]
+    supply = RoomSupply.by_motel(swap)
+    assert_equal(1, supply[motel][swap.start_date][:vacant])
+    assert_nil supply[motel][swap.start_date + 1][:vacant]
 
     motel2 = create(:motel)
     swap.availabilities.create(
       motel: motel2, 
       date: swap.start_date,
-      rooms: 2,
+      vacant: 2,
     )
 
-    rooms = RoomSupply.by_motel(swap.reload)
-    assert_equal(2, rooms[motel2][swap.start_date])
-    assert_nil rooms[motel][swap.start_date + 1]
+    supply = RoomSupply.by_motel(swap.reload)
+    assert_equal(2, supply[motel2][swap.start_date][:vacant])
+    assert_nil supply[motel][swap.start_date + 1][:vacant]
   end
 end
