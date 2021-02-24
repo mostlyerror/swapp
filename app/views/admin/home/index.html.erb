@@ -94,29 +94,9 @@
       </div>
       <!-- swap period actions -->
       <!-- voucher supply -->
-      <div class="max-w-6xl w-full">
-        <table class="shadow bg-white rounded text-left text-5xl w-full">
-          <h2 class="bg-gray-900 text-white text-6xl font-semibold p-6">Room Supply</h2>
-          <thead>
-            <tr class="bg-gray-900 text-white block">
-              <th class="w-1/3 px-4 py-8">Motel</th>
-              <th class="w-1/3 px-4 py-8">Today</th>
-            </tr>
-          </thead>
-          <tbody class="block overflow-y-scroll" style="height: 630px">
-            <% @availability.each do |motel, supply| %>
-              <tr>
-                <td class="w-1/3 px-4 py-8 text-left">
-                  <%= motel.name %>
-                </td>
-                <td class="px-4 py-8 text-left tabular-nums">
-                  <%= supply[Date.current] || 'nunya' %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+      <section class="mt-16 max-w-6xl w-full">
+        <%= render partial: 'voucher_supply' %>
+      </section>
       <!-- end voucher supply -->
     <% else %>
       SWAP is currently <span class="font-bold uppercase tracking-wide text-red-500">inactive</span>
