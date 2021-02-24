@@ -11,6 +11,7 @@ class AvailabilityTest < ActiveSupport::TestCase
     assert av.errors.key?(:date_must_be_within_swap_period)
   end
 
+
   test "one availability per date per motel per swap" do
     swap = create(:swap, :tomorrow)
     motel = create(:motel)
@@ -26,31 +27,35 @@ class AvailabilityTest < ActiveSupport::TestCase
     assert_raise(ActiveRecord::RecordNotUnique) { av.save(validate: false) }
   end
 
+  test "availability should include motels even when they haven't responded" do
+    swap = create(:swap, :tomorrow)
+    motel = create(:motel)
+    rooms = RoomAvailability.by_motel(swap)
+    assert rooms.key?(motel)
+  end
+
   test "RoomAvailability::by_motel" do
     swap = create(:swap, :tomorrow)
-    motel_1 = create(:motel)
+    motel = create(:motel)
     swap.availabilities.create(
-      motel: motel_1, 
+      motel: motel, 
       date: swap.start_date,
-      rooms: 10
+      rooms: 1
     )
 
     rooms = RoomAvailability.by_motel(swap)
+    assert_equal(1, rooms[motel][swap.start_date])
+    assert_nil rooms[motel][swap.start_date + 1]
 
-    expected = Hash[ motel_1.id, Hash[swap.start_date, 10] ]
-    assert_equal(expected, rooms)
-    assert_equal(10, rooms[motel_1.id][swap.start_date])
-
-    motel_2 = create(:motel)
+    motel2 = create(:motel)
     swap.availabilities.create(
-      motel: motel_2, 
+      motel: motel2, 
       date: swap.start_date,
-      rooms: 20
+      rooms: 2,
     )
 
-    rooms = RoomAvailability.by_motel(swap)
-
-    assert_equal(10, rooms[motel_1.id][swap.start_date])
-    assert_equal(20, rooms[motel_2.id][swap.start_date])
+    rooms = RoomAvailability.by_motel(swap.reload)
+    assert_equal(2, rooms[motel2][swap.start_date])
+    assert_nil rooms[motel][swap.start_date + 1]
   end
 end
