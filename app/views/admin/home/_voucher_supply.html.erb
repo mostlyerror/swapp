@@ -1,7 +1,6 @@
   <%= form_for(:room_supply, url: admin_update_room_supply_path(@swap), method: :put) do |form| %>
-  <%= hidden_field(:asdf, 'asdfasdfsdf') %>
   <table class="shadow bg-white rounded text-left text-5xl w-full table-fixed">
-    <h2 class="bg-gray-900 text-white text-6xl font-semibold p-6">Room Supply</h2>
+    <h2 class="bg-gray-900 text-white text-6xl font-semibold p-6">Current Room Supply</h2>
     <thead>
       <tr class="bg-gray-900 text-white">
         <th class="w-4/5 p-6">Motel</th>
@@ -15,17 +14,11 @@
             <%= motel.name %>
           </td>
           <td class="w-1/5 p-6 text-center tabular-nums">
-            <% if supply[Date.current] %>
-              <p class="p-2">
-                <%= supply[Date.current] %>
-              </p>
-            <% else %>
-              <%= form.number_field motel.id,
+            <%= form.number_field motel.id,
                 min: 0, step: 1, 
                 class: "rounded-lg border border-gray-300 w-20 text-center p-2", 
-                value: nil
+                value: supply[Date.current]
               %>
-            <% end %>
           </td>
         </tr>
       <% end %>
@@ -35,7 +28,7 @@
     <div class="flex flex-1 justify-center">
       <%= form.submit "update room supply", 
       data: { confirm: "WARNING here..." },
-      class:"py-4 px-8 rounded-r-lg bg-yellow-400 text-gray-900 font-bold border-b border-gray-900 shadow-lg" %>
+      class:"py-4 px-8 rounded-lg bg-yellow-400 text-gray-900 font-bold border-b border-gray-900 shadow-lg" %>
     </div>
   </div>
 <% end %>
