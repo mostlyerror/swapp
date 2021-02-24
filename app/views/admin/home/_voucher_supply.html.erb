@@ -1,4 +1,5 @@
-  <%= form_for(:availability_set, url: admin_update_rooms_path(@swap), method: :put) do |form| %>
+  <%= form_for(:room_supply, url: admin_update_room_supply_path(@swap), method: :put) do |form| %>
+  <%= hidden_field(:asdf, 'asdfasdfsdf') %>
   <table class="shadow bg-white rounded text-left text-5xl w-full table-fixed">
     <h2 class="bg-gray-900 text-white text-6xl font-semibold p-6">Room Supply</h2>
     <thead>
@@ -19,11 +20,10 @@
                 <%= supply[Date.current] %>
               </p>
             <% else %>
-              <%= form.number_field "motel_#{motel.id}_rooms", 
+              <%= form.number_field motel.id,
                 min: 0, step: 1, 
                 class: "rounded-lg border border-gray-300 w-20 text-center p-2", 
-                required: true,
-                value: 0
+                value: nil
               %>
             <% end %>
           </td>
