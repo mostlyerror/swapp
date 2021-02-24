@@ -1,4 +1,4 @@
-class RoomAvailability
+class RoomSupply
   # builds a hash that provides data to the per motel per day supply tables
   # { motel => { date => rooms } }
   def self.by_motel(swap)

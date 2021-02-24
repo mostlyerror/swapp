@@ -30,11 +30,11 @@ class AvailabilityTest < ActiveSupport::TestCase
   test "availability should include motels even when they haven't responded" do
     swap = create(:swap, :tomorrow)
     motel = create(:motel)
-    rooms = RoomAvailability.by_motel(swap)
+    rooms = RoomSupply.by_motel(swap)
     assert rooms.key?(motel)
   end
 
-  test "RoomAvailability::by_motel" do
+  test "RoomSupply::by_motel" do
     swap = create(:swap, :tomorrow)
     motel = create(:motel)
     swap.availabilities.create(
@@ -43,7 +43,7 @@ class AvailabilityTest < ActiveSupport::TestCase
       rooms: 1
     )
 
-    rooms = RoomAvailability.by_motel(swap)
+    rooms = RoomSupply.by_motel(swap)
     assert_equal(1, rooms[motel][swap.start_date])
     assert_nil rooms[motel][swap.start_date + 1]
 
@@ -54,7 +54,7 @@ class AvailabilityTest < ActiveSupport::TestCase
       rooms: 2,
     )
 
-    rooms = RoomAvailability.by_motel(swap.reload)
+    rooms = RoomSupply.by_motel(swap.reload)
     assert_equal(2, rooms[motel2][swap.start_date])
     assert_nil rooms[motel][swap.start_date + 1]
   end
