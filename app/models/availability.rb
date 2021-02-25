@@ -10,7 +10,7 @@ class Availability < ApplicationRecord
   private 
     def date_must_be_within_swap_period
       if swap.present? && date.present? && !date.in?(swap.stay_period)
-        errors.add(:date_must_be_within_swap_period, 'asdf')
+        errors.add(:date_must_be_within_swap_period)
       end
     end
 
