@@ -437,12 +437,12 @@
       </p>
     </div>
     <div class="field w-full">
-      <%= form.label "survey[motel_id]", "Hotel", class: "block leading-relaxed" %>
-      <%= form.select "survey[motel_id]",
-        options_from_collection_for_select(@motels, 'id', 'name'), 
-
-          {include_blank: true},
-          class: "bg-white rounded-lg border border-gray-300 w-full p-6", required: true %>
+      <%= form.label "survey[motel_id]", "Hotel (vouchers remaining)", class: "font-bold block leading-relaxed" %>
+      <%= form.select "survey[motel_id", 
+        options_for_select(@motels, disabled: @disabled),
+        {include_blank: true},
+        class: "p-8 w-full bg-white rounded-lg border border-gray-400",
+        required: true %>
     </div>
     <div class="field w-full">
       <%= client_attributes.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
