@@ -1,0 +1,32 @@
+<section class="bg-white shadow-lg rounded-lg">
+  <h2 class="bg-gray-900 text-white text-6xl text-center font-semibold p-6">Current SWAP Activation</h2>
+  <div class="flex flex-1 flex-wrap text-center bg-white">
+    <div class="w-1/2 border border-gray-400">
+      <p class="p-6 tracking-wide bg-gray-900 text-white text-4xl font-semibold">Intake Start</p>
+      <p class="p-10 text-7xl font-bold tracking-wide"><%= (@swap.start_date - 1).to_formatted_s(:short) %>
+      </p>
+    </div>
+    <div class="w-1/2 border border-gray-400">
+      <p class="w-full p-6 tracking-wide bg-gray-900 text-white text-4xl font-semibold">Intake End</p>
+      <p class="p-10 text-7xl font-bold tracking-wide"><%= (@swap.end_date - 1).to_formatted_s(:short) %></p>
+    </div>
+    <div class="w-1/2 border border-gray-400">
+      <p class="p-6 tracking-wide bg-gray-900 text-white text-4xl font-semibold">Check In</p>
+      <p class="p-10 text-7xl font-bold tracking-wide"><%= @swap.start_date.to_formatted_s(:short) %>
+      </p>
+    </div>
+    <div class="w-1/2 border border-gray-400">
+      <p class="w-full p-6 tracking-wide bg-gray-900 text-white text-4xl font-semibold">Check Out</p>
+      <p class="p-10 text-7xl font-bold tracking-wide"><%= @swap.end_date.to_formatted_s(:short) %></p>
+    </div>
+    <div class="w-1/2 border border-gray-400">
+      <p class="p-6 tracking-wide bg-gray-900 text-white text-4xl font-semibold">Nights Total</p>
+      <p class="p-10 text-7xl font-bold tabular-nums"><%= @swap.nights %></p>
+    </div>
+    <div class="w-1/2 border border-gray-400">
+      <p class="p-6 tracking-wide bg-gray-900 text-white text-4xl font-semibold">Nights Remaining</p>
+      <p class="p-10 text-7xl font-bold tabular-nums"><%= @swap.nights_remaining %></p>
+    </div>
+  </div>
+  <%#= render partial: 'extend_swap' %>
+</section>

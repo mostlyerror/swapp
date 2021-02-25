@@ -2,9 +2,19 @@ class VouchersController < ApplicationController
   before_action :set_voucher, only: %i[ show created ]
 
   def new
-    @voucher = Voucher.new
-    @motels = Motel.all
-    @client = Client.find(params['client_id'])
+    if @swap
+      @voucher = Voucher.new
+      supply = RoomSupply.vouchers_remaining_today(@swap)
+      @disabled = []
+      @motels = Motel.all.reduce({}) do |memo, motel|
+        name = "#{motel.name} (#{supply[motel.id]})"
+        if supply[motel.id].to_i <= 0
+          @disabled << motel.id
+        end
+        memo.merge(Hash[name, motel.id])
+      end
+      @client = Client.find(params['client_id'])
+    end
   end
 
   def create

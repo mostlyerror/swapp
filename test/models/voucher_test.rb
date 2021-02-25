@@ -2,6 +2,7 @@ require 'test_helper'
 
 class VoucherTest < ActiveSupport::TestCase
   test "voucher has to be for at least one night" do
+    skip('disabled validation for now')
     swap = create(:swap,
       start_date: Date.current.yesterday,
       end_date: Date.current

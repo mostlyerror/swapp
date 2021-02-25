@@ -52,11 +52,12 @@
   </section>
   <section class="p-16">
     <div class="field w-full">
-      <%= form.label "motel_id", "Hotel", class: "font-bold block leading-relaxed" %>
-      <%= form.select "motel_id", options_from_collection_for_select(@motels, 'id', 'name'), 
-            {include_blank: true},
-            class: "p-8 w-full bg-white rounded-lg border border-gray-400",
-            required: true %>
+      <%= form.label "motel_id", "Hotel (vouchers remaining)", class: "font-bold block leading-relaxed" %>
+      <%= form.select "motel_id", 
+        options_for_select(@motels, disabled: @disabled),
+        {include_blank: true},
+        class: "p-8 w-full bg-white rounded-lg border border-gray-400",
+        required: true %>
     </div>
   </section>
 </div>

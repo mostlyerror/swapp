@@ -1,6 +1,24 @@
 <% if @swap.present? %>
   <section id="notice--swap-inactive" class="notice bg-blue-300">
     <h3>SWAP is active.</h3>
-    <p class="text-blue-900"><%= @swap.start_date.strftime("%A, %b %d") %> through <%= @swap.end_date.strftime("%A, %b %d") %></p>
+    <p class="text-blue-900">
+      Vouchers can be issued beginning <%= humanize_date(@swap.intake_period.first) %> to <%= humanize_date(@swap.intake_period.last) %>
+    </p>
+    <div class="mt-16 text-6xl" x-data="{ open: false }">
+      <p class="font-bold">
+        <span class="link" @click="open = true" x-show="!open">(+)</span>
+        <span class="link" @click="open = false" x-show="open">(-)</span>
+        <%= @vouchers_remaining_today.values.reduce(:+) %> total vouchers remaining today. 
+      </p>
+      
+      <ul class="px-6" x-show="open" @click.away="open = false">
+        <% @vouchers_remaining_today.each do |(motel_id, vouchers)| %>
+          <li class="flex flex-1 justify-between">
+            <p class="font-bold"><%= @motel_map[motel_id] %></p>
+            <p><%= vouchers %></p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </section>
 <% end %>
