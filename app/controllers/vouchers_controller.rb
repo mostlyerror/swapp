@@ -2,7 +2,6 @@ class VouchersController < ApplicationController
   before_action :set_voucher, only: %i[ show created ]
 
   def new
-    @swap = Swap.current
     if @swap
       @voucher = Voucher.new
       supply = RoomSupply.vouchers_remaining_today(@swap)
