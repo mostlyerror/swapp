@@ -45,7 +45,8 @@ ActiveRecord::Base.transaction do |t|
         state: 'CO',
         zip: 80030
       },
-      phone: '+13034308700'
+      phone: '+13034308700',
+      pet_friendly: false,
     },
     {
       name: 'Comfort Inn-Denver Central',
@@ -55,7 +56,8 @@ ActiveRecord::Base.transaction do |t|
         state: 'CO',
         zip: 80216
       },
-      phone: '+13032971717'
+      phone: '+13032971717',
+      pet_friendly: true
     },
     {
       name: 'HomeTowne Studios',
@@ -65,7 +67,8 @@ ActiveRecord::Base.transaction do |t|
         state: 'CO',
         zip: 80229
       },
-      phone: '+13034304474'
+      phone: '+13034304474',
+      pet_friendly: false,
     },
     {
       name: 'Quality Inn',
@@ -75,7 +78,8 @@ ActiveRecord::Base.transaction do |t|
         state: 'CO',
         zip: 80601
       },
-      phone: '+13036541400'
+      phone: '+13036541400',
+      pet_friendly: false,
     }
   ]
 
