@@ -1,4 +1,15 @@
 ActiveRecord::Base.transaction do |t|
+  # creating some clients without vouchers/intakes, so we can just issue
+  # vouchers easily while testing..
+  50.times do 
+    Client.create(
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      date_of_birth: Faker::Date.birthday,
+      gender: Client::GENDER.sample
+    )
+  end
+
   user_data = [
     {
       email: 'sudney@cityinn.com',
