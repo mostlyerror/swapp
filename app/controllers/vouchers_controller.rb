@@ -2,9 +2,13 @@ class VouchersController < ApplicationController
   before_action :set_voucher, only: %i[ show created ]
 
   def new
-    @voucher = Voucher.new
-    @motels = Motel.all
-    @client = Client.find(params['client_id'])
+    @swap = Swap.current
+    if @swap
+      @voucher = Voucher.new
+      @motels = Motel.all.pluck(:name, :id)
+      @supply = RoomSupply.by_motel(@swap)
+      @client = Client.find(params['client_id'])
+    end
   end
 
   def create
