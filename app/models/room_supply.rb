@@ -1,7 +1,7 @@
 class RoomSupply
   # how many rooms did each motel say they had available today?
   def self.latest_vacancies(swap)
-    avs = swap.availabilities
+    avs = swap.availabilities.reload
     Motel.pluck(:id).reduce({}) do |memo, motel_id|
       av = avs.select { |av| av.motel_id == motel_id }.first
       vacancy = av.present? ? av.vacant : 0
@@ -26,9 +26,6 @@ class RoomSupply
     vou = self.vouchers_issued_today(swap)
     vac.merge(vou) { |_k, vacancies, vouchers| vacancies - vouchers }
   end
-
-
-
 
   def self.by_motel(swap)
     supply = Motel.all.reduce({}) do |memo, motel| 
