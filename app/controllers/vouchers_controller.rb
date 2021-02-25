@@ -6,8 +6,12 @@ class VouchersController < ApplicationController
     if @swap
       @voucher = Voucher.new
       supply = RoomSupply.vouchers_remaining_today(@swap)
+      @disabled = []
       @motels = Motel.all.reduce({}) do |memo, motel|
         name = "#{motel.name} (#{supply[motel.id]})"
+        if supply[motel.id].to_i <= 0
+          @disabled << motel.id
+        end
         memo.merge(Hash[name, motel.id])
       end
       @client = Client.find(params['client_id'])
