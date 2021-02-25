@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_21_162025) do
+ActiveRecord::Schema.define(version: 2021_02_25_082408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "availabilities", force: :cascade do |t|
+    t.bigint "motel_id", null: false
+    t.bigint "swap_id", null: false
+    t.date "date", null: false
+    t.integer "vacant"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["motel_id", "swap_id", "date"], name: "index_availabilities_on_motel_id_and_swap_id_and_date", unique: true
+    t.index ["motel_id"], name: "index_availabilities_on_motel_id"
+    t.index ["swap_id"], name: "index_availabilities_on_swap_id"
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "first_name", null: false
@@ -55,6 +67,7 @@ ActiveRecord::Schema.define(version: 2021_02_21_162025) do
     t.string "phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "pet_friendly"
   end
 
   create_table "swaps", force: :cascade do |t|
@@ -97,6 +110,8 @@ ActiveRecord::Schema.define(version: 2021_02_21_162025) do
     t.index ["user_id"], name: "index_vouchers_on_user_id"
   end
 
+  add_foreign_key "availabilities", "motels"
+  add_foreign_key "availabilities", "swaps"
   add_foreign_key "incident_reports", "clients"
   add_foreign_key "incident_reports", "users", column: "reporter_id"
   add_foreign_key "intakes", "clients"

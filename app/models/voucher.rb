@@ -7,7 +7,8 @@ class Voucher < ApplicationRecord
   validates_presence_of :check_in, :check_out
   validates_uniqueness_of :client_id, scope: :swap_id
   validate :dates_must_be_today_or_later_when_issued, on: :create
-  validate :order_of_dates, :dates_must_fall_within_swap, :at_least_one_night_remaining
+  validate :order_of_dates, :dates_must_fall_within_swap
+  # , :at_least_one_night_remaining
 
   after_create :save_number
 
@@ -71,9 +72,9 @@ class Voucher < ApplicationRecord
       end
     end
 
-    def at_least_one_night_remaining
-      if nights_remaining < 1
-        return errors.add(:nights, "duration: (#{nights_remaining} nights remaining) must be for at least one night")
-      end
-    end
+    # def at_least_one_night_remaining
+    #   if nights_remaining < 1
+    #     return errors.add(:nights, "duration: (#{nights_remaining} nights remaining) must be for at least one night")
+    #   end
+    # end
 end

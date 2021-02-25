@@ -1,9 +1,17 @@
 class IntakesController < ApplicationController
   def new
-    @motels = Motel.all
     @intake = Intake.new
     @client = Client.new
     @voucher = Voucher.new
+    @disabled = []
+    supply = RoomSupply.vouchers_remaining_today(@swap)
+    @motels = Motel.all.reduce({}) do |memo, motel|
+      name = "#{motel.name} (#{supply[motel.id]})"
+      if supply[motel.id].to_i <= 0
+        @disabled << motel.id
+      end
+      memo.merge(Hash[name, motel.id])
+    end
   end
 
   def create
@@ -12,14 +20,15 @@ class IntakesController < ApplicationController
     @client = Client.new(intake_params['client_attributes'])
 
     Intake.transaction do |t|
+      @intake.client = @client
+      if !@intake.save
+        return render :new
+      end
+
       if !@client.save
         @client.errors.full_messages.each do |message|
           @intake.errors[:client] << message
         end
-        return render :new
-      end
-
-      if !@intake.save
         return render :new
       end
 
