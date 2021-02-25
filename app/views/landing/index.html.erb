@@ -1,7 +1,15 @@
-
+<div class="px-6 mt-16">
+  <h3>Hello, <span><%= current_user.first_name %><span>!</h3>
+</div>
 <section class="mt-16">
   <%= render partial: 'shared/swap_notices' %>
 </section >
 <% if SwapIntake.can_issue_voucher_today?(@swap) %>
-    
+    <h2 class="mt-16 text-6xl font-bold">
+    <% if @swap.present? %>
+        Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.
+    <% else %>
+        New client intake can only be performed when SWAP is activated!
+    <% end %>
+    </h2>
 <% end %>
