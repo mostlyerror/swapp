@@ -9,6 +9,8 @@ class VouchersTest < ApplicationSystemTestCase
 
     motel = create(:motel)
     swap = create(:swap, :current)
+    create(:availability, motel: motel, swap: swap, vacant: 1)
+
     client = create(:client)
     visit new_voucher_path(client_id: client.id)
 

@@ -64,7 +64,7 @@ input[type="search"] {
 }
 
 .notice {
-  @apply p-6 border-b-2 border-gray-500;
+  @apply p-6;
   h3 {
     @apply font-bold text-6xl;
   }
