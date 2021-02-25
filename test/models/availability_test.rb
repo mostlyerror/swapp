@@ -1,14 +1,15 @@
 require 'test_helper'
 
 class AvailabilityTest < ActiveSupport::TestCase
-  test "availability date must be within swap period" do
+  test "availability date must be within swap intake period" do
     swap = build_stubbed(:swap, :tomorrow)
     av = build_stubbed(:availability, swap: swap)
     assert av.valid?
 
     av.date = Date.current
-    refute av.valid?
-    assert av.errors.key?(:date_must_be_within_swap_period)
+    refute av.date.in? swap.stay_period
+    assert av.date.in? swap.intake_period
+    assert av.valid?
   end
 
 
