@@ -31,7 +31,7 @@ class AvailabilityTest < ActiveSupport::TestCase
     swap = create(:swap, :tomorrow)
     motel = create(:motel)
     supply = RoomSupply.by_motel(swap)
-    assert supply.key?(motel)
+    assert supply.key?(motel.id)
   end
 
   test "RoomSupply::by_motel" do
@@ -45,8 +45,8 @@ class AvailabilityTest < ActiveSupport::TestCase
     )
 
     supply = RoomSupply.by_motel(swap)
-    assert_equal(1, supply[motel][swap.start_date][:vacant])
-    assert_nil supply[motel][swap.start_date + 1][:vacant]
+    assert_equal(1, supply[motel.id][swap.start_date][:vacant])
+    assert_nil supply[motel.id][swap.start_date + 1][:vacant]
 
     motel2 = create(:motel)
     swap.availabilities.create(
@@ -56,7 +56,7 @@ class AvailabilityTest < ActiveSupport::TestCase
     )
 
     supply = RoomSupply.by_motel(swap.reload)
-    assert_equal(2, supply[motel2][swap.start_date][:vacant])
-    assert_nil supply[motel][swap.start_date + 1][:vacant]
+    assert_equal(2, supply[motel2.id][swap.start_date][:vacant])
+    assert_nil supply[motel2.id][swap.start_date + 1][:vacant]
   end
 end
