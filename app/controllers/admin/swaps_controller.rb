@@ -10,19 +10,18 @@ class Admin::SwapsController < Admin::BaseController
   end
 
   def update_room_supply
-    supply_params = params.require(:room_supply).permit!
+    supply_params = params.require(:voucher_supply).permit!
 
     Swap.transaction do
       swap = Swap.find(params[:id])
       swap.availabilities.destroy_all
-
       supply_params
       .reject {|_, v| v.blank? }
-      .each do |(motel_id, rooms)|
+      .each do |(motel_id, vacant)|
         swap.availabilities.create!(
           motel_id: motel_id,
           date: Date.current, # this should come from the page.. cause what if you open the page before midnight, then submit afterwards...?
-          rooms: rooms
+          vacant: vacant
         )
       end
     end
