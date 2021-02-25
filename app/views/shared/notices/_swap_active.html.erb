@@ -8,7 +8,7 @@
       <p class="font-bold">
         <span class="link" @click="open = true" x-show="!open">(+)</span>
         <span class="link" @click="open = false" x-show="open">(-)</span>
-        10 total vouchers remaining.
+        <%= @vouchers_remaining_today.values.reduce(:+) %> total vouchers remaining today. 
       </p>
       
       <ul class="px-6" x-show="open" @click.away="open = false">
