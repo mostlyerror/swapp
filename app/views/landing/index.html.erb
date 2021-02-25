@@ -1,0 +1,7 @@
+
+<section class="mt-16">
+  <%= render partial: 'shared/swap_notices' %>
+</section >
+<% if SwapIntake.can_issue_voucher_today?(@swap) %>
+    
+<% end %>

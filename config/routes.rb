@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'landing/index'
   devise_for :users, controllers: {
     sessions: 'sessions/sessions'
   }
@@ -15,5 +16,5 @@ Rails.application.routes.draw do
     put "swaps/:id/extend" => "swaps#extend", as: :extend_swap
   end
  
-  root to: "clients#index"
+  root to: "landing#index"
 end
