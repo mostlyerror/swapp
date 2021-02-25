@@ -1,6 +1,8 @@
 <% if @swap.present? %>
   <section id="notice--swap-inactive" class="notice bg-blue-300">
     <h3>SWAP is active.</h3>
-    <p class="text-blue-900"><%= @swap.start_date.strftime("%A, %b %d") %> through <%= @swap.end_date.strftime("%A, %b %d") %></p>
+    <p class="text-blue-900">
+      Vouchers can be issued beginning <%= humanize_date(@swap.intake_period.first) %> to <%= humanize_date(@swap.intake_period.last) %>
+    </p>
   </section>
 <% end %>
