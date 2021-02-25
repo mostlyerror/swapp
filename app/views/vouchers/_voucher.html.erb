@@ -29,8 +29,6 @@
       <p class="leading-loose"><%= @voucher.motel.phone %></p>
     </div>
   </section>
-  <div id="map">
-  </div>
+  <div id="map"></div>
+  <%= javascript_pack_tag 'mapbox', 'data-turbolinks-track': 'reload' %>
 </div>
-
-<%= javascript_pack_tag 'mapbox.js' %>
