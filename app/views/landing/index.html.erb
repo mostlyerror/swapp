@@ -9,21 +9,12 @@
       <p class="text-center pt-12 pl-12">
       <%= humanize_date(@swap.intake_period.first) %> through <%= humanize_date(@swap.intake_period.last) %>
       </p>
-    <%= link_to 'Search for Client' .html_safe, new_intake_path%>
+      <section class="mt-6 text-center text-4xl">
+        <%= link_to 'Search for Client', clients_path, class:'text-center border-blue'%>
+      </section>
     </section>
   <% end %>
 </section >
-
-
-<% if SwapIntake.can_issue_voucher_today?(@swap) %>
-    <h2 class="mt-16 text-5xl font-bold px-10">
-    <% if @swap.present? %>
-        Ready to start? Click <%= link_to 'here', new_intake_path, class: 'link' %>.
-    <% else %>
-        SWAP is inactive! Check with program administrators to find the next scheduled event.
-    <% end %>
-    </h2>
-<% end %>
 
 <div>
   <h3 class="m-8 font-bold">Voucher Supply</h3>
@@ -36,7 +27,7 @@
     </thead>
     <tbody class="overflow-y-scroll text-4xl">
       <tr class="w-3/5 p-6">
-        <td>SHIT</td>
+        <td>Motel name</td>
       </tr>
       <tr class="bg-emerald-200">
         <td>Yes</td>
