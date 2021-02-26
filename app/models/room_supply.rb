@@ -1,7 +1,9 @@
 class RoomSupply
   # how many rooms did each motel say they had available today?
   def self.latest_vacancies(swap)
-    avs = swap.availabilities.reload
+    avs = swap.availabilities
+      .reload
+      .where(created_at: Date.current.beginning_of_day..Date.current.end_of_day)
     Motel.pluck(:id).reduce({}) do |memo, motel_id|
       av = avs.select { |av| av.motel_id == motel_id }.first
       vacancy = av.present? ? av.vacant : 0
