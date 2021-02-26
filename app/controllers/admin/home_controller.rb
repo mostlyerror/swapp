@@ -10,5 +10,4 @@ class Admin::HomeController < Admin::BaseController
       @supply = RoomSupply.by_motel(@swap)
     end
   end
-  end
 end
