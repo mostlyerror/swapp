@@ -13,6 +13,7 @@
         <%= link_to 'Search for Client', clients_path, class:'text-center border-blue'%>
       </section>
     </section>
+    <% else %>
   <% end %>
 </section >
 
@@ -33,7 +34,7 @@
    <ul>
       <% @vouchers_remaining_today.each do |(motel_id, vouchers)| %>
        <li>
-         <p class="font-bold"><% @motel_map[motel_id] %></p>
+         <p class="font-bold"><%= @motel_map[motel_id] %></p>
          <p><%= vouchers %></p>
       </li>
     <% end %>
