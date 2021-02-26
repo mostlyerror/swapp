@@ -8,9 +8,9 @@
   </section>
     <div class="text-5xl" x-data="{ open: false }">
       <p class="font-bold p-4 text-white bg-blue-900">
-        <span class="underline text-blue-200" @click="open = true" x-show="!open">(+)</span>
-        <span class="underline text-blue-200" @click="open = false" x-show="open">(-)</span>
-        <%= @vouchers_remaining_today.values.reduce(:+) %> total vouchers remaining today. 
+        <%= @vouchers_remaining_today.values.reduce(:+) %> vouchers remaining today
+        <span class="underline text-blue-200" @click="open = true" x-show="!open">(+ expand)</span>
+        <span class="underline text-blue-200" @click="open = false" x-show="open">(- collapse)</span>
       </p>
       
       <ul class="p-6 flex flex-1 flex-col space-y-6 bg-blue-300" x-show="open" @click.away="open = false">
@@ -18,7 +18,7 @@
           <li class="flex flex-1 justify-between items-center">
             <p class=""><%= @motel_map[motel_id] %>
           <% if Motel.find(motel_id).pet_friendly %>
-              <span class="inline-block rounded-lg p-2 text-4xl text-white bg-yellow-900">dogs ok</span>
+            (dogs ok)
           <% end %>
             </p>
             <p class="tabular-nums font-semibold"><%= vouchers %></p>
