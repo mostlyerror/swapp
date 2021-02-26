@@ -1,15 +1,55 @@
 <div class="px-6 mt-16">
-  <h3>Hello, <span><%= current_user.first_name %><span>!</h3>
+  <h3 class="px-6">Hello, <span class="text-blue-900"><strong><em><%= current_user.first_name %></em></strong><span>!</h3>
 </div>
+
 <section class="mt-16">
-  <%= render partial: 'shared/swap_notices' %>
+  <% if @swap.present? %>
+    <section id="notice--swap-inactive" class="notice bg-gray-300">
+     <h3 class="pt-12 pl-12">SWAP is <span class="text-red-900">ACTIVATED.</span></h3>
+      <p class="text-center pt-12 pl-12">
+      <%= humanize_date(@swap.intake_period.first) %> through <%= humanize_date(@swap.intake_period.last) %>
+      </p>
+    <%= link_to 'Search for Client' .html_safe, new_intake_path%>
+    </section>
+  <% end %>
 </section >
+
+
 <% if SwapIntake.can_issue_voucher_today?(@swap) %>
-    <h2 class="mt-16 text-6xl font-bold">
+    <h2 class="mt-16 text-5xl font-bold px-10">
     <% if @swap.present? %>
-        Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.
+        Ready to start? Click <%= link_to 'here', new_intake_path, class: 'link' %>.
     <% else %>
-        No intake can be performed because SWAP is inactive!
+        SWAP is inactive! Check with program administrators to find the next scheduled event.
     <% end %>
     </h2>
 <% end %>
+
+<div>
+  <h3 class="m-8 font-bold">Voucher Supply</h3>
+  <table class="shadow m-4 bg-white text-left w-full table-fixed rounded">
+    <thead>
+     <tr class="text-5xl">
+      <th class="w-2/5 p-3">Motel</th>
+      <th class="w-2/5 p-3">Rooms</th>
+    </tr>
+    </thead>
+    <tbody class="overflow-y-scroll text-4xl">
+      <tr class="w-3/5 p-6">
+        <td>SHIT</td>
+      </tr>
+      <tr class="bg-emerald-200">
+        <td>Yes</td>
+        <td>Adam</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+<section class="px-10 mt-80">
+  <h3 class="mb-12 font-bold text-center">welcome to <em class="text-blue-900">swapp</em></h3>
+  <p class="px-6 m-3 text-4xl tracking-wide">swapp is a tool built to improve service delivery for people experiencing homelessness during periods of inclement weather</p>
+  </p>
+</section>
+</div>
