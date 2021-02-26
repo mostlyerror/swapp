@@ -10,6 +10,7 @@ class ClientsTest < ApplicationSystemTestCase
   test "searching for a client" do
     client = create(:client)
     visit root_path
+    assert_text /client search/i
 
     fill_in id: 'search-input', with: client.last_name
     click_on id: 'search-btn'
