@@ -1,45 +1,46 @@
 <section class="px-6 mt-16">
   <p class="step-description">1. Search the red flag list</p>
-  <h1 class="mt-24 text-9xl text-black font-bold">Look up your client. 🌱</h1>
-  <p class="mt-6 help-text">
-    Look up client to see if they have used SWAP before. Use broad search terms: "Ben" instead of "Benjamin," or "Jo" instead of "Joseph."
-  </p>
+  <h1 class="mt-24 text-9xl text-black font-bold">Client Search</h1>
 </section>
+
 <section class="mt-16">
   <%= render partial: 'shared/swap_notices' %>
 </section>
-<section class="px-6 mt-16">
+
+<p class="px-6 pt-16 help-text">
+  Search for your client within SWAP.<br />
+  Use broad search terms: "Ben" instead of "Benjamin," or "Jo" instead of "Joseph."
+</p>
+<div class="mt-6 px-6">
   <%= render partial: 'search_form' %>
-  <main class="px-6 mt-16">
-    <% if @searched %>
-      <% if @clients.any? %>
-        <section class="mt-16">
-          <p class="help-text">
-            <strong><%= @clients.size %> results found for "<%= @searched_term
-            %>"</strong>. If you see your client in the table below,
-            click on the row to check if they have been previously red flagged.
-          </p>
-        </section>
-        <section class="mt-16 shadow-lg">
-          <%= render partial: 'table' %>
-        </section>
-      <% else %>
-        <div class="help-text px-6">
-          <strong>0 results found for "<%= @searched_term %>"</strong>
-        </div>
-      <% end %>
-      <section class="py-16">
-        <p class="help-text">
-          Still don't see your client?  If you think your client is already in
-          Swapp, try searching for a different name.
-        </p>
-        <h2 class="mt-16 text-6xl font-bold">
-          <% if @swap.present? %>
-            Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.
-          <% else %>
-            New client intake can only be performed when SWAP is activated.
-          <% end %>
-        </h2>
+</div>
+
+<section class="mt-16">
+  <% if @searched %>
+    <% if @clients.any? %>
+      <p class="mt-16 px-6 help-text">
+        <strong><%= @clients.size %> results found for "<%= @searched_term
+          %>"</strong>. Click on a row to view the client's program history and issue a hotel voucher.
+      </p>
+      <section class="mt-8 shadow-lg">
+        <%= render partial: 'table' %>
       </section>
+    <% else %>
+      <div class="help-text px-6">
+        <strong>0 results found for "<%= @searched_term %>"</strong>
+      </div>
     <% end %>
-  </main>
+    <section class="px-6 py-16">
+      <p class="help-text">
+      Still don't see your client? If they have previously participated, try searching by an alternate name.
+      </p>
+      <h2 class="mt-16 text-7xl text-center font-bold">
+        <% if @swap.present? %>
+          Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.
+        <% else %>
+          New client intake can only be performed when SWAP is activated.
+        <% end %>
+      </h2>
+    </section>
+  <% end %>
+</section>
