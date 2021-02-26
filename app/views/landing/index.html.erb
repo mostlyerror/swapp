@@ -5,7 +5,7 @@
 <section class="mt-16">
   <% if @swap.present? %>
     <section id="notice--swap-inactive" class="notice bg-gray-300">
-     <h3 class="pt-12 pl-12">SWAP is <span class="text-red-900">ACTIVATED.</span></h3>
+     <h3 class="pt-12 pl-12">SWAP is <span class="text-red-900">ACTIVE.</span></h3>
       <p class="text-center pt-12 pl-12">
       <%= humanize_date(@swap.intake_period.first) %> through <%= humanize_date(@swap.intake_period.last) %>
       </p>
@@ -16,25 +16,29 @@
   <% end %>
 </section >
 
+<section class="mt-16">
+  <% if @swap.nil? %>
+    <section id="notice--swap-inactive" class="notice bg-gray-300">
+     <h3 class="pt-12 pl-12">SWAP is <span class="text-red-900">NOT ACTIVE.</span></h3>
+      <section class="mt-6 text-center text-4xl">
+        Cannot issue vouchers while SWAP is inactive!
+      </section>
+    </section>
+  <% end %>
+</section >
+
 <div>
-  <h3 class="m-8 font-bold">Voucher Supply</h3>
-  <table class="shadow m-4 bg-white text-left w-full table-fixed rounded">
-    <thead>
-     <tr class="text-5xl">
-      <th class="w-2/5 p-3">Motel</th>
-      <th class="w-2/5 p-3">Rooms</th>
-    </tr>
-    </thead>
-    <tbody class="overflow-y-scroll text-4xl">
-      <tr class="w-3/5 p-6">
-        <td>Motel name</td>
-      </tr>
-      <tr class="bg-emerald-200">
-        <td>Yes</td>
-        <td>Adam</td>
-      </tr>
-    </tbody>
-  </table>
+  <% if @swap.present? %>
+   <h4 class="m-8 pl-12 font-bold">VOUCHER SUPPLY</h4>
+   <ul>
+      <% @vouchers_remaining_today.each do |(motel_id, vouchers)| %>
+       <li>
+         <p class="font-bold"><% @motel_map[motel_id] %></p>
+         <p><%= vouchers %></p>
+      </li>
+    <% end %>
+   </ul>
+  <% end %>
 </div>
 
 <div>
