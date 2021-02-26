@@ -7,8 +7,8 @@
     </p>
   </section>
     <div class="text-5xl" x-data="{ open: false }">
-      <p class="font-bold p-4 text-white bg-blue-900">
-        <%= @vouchers_remaining_today.values.reduce(:+) %> vouchers remaining today
+      <p class="flex flex-1 justify-between font-bold p-6 text-white bg-blue-900">
+        <span><%= @vouchers_remaining_today.values.reduce(:+) %> vouchers remaining today</span>
         <span class="underline text-blue-200" @click="open = true" x-show="!open">(+ expand)</span>
         <span class="underline text-blue-200" @click="open = false" x-show="open">(- collapse)</span>
       </p>
