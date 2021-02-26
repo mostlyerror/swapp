@@ -5,6 +5,11 @@
     <p class="text-blue-900">
       Vouchers can be issued beginning <%= humanize_date(@swap.intake_period.first) %> to <%= humanize_date(@swap.intake_period.last) %>
     </p>
+    <% if SwapIntake.today_is_first_intake_day?(@swap) %>
+      <p class="text-blue-900">
+        Please notify your clients that hotel check in is for <em>tomorrow</em>, not today.
+      </p>
+    <% end %>
   </section>
     <div class="text-5xl" x-data="{ open: false }">
       <p class="flex flex-1 justify-between font-bold p-6 text-white bg-blue-900">
