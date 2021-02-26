@@ -41,6 +41,7 @@ class VouchersController < ApplicationController
   end
 
   def created
+
   end
 
   def show
