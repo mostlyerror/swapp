@@ -19,6 +19,7 @@ user_data = [
   ['cjurischk@adcogov.org', 'Courtney', 'Jurischk', true],
   ['mrivera@adcogov.org', 'Matt', 'Rivera', true],
   ['hmcclure@adcogov.org', 'Heather', 'McClure', true],
+  ['jschultz@adcogov.org', 'Jason', 'Schultz', true],
   ['ashley@almosthomeonline.org', 'Ashley', 'Dunn', true],
   ['stephanie@almosthomeonline.org', 'Stephanie', 'Beazley', true],
   ['jeanette@almosthomeonline.org', 'Jeanette', 'Causey', true],
@@ -29,7 +30,6 @@ user_data = [
   ['rvenkatesh@northglenn.org', 'Rupa', 'Venkatesh', true],
   ['jhulse@northglenn.org', 'Jessica', 'Hulse', true],
 ]
-
 
 user_data.each do |data|
   User.create! keys.zip(data).to_h.merge(passwords)
