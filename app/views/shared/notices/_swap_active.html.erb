@@ -18,11 +18,11 @@
     <div class="text-5xl" x-data="{ open: false }">
       <p class="flex flex-1 justify-between font-bold p-6 text-white bg-blue-900">
         <span><%= @vouchers_remaining_today.values.reduce(:+) %> vouchers remaining today</span>
-        <span class="underline text-blue-200" @click="open = true" x-show="!open">(+ expand)</span>
-        <span class="underline text-blue-200" @click="open = false" x-show="open">(- collapse)</span>
+        <span class="underline text-blue-200" @click="open = true" x-show="!open">+ expand</span>
+        <span class="underline text-blue-200" @click="open = false" x-show="open">- collapse</span>
       </p>
       
-      <ul class="p-6 flex flex-1 flex-col space-y-6 bg-blue-300" x-show="open" @click.away="open = false">
+      <ul class="p-6 flex flex-1 flex-col space-y-6 bg-white border-2 border-gray-400" x-show="open" @click.away="open = false">
         <% @vouchers_remaining_today.each do |(motel_id, vouchers)| %>
           <li class="flex flex-1 justify-between items-center">
             <p class=""><%= @motel_map[motel_id] %>
