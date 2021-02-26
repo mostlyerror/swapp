@@ -5,15 +5,24 @@
     <p class="text-blue-900">
       Vouchers can be issued beginning <%= humanize_date(@swap.intake_period.first) %> to <%= humanize_date(@swap.intake_period.last) %>
     </p>
+    <% if SwapIntake.today_is_first_intake_day?(@swap) %>
+      <p class="text-blue-900">
+        Please notify clients that hotel check in is for <em>tomorrow</em>, not today.
+      </p>
+    <% elsif SwapIntake.today_is_last_intake_day?(@swap) %>
+      <p class="text-blue-900">
+      <strong>Today is the last day to issue vouchers for the current SWAP period</strong>. However, administrators may extend voucher stays as well as the intake period.
+      </p>
+    <% end %>
   </section>
     <div class="text-5xl" x-data="{ open: false }">
-      <p class="font-bold p-4 text-white bg-blue-900">
-        <%= @vouchers_remaining_today.values.reduce(:+) %> vouchers remaining today
-        <span class="underline text-blue-200" @click="open = true" x-show="!open">(+ expand)</span>
-        <span class="underline text-blue-200" @click="open = false" x-show="open">(- collapse)</span>
+      <p class="flex flex-1 justify-between font-bold p-6 text-white bg-blue-900">
+        <span><%= @num_vouchers_remaining_today %> vouchers remaining today</span>
+        <span class="underline text-blue-200" @click="open = true" x-show="!open">+ expand</span>
+        <span class="underline text-blue-200" @click="open = false" x-show="open">- collapse</span>
       </p>
       
-      <ul class="p-6 flex flex-1 flex-col space-y-6 bg-blue-300" x-show="open" @click.away="open = false">
+      <ul class="p-6 flex flex-1 flex-col space-y-6 bg-white border-2 border-gray-400" x-show="open" @click.away="open = false">
         <% @vouchers_remaining_today.each do |(motel_id, vouchers)| %>
           <li class="flex flex-1 justify-between items-center">
             <p class=""><%= @motel_map[motel_id] %>
