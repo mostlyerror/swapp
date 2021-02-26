@@ -39,10 +39,13 @@ class Swap < ApplicationRecord
 
   def nights_remaining
     [(end_date -  Date.current.to_date).to_i, 0].max
+<<<<<<< HEAD:app/models/swap.rb
   end
 
   def intake_ended?
     nights_remaining <= 0
+=======
+>>>>>>> 8173925... 0.2.0 Release (#40):app/models/swap_period.rb
   end
 
   def extend! nights
