@@ -1,21 +1,27 @@
 <% if @swap.present? %>
   <section id="notice--swap-inactive" class="notice bg-blue-300">
+    <div class="bg-blue-300">
     <h3>SWAP is active.</h3>
     <p class="text-blue-900">
       Vouchers can be issued beginning <%= humanize_date(@swap.intake_period.first) %> to <%= humanize_date(@swap.intake_period.last) %>
     </p>
-    <div class="mt-16 text-6xl" x-data="{ open: false }">
-      <p class="font-bold">
-        <span class="link" @click="open = true" x-show="!open">(+)</span>
-        <span class="link" @click="open = false" x-show="open">(-)</span>
+  </section>
+    <div class="text-5xl" x-data="{ open: false }">
+      <p class="font-bold p-4 text-white bg-blue-900">
+        <span class="underline text-blue-200" @click="open = true" x-show="!open">(+)</span>
+        <span class="underline text-blue-200" @click="open = false" x-show="open">(-)</span>
         <%= @vouchers_remaining_today.values.reduce(:+) %> total vouchers remaining today. 
       </p>
       
-      <ul class="px-6" x-show="open" @click.away="open = false">
+      <ul class="p-6 flex flex-1 flex-col space-y-6 bg-blue-300" x-show="open" @click.away="open = false">
         <% @vouchers_remaining_today.each do |(motel_id, vouchers)| %>
-          <li class="flex flex-1 justify-between">
-            <p class="font-bold"><%= @motel_map[motel_id] %></p>
-            <p><%= vouchers %></p>
+          <li class="flex flex-1 justify-between items-center">
+            <p class=""><%= @motel_map[motel_id] %>
+          <% if Motel.find(motel_id).pet_friendly %>
+              <span class="inline-block rounded-lg p-2 text-4xl text-white bg-yellow-900">dogs ok</span>
+          <% end %>
+            </p>
+            <p class="tabular-nums font-semibold"><%= vouchers %></p>
           </li>
         <% end %>
       </ul>
