@@ -30,7 +30,7 @@ class RoomSupply
   end
 
   def self.num_vouchers_remaining_today(swap)
-    vouchers_remaining_today(swap).values.reduce(:+)
+    vouchers_remaining_today(swap).values.reduce(:+).to_i
   end
 
   def self.by_motel(swap)
