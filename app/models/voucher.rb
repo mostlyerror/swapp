@@ -8,9 +8,10 @@ class Voucher < ApplicationRecord
   validates_uniqueness_of :client_id, scope: :swap_id
   validate :dates_must_be_today_or_later_when_issued, on: :create
   validate :order_of_dates, :dates_must_fall_within_swap
-  # , :at_least_one_night_remaining
 
   after_create :save_number
+
+  LOW_SUPPLY_THRESHOLD = 10
 
   def duration
     ((check_out - check_in) + 1).to_i
@@ -71,10 +72,4 @@ class Voucher < ApplicationRecord
         errors.add(:check_out, "check_out (#{check_out}) does not fall within swap period: #{swap.swap}")
       end
     end
-
-    # def at_least_one_night_remaining
-    #   if nights_remaining < 1
-    #     return errors.add(:nights, "duration: (#{nights_remaining} nights remaining) must be for at least one night")
-    #   end
-    # end
 end

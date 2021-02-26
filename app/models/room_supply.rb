@@ -29,6 +29,10 @@ class RoomSupply
     vac.merge(vou) { |_k, vacancies, vouchers| vacancies - vouchers }
   end
 
+  def self.num_vouchers_remaining_today(swap)
+    vouchers_remaining_today(swap).values.reduce(:+)
+  end
+
   def self.by_motel(swap)
     supply = Motel.all.reduce({}) do |memo, motel| 
       dates = swap.intake_period.to_a.reduce({}) do |dates, day|

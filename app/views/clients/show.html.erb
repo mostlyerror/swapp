@@ -9,19 +9,20 @@
   <%= render partial: 'shared/swap_notices' %>
   <div class="flex flex-1 flex-col font-bold space-y-16 ">
     <div class="w-full">
-      <div class="px-6 w-full text-7xl">
-        Not who you're looking for? <%= link_to 'Search again', :back, class: 'link' %>.
-      </div>
-      <% if @existing_voucher.blank? %>
+      <% if @existing_voucher.present? %>
+        <p class="notice bg-green-400 text-7xl">
+          <%= @client.first_name %> has already been issued a <%= link_to 'voucher', @existing_voucher %> for this SWAP period!
+        </p>
+      <% else %>
         <% if @swap.present? %>
-          <p class="px-6 mt-16 text-7xl">Create a <%= link_to 'hotel voucher', new_voucher_path(client_id: @client.id), class: 'link' %>.</p>
+          <% if @num_vouchers_remaining_today.zero? %> 
+            <%= render partial: 'shared/notices/no_vouchers' %>
+          <% else %>
+            <p class="px-6 mt-16 text-6xl">Issue a <%= link_to 'hotel voucher', new_voucher_path(client_id: @client.id), class: 'link' %>.</p>
+          <% end %>
         <% else %>
           <p class="px-6 mt-16 text-6xl">Hotel vouchers can only be issued during a SWAP period.</p>
         <% end %>
-      <% else %>
-        <p class="notice bg-green-400 text-6xl">
-          <%= @client.first_name %> has already been issued a <%= link_to 'voucher', @existing_voucher %> for this SWAP period!
-        </p>
       <% end %>
     </div>
   </div>
