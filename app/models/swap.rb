@@ -21,6 +21,10 @@ class Swap < ApplicationRecord
     intake_period.first
   end
 
+  def intake_end_date
+    intake_period.last
+  end
+
   def stay_period
     start_date..end_date
   end
@@ -35,6 +39,10 @@ class Swap < ApplicationRecord
 
   def nights_remaining
     [(end_date -  Date.current.to_date).to_i, 0].max
+  end
+
+  def intake_ended?
+    nights_remaining <= 0
   end
 
   def extend! nights
