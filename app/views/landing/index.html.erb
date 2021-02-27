@@ -30,7 +30,7 @@
 <div class="p-3 mt-10">
   <% if @swap.present? %>
    <h4 class="m-8 pl-12 font-bold text-blue-900">VOUCHERS REMAINING</h4>
-   <ul class="p-6 flex flex-1 flex-col space-y-6 border-2 border-blue-400 shadow-lg divide-y-4 divide-gray-900 divide-dashed">
+   <ul class="p-6 flex flex-1 flex-col space-y-6 border-2 border-blue-400 shadow-2xl divide-y-4 divide-gray-900 divide-dashed">
       <% @vouchers_remaining_today.each do |(motel_id, vouchers)| %>
        <li class="flex flex-1 justify-between items-center p-1">
          <p class="font-bold text-5xl mt-4 pl-7"><%= @motel_map[motel_id] %></p>
@@ -42,21 +42,26 @@
 </div>
 
 <div class="ring-8">
-  <section class="px-10 mt-80 bg-gray-900 bg-cover h-96 shadow">
+  <section class="px-10 mt-80 bg-gray-900 bg-cover h-96 ring-8 shadow">
     <h3 class="mb-12 p-6 font-bold text-center text-gray-400">welcome to <em class="text-blue-700">swapp</em></h3>
-    <p class="px-6 m-3 text-4xl tracking-wide text-gray-500">swapp is a tool built to improve service delivery for people experiencing homelessness during periods of inclement weather</p>
+    <p class="px-6 m-3 text-4xl tracking-wide text-gray-400">swapp is a tool built to improve service delivery for people experiencing homelessness during periods of inclement weather</p>
     </p>
   </section>
-  <h3 class="m-3 p-3 font-bold text-center">How it works:</h3>
-  <section class="flex flex-col flex-grow h-96">
-        <h3>Simple diagram explaining our process</h3>
-        <h3>Simple diagram explaining our process</h3>
-        <h3>Simple diagram explaining our process</h3>
+  <h2 class="m-2 p-3 font-bold text-center text-blue-600 italic">How it works:</h2>
+  <section class="flex flex-col items-center p-8 mb-60 h-96 text-6xl">
+    <h3 class="mb-4">Search</h3>
+    <p>Search for the client</p>
+    <h3 class="mb-4">Intake</h3>
+    <p>Conduct questionnaire to learn more about their history</p>
+    <h3 class="mb-4">Dispense</h3>
+    <p>Once you submit the form, send the client to the motel of their choice</p>
   </section>
-  <h3 class="font-bold text-9xl">With icons?</h3>
-  <section class="flex justify-between item-center h-96">
-        <h3>Code for America</h3>
-        <h3>Adams County</h3>
-        <h3>Almost Home</h3>
-  </section>
+  <hr>
+  <div class="">
+    <section class="flex flex-1 justify-between mt-8 p-4 h-60">
+      <h3>Code for America</h3>
+      <h3>Adams County</h3>
+      <h3>Almost Home</h3>
+    </section>
+  </div>
 </div>
