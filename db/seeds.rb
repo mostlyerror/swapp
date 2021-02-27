@@ -1,14 +1,24 @@
 ActiveRecord::Base.transaction do |t|
+  # options for race dialog in intake
+  race_data = [
+    {name: "American Indian or Alaskan Native"},
+    {name: "Asian"},
+    {name: "Black or African American"},
+    {name: "Native Hawaiian or other Pacific Islander"},
+    {name: "White"}
+  ]
+  Race.create(race_data)
+
   # creating some clients without vouchers/intakes, so we can just issue
   # vouchers easily while testing..
-  50.times do 
-    Client.create(
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      date_of_birth: Faker::Date.birthday,
-      gender: Client::GENDER.sample
-    )
-  end
+  # 10.times do 
+  #   Client.create(
+  #     first_name: Faker::Name.first_name,
+  #     last_name: Faker::Name.last_name,
+  #     date_of_birth: Faker::Date.birthday,
+  #     gender: Client::GENDER.sample
+  #   )
+  # end
 
   user_data = [
     {

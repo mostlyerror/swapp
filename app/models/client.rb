@@ -24,8 +24,8 @@ class Client < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :date_of_birth 
   validates :gender, inclusion: { in: Client::GENDER, allow_nil: true }
-  validates :race, inclusion: { in: Client::RACE, allow_nil: true }
   validates :ethnicity, inclusion: { in: Client::ETHNICITY, allow_nil: true }
+  auto_strip_attributes :phone_number
   validates :phone_number, phone: { possible: true, allow_nil: true }
   auto_strip_attributes :email 
   validates_format_of :email, with: Devise.email_regexp, allow_nil: true
@@ -33,6 +33,7 @@ class Client < ApplicationRecord
   has_many :intakes
   has_many :vouchers
   has_many :incident_reports
+  has_and_belongs_to_many :races
 
   def name
     "#{first_name} #{last_name}"
