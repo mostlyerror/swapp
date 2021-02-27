@@ -23,8 +23,9 @@ class Client < ApplicationRecord
   ]
 
   validates_presence_of :first_name, :last_name, :date_of_birth 
-  validates :phone_number, phone: { possible: true, allow_blank: true }
   validates :gender, inclusion: { in: Client::GENDER, allow_nil: true }
+  validates :phone_number, phone: { possible: true, allow_nil: true }
+  validates_format_of :email, with: Devise.email_regexp, allow_nil: true
 
   has_many :intakes
   has_many :vouchers

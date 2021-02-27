@@ -27,16 +27,22 @@ def parse_date(val)
 end
 
 def parse_phone_number(val)
+  return nil if val.blank?
   phone = val.to_s.strip
   return val if Phonelib.valid?(val)
   nil
 end
 
 def parse_gender(val)
-  return nil if val.nil?
+  return nil if val.blank?
   gender = val.to_s.strip
   gender[0] = gender[0].capitalize
   gender
+end
+
+def parse_email(val)
+  return nil if val.blank?
+  val =~ Devise.email_regexp && val
 end
 
 CSV.foreach(filename, opts) do |row|
@@ -50,15 +56,16 @@ CSV.foreach(filename, opts) do |row|
     phone_number_raw: row['Phone'],
     phone_number: parse_phone_number(row['Phone']),
     gender: parse_gender(row['Gender']),
-    email: row['Email'],
+    email_raw: row['Email'],
+    email: parse_email(row['Email']),
     race: row['Race'],
     ethnicity: row['Ethnicity']
   }
   client = Client.new(attrs)
   client.validate
   if client.errors.any?
-    ap client.errors
     ap row
+    ap client.errors
     ap client
     gets
   end
