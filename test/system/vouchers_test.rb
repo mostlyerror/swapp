@@ -3,9 +3,12 @@ require "application_system_test_case"
 class VouchersTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
 
-  test "issuing a voucher to existing client" do
+  setup do
     user = create(:user)
     sign_in user
+  end
+
+  test "issuing a voucher to existing client" do
 
     motel = create(:motel)
     swap = create(:swap, :current)
