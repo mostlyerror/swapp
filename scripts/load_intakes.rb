@@ -11,7 +11,7 @@ def parse_date(val)
     "%d-%b",    # d_b_no_year_dash 
     "%d/%b",    # d_b_no_year_slash
   ]
-  d1, d2 = val.to_s.split("-")
+  d1, d2 = val.to_s.strip.split("-")
   [d1, d2].compact.map do |d|
     date = nil
     formats.each do |fmt|
@@ -27,9 +27,16 @@ def parse_date(val)
 end
 
 def parse_phone_number(val)
-  phone = val.to_s
+  phone = val.to_s.strip
   return val if Phonelib.valid?(val)
   nil
+end
+
+def parse_gender(val)
+  return nil if val.nil?
+  gender = val.to_s.strip
+  gender[0] = gender[0].capitalize
+  gender
 end
 
 CSV.foreach(filename, opts) do |row|
@@ -42,8 +49,8 @@ CSV.foreach(filename, opts) do |row|
     date_of_birth: parse_date(row['DOB']),
     phone_number_raw: row['Phone'],
     phone_number: parse_phone_number(row['Phone']),
+    gender: parse_gender(row['Gender']),
     email: row['Email'],
-    gender: row['Gender'],
     race: row['Race'],
     ethnicity: row['Ethnicity']
   }
@@ -52,9 +59,6 @@ CSV.foreach(filename, opts) do |row|
   if client.errors.any?
     ap client.errors
     ap row
-    ap client
-    gets
-  else
     ap client
     gets
   end

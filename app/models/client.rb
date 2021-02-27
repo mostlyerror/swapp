@@ -17,14 +17,14 @@ class Client < ApplicationRecord
     "Male",
     "Trans Female (MTF)",
     "Trans Male (FTM)",
-    "Gender Non-conforming",
+    "Gender Non-Conforming",
     "Client Doesn't Know",
     "Client Refused",
   ]
 
   validates_presence_of :first_name, :last_name, :date_of_birth 
   validates :phone_number, phone: { possible: true, allow_blank: true }
-  validates :gender, inclusion: { in: Client::GENDER }
+  validates :gender, inclusion: { in: Client::GENDER, allow_nil: true }
 
   has_many :intakes
   has_many :vouchers
