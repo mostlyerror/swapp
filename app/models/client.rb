@@ -1,17 +1,4 @@
 class Client < ApplicationRecord
-  ETHNICITY = [
-    "Hispanic or Latino",
-    "Not Hispanic or Latino",
-  ]
-
-  RACE = [
-    "American Indian or Alaskan Native",
-    "Asian",
-    "Black or African American",
-    "Native Hawaiian or Other Pacific Islander",
-    "White",
-  ]
-
   GENDER = [
     "Female",
     "Male",
@@ -21,9 +8,23 @@ class Client < ApplicationRecord
     "Client Doesn't Know",
     "Client Refused",
   ]
+  RACE = [
+    "American Indian or Alaskan Native",
+    "Asian",
+    "Black or African American",
+    "Native Hawaiian or Other Pacific Islander",
+    "White",
+  ]
+
+  ETHNICITY = [
+    "Hispanic or Latino",
+    "Not Hispanic or Latino",
+  ]
 
   validates_presence_of :first_name, :last_name, :date_of_birth 
   validates :gender, inclusion: { in: Client::GENDER, allow_nil: true }
+  validates :race, inclusion: { in: Client::RACE, allow_nil: true }
+  validates :ethnicity, inclusion: { in: Client::ETHNICITY, allow_nil: true }
   validates :phone_number, phone: { possible: true, allow_nil: true }
   validates_format_of :email, with: Devise.email_regexp, allow_nil: true
 

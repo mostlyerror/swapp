@@ -1,3 +1,4 @@
+reload!
 filename = Rails.root.join("intakes.csv")
 opts = {headers: true}
 line = 1
@@ -33,6 +34,11 @@ def parse_phone_number(val)
   nil
 end
 
+def parse_email(val)
+  return nil if val.blank?
+  val =~ Devise.email_regexp && val
+end
+
 def parse_gender(val)
   return nil if val.blank?
   gender = val.to_s.strip
@@ -40,10 +46,10 @@ def parse_gender(val)
   gender
 end
 
-def parse_email(val)
+def parse_race(val)
   return nil if val.blank?
-  val =~ Devise.email_regexp && val
 end
+
 
 CSV.foreach(filename, opts) do |row|
   line += 1
