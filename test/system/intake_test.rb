@@ -47,6 +47,7 @@ class IntakeTest < ApplicationSystemTestCase
 
     click_on "Submit"
 
+    assert_current_path voucher_created_path(Voucher.last)
     assert_text /voucher created/i
     assert_text client.name
   end
