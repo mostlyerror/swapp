@@ -1,10 +1,16 @@
 class Client < ApplicationRecord
-  validates_presence_of :first_name, :last_name, :date_of_birth 
-  validates :phone_number, phone: { possible: true, allow_blank: true }
+  ETHNICITY = [
+    "Hispanic or Latino",
+    "Not Hispanic or Latino",
+  ]
 
-  has_many :intakes
-  has_many :vouchers
-  has_many :incident_reports
+  RACE = [
+    "American Indian or Alaskan Native",
+    "Asian",
+    "Black or African American",
+    "Native Hawaiian or Other Pacific Islander",
+    "White",
+  ]
 
   GENDER = [
     "Female",
@@ -16,18 +22,13 @@ class Client < ApplicationRecord
     "Client Refused",
   ]
 
-  RACE = [
-    "American Indian or Alaskan Native",
-    "Asian",
-    "Black or African American",
-    "Native Hawaiian or Other Pacific Islander",
-    "White",
-  ]
+  validates_presence_of :first_name, :last_name, :date_of_birth 
+  validates :phone_number, phone: { possible: true, allow_blank: true }
+  validates :gender, inclusion: { in: Client::GENDER }
 
-  ETHNICITY = [
-    "Hispanic or Latino",
-    "Not Hispanic or Latino",
-  ]
+  has_many :intakes
+  has_many :vouchers
+  has_many :incident_reports
 
   def name
     "#{first_name} #{last_name}"
