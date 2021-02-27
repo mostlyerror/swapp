@@ -8,11 +8,12 @@ class Client < ApplicationRecord
     "Client Doesn't Know",
     "Client Refused",
   ]
+
   RACE = [
     "American Indian or Alaskan Native",
     "Asian",
     "Black or African American",
-    "Native Hawaiian or Other Pacific Islander",
+    "Native Hawaiian or other Pacific Islander",
     "White",
   ]
 
@@ -26,6 +27,7 @@ class Client < ApplicationRecord
   validates :race, inclusion: { in: Client::RACE, allow_nil: true }
   validates :ethnicity, inclusion: { in: Client::ETHNICITY, allow_nil: true }
   validates :phone_number, phone: { possible: true, allow_nil: true }
+  auto_strip_attributes :email 
   validates_format_of :email, with: Devise.email_regexp, allow_nil: true
 
   has_many :intakes
