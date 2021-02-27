@@ -1,5 +1,7 @@
 class Client < ApplicationRecord
   validates_presence_of :first_name, :last_name, :date_of_birth 
+  validates :phone_number, phone: { possible: true, allow_blank: true }
+
   has_many :intakes
   has_many :vouchers
   has_many :incident_reports

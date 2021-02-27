@@ -128,6 +128,7 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.2.3)
+    phonelib (0.6.48)
     public_suffix (4.0.6)
     puma (4.3.7)
       nio4r (~> 2.0)
@@ -241,6 +242,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)
+  phonelib (~> 0.6.48)
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.5)
   ransack!
