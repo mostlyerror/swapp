@@ -3,10 +3,13 @@ require "application_system_test_case"
 class IssueVoucherToExistingClientTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
 
-  # search client -> client page -> voucher form -> voucher created
-  test "happy path" do
+  setup do
     user = create(:user)
     sign_in user
+  end
+
+  # search client -> client page -> voucher form -> voucher created
+  test "happy path" do
     motel = create(:motel)
     swap = create(:swap, :current)
     create(:availability, motel: motel, swap: swap, vacant: 1)
@@ -21,7 +24,7 @@ class IssueVoucherToExistingClientTest < ApplicationSystemTestCase
 
 
     # client page
-    click_on client.last_name
+    find_link(client.last_name).click
     assert_current_path client_path(client)
 
     assert_text /1 vouchers remaining today/i

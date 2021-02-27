@@ -3,14 +3,16 @@ require "application_system_test_case"
 class IntakeTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
 
-  test "filling out intake form and seeing created voucher" do
+  setup do
     user = create(:user)
     sign_in user
+  end
+
+  test "filling out intake form and seeing created voucher" do
     motel = create(:motel)
     swap = create(:swap, :current)
     create(:availability, motel: motel, swap: swap, vacant: 1)
     client = create(:client)
-
 
     visit new_intake_path
     assert_text /intake/i
