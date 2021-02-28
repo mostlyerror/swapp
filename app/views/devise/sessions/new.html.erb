@@ -6,41 +6,34 @@
   <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
-
-
 <body class="min-h-screen bg-gray-100 overscroll-x-contain">
   <div class="flex mx-auto justify-center mt-96">
-
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <h1 class="text-9xl text-center font-bold">swapp.</h1>
-
       <div class="flex flex-col space-y-16 mt-24 text-5xl text-gray-600">
         <div class="field">
           <%= f.label :email, class: "block leading-relaxed" %>
           <%= f.email_field :email, 
             autofocus: true, 
             autocomplete: "email",
-            class: "outline-gray py-8 px-8 text-gray-700"
+            class: "rounded-lg p-8 text-gray-700 text-6xl"
           %>
         </div>
-
         <div class="field">
           <%= f.label :password, class: "block leading-relaxed" %>
           <%= f.password_field :password, 
             autocomplete: "current-password",
-            class: "outline-gray py-8 px-8 text-gray-700"
+            class: "rounded-lg p-8 text-gray-700 text-6xl"
           %>
         </div>
-
-        <div class="actions">
-          <%= f.submit "Log in", class: "btn btn-blue w-full" %>
-
-        <% if devise_mapping.rememberable? %>
-          <div class="field text-center mt-3">
-            <%= f.check_box :remember_me, class: "m-2 h-10 w-10" %>
-            <%= f.label :remember_me, class: "text-5xl" %>
-          </div>
-        <% end %>
+        <div>
+          <%= f.submit "Log in", class: "btn btn-blue w-full h-26" %>
+          <% if devise_mapping.rememberable? %>
+            <div class="field text-center mt-8">
+              <%= f.check_box :remember_me, class: "m-2 h-10 w-10" %>
+              <%= f.label :remember_me, class: "text-5xl" %>
+            </div>
+          <% end %>
         </div>
       </div>
     <% end %>
