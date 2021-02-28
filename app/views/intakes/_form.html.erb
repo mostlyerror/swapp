@@ -40,10 +40,10 @@
       <div class="field w-full">
         <%= client_attributes.label :race, class: "block leading-relaxed" %>
         <ul class="flex flex-1 flex-col w-full space-y-8 p-6 text-6xl">
-          <% Race.all.each do |race| %>
+          <% Client::RACE.each do |race| %>
             <li class="flex flex-1 items-baseline">
-              <%= client_attributes.check_box :race_ids, { multiple: true }, race.id, false %>
-              <%= client_attributes.label "race_ids_#{race.id}", race.name %>
+              <%= client_attributes.check_box :race, { multiple: true }, race, false %>
+              <%= client_attributes.label "race_#{race}", race %>
             </li>
           <% end %>
         </ul>

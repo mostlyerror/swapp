@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_27_213231) do
+ActiveRecord::Schema.define(version: 2021_02_28_005937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,13 +39,7 @@ ActiveRecord::Schema.define(version: 2021_02_27_213231) do
     t.string "phone_number"
     t.string "phone_number_raw"
     t.string "email_raw"
-  end
-
-  create_table "clients_races", id: false, force: :cascade do |t|
-    t.bigint "client_id", null: false
-    t.bigint "race_id", null: false
-    t.index ["client_id"], name: "index_clients_races_on_client_id"
-    t.index ["race_id"], name: "index_clients_races_on_race_id"
+    t.string "race"
   end
 
   create_table "incident_reports", force: :cascade do |t|

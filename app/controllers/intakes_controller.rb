@@ -7,11 +7,14 @@ class IntakesController < ApplicationController
   end
 
   def create
-    @intake = Intake.new(intake_params)
-    @intake.user = current_user
-    @client = Client.new(intake_params['client_attributes'])
-
     Intake.transaction do |t|
+      @intake = Intake.new(intake_params)
+      @intake.user = current_user
+
+      client_params = intake_params['client_attributes']
+      @client = Client.new(client_params)
+      @client.race = client_params['race'].join(',')
+
       @intake.client = @client
       if !@intake.save
         return render :new
@@ -59,7 +62,7 @@ class IntakesController < ApplicationController
         "last_permanent_residence_county",
         "motel_id", "check_in", "check_out"
       ],
-      client_attributes: ["first_name", "last_name", "date_of_birth", "gender", "ethnicity", "phone_number", "email", {race_ids: []}],
+      client_attributes: ["first_name", "last_name", "date_of_birth", "gender", "ethnicity", "phone_number", "email", {race: []}],
     )
   end
 

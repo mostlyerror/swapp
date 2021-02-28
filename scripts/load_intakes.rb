@@ -49,32 +49,35 @@ end
 def parse_race(val)
   return nil if val.blank?
   race = val.to_s.strip
-  [Race.find_by(name: val)]
+  Race.find_by(name: race)
 end
 
 
-CSV.foreach(filename, opts) do |row|
-  line += 1
-  date_str = row['Date'].to_s
+ActiveRecord::Base.transaction do
+  CSV.foreach(filename, opts) do |row|
+    line += 1
 
-  attrs = {
-    last_name: row['Last Name'],
-    first_name: row['First Name'],
-    date_of_birth: parse_date(row['DOB']),
-    phone_number_raw: row['Phone'],
-    phone_number: parse_phone_number(row['Phone']),
-    gender: parse_gender(row['Gender']),
-    email_raw: row['Email'],
-    email: parse_email(row['Email']),
-    race_ids: parse_race(row['Race']),
-    ethnicity: row['Ethnicity']
-  }
-  client = Client.new(attrs)
-  client.validate
-  if client.errors.any?
-    ap row
-    ap client.errors
-    ap client
-    gets
+    attrs = {
+      last_name: row['Last Name'],
+      first_name: row['First Name'],
+      date_of_birth: parse_date(row['DOB']),
+      phone_number_raw: row['Phone'],
+      phone_number: parse_phone_number(row['Phone']),
+      gender: parse_gender(row['Gender']),
+      email_raw: row['Email'],
+      email: parse_email(row['Email']),
+      ethnicity: row['Ethnicity']
+    }
+    client = Client.create(attrs)
+    # client.races << parse_race(row['Race'])
+    client.save
+
+    if client.errors.any?
+      ap row
+      ap client.errors
+      ap client
+      gets
+    end
   end
+  raise :finished
 end
