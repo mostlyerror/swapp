@@ -1,5 +1,4 @@
 ActiveRecord::Base.transaction do |t|
-  # options for race dialog in intake
   race_data = [
     {name: "American Indian or Alaskan Native"},
     {name: "Asian"},
@@ -8,54 +7,6 @@ ActiveRecord::Base.transaction do |t|
     {name: "White"}
   ]
   Race.create(race_data)
-
-  # creating some clients without vouchers/intakes, so we can just issue
-  # vouchers easily while testing..
-  # 10.times do 
-  #   Client.create(
-  #     first_name: Faker::Name.first_name,
-  #     last_name: Faker::Name.last_name,
-  #     date_of_birth: Faker::Date.birthday,
-  #     gender: Client::GENDER.sample
-  #   )
-  # end
-
-  user_data = [
-    {
-      email: 'sudney@cityinn.com',
-      first_name: 'Sydney',
-      last_name: 'Motel',
-      password: 'password',
-      password_confirmation: 'password',
-      admin: false,
-    },
-    {
-      email: 'carol@comfortinn.com',
-      first_name: 'Carol',
-      last_name: 'Motel',
-      password: 'password',
-      password_confirmation: 'password',
-      admin: false,
-    },
-    {
-      email: 'harriet@hometownestudios.com',
-      first_name: 'Harriett',
-      last_name: 'Motel',
-      password: 'password',
-      password_confirmation: 'password',
-      admin: false,
-    },
-    {
-      email: 'quincey@qualityinn.com',
-      first_name: 'Quincey',
-      last_name: 'Motel',
-      password: 'password',
-      password_confirmation: 'password',
-      admin: false
-    }
-  ]
-
-  User.create!(user_data)
 
   motel_data = [
     {

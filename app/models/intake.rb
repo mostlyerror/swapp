@@ -14,8 +14,8 @@ class Intake < ApplicationRecord
   private 
 
     def trim_survey_fields
-      survey.keys.each do |key|
-        survey[key] = survey[key].strip
+      survey.present? && survey.keys.each do |key|
+        survey[key] = survey[key]&.strip
       end
     end
 end

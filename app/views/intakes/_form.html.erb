@@ -23,11 +23,11 @@
         <%= client_attributes.label :date_of_birth, class: "block leading-relaxed", required: true  %>
         <span class="flex flex-1">
           <%=
-              client_attributes.date_field :date_of_birth, 
-                value: Date.current - 50.years,
-                required: true,
-                class: "w-full bg-white rounded-lg border border-gray-400 p-6"
-          %>
+            client_attributes.date_field :date_of_birth, 
+              value: Date.current - 50.years,
+              required: true,
+              class: "w-full bg-white rounded-lg border border-gray-400 p-6"
+            %>
         </span>
       </div>
       <div class="field w-full">
@@ -35,21 +35,32 @@
         <%= client_attributes.select :gender, 
           options_for_select(Client::GENDER, @client.gender), 
           {include_blank: true},
-          class: "bg-white rounded-lg border border-gray-300 w-full p-6", required: true %>
+          class: "bg-white rounded-lg border border-gray-300 w-full p-6", 
+          required: true 
+        %>
       </div>
       <div class="field w-full">
-        <%= client_attributes.label :race, class: "block leading-relaxed"  %>
-        <%= client_attributes.select :race, 
-          options_for_select(Client::RACE, @client.race), 
-          {include_blank: true},
-          class: "bg-white rounded-lg border border-gray-300 w-full p-6", required: true %>
+        <%= client_attributes.label :race, class: "block leading-relaxed" %>
+        <ul class="flex flex-1 flex-col w-full space-y-8 p-6 text-6xl">
+          <% Client::RACE.each do |race| %>
+            <li class="flex flex-1 items-baseline">
+              <%= client_attributes.check_box :race, 
+                { multiple: true, checked: race.in?(@client.races) },
+                race, 
+                race.in?(@client.races) %>
+              <%= client_attributes.label "race_#{race}", race %>
+            </li>
+          <% end %>
+        </ul>
       </div>
       <div class="field w-full">
         <%= client_attributes.label :ethnicity, "Hispanic or Latino?", class: "block leading-relaxed" %>
         <%= client_attributes.select :ethnicity, 
           options_for_select(Client::ETHNICITY, @client.ethnicity), 
           {include_blank: true},
-          class: "bg-white border border-gray-300 w-full p-6", required: true %>
+          class: "bg-white border border-gray-300 w-full p-6",
+          selected: @client.ethnicity,
+          required: true %>
       </div>
       <div class="field">
         <%= form.label "survey[homelessness_first_time]", 
@@ -57,7 +68,8 @@
           class: "block leading-relaxed" %>
         <%= form.label "survey[homelessness_first_time]", "Yes" %>
         <%= form.radio_button "survey[homelessness_first_time]", true, class: "m-2.5 h-10 w-10",
-          checked: @intake.survey&.dig('homelessness_first_time') == 'true', required: true %>
+          checked: @intake.survey&.dig('homelessness_first_time') == 'true',
+          required: true %>
         <%= form.label "survey[homelessness_first_time]", "No" %>
         <%= form.radio_button "survey[homelessness_first_time]", false, class: "m-2.5 h-10 w-10",
           checked: @intake.survey ? @intake.survey['homelessness_first_time'] == 'false' : true %>
@@ -68,7 +80,8 @@
           class: "block leading-relaxed" %>
         <%= form.text_field "survey[homelessness_how_long_this_time]", 
           class: "rounded-lg border border-gray-300 w-full p-6",
-          value: @intake.survey&.dig('homelessness_how_long_this_time', required: true),
+          value: @intake.survey&.dig('homelessness_how_long_this_time'), 
+          required: true,
           placeholder: "(e.g, 2 months, 5 years, etc.)"
         %>
       </div>
@@ -124,9 +137,9 @@
               checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "In a motel" %>
           </div>
           <div>
-            <%= form.label "survey[where_did_you_sleep_last_night]", "Double Up" %>
-            <%= form.radio_button "survey[where_did_you_sleep_last_night]", "Double Up", class: "m-2.5 h-10 w-10",
-              checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "Double Up" %>
+            <%= form.label "survey[where_did_you_sleep_last_night]", "Doubled Up" %>
+            <%= form.radio_button "survey[where_did_you_sleep_last_night]", "Doubled Up", class: "m-2.5 h-10 w-10",
+              checked: @intake.survey&.dig('where_did_you_sleep_last_night') == "Doubled Up" %>
           </div>
           <div>
             <%= form.label "survey[where_did_you_sleep_last_night]", "In a car/RV" %>
@@ -206,10 +219,10 @@
       <div class="field">
         <%= form.label "Are you working?", class: "block leading-relaxed"  %>
         <%= form.select "survey[are_you_working]", 
-          options_for_select(Intake::WORKING, 'survey[are_you_working]'), 
-          {include_blank: true},
-          class: "bg-white rounded-lg border border-gray-300 w-full p-6", 
-          required: true
+          options_for_select(Intake::WORKING, selected: @intake.survey&.dig('are_you_working')),
+        { selected: @intake.survey&.dig('are_you_working')},
+        class: "bg-white rounded-lg border border-gray-300 w-full p-6", 
+        required: true
         %>
       </div>
       <div class="field">
@@ -438,8 +451,7 @@
     </div>
     <div class="field w-full">
       <%= form.label "survey[motel_id]", "Hotel (vouchers remaining)", class: "font-bold block leading-relaxed" %>
-      <%= form.select "survey[motel_id]", 
-        options_for_select(@motels, disabled: @disabled),
+      <%= form.select "survey[motel_id]", options_for_select(@motels, selected: @motel&.id, disabled: @disabled),
         {include_blank: true},
         class: "p-8 w-full bg-white rounded-lg border border-gray-400",
         required: true %>

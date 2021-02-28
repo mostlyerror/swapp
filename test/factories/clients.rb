@@ -4,9 +4,9 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     date_of_birth { Faker::Date.birthday }
     gender { Client::GENDER.sample }
-    race { Client::RACE.sample }
     ethnicity { Client::ETHNICITY.sample }
     email { Faker::Internet.email }
-    phone_number { Faker::PhoneNumber.phone_number }
+    phone_number_raw { Faker::PhoneNumber.phone_number }
+    race { Client::RACE.sample }
   end
 end

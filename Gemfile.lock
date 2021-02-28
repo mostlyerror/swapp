@@ -67,6 +67,8 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    auto_strip_attributes (2.6.0)
+      activerecord (>= 4.0)
     awesome_print (1.8.0)
     bcrypt (3.1.16)
     bindex (0.8.1)
@@ -128,6 +130,7 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pg (1.2.3)
+    phonelib (0.6.48)
     public_suffix (4.0.6)
     puma (4.3.7)
       nio4r (~> 2.0)
@@ -185,6 +188,7 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    smarter_csv (1.2.8)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -230,6 +234,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  auto_strip_attributes (~> 2.6)
   awesome_print (~> 1.8)
   bootsnap (>= 1.4.2)
   byebug
@@ -240,11 +245,13 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)
+  phonelib (~> 0.6.48)
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.5)
   ransack!
   sass-rails (>= 6)
   selenium-webdriver
+  smarter_csv (~> 1.2)
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

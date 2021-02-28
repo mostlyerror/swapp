@@ -1,25 +1,24 @@
 class IntakesController < ApplicationController
+  before_action :hydrate_form, only: %i[ new create ]
   def new
     @intake = Intake.new
     @client = Client.new
     @voucher = Voucher.new
-    @disabled = []
-    supply = RoomSupply.vouchers_remaining_today(@swap)
-    @motels = Motel.all.reduce({}) do |memo, motel|
-      name = "#{motel.name} (#{supply[motel.id]})"
-      if supply[motel.id].to_i <= 0
-        @disabled << motel.id
-      end
-      memo.merge(Hash[name, motel.id])
-    end
   end
 
   def create
-    @intake = Intake.new(intake_params)
-    @intake.user = current_user
-    @client = Client.new(intake_params['client_attributes'])
-
     Intake.transaction do |t|
+      @intake = Intake.new(intake_params)
+      @intake.user = current_user
+
+      client_params = intake_params['client_attributes']
+      @client = Client.new(client_params)
+      @client.race = client_params['race']&.join(',')
+
+      @motel = Motel.find(intake_params["survey"]["motel_id"])
+      @check_in = intake_params["survey"]["check_in"]
+      @check_out = intake_params["survey"]["check_out"]
+
       @intake.client = @client
       if !@intake.save
         return render :new
@@ -35,11 +34,12 @@ class IntakesController < ApplicationController
       @voucher = Voucher.create!(
         client: @client,
         user: current_user,
-        motel: Motel.find(intake_params["survey"]["motel_id"]),
-        check_in: intake_params["survey"]["check_in"],
-        check_out: intake_params["survey"]["check_out"],
+        motel: @motel,
+        check_in: @check_in,
+        check_out: @check_out,
         swap: @swap
       )
+
       return redirect_to voucher_created_path(@voucher)
     end
 
@@ -67,7 +67,19 @@ class IntakesController < ApplicationController
         "last_permanent_residence_county",
         "motel_id", "check_in", "check_out"
       ],
-      client_attributes: ["first_name", "last_name", "date_of_birth", "gender", "race", "ethnicity", "phone_number", "email"],
+      client_attributes: ["first_name", "last_name", "date_of_birth", "gender", "ethnicity", "phone_number", "email", {race: []}],
     )
+  end
+
+  def hydrate_form
+    @disabled = []
+    supply = RoomSupply.vouchers_remaining_today(@swap)
+    @motels = Motel.all.reduce({}) do |memo, motel|
+      name = "#{motel.name} (#{supply[motel.id]})"
+      if supply[motel.id].to_i <= 0
+        @disabled << motel.id
+      end
+      memo.merge(Hash[name, motel.id])
+    end
   end
 end
