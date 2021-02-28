@@ -38,7 +38,8 @@
       <h2 class="mt-16 text-7xl text-center font-bold">
         <% if @swap.present? %>
           <% if @num_vouchers_remaining_today.zero? %>
-            Cannot perform intake without available voucher.
+            Cannot perform intake.<br/>
+            No vouchers available.
           <% else %>
             Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.
           <% end %>

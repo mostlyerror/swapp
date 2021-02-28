@@ -65,3 +65,5 @@ gem "awesome_print", "~> 1.8"
 gem "smarter_csv", "~> 1.2"
 
 gem "phonelib", "~> 0.6.48"
+
+gem "auto_strip_attributes", "~> 2.6"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_27_195657) do
+ActiveRecord::Schema.define(version: 2021_02_27_213231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,12 +34,18 @@ ActiveRecord::Schema.define(version: 2021_02_27_195657) do
     t.string "gender"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "race"
     t.string "ethnicity"
     t.string "email"
     t.string "phone_number"
     t.string "phone_number_raw"
     t.string "email_raw"
+  end
+
+  create_table "clients_races", id: false, force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "race_id", null: false
+    t.index ["client_id"], name: "index_clients_races_on_client_id"
+    t.index ["race_id"], name: "index_clients_races_on_race_id"
   end
 
   create_table "incident_reports", force: :cascade do |t|
@@ -70,6 +76,10 @@ ActiveRecord::Schema.define(version: 2021_02_27_195657) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "pet_friendly"
+  end
+
+  create_table "races", force: :cascade do |t|
+    t.string "name", null: false
   end
 
   create_table "swaps", force: :cascade do |t|

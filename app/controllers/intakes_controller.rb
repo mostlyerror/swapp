@@ -1,17 +1,9 @@
 class IntakesController < ApplicationController
+  before_action :hydrate_form, only: %i[ new create ]
   def new
     @intake = Intake.new
     @client = Client.new
     @voucher = Voucher.new
-    @disabled = []
-    supply = RoomSupply.vouchers_remaining_today(@swap)
-    @motels = Motel.all.reduce({}) do |memo, motel|
-      name = "#{motel.name} (#{supply[motel.id]})"
-      if supply[motel.id].to_i <= 0
-        @disabled << motel.id
-      end
-      memo.merge(Hash[name, motel.id])
-    end
   end
 
   def create
@@ -67,7 +59,19 @@ class IntakesController < ApplicationController
         "last_permanent_residence_county",
         "motel_id", "check_in", "check_out"
       ],
-      client_attributes: ["first_name", "last_name", "date_of_birth", "gender", "race", "ethnicity", "phone_number", "email"],
+      client_attributes: ["first_name", "last_name", "date_of_birth", "gender", "ethnicity", "phone_number", "email", {race_ids: []}],
     )
+  end
+
+  def hydrate_form
+    @disabled = []
+    supply = RoomSupply.vouchers_remaining_today(@swap)
+    @motels = Motel.all.reduce({}) do |memo, motel|
+      name = "#{motel.name} (#{supply[motel.id]})"
+      if supply[motel.id].to_i <= 0
+        @disabled << motel.id
+      end
+      memo.merge(Hash[name, motel.id])
+    end
   end
 end
