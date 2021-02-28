@@ -13,7 +13,11 @@ class IntakesController < ApplicationController
 
       client_params = intake_params['client_attributes']
       @client = Client.new(client_params)
-      @client.race = client_params['race'].join(',')
+      @client.race = client_params['race']&.join(',')
+
+      @motel = Motel.find(intake_params["survey"]["motel_id"])
+      @check_in = intake_params["survey"]["check_in"]
+      @check_out = intake_params["survey"]["check_out"]
 
       @intake.client = @client
       if !@intake.save
@@ -30,11 +34,12 @@ class IntakesController < ApplicationController
       @voucher = Voucher.create!(
         client: @client,
         user: current_user,
-        motel: Motel.find(intake_params["survey"]["motel_id"]),
-        check_in: intake_params["survey"]["check_in"],
-        check_out: intake_params["survey"]["check_out"],
+        motel: @motel,
+        check_in: @check_in,
+        check_out: @check_out,
         swap: @swap
       )
+
       return redirect_to voucher_created_path(@voucher)
     end
 

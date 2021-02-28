@@ -40,6 +40,13 @@ class Client < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def races
+    if race
+      return race&.split(',')
+    end
+    return []
+  end
+
   private
     def accepted_race_values
       return true if race.nil?
