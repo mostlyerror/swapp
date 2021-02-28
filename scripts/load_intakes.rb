@@ -2,6 +2,7 @@ reload!
 filename = Rails.root.join("intakes.csv")
 opts = {headers: true}
 line = 1
+intakes = 0
 
 def parse_date(val)
   formats = [
@@ -109,12 +110,16 @@ ActiveRecord::Base.transaction do
     }
     intake = Intake.create(intake_attrs)
 
+
     if intake.errors.any?
       ap row
       ap intake.errors
       ap intake
       gets
     end
+
+    intakes += 1
   end
-  raise :finished
+
+  puts "#{intakes} intakes created"
 end
