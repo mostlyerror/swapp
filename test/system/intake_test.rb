@@ -23,7 +23,8 @@ class IntakeTest < ApplicationSystemTestCase
     fill_in "Last Name", with: client.last_name
     fill_in "Date of birth", with: client.date_of_birth
     select client.gender, from: "Gender"
-    select client.race, from: "Race"
+    find(id: "intake_client_attributes_race_american_indian_or_alaskan_native").set(true)
+    find(id: "intake_client_attributes_race_asian").set(true)
     select client.ethnicity, from: "Hispanic or Latino?"
 
     find(id: "intake_survey[homelessness_first_time]_false").click
