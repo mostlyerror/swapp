@@ -2,7 +2,7 @@
   <h2 class="bg-gray-900 text-white text-6xl text-center font-semibold p-6">All Vouchers Issued</h2>
   <table class=" bg-white rounded text-left text-4xl w-full">
     <thead>
-      <tr class="bg-gray-900 text-white tracking-wide">
+      <tr class="bg-gray-900 text-white tracking-wide block">
         <th class="lg:rounded-tl-lg py-8 px-2 pl-3">#</th>
         <th class="lg:rounded-tl-lg py-8 px-2">Hotel</th>
         <th class="py-8 px-2">In</th>
@@ -11,7 +11,7 @@
         <th class="lg:rounded-tr-lg py-8 px-2 pr-8">Issued</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="block overflow-y-scroll" style="height: 630px;">
       <% @vouchers.each do |voucher| %>
         <tr>
           <td class="pl-4 px-2 py-4 text-left tabular-nums">
