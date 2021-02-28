@@ -27,6 +27,10 @@ def parse_date(val)
   end
 end
 
+def parse_dob(val)
+  parse_date(val).first
+end
+
 def parse_phone_number(val)
   return nil if val.blank?
   phone = val.to_s.strip
@@ -48,10 +52,8 @@ end
 
 def parse_race(val)
   return nil if val.blank?
-  race = val.to_s.strip
-  Race.find_by(name: race)
+  race = val.to_s&.strip
 end
-
 
 ActiveRecord::Base.transaction do
   CSV.foreach(filename, opts) do |row|
@@ -60,7 +62,7 @@ ActiveRecord::Base.transaction do
     attrs = {
       last_name: row['Last Name'],
       first_name: row['First Name'],
-      date_of_birth: parse_date(row['DOB']),
+      date_of_birth: parse_dob(row['DOB']),
       phone_number_raw: row['Phone'],
       phone_number: parse_phone_number(row['Phone']),
       gender: parse_gender(row['Gender']),
@@ -69,8 +71,6 @@ ActiveRecord::Base.transaction do
       ethnicity: row['Ethnicity']
     }
     client = Client.create(attrs)
-    # client.races << parse_race(row['Race'])
-    client.save
 
     if client.errors.any?
       ap row

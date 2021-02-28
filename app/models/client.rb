@@ -26,7 +26,7 @@ class Client < ApplicationRecord
   validates :gender, inclusion: { in: Client::GENDER, allow_nil: true }
   validates :ethnicity, inclusion: { in: Client::ETHNICITY, allow_nil: true }
   auto_strip_attributes :race
-  validate :accepted_race_values
+  # validate :accepted_race_values
   auto_strip_attributes :phone_number
   validates :phone_number, phone: { possible: true, allow_nil: true }
   auto_strip_attributes :email 
@@ -41,18 +41,9 @@ class Client < ApplicationRecord
   end
 
   def races
-    if race
+    if race 
       return race&.split(',')
     end
-    return []
+    []
   end
-
-  private
-    def accepted_race_values
-      return true if race.nil?
-      races = self.race.split(',')
-      if races.present? && races.any? {|r| !r.in? Client::RACE }
-        errors.add(:race, "#{self.race} not in accepted race values")
-      end
-    end
 end
