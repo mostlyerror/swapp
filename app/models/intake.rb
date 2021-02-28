@@ -13,8 +13,8 @@ class Intake < ApplicationRecord
 
   SLEEP_LAST_NIGHT = OpenStruct.new(
     key: :where_did_you_sleep_last_night,
-    question: "Where did you sleep last night?",
-    answers: [
+    text: "Where did you sleep last night?",
+    choices: [
       "In own home",
       "In a shelter",
       "In a motel",
@@ -23,6 +23,21 @@ class Intake < ApplicationRecord
       "On the streets or in a tent",
       "In the hospital",
       "Incarcerated",
+    ]
+  )
+  WHY_NOT_SHELTER = OpenStruct.new(
+    key: :why_not_shelter,
+    text: "What is the reason you have not accessed shelter?",
+    choices: [
+      "No room",
+      "No transportation",
+      "Prior background issues",
+      "Doesn't accept pets",
+      "Safety Concerns",
+      "No ID",
+      "Banned from shelter",
+      "Current restraining order",
+      "Other"
     ]
   )
 
