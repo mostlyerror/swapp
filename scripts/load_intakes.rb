@@ -28,7 +28,18 @@ def parse_date(val)
 end
 
 def parse_dob(val)
-  parse_date(val).first
+  formats = [
+    "%m/%d/%Y", # m_d_yy_slash
+    "%m-%d-%Y"  # m_d_yy_dash
+  ]
+  date = date_str = val.to_s.strip
+  formats.each do |fmt|
+    date = Date.strptime(date_str, fmt)
+    break
+  rescue Date::Error
+    next
+  end
+  date
 end
 
 def parse_phone_number(val)
