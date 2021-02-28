@@ -11,124 +11,154 @@
   <% end %>
   <div class="w-full flex flex-col space-y-32 mt-24 pb-24 text-6xl text-gray-800 tracking-wide">
     <%= form.fields_for :client, @client do |client_attributes|%>
-      <div class="field w-full">
-        <%= client_attributes.label :first_name, "First Name", class: "block leading-relaxed text-gray-700" %>
-        <%= client_attributes.text_field :first_name, size: 23, class: "w-full rounded-lg p-8 text-6xl", required: true %>
+      <div class="text-gray-700">
+        <% question = Intake::FIRST_NAME %>
+        <%= client_attributes.label question.key, question.text,
+          class: "block leading-snug font-semibold"
+        %>
+        <%= client_attributes.text_field question.key,
+          size: 23, 
+          required: true,
+          value: @client.first_name,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+        %>
       </div>
-      <div class="field w-full">
-        <%= client_attributes.label :last_name, "Last Name", class: "block leading-relaxed text-gray-700"  %>
-        <%= client_attributes.text_field :last_name, size: 23, class: "w-full rounded-lg p-8 text-6xl" %>
+      <div class="text-gray-700">
+        <% question = Intake::LAST_NAME %>
+        <%= client_attributes.label question.key, question.text,
+          class: "block leading-snug font-semibold"
+        %>
+        <%= client_attributes.text_field question.key,
+          size: 23, 
+          required: true,
+          value: @client.last_name,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+        %>
       </div>
-      <div class="field w-full">
-        <%= client_attributes.label :date_of_birth, class: "block leading-relaxed text-gray-700", required: true  %>
-        <span class="flex flex-1">
-          <%=
-            client_attributes.date_field :date_of_birth, 
-              value: Date.current - 50.years,
-              required: true,
-              class: "w-full rounded-lg p-8 text-6xl text-gray-700"
-            %>
-        </span>
+      <div class="text-gray-700">
+        <% question = Intake::DATE_OF_BIRTH %>
+        <%= client_attributes.label question.key, question.text,
+          class: "block leading-snug font-semibold" %>
+        <%= client_attributes.date_field question.key,
+          value: Date.current - 50.years,
+          required: true,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
       </div>
-      <div class="field w-full">
-        <%= client_attributes.label :gender, class: "block leading-relaxed"  %>
-        <%= client_attributes.select :gender, 
-          options_for_select(Client::GENDER, @client.gender), 
+      <div class="text-gray-700">
+        <% question = Intake::GENDER %>
+        <%= client_attributes.label question.key, question.text,
+          class: "block leading-snug font-semibold" %>
+        <%= client_attributes.select question.key,
+          options_for_select(question.choices, @client.gender),
           {include_blank: true},
-          class: "w-full rounded-lg bg-white p-6 text-6xl text-gray-700", 
-          required: true 
+          required: true,
+          class: "mt-6 rounded-lg w-full p-8 text-6xl"
         %>
       </div>
       <div class="field w-full">
-        <%= client_attributes.label :race, class: "block leading-relaxed text-gray-700" %>
+        <% question = Intake::RACE %>
+        <%= client_attributes.label question.key, question.text,
+          class: "block leading-snug font-semibold" %>
         <ul class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl text-gray-700">
-          <% Client::RACE.each do |race| %>
+          <% question.choices.each do |race| %>
             <li class="flex flex-1 space-x-10 items-baseline">
-              <%= client_attributes.check_box :race, 
+              <%= client_attributes.check_box question.key,
                 { 
                   multiple: true, 
-                  checked: race.in?(@client.races),
+                  checked: @client.race && race.in?(JSON.parse(@client.race)),
                   class: "w-11 h-11 text-indigo-600"
                 },
                 race, 
-                race.in?(@client.races) %>
-              <%= client_attributes.label "race_#{race.parameterize.underscore}", race %>
+                @client.race && race.in?(JSON.parse(@client.race))
+              %>
+              <%= client_attributes.label "race_#{to_htmlfor(race)}", race %>
             </li>
           <% end %>
         </ul>
       </div>
-      <div class="field w-full">
-        <%= client_attributes.label :ethnicity, "Hispanic or Latino?", class: "block leading-relaxed text-gray-700" %>
-        <%= client_attributes.select :ethnicity, 
-          options_for_select(Client::ETHNICITY, @client.ethnicity), 
+      <div class="text-gray-700">
+        <% question = Intake::ETHNICITY %>
+        <%= client_attributes.label question.key, question.text,
+          class: "block leading-snug font-semibold" %>
+        <%= client_attributes.select question.key,
+          options_for_select(question.choices, @client.ethnicity),
           {include_blank: true},
-          class: "bg-white w-full p-6 text-6xl  text-gray-700",
-          selected: @client.ethnicity,
-          required: true %>
-      </div>
-      <div class="field text-gray-700">
-        <%= form.label "survey[homelessness_first_time]", 
-          "Is this the first time you have been homeless?", 
-          class: "block leading-snug" %>
-        <%= form.label "survey[homelessness_first_time]", "Yes", class: 'leading-relaxed' %>
-        <%= form.radio_button "survey[homelessness_first_time]", true, 
-          class: "h-10 w-10 mr-8",
-          checked: @intake.survey&.dig('homelessness_first_time') == 'true',
-          required: true %>
-        <%= form.label "survey[homelessness_first_time]", "No" %>
-        <%= form.radio_button "survey[homelessness_first_time]", false, 
-        class: "h-10 w-10",
-          checked: @intake.survey ? @intake.survey['homelessness_first_time'] == 'false' : true %>
-      </div>
-      <div class="field text-gray-700">
-        <%= form.label "survey[homelessness_how_long_this_time]", 
-          "How long have you been homeless this time?", 
-          class: "block leading-snug" %>
-        <%= form.text_field "survey[homelessness_how_long_this_time]", 
-          class: "rounded-lg w-full p-6 text-6xl",
-          value: @intake.survey&.dig('homelessness_how_long_this_time'), 
           required: true,
-          placeholder: "(e.g, 2 months, 5 years, etc.)"
+          class: "mt-6 rounded-lg w-full p-8 text-6xl"
         %>
       </div>
-      <div class="field text-gray-700">
-        <%= form.label "survey[homelessness_episodes_last_three_years]", 
-          "Including this time, how many separate times have you stayed in shelters or on the streets in the past 3 years?", 
-          class: "block leading-snug"  %>
-        <div class="mt-16">
-          <%= form.label "survey[homelessness_episodes_last_three_years]", "Fewer than 4 times" %>
-          <%= form.radio_button "survey[homelessness_episodes_last_three_years]", "Fewer than 4 times", 
-            class: "h-10 w-10",
-            checked: @intake.survey&.dig('homelessness_episodes_last_three_years') == 'Fewer than 4 times', 
-            required: true %>
-        </div>
-        <div class="mt-8">
-          <%= form.label "survey[homelessness_episodes_last_three_years]", "4 or more times" %>
-          <%= form.radio_button "survey[homelessness_episodes_last_three_years]", "4 or more times",
-          class: "h-10 w-10",
-          checked: @intake.survey ? @intake.survey['homelessness_episodes_last_three_years'] == '4 or more times' : true %>
+      <div class="text-gray-700">
+        <% question = Intake::HOMELESSNESS_FIRST_TIME %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-tight font-semibold" %>
+        <div class="p-4">
+          <% question.choices.each do |choice| %>
+            <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
+            <%= form.radio_button "survey[#{question.key}]", choice, 
+                class: "h-10 w-10 mr-8 text-indigo-600",
+                required: true,
+                checked: @intake.survey&.dig(question.key) == choice %>
+          <% end %>
+          <!-- checked: @intake.survey ? @intake.survey['homelessness_first_time'] == 'false' : true %> -->
         </div>
       </div>
-      <div class="field text-gray-700">
-        <%= form.label "survey[homelessness_episodes_how_long]", 
-          "In total, how long did you stay in shelters or on the streets those times?", 
-          class: "block leading-snug font-semibold" %>
-        <%= form.text_field "survey[homelessness_episodes_how_long]", 
-          class: "mt-6 rounded-lg w-full p-6 text-6xl", 
-          value: @intake.survey&.dig('homelessness_episodes_how_long'), required: true,
-          placeholder: "(e.g, 2 months, 5 years, etc.)" %>
-      </div>
-      <div class="field text-gray-700">
-        <%= form.label "survey[how_long_living_in_this_community]", 
-          "How long have you been living in this community?",
-          class: "block leading-snug font-semibold"  %>
-        <%= form.text_field "survey[how_long_living_in_this_community]",
-          class: "mt-6 rounded-lg w-full p-6 text-6xl", 
+      <div class="text-gray-700">
+        <% question = Intake::HOMELESSNESS_HOW_LONG_THIS_TIME %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-tight font-semibold"
+        %>
+        <%= form.text_field "survey[#{question.key}]",
+          size: 23, 
           required: true,
-          value: @intake.survey&.dig('how_long_living_in_this_community'),
-          placeholder: "(e.g, 2 months, 5 years, etc.)" %>
+          value: @intake.survey&.dig("survey[#{question.key}]"),
+          placeholder: question.placeholder,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+        %>
       </div>
-      <div class="field text-gray-700">
+      <div class="text-gray-700">
+        <% question = Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-tight font-semibold" %>
+        <div class="mt-4 p-4 flex flex-1 flex-col space-y-8">
+          <% question.choices.each do |choice| %>
+            <div>
+              <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
+              <%= form.radio_button "survey[#{question.key}]", 
+                choice, 
+                class: "h-10 w-10 text-indigo-600",
+                required: true,
+                checked: @intake.survey&.dig(question.key) == choice %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="text-gray-700">
+        <% question = Intake::HOMELESSNESS_EPISODES_HOW_LONG %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-tight font-semibold"
+        %>
+        <%= form.text_field "survey[#{question.key}]",
+          size: 23, 
+          required: true,
+          value: @intake.survey&.dig("survey[#{question.key}]"),
+          placeholder: question.placeholder,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+        %>
+      </div>
+      <div class="text-gray-700">
+        <% question = Intake::LIVING_IN_THIS_COMMUNITY %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-tight font-semibold"
+        %>
+        <%= form.text_field "survey[#{question.key}]",
+          size: 23, 
+          required: true,
+          value: @intake.survey&.dig("survey[#{question.key}]"),
+          placeholder: question.placeholder,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+        %>
+      </div>
+      <div class="text-gray-700">
         <% question = Intake::SLEEP_LAST_NIGHT %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-tight font-semibold"  %>
@@ -166,11 +196,11 @@
         <% question = Intake::ARE_YOU_WORKING %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <%= form.select "survey[are_you_working]", 
+        <%= form.select "survey[#{question.key}]", 
           options_for_select(Intake::ARE_YOU_WORKING.choices, selected: @intake.survey&.dig(question.key)),
-        { selected: @intake.survey&.dig(question.key)},
-        class: "mt-6 bg-white rounded-lg w-full p-6 text-6xl", 
-        required: true
+          { selected: @intake.survey&.dig(question.key) },
+          class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl", 
+          required: true
         %>
       </div>
       <div class="text-gray-700">
@@ -383,99 +413,134 @@
           <% end %>
         </div>
       </div>
-      <div class="field w-full">
-        <%= form.label "survey[num_adults_household]", 'Number of adults in household', class: "block leading-relaxed" %>
-        <%= form.number_field "survey[num_adults_household]", min: 0, step: 1, 
-          class: "rounded-lg border border-gray-300 w-full p-6", 
+      <div class="w-full text-gray-700">
+        <% question = Intake::NUM_ADULTS_HOUSEHOLD %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-relaxed font-semibold" %>
+        <%= form.number_field "survey[#{question.key}]", 
+          min: 0, step: 1, 
+          class: "mt-4 rounded-lg w-full p-8 text-6xl", 
           required: true,
-          value: @intake.survey&.dig('num_adults_household'),
-          placeholder: "enter numeric value" %>
-      </div>
-      <div class="field w-full">
-        <%= form.label "survey[num_children_household]", 'Number of children in household', class: "block leading-relaxed" %>
-        <%= form.number_field "survey[num_children_household]", min: 0, step: 1, 
-          class: "rounded-lg border border-gray-300 w-full p-6", 
-          required: true,
-          value: @intake.survey&.dig('num_children_household'),
-          placeholder: "enter numeric value" %>
-      </div>
-      <div class="field w-full">
-        <%= form.label "survey[last_permanent_residence_city_and_state]", "City and State of Last Permanent Residence", class: "block leading-relaxed"  %>
-        <%= form.text_field "survey[last_permanent_residence_city_and_state]", 
-          class: "rounded-lg border border-gray-300 w-full p-6", 
-          required: true,
-          value: @intake.survey&.dig('last_permanent_residence_city_and_state'),
-          placeholder: "e.g, Denver, CO" %>
-      </div>
-      <div class="field w-full">
-        <%= form.label "survey[last_permanent_residence_county]", "County of Last Permanent Residence", class: "block leading-relaxed"  %>
-        <%= form.text_field "survey[last_permanent_residence_county]", 
-          class: "rounded-lg border border-gray-300 w-full p-6", 
-          required: true,
-          value: @intake.survey&.dig('last_permanent_residence_county'),
-          placeholder: "e.g, Adams, Arapahoe, etc." %>
-      </div>
-      <div class="field w-full">
-        <%= form.label "survey[king_soopers_card]", "King Soopers Card?", class: "block leading-relaxed" %>
-        <%= form.label "survey[king_soopers_card]", "Yes" %>
-        <%= form.radio_button "survey[king_soopers_card]", true, checked:
-          @intake.survey&.dig('king_soopers_card') == 'true', class: "m-2.5 h-10 w-10" %>
-        <%= form.label "survey[king_soopers_card]", "No" %>
-        <%= form.radio_button "survey[king_soopers_card]", false,
-          required: true,
-          class: "m-2.5 h-10 w-10", checked: @intake.survey ? @intake.survey['king_soopers_card'] == 'false' : true
+          value: @intake.survey&.dig(question.key),
+          placeholder: question.placeholder 
         %>
       </div>
-      <div class="field w-full">
-        <%= form.label "survey[bus_pass]", "Bus Pass?", class: "block leading-relaxed" %>
-        <%= form.label "survey[bus_pass]", "Yes", value: "true"  %>
-        <%= form.radio_button "survey[bus_pass]", true, class: "m-2.5 h-10 w-10", checked:
-          @intake.survey&.dig('bus_pass') == 'true' %>
-        <%= form.label "survey[bus_pass]", "No", value: "false" %>
-        <%= form.radio_button "survey[bus_pass]", false, class: "m-2.5 h-10 w-10",
+      <div class="w-full text-gray-700">
+        <% question = Intake::NUM_CHILDREN_HOUSEHOLD %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-relaxed font-semibold" %>
+        <%= form.number_field "survey[#{question.key}]", 
+          min: 0, step: 1, 
+          class: "mt-4 rounded-lg w-full p-8 text-6xl", 
           required: true,
-          checked: @intake.survey ? @intake.survey['bus_pass'] == 'false' : true
+          value: @intake.survey&.dig(question.key),
+          placeholder: question.placeholder 
         %>
+      </div>
+      <div class="text-gray-700">
+        <% question = Intake::LAST_PERMANENT_RESIDENCE_CITY_AND_STATE %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-snug font-semibold"
+        %>
+        <%= form.text_field "survey[#{question.key}]",
+          required: true,
+          value: @intake.survey&.dig(question.key),
+          placeholder: question.placeholder,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+        %>
+      </div>
+      <div class="text-gray-700">
+        <% question = Intake::LAST_PERMANENT_RESIDENCE_COUNTY %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-snug font-semibold"
+        %>
+        <%= form.text_field "survey[#{question.key}]",
+          required: true,
+          value: @intake.survey&.dig(question.key),
+          placeholder: question.placeholder,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+        %>
+      </div>
+      <div class="text-gray-700">
+        <% question = Intake::BUS_PASS %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-snug font-semibold" %>
+        <div class="p-4">
+          <% question.choices.each do |choice| %>
+            <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
+            <%= form.radio_button "survey[#{question.key}]", choice, 
+                class: "h-10 w-10 mr-8",
+                required: true,
+                checked: @intake.survey&.dig(question.key) == choice %>
+          <% end %>
+          <!-- checked: @intake.survey ? @intake.survey['bus_pass'] == 'false' : true -->
+        </div>
+      </div>
+      <div class="text-gray-700">
+        <% question = Intake::KING_SOOPERS_CARD %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-snug font-semibold" %>
+        <div class="p-4">
+          <% question.choices.each do |choice| %>
+            <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
+            <%= form.radio_button "survey[#{question.key}]", choice, 
+                class: "h-10 w-10 mr-8",
+                required: true,
+                checked: @intake.survey&.dig(question.key) == choice %>
+          <% end %>
+        </div>
       </div>
       <!-- voucher-specific questions -->
-      <div class="w-full">
-        <strong>Check In</strong>
-        <%= form.date_field "survey[check_in]",
-                  value: [@swap.start_date, Date.current].max,
-                  min: [@swap.start_date, Date.current].max,
-                  max: @swap.end_date - 1,
-                  required: true,
-                  class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
+      <div class="w-full text-gray-700">
+        <% question = Intake::CHECK_IN %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-snug font-semibold" %>
+        <%= form.date_field "survey[#{question.key}]",
+          value: [@swap.start_date, Date.current].max, 
+          min: [@swap.start_date, Date.current].max,
+          max: @swap.end_date - 1,
+          required: true,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
       </div>
-      <div class="w-full">
-        <strong>Check Out</strong>
-        <%= form.date_field "survey[check_out]",
-                  value: [@swap.end_date, Date.current].max,
-                  min: [@swap.start_date, Date.current].max + 1,
-                  max: @swap.end_date,
-                  required: true,
-                  class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
-      </p>
+      <div class="w-full text-gray-700">
+        <% question = Intake::CHECK_OUT %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-snug font-semibold" %>
+        <%= form.date_field "survey[#{question.key}]",
+          value: [@swap.start_date, Date.current].max, 
+          min: [@swap.start_date, Date.current].max,
+          max: @swap.end_date - 1,
+          required: true,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
+      </div>
+      <div class="w-full text-gray-700">
+        <% question = Intake::MOTEL_ID %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-relaxed font-semibold" %>
+        <%= form.select "survey[#{question.key}]", options_for_select(@motels, selected: @motel&.id, disabled: @disabled),
+          {include_blank: true},
+          class: "mt-4 w-full rounded-lg p-8 text-6xl",
+          required: true 
+        %>
+      </div>
+      <div class="w-full text-gray-700">
+        <% question = Intake::PHONE_NUMBER %>
+        <%= client_attributes.label question.key, question.text,
+          class: "block leading-relaxed font-semibold"  %>
+        <%= client_attributes.telephone_field question.key,
+          class: "w-full rounded-lg p-8 text-6xl" %>
+      </div>
+      <div class="w-full text-gray-700">
+        <% question = Intake::EMAIL %>
+        <%= client_attributes.label question.key, question.text,
+          class: "block leading-relaxed font-semibold"  %>
+        <%= client_attributes.email_field question.key,
+          class: "w-full rounded-lg p-8 text-6xl" %>
+      </div>
+    <% end %>
+    <!-- end voucher-specific questions -->
+    <div class="actions mt-12">
+      <%= form.submit 'Submit', class: 'w-full btn btn-blue h-32 text-6xl' %>
     </div>
-    <div class="field w-full">
-      <%= form.label "survey[motel_id]", "Hotel (vouchers remaining)", class: "font-bold block leading-relaxed" %>
-      <%= form.select "survey[motel_id]", options_for_select(@motels, selected: @motel&.id, disabled: @disabled),
-        {include_blank: true},
-        class: "p-8 w-full bg-white rounded-lg border border-gray-400",
-        required: true %>
-    </div>
-    <div class="field w-full">
-      <%= client_attributes.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
-      <%= client_attributes.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
-    </div>
-    <div class="field w-full">
-      <%= client_attributes.label :email, "Email (optional)", class: "block leading-relaxed"  %>
-      <%= client_attributes.email_field :email, class: "w-full border border-gray-300 p-6" %>
-    </div>
-  <% end %>
-  <!-- end voucher-specific questions -->
-  <div class="actions mt-12">
-    <%= form.submit 'Submit', class: 'w-full btn btn-blue h-32 text-6xl' %>
   </div>
-</div>
 <% end %>
