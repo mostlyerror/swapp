@@ -59,7 +59,7 @@ class IntakesController < ApplicationController
         "last_permanent_residence_county",
         "motel_id", "check_in", "check_out"
       ],
-      client_attributes: ["first_name", "last_name", "date_of_birth", "gender", "race", "ethnicity", "phone_number", "email"],
+      client_attributes: ["first_name", "last_name", "date_of_birth", "gender", "ethnicity", "phone_number", "email", {race_ids: []}],
     )
   end
 

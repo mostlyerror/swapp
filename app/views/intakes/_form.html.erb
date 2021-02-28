@@ -38,10 +38,15 @@
           class: "bg-white rounded-lg border border-gray-300 w-full p-6", required: true %>
       </div>
       <div class="field w-full">
-        <%= client_attributes.label :race, class: "block leading-relaxed"  %>
-
-        <%= client_attributes.collection_check_boxes :race, Client::RACE, :to_s, :to_s, class: "bg-white rounded-lg border border-gray-300 w-full p-6" 
-        %>
+        <%= client_attributes.label :race, class: "block leading-relaxed" %>
+        <ul class="flex flex-1 flex-col w-full space-y-8 p-6 text-6xl">
+          <% Race.all.each do |race| %>
+            <li class="flex flex-1 items-baseline">
+              <%= client_attributes.check_box :race_ids, { multiple: true }, race.id, false %>
+              <%= client_attributes.label "race_ids_#{race.id}", race.name %>
+            </li>
+          <% end %>
+        </ul>
       </div>
       <div class="field w-full">
         <%= client_attributes.label :ethnicity, "Hispanic or Latino?", class: "block leading-relaxed" %>
