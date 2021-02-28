@@ -2,7 +2,6 @@ reload!
 filename = Rails.root.join("intakes.csv")
 opts = {headers: true}
 line = 1
-intakes = 0
 
 def parse_date(val)
   formats = [
@@ -75,6 +74,21 @@ ActiveRecord::Base.transaction do
       ethnicity: row['Ethnicity']
     }
 
+    client = Client.where("lower(last_name) = ? and lower(first_name) = ? and date_of_birth = ?", 
+        client_attrs[:last_name].downcase, 
+        client_attrs[:first_name].downcase, 
+        client_attrs[:date_of_birth]
+      ).first
+
+    client ||= Client.new(client_attrs)
+
+    if client.errors.any?
+      ap row
+      ap client.errors
+      ap client
+      gets
+    end
+
     intake_attrs = {
       user: user,
       survey: {
@@ -106,10 +120,10 @@ ActiveRecord::Base.transaction do
         last_permanent_residence_city_and_state: row['City and State of Last Permanent Residence:']&.strip,
         last_permanent_residence_county: row['County of Last Permanent Residence:']&.strip
       },
-      client_attributes: client_attrs
+      client: client
     }
-    intake = Intake.create(intake_attrs)
 
+    intake = Intake.create(intake_attrs)
 
     if intake.errors.any?
       ap row
@@ -117,9 +131,8 @@ ActiveRecord::Base.transaction do
       ap intake
       gets
     end
-
-    intakes += 1
   end
 
-  puts "#{intakes} intakes created"
+  puts "#{Client.count} clients"
+  puts "#{Intake.count} intakes"
 end
