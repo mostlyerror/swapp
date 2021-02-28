@@ -129,72 +129,37 @@
           placeholder: "(e.g, 2 months, 5 years, etc.)" %>
       </div>
       <div class="field text-gray-700">
-        <%= form.label "survey[#{Intake::SLEEP_LAST_NIGHT.key}]", 
-          Intake::SLEEP_LAST_NIGHT.question,
-          class: "block leading-relaxed font-semibold" %>
-        <div class="p-4 flex flex-1 flex-col space-y-3">
-          <% Intake::SLEEP_LAST_NIGHT.answers.each do |answer| %>
+        <% question = Intake::SLEEP_LAST_NIGHT %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-tight font-semibold"  %>
+        <div class="p-4 flex flex-1 flex-col space-y-8">
+          <% question.choices.each do |choice| %>
             <div>
-              <%= form.label "survey[#{Intake::SLEEP_LAST_NIGHT.key}]_#{answer.gsub('/', '').parameterize.underscore}", answer %>
-              <%= form.radio_button "survey[where_did_you_sleep_last_night]", answer, 
+              <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
+              <%= form.radio_button "survey[#{question.key}]", 
+                choice, 
                 class: "h-10 w-10 text-indigo-600",
                 required: true,
-                checked: @intake.survey&.dig('where_did_you_sleep_last_night') == answer %>
-            <% end %>
-          </div>
+                checked: @intake.survey&.dig(question.key) == choice %>
+            </div>
+          <% end %>
         </div>
       </div>
       <div class="field text-gray-700">
-        <%= form.label "survey[why_not_shelter]", 
-          "What is the reason you have not accessed shelter?",
-          class: "block leading-relaxed"  %>
-        <div class="flex flex-col">
-          <div>
-            <%= form.label "survey[why_not_shelter]", "No room" %>
-            <%= form.radio_button "survey[why_not_shelter]", "No room", class: "m-2.5 h-10 w-10",
-              required: true,
-              checked: @intake.survey&.dig('why_not_shelter') == "No room" %>
-          </div>
-          <div>
-            <%= form.label "survey[why_not_shelter]", "No transportation" %>
-            <%= form.radio_button "survey[why_not_shelter]", "No transportation", class: "m-2.5 h-10 w-10",
-              checked: @intake.survey&.dig('why_not_shelter') == "No transportation" %>
-          </div>
-          <div>
-            <%= form.label "survey[why_not_shelter]", "Prior background issues" %>
-            <%= form.radio_button "survey[why_not_shelter]", "Prior background issues", class: "m-2.5 h-10 w-10",
-              checked: @intake.survey&.dig('why_not_shelter') == "Prior background issues" %>
-          </div>
-          <div>
-            <%= form.label "survey[why_not_shelter]", "Doesn't accept pets" %>
-            <%= form.radio_button "survey[why_not_shelter]", "Doesn't accept pets", class: "m-2.5 h-10 w-10",
-              checked: @intake.survey&.dig('why_not_shelter') == "Doesn't accept pets" %>
-          </div>
-          <div>
-            <%= form.label "survey[why_not_shelter]", "Safety Concerns" %>
-            <%= form.radio_button "survey[why_not_shelter]", "Safety Concerns", class: "m-2.5 h-10 w-10",
-              checked: @intake.survey&.dig('why_not_shelter') == "Safety Concerns" %>
-          </div>
-          <div>
-            <%= form.label "survey[why_not_shelter]", "No ID" %>
-            <%= form.radio_button "survey[why_not_shelter]", "No ID", class: "m-2.5 h-10 w-10",
-              checked: @intake.survey&.dig('why_not_shelter') == "No ID" %>
-          </div>
-          <div>
-            <%= form.label "survey[why_not_shelter]", "Banned from shelter" %>
-            <%= form.radio_button "survey[why_not_shelter]", "Banned from shelter", class: "m-2.5 h-10 w-10",
-              checked: @intake.survey&.dig('why_not_shelter') == "Banned from shelter" %>
-          </div>
-          <div>
-            <%= form.label "survey[why_not_shelter]", "Current restraining order" %>
-            <%= form.radio_button "survey[why_not_shelter]", "Current restraining order", class: "m-2.5 h-10 w-10",
-              checked: @intake.survey&.dig('why_not_shelter') == "Current restraining order" %>
-          </div>
-          <div>
-            <%= form.label "survey[why_not_shelter]", "Other" %>
-            <%= form.radio_button "survey[why_not_shelter]", "Other", class: "m-2.5 h-10 w-10",
-              checked: @intake.survey&.dig('why_not_shelter') == "Other" %>
-          </div>
+        <% question = Intake::WHY_NOT_SHELTER %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-tight font-semibold"  %>
+        <div class="p-4 flex flex-1 flex-col space-y-8">
+          <% question.choices.each do |choice| %>
+            <div>
+              <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
+              <%= form.radio_button "survey[#{question.key}]", 
+                choice, 
+                class: "h-10 w-10 text-indigo-600",
+                required: true,
+                checked: @intake.survey&.dig(question.key) == choice %>
+            </div>
+          <% end %>
         </div>
       </div>
       <div class="field">
