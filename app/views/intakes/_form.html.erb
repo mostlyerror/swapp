@@ -442,7 +442,7 @@
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold"
         %>
-        <%= form.text_field question.key,
+        <%= form.text_field "survey[#{question.key}]",
           required: true,
           value: @intake.survey&.dig(question.key),
           placeholder: question.placeholder,
@@ -454,7 +454,7 @@
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold"
         %>
-        <%= form.text_field question.key,
+        <%= form.text_field "survey[#{question.key}]",
           required: true,
           value: @intake.survey&.dig(question.key),
           placeholder: question.placeholder,
@@ -474,6 +474,20 @@
                 checked: @intake.survey&.dig(question.key) == choice %>
           <% end %>
           <!-- checked: @intake.survey ? @intake.survey['bus_pass'] == 'false' : true -->
+        </div>
+      </div>
+      <div class="text-gray-700">
+        <% question = Intake::KING_SOOPERS_CARD %>
+        <%= form.label "survey[#{question.key}]", question.text,
+          class: "block leading-snug font-semibold" %>
+        <div class="p-4">
+          <% question.choices.each do |choice| %>
+            <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
+            <%= form.radio_button "survey[#{question.key}]", choice, 
+                class: "h-10 w-10 mr-8",
+                required: true,
+                checked: @intake.survey&.dig(question.key) == choice %>
+          <% end %>
         </div>
       </div>
       <!-- voucher-specific questions -->
