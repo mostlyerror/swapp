@@ -95,6 +95,7 @@ ActiveRecord::Base.transaction do |t|
   ]
 
   user_data = [
+    ['swapp@codeforamerica.org', 'Swapp', 'User', true],
     ['bpoon@codeforamerica.org', 'Ben', 'Poon', true],
     ['bjohnson@codeforamerica.org', 'Brandon', 'Johnson', true],
     ['ftang@codeforamerica.org', 'Fiona', 'Tang', true],

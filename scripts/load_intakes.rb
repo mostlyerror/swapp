@@ -56,9 +56,8 @@ def parse_race(val)
 end
 
 ActiveRecord::Base.transaction do
-  factory_bot
-  user = create(:user)
-  swap = create(:swap, :tomorrow)
+  user = User.find_by(email: "swapp@codeforamerica.org")
+  
   CSV.foreach(filename, opts) do |row|
     line += 1
 
@@ -132,7 +131,6 @@ ActiveRecord::Base.transaction do
       gets
     end
   end
-
   puts "#{Client.count} clients"
   puts "#{Intake.count} intakes"
 end
