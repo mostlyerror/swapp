@@ -49,7 +49,7 @@ end
 def parse_race(val)
   return nil if val.blank?
   race = val.to_s.strip
-  race
+  [Race.find_by(name: val)]
 end
 
 
@@ -66,7 +66,7 @@ CSV.foreach(filename, opts) do |row|
     gender: parse_gender(row['Gender']),
     email_raw: row['Email'],
     email: parse_email(row['Email']),
-    race: parse_race(row['Race']),
+    race_ids: parse_race(row['Race']),
     ethnicity: row['Ethnicity']
   }
   client = Client.new(attrs)
