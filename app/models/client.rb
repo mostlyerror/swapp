@@ -8,7 +8,6 @@ class Client < ApplicationRecord
     "Client Doesn't Know",
     "Client Refused",
   ]
-
   RACE = [
     "American Indian or Alaskan Native",
     "Asian",
