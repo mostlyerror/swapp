@@ -39,11 +39,4 @@ class Client < ApplicationRecord
   def name
     "#{first_name} #{last_name}"
   end
-
-  def races
-    if race 
-      return race&.split(',')
-    end
-    []
-  end
 end
