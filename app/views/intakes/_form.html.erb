@@ -65,11 +65,11 @@
               <%= client_attributes.check_box question.key,
                 { 
                   multiple: true, 
-                  checked: race.in?(@client.races),
+                  checked: @client.race && race.in?(JSON.parse(@client.race)),
                   class: "w-11 h-11 text-indigo-600"
                 },
                 race, 
-                race.in?(@client.races) 
+                @client.race && race.in?(JSON.parse(@client.race))
               %>
               <%= client_attributes.label "race_#{to_htmlfor(race)}", race %>
             </li>
