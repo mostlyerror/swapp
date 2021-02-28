@@ -19,15 +19,11 @@ class IntakesController < ApplicationController
       @check_in = intake_params["survey"]["check_in"]
       @check_out = intake_params["survey"]["check_out"]
 
-      if !@client.save
+      @intake.client = @client
+      if !@intake.save
         @client.errors.full_messages.each do |message|
           @intake.errors[:client] << message
         end
-        return render :new
-      end
-
-      @intake.client = @client
-      if !@intake.save
         return render :new
       end
 
