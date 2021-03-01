@@ -1,0 +1,40 @@
+<section class="border border-gray-500 mt-16 shadow-xl">
+  <h2 class="bg-gray-900 text-white text-6xl text-center font-semibold p-6">Vouchers Issued</h2>
+  <table class=" bg-white rounded text-left text-4xl w-full">
+    <thead>
+      <tr class="bg-gray-900 text-white block">
+        <th class="px-1 w-1/6 lg:rounded-tl-lg py-8">#</th>
+        <th class="px-1 w-1/6 lg:rounded-tl-lg py-8">Hotel</th>
+        <th class="px-1 w-1/6 py-8">In</th>
+        <th class="px-1 w-1/6 py-8">Out</th>
+        <th class="px-1 w-1/6 py-8">By</th>
+        <th class="px-1 w-1/6 lg:rounded-tr-lg py-8">Issued</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="block overflow-y-scroll" style="height: 630px;">
+      <% @vouchers.each do |voucher| %>
+        <tr>
+          <td class="py-3 px-1 w-1/6 text-left tabular-nums">
+            <%= voucher.number %>
+          </td>
+          <td class="px-1 w-1/6 text-left tabular-nums">
+            <%= voucher.motel.name %>
+          </td>
+          <td class="px-1 w-1/6 text-left">
+            <%= voucher.check_in.to_date.to_formatted_s(:short) %>
+          </td>
+          <td class="px-1 w-1/6 text-left">
+            <%= voucher.check_out.to_date.to_formatted_s(:short) %>
+          </td>
+          <td class="px-1 w-1/6 text-left">
+            <%= voucher.user.name %>
+          </td>
+          <td class="px-1 w-1/6 text-left">
+            <%= voucher.created_at.to_date.to_formatted_s(:short) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
