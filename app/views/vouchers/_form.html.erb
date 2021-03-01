@@ -56,7 +56,7 @@
       <%= form.select "motel_id", 
         options_for_select(@motels, disabled: @disabled),
         {include_blank: true},
-        class: "p-8 w-full bg-white rounded-lg border border-gray-400",
+        class: "mt-4 w-full rounded-lg p-8 text-6xl",
         required: true %>
     </div>
   </section>
@@ -64,11 +64,13 @@
 <div class="p-12 text-5xl">
   <div class="field w-full">
     <%= form.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
-    <%= form.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
+    <%= form.telephone_field :phone_number, 
+          class: "w-full rounded-lg p-8 text-6xl" %>
   </div>
   <div class="mt-12 field w-full">
     <%= form.label :email, "Email (optional)", class: "block leading-relaxed"  %>
-    <%= form.email_field :email, class: "w-full border border-gray-300 p-6" %>
+    <%= form.email_field :email, 
+          class: "w-full rounded-lg p-8 text-6xl" %>
   </div>
 </div>
 <div class="actions p-12">
