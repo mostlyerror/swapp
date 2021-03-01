@@ -22,14 +22,13 @@ class Client < ApplicationRecord
     "Not Hispanic or Latino",
   ]
 
+  auto_strip_attributes :first_name, :last_name, :race, :phone_number, :email
+
   validates_presence_of :first_name, :last_name, :date_of_birth 
   validates :gender, inclusion: { in: Client::GENDER, allow_nil: true }
   validates :ethnicity, inclusion: { in: Client::ETHNICITY, allow_nil: true }
-  auto_strip_attributes :race
   # validate :accepted_race_values
-  auto_strip_attributes :phone_number
   validates :phone_number, phone: { possible: true, allow_nil: true }
-  auto_strip_attributes :email 
   validates_format_of :email, with: Devise.email_regexp, allow_nil: true
 
   has_many :intakes
