@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_01_182427) do
+ActiveRecord::Schema.define(version: 2021_03_01_190606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,8 +37,6 @@ ActiveRecord::Schema.define(version: 2021_03_01_182427) do
     t.string "ethnicity"
     t.string "email"
     t.string "phone_number"
-    t.string "phone_number_raw"
-    t.string "email_raw"
     t.string "race"
     t.boolean "red_flag"
     t.string "red_flag_reason"
