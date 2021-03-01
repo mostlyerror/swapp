@@ -1,6 +1,6 @@
 require "application_system_test_case"
 
-class IntakeTest < ApplicationSystemTestCase
+class IntakesTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
 
   setup do
@@ -12,7 +12,7 @@ class IntakeTest < ApplicationSystemTestCase
     motel = create(:motel)
     swap = create(:swap, :current)
     create(:availability, motel: motel, swap: swap, vacant: 1)
-    client = create(:client)
+    client = build(:client)
 
     visit new_intake_path
     assert_text /intake/i
@@ -65,5 +65,9 @@ class IntakeTest < ApplicationSystemTestCase
     assert_text /voucher created/i
     assert_current_path voucher_created_path(Voucher.last)
     assert_text client.name
+
+    # assert values are saved
+    new_client = Client.last
+    assert_equal client.first_name, new_client.first_name
   end
 end
