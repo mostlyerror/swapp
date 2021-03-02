@@ -58,9 +58,8 @@
           class: "block leading-snug font-semibold" %>
         <%= client_attributes.select question.key,
           options_for_select(question.choices, @client.gender),
-          {include_blank: true},
           required: true,
-          class: "mt-6 rounded-lg w-full p-8 text-6xl"
+          class: "mt-6 rounded-lg w-full p-8 text-8xl"
         %>
       </div>
       <div class="field w-full">
@@ -73,7 +72,8 @@
               <%= client_attributes.check_box question.key,
                 { 
                   multiple: true, 
-                  checked: @client.race && race.in?(@client.race.split(',')),
+
+                  checked: race.in?(@client.race),
                   class: "w-11 h-11 text-indigo-600"
                 },
                 race
@@ -89,7 +89,6 @@
           class: "block leading-snug font-semibold" %>
         <%= client_attributes.select question.key,
           options_for_select(question.choices, @client.ethnicity),
-          {include_blank: true},
           required: true,
           class: "mt-6 rounded-lg w-full p-8 text-6xl"
         %>
@@ -599,7 +598,6 @@
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-relaxed font-semibold" %>
         <%= form.select "survey[#{question.key}]", options_for_select(@motels, selected: @motel&.id, disabled: @disabled),
-          {include_blank: true},
           class: "mt-4 w-full rounded-lg p-8 text-6xl",
           required: true 
         %>

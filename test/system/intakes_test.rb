@@ -1,6 +1,6 @@
 require "application_system_test_case"
 
-class IntakeTest < ApplicationSystemTestCase
+class IntakesTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers
 
   setup do
@@ -12,12 +12,11 @@ class IntakeTest < ApplicationSystemTestCase
     motel = create(:motel)
     swap = create(:swap, :current)
     create(:availability, motel: motel, swap: swap, vacant: 1)
-    client = create(:client)
+    client = Client.new
 
     visit new_intake_path
     assert_text /intake/i
     assert_text /1 vouchers remaining today/i
-
 
     fill_in "First Name", with: client.first_name
     fill_in "Last Name", with: client.last_name
@@ -26,7 +25,6 @@ class IntakeTest < ApplicationSystemTestCase
     find(id: "intake_client_attributes_race_american_indian_or_alaskan_native").set(true)
     find(id: "intake_client_attributes_race_asian").set(true)
     select client.ethnicity, from: "Hispanic or Latino?"
-
     find(id: "intake_survey[homelessness_first_time]_no").click
     fill_in "intake_survey[homelessness_how_long_this_time]", with: "2 years"
     find(id: "intake_survey[homelessness_episodes_last_three_years]_fewer_than_4_times").click
@@ -65,5 +63,14 @@ class IntakeTest < ApplicationSystemTestCase
     assert_text /voucher created/i
     assert_current_path voucher_created_path(Voucher.last)
     assert_text client.name
+
+    # assert values are saved
+    new_client = Client.last
+    assert_equal client.first_name, new_client.first_name
+    assert_equal client.last_name, new_client.last_name
+    assert_equal client.gender, new_client.gender
+    assert_equal client.race, new_client.race
+    assert_equal client.ethnicity, new_client.ethnicity
+    assert new_client.intakes.size == 1
   end
 end

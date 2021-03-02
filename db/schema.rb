@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_01_190606) do
 
+ActiveRecord::Schema.define(version: 2021_03_01_220825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2021_03_01_190606) do
     t.string "ethnicity"
     t.string "email"
     t.string "phone_number"
-    t.string "race"
+    t.jsonb "race", default: []
     t.boolean "red_flag"
     t.string "red_flag_reason"
   end
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 2021_03_01_190606) do
   create_table "intakes", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "user_id", null: false
-    t.json "survey", default: {}
+    t.jsonb "survey", default: {}
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_intakes_on_client_id"
