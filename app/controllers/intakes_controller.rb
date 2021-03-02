@@ -1,5 +1,6 @@
 class IntakesController < ApplicationController
   before_action :hydrate_form, only: %i[ new create ]
+
   def new
     @intake = Intake.new
     @client = Client.new
@@ -13,7 +14,7 @@ class IntakesController < ApplicationController
 
       client_params = intake_params['client_attributes']
       @client = Client.new(client_params)
-      @client.race = client_params['race']&.join(',')
+      @client.race = client_params['race'].filter_map {|r| r == "0" ? nil : r }
 
       @motel = Motel.find(intake_params["survey"]["motel_id"])
       @check_in = intake_params["survey"]["check_in"]
