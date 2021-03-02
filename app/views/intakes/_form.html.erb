@@ -58,6 +58,7 @@
           class: "block leading-snug font-semibold" %>
         <%= client_attributes.select question.key,
           options_for_select(question.choices, @client.gender),
+          {},
           required: true,
           class: "mt-6 rounded-lg w-full p-8 text-8xl"
         %>
@@ -89,6 +90,7 @@
           class: "block leading-snug font-semibold" %>
         <%= client_attributes.select question.key,
           options_for_select(question.choices, @client.ethnicity),
+          {},
           required: true,
           class: "mt-6 rounded-lg w-full p-8 text-6xl"
         %>
@@ -207,6 +209,7 @@
             Intake::ARE_YOU_WORKING.choices, 
             selected: @intake.survey.dig(question.key)
           ),
+          {},
           class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl", 
           required: true
         %>
@@ -592,6 +595,7 @@
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-relaxed font-semibold" %>
         <%= form.select "survey[#{question.key}]", options_for_select(@motels, selected: @motel&.id, disabled: @disabled),
+          {},
           class: "mt-4 w-full rounded-lg p-8 text-6xl",
           required: true 
         %>
