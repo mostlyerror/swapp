@@ -9,7 +9,7 @@
       </ul>
     </div>
   <% end %>
-  <div class="w-full flex flex-col space-y-32 mt-24 pb-24 text-6xl text-gray-800 tracking-wide">
+  <div class="w-full flex flex-col space-y-32 mt-24 pb-24 text-6xl text-gray-800 tracking-wide" x-data="{}">
     <%= form.fields_for :client, @client do |client_attributes|%>
       <div class="text-gray-700">
         <% question = Intake::FIRST_NAME %>
@@ -232,32 +232,34 @@
           <% end %>
         </div>
       </div>
-      <div class="text-gray-700">
-        <% question = Intake::SUBSTANCE_ABUSE %>
-        <%= form.label "survey[#{question.key}]", question.text,
-          class: "block leading-snug font-semibold" %>
-        <div class="p-4">
-          <% question.choices.each do |choice| %>
-            <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
-            <%= form.radio_button "survey[#{question.key}]", choice, 
-                class: "h-10 w-10 mr-8",
-                required: true,
-                checked: @intake.survey.dig(question.key) == choice %>
-          <% end %>
+      <div id="substance">
+        <div class="mb-16 text-gray-700">
+          <% question = Intake::SUBSTANCE_ABUSE %>
+          <%= form.label "survey[#{question.key}]", question.text,
+            class: "block leading-snug font-semibold" %>
+          <div class="p-4">
+            <% question.choices.each do |choice| %>
+              <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
+              <%= form.radio_button "survey[#{question.key}]", choice, 
+                  class: "h-10 w-10 mr-8",
+                  required: true,
+                  checked: @intake.survey.dig(question.key) == choice %>
+            <% end %>
+          </div>
         </div>
-      </div>
-      <div class="text-gray-700">
-        <% question = Intake::SUBSTANCE_ABUSE_IMPAIRMENT %>
-        <%= form.label "survey[#{question.key}]", question.text,
-          class: "block leading-snug font-semibold" %>
-        <div class="p-4">
-          <% question.choices.each do |choice| %>
-            <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
-            <%= form.radio_button "survey[#{question.key}]", choice, 
-                class: "h-10 w-10 mr-8",
-                required: true,
-                checked: @intake.survey.dig(question.key) == choice %>
-          <% end %>
+        <div class="text-gray-700" x-show="false">
+          <% question = Intake::SUBSTANCE_ABUSE_IMPAIRMENT %>
+          <%= form.label "survey[#{question.key}]", question.text,
+            class: "block leading-snug font-semibold" %>
+          <div class="p-4">
+            <% question.choices.each do |choice| %>
+              <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
+              <%= form.radio_button "survey[#{question.key}]", choice, 
+                  class: "h-10 w-10 mr-8",
+                  required: true,
+                  checked: @intake.survey.dig(question.key) == choice %>
+            <% end %>
+          </div>
         </div>
       </div>
       <div class="text-gray-700">
