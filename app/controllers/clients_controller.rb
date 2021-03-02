@@ -11,7 +11,7 @@ class ClientsController < ApplicationController
 
   # GET /clients/1 or /clients/1.json
   def show
-    @existing_voucher = Swap.current&.vouchers&.find_by(client: @client)
+    @existing_voucher = @swap&.vouchers&.find_by(client: @client)
   end
 
   private

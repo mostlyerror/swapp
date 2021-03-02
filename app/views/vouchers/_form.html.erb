@@ -33,20 +33,20 @@
       <div class="w-full">
         <strong>Check In</strong>
         <%= form.date_field :check_in, 
-                value: [@swap.start_date, Date.current].max,
+                value: [@swap.start_date, Date.current].max, 
                 min: [@swap.start_date, Date.current].max,
                 max: @swap.end_date - 1,
                 required: true,
-                class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
+                class: "mt-8 w-full bg-white rounded-lg p-2 text-5xl" %>
       </div>
       <div class="w-full">
         <strong>Check Out</strong>
         <%= form.date_field :check_out, 
-                value: [@swap.end_date, Date.current].max,
-                min: [@swap.start_date, Date.current].max + 1,
+                value: @swap.end_date,
+                min: [@swap.end_date, Date.current].min,
                 max: @swap.end_date,
                 required: true,
-                class: "mt-8 w-full bg-white rounded-lg border border-gray-400 p-2" %>
+                class: "mt-8 w-full bg-white rounded-lg p-2 text-5xl" %>
       </p>
     </div>
   </section>
@@ -56,7 +56,7 @@
       <%= form.select "motel_id", 
         options_for_select(@motels, disabled: @disabled),
         {include_blank: true},
-        class: "p-8 w-full bg-white rounded-lg border border-gray-400",
+        class: "mt-4 w-full rounded-lg p-8 text-6xl",
         required: true %>
     </div>
   </section>
@@ -64,11 +64,13 @@
 <div class="p-12 text-5xl">
   <div class="field w-full">
     <%= form.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
-    <%= form.telephone_field :phone_number, class: "w-full border border-gray-300 p-6" %>
+    <%= form.telephone_field :phone_number, 
+          class: "w-full rounded-lg p-8 text-6xl" %>
   </div>
   <div class="mt-12 field w-full">
     <%= form.label :email, "Email (optional)", class: "block leading-relaxed"  %>
-    <%= form.email_field :email, class: "w-full border border-gray-300 p-6" %>
+    <%= form.email_field :email, 
+          class: "w-full rounded-lg p-8 text-6xl" %>
   </div>
 </div>
 <div class="actions p-12">

@@ -9,7 +9,15 @@
       </ul>
     </div>
   <% end %>
-  <div class="w-full flex flex-col space-y-32 mt-24 pb-24 text-6xl text-gray-800 tracking-wide">
+  <div class="w-full flex flex-col space-y-32 mt-24 pb-24 text-6xl text-gray-800 tracking-wide" 
+  x-data="{ 
+    substanceAbuseIssues: false,
+    chronicHealthCondition: false,
+    mentalHealthCondition: false,
+    mentalHealthDisability: false,
+    physicalDisability: false,
+    developmentalDisability: false,
+  }">
     <%= form.fields_for :client, @client do |client_attributes|%>
       <div class="text-gray-700">
         <% question = Intake::FIRST_NAME %>
@@ -65,11 +73,10 @@
               <%= client_attributes.check_box question.key,
                 { 
                   multiple: true, 
-                  checked: @client.race && race.in?(JSON.parse(@client.race)),
+                  checked: @client.race && race.in?(@client.race.split(',')),
                   class: "w-11 h-11 text-indigo-600"
                 },
-                race, 
-                @client.race && race.in?(JSON.parse(@client.race))
+                race
               %>
               <%= client_attributes.label "race_#{to_htmlfor(race)}", race %>
             </li>
@@ -97,7 +104,7 @@
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8 text-indigo-600",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
           <!-- checked: @intake.survey ? @intake.survey['homelessness_first_time'] == 'false' : true %> -->
         </div>
@@ -110,7 +117,7 @@
         <%= form.text_field "survey[#{question.key}]",
           size: 23, 
           required: true,
-          value: @intake.survey&.dig("survey[#{question.key}]"),
+          value: @intake.survey.dig(question.key),
           placeholder: question.placeholder,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
@@ -127,7 +134,7 @@
                 choice, 
                 class: "h-10 w-10 text-indigo-600",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
             </div>
           <% end %>
         </div>
@@ -140,7 +147,7 @@
         <%= form.text_field "survey[#{question.key}]",
           size: 23, 
           required: true,
-          value: @intake.survey&.dig("survey[#{question.key}]"),
+          value: @intake.survey.dig(question.key),
           placeholder: question.placeholder,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
@@ -153,7 +160,7 @@
         <%= form.text_field "survey[#{question.key}]",
           size: 23, 
           required: true,
-          value: @intake.survey&.dig("survey[#{question.key}]"),
+          value: @intake.survey.dig(question.key),
           placeholder: question.placeholder,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
@@ -170,7 +177,7 @@
                 choice, 
                 class: "h-10 w-10 text-indigo-600",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
             </div>
           <% end %>
         </div>
@@ -187,7 +194,7 @@
                 choice, 
                 class: "h-10 w-10 text-indigo-600",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
             </div>
           <% end %>
         </div>
@@ -197,8 +204,10 @@
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
         <%= form.select "survey[#{question.key}]", 
-          options_for_select(Intake::ARE_YOU_WORKING.choices, selected: @intake.survey&.dig(question.key)),
-          { selected: @intake.survey&.dig(question.key) },
+          options_for_select(
+            Intake::ARE_YOU_WORKING.choices, 
+            selected: @intake.survey.dig(question.key)
+          ),
           class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl", 
           required: true
         %>
@@ -213,7 +222,7 @@
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
         </div>
       </div>
@@ -227,7 +236,7 @@
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
         </div>
       </div>
@@ -235,169 +244,241 @@
         <% question = Intake::SUBSTANCE_ABUSE %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
-            <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
-            <%= form.radio_button "survey[#{question.key}]", choice, 
+            <li @click="substanceAbuseIssues = <%= choice == "Yes" %>">
+              <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
+              <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
-          <% end %>
-        </div>
+                checked: @intake.survey.dig(question.key) == choice %>
+            <% end %>
+          </li>
+        </ul>
       </div>
-      <div class="text-gray-700">
+      <div class="text-gray-700" 
+        x-show="substanceAbuseIssues"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-90"
+        x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-90"
+      >
         <% question = Intake::SUBSTANCE_ABUSE_IMPAIRMENT %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
+            <li>
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
-        </div>
+          </li>
+        </ul>
       </div>
       <div class="text-gray-700">
         <% question = Intake::CHRONIC_HEALTH_CONDITION %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
+            <li @click="chronicHealthCondition = <%= choice == "Yes" %>">
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
-          <% end %>
-        </div>
+                checked: @intake.survey.dig(question.key) == choice %>
+            <% end %>
+            </li>
+        </ul>
       </div>
-      <div class="text-gray-700">
+      <div class="text-gray-700" 
+        x-show="chronicHealthCondition"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-90"
+        x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-90"
+      >
         <% question = Intake::CHRONIC_HEALTH_CONDITION_IMPAIRMENT %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
+          <li>
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
-        </div>
+          </li>
+        </ul>
       </div>
       <div class="text-gray-700">
         <% question = Intake::MENTAL_HEALTH_CONDITION %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
+          <li @click="mentalHealthCondition = <%= choice == "Yes" %>">
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
-        </div>
+          </li>
+        </ul>
       </div>
-      <div class="text-gray-700">
+      <div class="text-gray-700" 
+        x-show="mentalHealthCondition"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-90"
+        x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-90"
+      >
         <% question = Intake::MENTAL_HEALTH_CONDITION_IMPAIRMENT %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
+            <li>
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
-          <% end %>
-        </div>
+                checked: @intake.survey.dig(question.key) == choice %>
+            <% end %>
+          </li>
+        </ul>
       </div>
       <div class="text-gray-700">
         <% question = Intake::MENTAL_HEALTH_DISABILITY %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
+          <li @click="mentalHealthDisability = <%= choice == "Yes" %>">
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
-          <% end %>
-        </div>
+                checked: @intake.survey.dig(question.key) == choice %>
+            <% end %>
+          </li>
+        </ul>
       </div>
-      <div class="text-gray-700">
+      <div class="text-gray-700" 
+        x-show="mentalHealthDisability"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-90"
+        x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-90"
+      >        
         <% question = Intake::MENTAL_HEALTH_DISABILITY_IMPAIRMENT %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
+          <li>
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
-        </div>
+          </li>
+        </ul>
       </div>
       <div class="text-gray-700">
         <% question = Intake::PHYSICAL_DISABILITY %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
+          <li @click="physicalDisability = <%= choice == "Yes" %>">
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
-          <% end %>
-        </div>
+                checked: @intake.survey.dig(question.key) == choice %>
+            <% end %>
+          </li>
+        </ul>
       </div>
-      <div class="text-gray-700">
+      <div class="text-gray-700" 
+        x-show="physicalDisability"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-90"
+        x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-90"
+      >
         <% question = Intake::PHYSICAL_DISABILITY_IMPAIRMENT %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
+          <li>
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
-          <% end %>
-        </div>
+                checked: @intake.survey.dig(question.key) == choice %>
+            <% end %>
+          </li>
+        </ul>
       </div>
       <div class="text-gray-700">
         <% question = Intake::DEVELOPMENTAL_DISABILITY %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
+          <li @click="developmentalDisability = <%= choice == "Yes" %>">
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
-          <% end %>
-        </div>
+                checked: @intake.survey.dig(question.key) == choice %>
+            <% end %>
+          </li>
+        </ul>
       </div>
-      <div class="text-gray-700">
+      <div class="text-gray-700" 
+        x-show="developmentalDisability"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-90"
+        x-transition:enter-end="opacity-100 transform scale-100"
+        x-transition:leave="transition ease-in duration-300"
+        x-transition:leave-start="opacity-100 transform scale-100"
+        x-transition:leave-end="opacity-0 transform scale-90"
+      >
         <% question = Intake::DEVELOPMENTAL_DISABILITY_IMPAIRMENT %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
-        <div class="p-4">
+        <ul class="p-4 flex flex-1">
           <% question.choices.each do |choice| %>
+          <li>
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
-          <% end %>
-        </div>
+                checked: @intake.survey.dig(question.key) == choice %>
+            <% end %>
+          </li>
+        </ul>
       </div>
       <div class="text-gray-700">
         <% question = Intake::FLEEING_DOMESTIC_VIOLENCE %>
@@ -409,7 +490,7 @@
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
         </div>
       </div>
@@ -421,7 +502,7 @@
           min: 0, step: 1, 
           class: "mt-4 rounded-lg w-full p-8 text-6xl", 
           required: true,
-          value: @intake.survey&.dig(question.key),
+          value: @intake.survey.dig(question.key),
           placeholder: question.placeholder 
         %>
       </div>
@@ -433,7 +514,7 @@
           min: 0, step: 1, 
           class: "mt-4 rounded-lg w-full p-8 text-6xl", 
           required: true,
-          value: @intake.survey&.dig(question.key),
+          value: @intake.survey.dig(question.key),
           placeholder: question.placeholder 
         %>
       </div>
@@ -444,7 +525,7 @@
         %>
         <%= form.text_field "survey[#{question.key}]",
           required: true,
-          value: @intake.survey&.dig(question.key),
+          value: @intake.survey.dig(question.key),
           placeholder: question.placeholder,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
@@ -456,7 +537,7 @@
         %>
         <%= form.text_field "survey[#{question.key}]",
           required: true,
-          value: @intake.survey&.dig(question.key),
+          value: @intake.survey.dig(question.key),
           placeholder: question.placeholder,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
@@ -471,7 +552,7 @@
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
           <!-- checked: @intake.survey ? @intake.survey['bus_pass'] == 'false' : true -->
         </div>
@@ -486,7 +567,7 @@
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
                 required: true,
-                checked: @intake.survey&.dig(question.key) == choice %>
+                checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
         </div>
       </div>
@@ -507,9 +588,9 @@
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-snug font-semibold" %>
         <%= form.date_field "survey[#{question.key}]",
-          value: [@swap.start_date, Date.current].max, 
-          min: [@swap.start_date, Date.current].max,
-          max: @swap.end_date - 1,
+          value: @swap.end_date,
+          min: [@swap.end_date, Date.current].min,
+          max: @swap.end_date,
           required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
       </div>

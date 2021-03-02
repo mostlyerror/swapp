@@ -257,7 +257,7 @@ class Intake < ApplicationRecord
     text: "Phone Number (optional)"
   )
 
-  EMAIL = OpenStruct.new(
+  EMAIL= OpenStruct.new(
     key: 'email',
     text: "Email (optional)"
   )
