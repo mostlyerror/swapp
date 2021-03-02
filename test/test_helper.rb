@@ -6,6 +6,8 @@ class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
   FactoryBot.reload
 
+  Faker::Config.locale = 'en-US'
+
   # load Motel and Race data?
   # load "#{Rails.root}/db/seeds/base.rb"
 
