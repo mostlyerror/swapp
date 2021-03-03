@@ -169,15 +169,15 @@
                 checked: @intake.survey.dig(question.key) == choice %>
             </li>
           <% end %>
-          <li class="flex flex-1 items-center space-x-6 relative">
-            <div class="absolute inset-y-0 left-16 flex items-center pointer-events-none">
+          <li class="flex flex-1 items-center relative">
+            <div class="absolute inset-y-0 left-10 flex items-center pointer-events-none">
               <span class="text-gray-500 text-5xl">
                 Other:
               </span>
             </div>
             <%= form.text_field "survey[#{question.key}]_other",
               value: @intake.survey.dig(question.key)&.starts_with?("Other:") && @intake.survey[question.key],
-              class: "flex-1 focus:ring-indigo-500 focus:border-indigo-500 block pl-48 py-6 border-gray-300 rounded-lg text-5xl"
+              class: "flex-1 focus:ring-indigo-500 focus:border-indigo-500 block mr-8 pl-48 py-6 border-gray-300 rounded-lg text-5xl"
             %>
             <%= form.radio_button "survey[#{question.key}]",
               "other_radio",
