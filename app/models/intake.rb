@@ -203,7 +203,7 @@ class Intake < ApplicationRecord
 
   NUM_CHILDREN_HOUSEHOLD = OpenStruct.new(
     key: 'num_children_household',
-    text: "Number of children in household",
+    text: "Number of children  under 18 years old in household",
     placeholder: "enter numeric value"
   )
 
