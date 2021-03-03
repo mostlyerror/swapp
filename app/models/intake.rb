@@ -64,12 +64,6 @@ class Intake < ApplicationRecord
     placeholder: "(e.g, 2 months, 5 years, etc.)"
   )
 
-  LIVING_IN_THIS_COMMUNITY = OpenStruct.new(
-    key: 'how_long_living_in_this_community',
-    text: "How long have you been living in this community?",
-    placeholder: "(e.g, 2 months, 5 years, etc.)"
-  )
-
   SLEEP_LAST_NIGHT = OpenStruct.new(
     key: 'where_did_you_sleep_last_night',
     text: "Where did you sleep last night?",

@@ -154,19 +154,6 @@
         %>
       </div>
       <div class="text-gray-700">
-        <% question = Intake::LIVING_IN_THIS_COMMUNITY %>
-        <%= form.label "survey[#{question.key}]", question.text,
-          class: "block leading-tight font-semibold"
-        %>
-        <%= form.text_field "survey[#{question.key}]",
-          size: 23, 
-          required: true,
-          value: @intake.survey.dig(question.key),
-          placeholder: question.placeholder,
-          class: "mt-4 w-full rounded-lg p-8 text-6xl"
-        %>
-      </div>
-      <div class="text-gray-700">
         <% question = Intake::SLEEP_LAST_NIGHT %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-tight font-semibold"  %>
