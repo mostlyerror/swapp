@@ -9,9 +9,10 @@
       <p class="text-center pt-12 pl-12">
       <%= humanize_date(@swap.intake_period.first) %> through <%= humanize_date(@swap.intake_period.last) %>
       </p>
-      <section class="mt-6 text-center text-4xl">
-        <%= link_to 'Search for Client', clients_path %>
-      </section>
+      <div class="text-center text-gray-400 mt-8">
+      <i class="bi bi-search text-5xl text-black"></i>
+        <%= link_to 'Search for Clients', clients_path, class:"mt-6 p-3 text-5xl" %>
+      </div>
     </section>
     <% else %>
     <section class="mt-16">
@@ -48,20 +49,15 @@
     </p>
   </section>
   <h2 class="m-2 p-3 font-bold text-center text-blue-600 italic">How it works:</h2>
-  <section class="flex flex-col items-center p-8 mb-60 h-96 text-6xl">
-    <h3 class="mb-4">Search</h3>
-    <p>Search for the client</p>
-    <h3 class="mb-4">Intake</h3>
-    <p>Conduct questionnaire to learn more about their history</p>
-    <h3 class="mb-4">Dispense</h3>
-    <p>Once you submit the form, send the client to the motel of their choice</p>
+  <section class="flex flex-col items-center p-8 mb-32 text-6xl">
+    <i class="bi bi-search text-9xl"></i>
+    <p class="my-14">Search for the client</p>
+    <i class="bi bi-pencil-square text-9xl"></i>
+    <p class="my-10">Conduct questionnaire to learn more about their history</p>
+    <i class="bi bi-house-door text-9xl p-3"></i>
+    <p class="my-10">Submit the form and send the client to the motel of their choice</p>
   </section>
   <hr>
   <div class="">
-    <section class="flex flex-1 justify-between mt-8 p-4 h-60">
-      <h3>Code for America</h3>
-      <h3>Adams County</h3>
-      <h3>Almost Home</h3>
-    </section>
   </div>
 </div>
