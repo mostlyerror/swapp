@@ -21,7 +21,7 @@ class Intake < ApplicationRecord
 
   GENDER = OpenStruct.new(
     key: 'gender',
-    text: "Gender",
+    text: "Gender Identity",
     choices: Client::GENDER
   )
 
