@@ -57,7 +57,7 @@
         <%= client_attributes.select question.key,
           options_for_select(question.choices, @client.gender),
           {},
-          class: "mt-6 rounded-lg w-full p-8 text-8xl"
+          class: "mt-6 rounded-lg w-full p-8 text-6xl"
         %>
       </div>
 
@@ -65,7 +65,7 @@
         <% question = Intake::RACE %>
         <%= client_attributes.label question.key, question.text,
           class: "block leading-snug font-semibold" %>
-        <ul class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl text-gray-700">
+        <ul class="flex flex-1 flex-col w-full space-y-12 p-6 text-6xl text-gray-700">
           <% question.choices.each do |race| %>
             <li class="flex flex-1 space-x-10 items-baseline">
               <%= client_attributes.check_box question.key,
