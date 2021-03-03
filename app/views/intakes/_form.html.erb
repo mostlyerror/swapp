@@ -63,16 +63,15 @@
 
       <div class="field w-full">
         <% question = Intake::RACE %>
-        <%= client_attributes.label question.key, question.text,
-          class: "block leading-snug font-semibold" %>
-        <ul class="flex flex-1 flex-col w-full space-y-12 p-6 text-6xl text-gray-700">
+        <%= client_attributes.label question.key, question.text, class: "block leading-snug font-semibold" %>
+        <ul class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl text-gray-700">
           <% question.choices.each do |race| %>
-            <li class="flex flex-1 space-x-10 items-baseline">
+            <li class="flex flex-1 items-baseline">
               <%= client_attributes.check_box question.key,
                 { 
                   multiple: true, 
                   checked: race.in?(@client.race),
-                  class: "w-11 h-11 text-indigo-600"
+                  class: "mr-8 w-11 h-11 text-indigo-600"
                 },
                 race
               %>
@@ -159,7 +158,7 @@
         <% question = Intake::SLEEP_LAST_NIGHT %>
         <%= form.label "survey[#{question.key}]", question.text,
           class: "block leading-tight font-semibold"  %>
-        <ul class="p-4 flex flex-1 flex-col space-y-8">
+        <ul class="p-4 flex flex-1 flex-col space-y-12 p-12 text-6xl">
           <% question.choices.each do |choice| %>
             <li>
               <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
@@ -191,10 +190,15 @@
       <div class="text-gray-700">
         <% question = Intake::WHY_NOT_SHELTER %>
         <%= form.label "survey[#{question.key}]", question.text, class: "block leading-tight font-semibold" %>
-        <ul class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl text-gray-700">
+        <ul class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl">
           <% question.choices.each do |reason| %>
             <li class="flex flex-1 space-x-10 items-baseline">
-              <input class="w-11 h-11 text-indigo-600" type="checkbox" value="<%= reason %>" name="intake[survey][why_not_shelter][]" id=<%= "intake_survey[why_not_shelter]_#{to_htmlfor(reason)}" %>>
+              <input 
+                class="w-11 h-11 text-indigo-600" 
+                type="checkbox" value="<%= reason %>" 
+                name="intake[survey][why_not_shelter][]" 
+                id=<%= "intake_survey[why_not_shelter]_#{to_htmlfor(reason)}" %>
+              >
               <label for="intake_why_not_shelter"><%= reason %></label>
             </li>
         <% end %>
