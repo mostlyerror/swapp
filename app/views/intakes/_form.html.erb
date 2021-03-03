@@ -1,4 +1,5 @@
 <%= form_with(model: @intake, local: true) do |form| %>
+
   <% if @intake.errors.any? %>
     <div id="error_explanation" class="my-16 p-8 text-7xl bg-red-400 font-bold">
       <p><%= pluralize(@intake.errors.count, "error") %> prohibited this intake from being saved:</p>
@@ -9,8 +10,10 @@
       </ul>
     </div>
   <% end %>
+
   <div class="w-full flex flex-col space-y-32 mt-24 pb-24 text-6xl text-gray-800 tracking-wide">
     <%= form.fields_for :client, @client do |client_attributes|%>
+
       <div class="text-gray-700">
         <% question = Intake::FIRST_NAME %>
         <%= client_attributes.label question.key, question.text,
@@ -23,6 +26,7 @@
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::LAST_NAME %>
         <%= client_attributes.label question.key, question.text,
@@ -35,6 +39,7 @@
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::DATE_OF_BIRTH %>
         <%= client_attributes.label question.key, question.text,
@@ -44,6 +49,7 @@
           required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::GENDER %>
         <%= client_attributes.label question.key, question.text,
@@ -55,6 +61,7 @@
           class: "mt-6 rounded-lg w-full p-8 text-8xl"
         %>
       </div>
+
       <div class="field w-full">
         <% question = Intake::RACE %>
         <%= client_attributes.label question.key, question.text,
@@ -76,6 +83,7 @@
           <% end %>
         </ul>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::ETHNICITY %>
         <%= client_attributes.label question.key, question.text,
@@ -87,6 +95,7 @@
           class: "mt-6 rounded-lg w-full p-8 text-6xl"
         %>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::HOMELESSNESS_FIRST_TIME %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -102,6 +111,7 @@
           <!-- checked: @intake.survey ? @intake.survey['homelessness_first_time'] == 'false' : true %> -->
         </div>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::HOMELESSNESS_HOW_LONG_THIS_TIME %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -115,6 +125,7 @@
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -132,6 +143,7 @@
           <% end %>
         </div>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::HOMELESSNESS_EPISODES_HOW_LONG %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -145,6 +157,7 @@
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::SLEEP_LAST_NIGHT %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -179,6 +192,7 @@
           </li>
         </ul>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::WHY_NOT_SHELTER %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -196,6 +210,7 @@
           <% end %>
         </div>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::ARE_YOU_WORKING %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -210,6 +225,7 @@
           required: true
         %>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::VETERAN %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -224,6 +240,7 @@
           <% end %>
         </div>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::ACTIVE_DUTY %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -238,6 +255,7 @@
           <% end %>
         </div>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::SUBSTANCE_ABUSE %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -254,6 +272,7 @@
           </li>
         </ul>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::CHRONIC_HEALTH_CONDITION %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -270,6 +289,7 @@
             </li>
         </ul>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::MENTAL_HEALTH_CONDITION %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -286,6 +306,7 @@
           </li>
         </ul>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::MENTAL_HEALTH_DISABILITY %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -318,6 +339,7 @@
           </li>
         </ul>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::DEVELOPMENTAL_DISABILITY %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -334,6 +356,7 @@
           </li>
         </ul>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::FLEEING_DOMESTIC_VIOLENCE %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -348,6 +371,7 @@
           <% end %>
         </div>
       </div>
+
       <div class="w-full text-gray-700">
         <% question = Intake::NUM_ADULTS_HOUSEHOLD %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -360,6 +384,7 @@
           placeholder: question.placeholder 
         %>
       </div>
+
       <div class="w-full text-gray-700">
         <% question = Intake::NUM_CHILDREN_HOUSEHOLD %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -372,18 +397,7 @@
           placeholder: question.placeholder 
         %>
       </div>
-      <div class="text-gray-700">
-        <% question = Intake::LAST_PERMANENT_RESIDENCE_CITY_AND_STATE %>
-        <%= form.label "survey[#{question.key}]", question.text,
-          class: "block leading-snug font-semibold"
-        %>
-        <%= form.text_field "survey[#{question.key}]",
-          required: true,
-          value: @intake.survey.dig(question.key),
-          placeholder: question.placeholder,
-          class: "mt-4 w-full rounded-lg p-8 text-6xl"
-        %>
-      </div>
+
       <div class="text-gray-700">
         <% question = Intake::LAST_PERMANENT_RESIDENCE_COUNTY %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -396,6 +410,7 @@
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::BUS_PASS %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -411,6 +426,7 @@
           <!-- checked: @intake.survey ? @intake.survey['bus_pass'] == 'false' : true -->
         </div>
       </div>
+
       <div class="text-gray-700">
         <% question = Intake::KING_SOOPERS_CARD %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -425,6 +441,7 @@
           <% end %>
         </div>
       </div>
+
       <!-- voucher-specific questions -->
       <div class="w-full text-gray-700">
         <% question = Intake::CHECK_IN %>
@@ -437,6 +454,7 @@
           required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
       </div>
+
       <div class="w-full text-gray-700">
         <% question = Intake::CHECK_OUT %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -448,6 +466,7 @@
           required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
       </div>
+
       <div class="w-full text-gray-700">
         <% question = Intake::MOTEL_ID %>
         <%= form.label "survey[#{question.key}]", question.text,
@@ -458,6 +477,7 @@
           required: true 
         %>
       </div>
+
       <div class="w-full text-gray-700">
         <% question = Intake::PHONE_NUMBER %>
         <%= client_attributes.label question.key, question.text,
@@ -465,6 +485,7 @@
         <%= client_attributes.telephone_field question.key,
           class: "w-full rounded-lg p-8 text-6xl" %>
       </div>
+
       <div class="w-full text-gray-700">
         <% question = Intake::EMAIL %>
         <%= client_attributes.label question.key, question.text,
@@ -473,6 +494,7 @@
           class: "w-full rounded-lg p-8 text-6xl" %>
       </div>
     <% end %>
+
     <!-- end voucher-specific questions -->
     <div class="actions mt-12">
       <%= form.submit 'Submit', class: 'w-full btn btn-blue h-32 text-6xl' %>

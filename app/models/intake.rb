@@ -207,12 +207,6 @@ class Intake < ApplicationRecord
     placeholder: "enter numeric value"
   )
 
-  LAST_PERMANENT_RESIDENCE_CITY_AND_STATE = OpenStruct.new(
-    key: 'last_permanent_residence_city_and_state',
-    text: "City and State of Last Permanent Residence",
-    placeholder: "Brighton, CO"
-  )
-
   LAST_PERMANENT_RESIDENCE_COUNTY= OpenStruct.new(
     key: 'last_permanent_residence_county',
     text: "County of Last Permanent Residence",
