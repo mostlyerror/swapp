@@ -8,6 +8,9 @@ module.exports = {
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		extend: {
+			spacing: {
+				'28': '7rem',
+			},
 			outline: {
 				black: ['2px solid black', '2px'],
 				gray: ['2px solid #d3d3d3', '2px'],
