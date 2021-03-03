@@ -80,17 +80,17 @@ class Intake < ApplicationRecord
   )
   WHY_NOT_SHELTER = OpenStruct.new(
     key: 'why_not_shelter',
-    text: "What is the reason you have not accessed shelter?",
+    text: "Why haven't you accessed shelter?",
     choices: [
       "No room",
       "No transportation",
       "Prior background issues",
       "Doesn't accept pets",
-      "Safety Concerns",
+      "Safety concerns",
       "No ID",
       "Banned from shelter",
       "Current restraining order",
-      "Other"
+      "Did not want to separate from significant other",
     ]
   )
 
@@ -254,7 +254,9 @@ class Intake < ApplicationRecord
 
     def trim_survey_fields
       survey.present? && survey.keys.each do |key|
-        survey[key] = survey[key]&.strip
+        if survey[key].is_a? String
+          survey[key] = survey[key]&.strip
+        end
       end
     end
 end

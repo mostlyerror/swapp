@@ -64,7 +64,7 @@ class IntakesController < ApplicationController
         "homelessness_episodes_how_long", 
         "how_long_living_in_this_community",
         "where_did_you_sleep_last_night", 
-        "why_not_shelter", 
+        { why_not_shelter: [] },
         "are_you_working",
         "armed_forces", 
         "active_duty", 

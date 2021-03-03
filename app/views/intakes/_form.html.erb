@@ -195,20 +195,24 @@
 
       <div class="text-gray-700">
         <% question = Intake::WHY_NOT_SHELTER %>
-        <%= form.label "survey[#{question.key}]", question.text,
-          class: "block leading-tight font-semibold" %>
-        <div class="p-4 flex flex-1 flex-col space-y-8">
-          <% question.choices.each do |choice| %>
-            <div>
-              <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
-              <%= form.radio_button "survey[#{question.key}]", 
-                choice, 
-                class: "h-10 w-10 text-indigo-600",
-                required: true,
-                checked: @intake.survey.dig(question.key) == choice %>
-            </div>
-          <% end %>
-        </div>
+        <%= form.label "survey[#{question.key}]", question.text, class: "block leading-tight font-semibold" %>
+        <ul class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl text-gray-700">
+          <% question.choices.each do |reason| %>
+            <li class="flex flex-1 space-x-10 items-baseline">
+              <input class="w-11 h-11 text-indigo-600" type="checkbox" value="<%= reason %>" name="intake[survey][why_not_shelter][]" id=<%= "intake_survey[why_not_shelter]_#{to_htmlfor(reason)}" %>>
+              <label for="intake_why_not_shelter"><%= reason %></label>
+              <!--  checked: reason.in?(@intake.survey&.dig(question.key) || []), -->
+            </li>
+        <% end %>
+        <li class="flex flex-1 items-center space-x-6 relative">
+          <div class="absolute inset-y-0 left-16 flex items-center pointer-events-none">
+            <span class="text-gray-500 text-5xl">
+              Other:
+            </span>
+          </div>
+          <!-- { intake: { survey: {why_not_shelter: [] } } } -->
+        </li>
+        </ul>
       </div>
 
       <div class="text-gray-700">
