@@ -4,8 +4,9 @@ class VouchersController < ApplicationController
   def new
     @client = Client.find(params['client_id'])
     if @swap
+      @intake = Intake.new
       @existing_voucher = @swap.vouchers.find_by(client: @client)
-      @voucher = Voucher.new
+      @voucher = Voucher.new(client: @client)
       supply = RoomSupply.vouchers_remaining_today(@swap)
       @disabled = []
       @motels = Motel.all.reduce({}) do |memo, motel|
@@ -23,7 +24,7 @@ class VouchersController < ApplicationController
     @motels = Motel.all
     @voucher = Voucher.new(
       user: current_user,
-      client_id: params['client']['id'],
+      client_id: @client.id,
       motel_id: params['voucher']['motel_id'],
       check_in: params['voucher']['check_in'],
       check_out: params['voucher']['check_out'],
@@ -47,6 +48,8 @@ class VouchersController < ApplicationController
   end
 
   private
+    def voucher_params
+    end
     def set_voucher
       @voucher = Voucher.find(params[:id])
     end
