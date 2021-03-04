@@ -1,6 +1,4 @@
 class LandingController < ApplicationController
-  before_action :set_swap_current
-  
   def index
     @swap = Swap.current
     if @swap
