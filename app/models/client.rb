@@ -18,8 +18,8 @@ class Client < ApplicationRecord
   ]
 
   ETHNICITY = [
-    "Hispanic or Latino",
     "Not Hispanic or Latino",
+    "Hispanic or Latino",
   ]
 
   auto_strip_attributes :first_name, :last_name, :race, :phone_number, :email

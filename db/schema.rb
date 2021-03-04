@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 2021_03_04_180713) do
 
-ActiveRecord::Schema.define(version: 2021_03_01_220825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,9 +56,23 @@ ActiveRecord::Schema.define(version: 2021_03_01_220825) do
   create_table "intakes", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "user_id", null: false
-    t.jsonb "survey", default: {}
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "homelessness_first_time"
+    t.string "how_long_this_time"
+    t.boolean "episodes_last_three_years_fewer_than_four_times"
+    t.string "total_how_long_shelters_or_streets"
+    t.string "are_you_working"
+    t.boolean "armed_forces"
+    t.boolean "active_duty"
+    t.boolean "substance_abuse"
+    t.boolean "chronic_health_condition"
+    t.boolean "mental_health_condition"
+    t.boolean "mental_health_disability"
+    t.boolean "physical_disability"
+    t.boolean "developmental_disability"
+    t.boolean "fleeing_domestic_violence"
+    t.string "last_permanent_residence_county"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end
@@ -70,6 +84,20 @@ ActiveRecord::Schema.define(version: 2021_03_01_220825) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "pet_friendly"
+  end
+
+  create_table "short_intakes", force: :cascade do |t|
+    t.string "where_did_you_sleep_last_night"
+    t.string "what_city_did_you_sleep_in_last_night"
+    t.string "why_not_shelter", default: [], array: true
+    t.boolean "bus_pass"
+    t.boolean "king_soopers_card"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "client_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["client_id"], name: "index_short_intakes_on_client_id"
+    t.index ["user_id"], name: "index_short_intakes_on_user_id"
   end
 
   create_table "swaps", force: :cascade do |t|
@@ -105,6 +133,8 @@ ActiveRecord::Schema.define(version: 2021_03_01_220825) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "swap_id"
+    t.integer "num_adults_in_household"
+    t.integer "num_children_in_household"
     t.index ["client_id", "swap_id"], name: "index_vouchers_on_client_id_and_swap_id"
     t.index ["client_id"], name: "index_vouchers_on_client_id"
     t.index ["motel_id"], name: "index_vouchers_on_motel_id"
@@ -118,6 +148,8 @@ ActiveRecord::Schema.define(version: 2021_03_01_220825) do
   add_foreign_key "incident_reports", "users", column: "reporter_id"
   add_foreign_key "intakes", "clients"
   add_foreign_key "intakes", "users"
+  add_foreign_key "short_intakes", "clients"
+  add_foreign_key "short_intakes", "users"
   add_foreign_key "vouchers", "clients"
   add_foreign_key "vouchers", "motels"
   add_foreign_key "vouchers", "swaps"
