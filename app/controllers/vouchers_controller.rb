@@ -20,7 +20,14 @@ class VouchersController < ApplicationController
   end
 
   def create
-    @client = Client.find(params['client']['id'])
+    @client = Client.find(params['client_id'])
+
+    intake_params = voucher_params[:intake_attributes]
+    @intake = Intake.new(intake_params)
+    @intake.why_not_shelter = intake_params[:why_not_shelter].reject {|r| r == "0" }
+    @intake.user = current_user
+
+
     @motels = Motel.all
     @voucher = Voucher.new(
       user: current_user,
@@ -49,7 +56,11 @@ class VouchersController < ApplicationController
 
   private
     def voucher_params
+      params.require(:voucher).permit(
+        intake_attributes: []
+      )
     end
+
     def set_voucher
       @voucher = Voucher.find(params[:id])
     end

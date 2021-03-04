@@ -194,13 +194,13 @@ class Intake < ApplicationRecord
 
   NUM_CHILDREN_HOUSEHOLD = OpenStruct.new(
     key: :num_children_in_household,
-    text: "Number of children  under 18 years old in household",
+    text: "Number of children  in household under 18 years old",
     placeholder: "enter numeric value"
   )
 
   LAST_PERMANENT_RESIDENCE_COUNTY= OpenStruct.new(
     key: :last_permanent_residence_county,
-    text: "County of Last Permanent Residence",
+    text: "In what county was your last permanent residence?",
     placeholder: "Adams"
   )
 

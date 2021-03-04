@@ -9,34 +9,17 @@ class IntakesController < ApplicationController
 
   def create
     @intake = Intake.new(intake_params.except(:voucher))
-    @intake.user = current_user
-    @intake.why_not_shelter = intake_params[:why_not_shelter].filter_map {|r| r == "0" ? nil : r }
 
     client_params = intake_params[:client_attributes]
     @client = Client.new(client_params)
-    @client.race = client_params[:race].filter_map {|r| r == "0" ? nil : r }
-
-    @motel = Motel.find(intake_params[:voucher][:motel_id])
-    @check_in = intake_params[:voucher][:check_in]
-    @check_out = intake_params[:voucher][:check_out]
+    @client.race = client_params[:race].reject {|r| r == "0" }
 
     @intake.client = @client
     if !@intake.save
       return render :new
     end
 
-    if @voucher = Voucher.create(
-      client: @client,
-      user: current_user,
-      motel: @motel,
-      check_in: @check_in,
-      check_out: @check_out,
-      swap: @swap
-    )
-      return redirect_to voucher_created_path(@voucher)
-    end
-
-    redirect_to @intake
+    return redirect_to new_voucher_path(client_id: @client.id)
   end
 
   private

@@ -1,28 +1,32 @@
 const sleepLastNightInput = document.getElementById(
-  "intake[survey][where_did_you_sleep_last_night]_other"
-);
+	"where_did_you_sleep_last_night_other_text_field"
+)
 const sleepLastNightRadio = document.getElementById(
-  "intake[survey][where_did_you_sleep_last_night]_other_radio"
-);
+	"where_did_you_sleep_last_night_other_radio"
+)
 
 sleepLastNightInput.onchange = () => {
-  sleepLastNightRadio.setAttribute("checked", "checked");
-  sleepLastNightRadio.value = `Other: ${sleepLastNightInput.value}`;
+	sleepLastNightRadio.setAttribute("checked", "checked");
+	sleepLastNightRadio.value = `Other: ${sleepLastNightInput.value}`;
 };
+
 
 
 const whyNotShelterInput = document.getElementById(
-	"intake_survey[why_not_shelter]_other_text_field"
+	"why_not_shelter_other_text_field"
 );
 const whyNotShelterCheckbox = document.getElementById(
-	"intake_survey[why_not_shelter]_other_checkbox"
+	"why_not_shelter_other_checkbox"
 );
 
+// todo this needs happen on more than just change,
+// if you submit and are rejected with errors, the 2nd time around
+// the checkbox text field retains the previous input, but
+// the checkbox input value has reverted! dun dun dun ....!!!
 whyNotShelterInput.onchange = () => {
-  whyNotShelterCheckbox.setAttribute("checked", "checked");
-  whyNotShelterCheckbox.value = `Other: ${whyNotShelterInput.value}`;
+	whyNotShelterCheckbox.setAttribute("checked", "checked");
+	whyNotShelterCheckbox.value = `Other: ${whyNotShelterInput.value}`;
 };
-
 
 const addFamilyMemberBtn = document.getElementById("add_family_member");
 let familyMembers = 0;
