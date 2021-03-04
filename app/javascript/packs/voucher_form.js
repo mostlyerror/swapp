@@ -1,9 +1,13 @@
-const sleepLastNightInput = document.getElementById("intake_survey[where_did_you_sleep_last_night]_other_text_field")
-const sleepLastNightRadio = document.getElementById("intake_survey_where_did_you_sleep_last_night_other_radio")
+const sleepLastNightInput = document.getElementById(
+  "intake[survey][where_did_you_sleep_last_night]_other"
+);
+const sleepLastNightRadio = document.getElementById(
+  "intake[survey][where_did_you_sleep_last_night]_other_radio"
+);
 
 sleepLastNightInput.onchange = () => {
-	sleepLastNightRadio.setAttribute("checked", "checked");
-	sleepLastNightRadio.value = `Other: ${sleepLastNightInput.value}`;
+  sleepLastNightRadio.setAttribute("checked", "checked");
+  sleepLastNightRadio.value = `Other: ${sleepLastNightInput.value}`;
 };
 
 
@@ -15,8 +19,8 @@ const whyNotShelterCheckbox = document.getElementById(
 );
 
 whyNotShelterInput.onchange = () => {
-	whyNotShelterCheckbox.setAttribute("checked", "checked");
-	whyNotShelterCheckbox.value = `Other: ${whyNotShelterInput.value}`;
+  whyNotShelterCheckbox.setAttribute("checked", "checked");
+  whyNotShelterCheckbox.value = `Other: ${whyNotShelterInput.value}`;
 };
 
 
@@ -36,10 +40,10 @@ addFamilyMemberBtn.onclick = () => {
 	select.name = select.name.replace("replace", familyMembers);
 
 	clone.querySelectorAll('input')
-		.forEach(input => { 
-			input.name = input.name.replace("replace", familyMembers);
-			if (input.type != 'checkbox') input.value = ''
-		});
+	     .forEach(input => { 
+		     input.name = input.name.replace("replace", familyMembers);
+		     if (input.type != 'checkbox') input.value = ''
+	     });
 
 	container.appendChild(clone);
 }
