@@ -25,8 +25,8 @@ class VouchersController < ApplicationController
     @motels = Motel.all
 
     short_intake_params = voucher_params[:short_intake]
-    @short_intake = ShrotIntake.new(short_intake_params)
-    @short_intake.why_not_shelter = short-intake_params[:why_not_shelter].reject {|r| r == "0" }
+    @short_intake = ShortIntake.new(short_intake_params)
+    @short_intake.why_not_shelter = short_intake_params[:why_not_shelter].reject {|r| r == "0" }
     @short_intake.user = current_user
 
     @voucher = Voucher.new(
