@@ -21,6 +21,7 @@
         <%= client_attributes.text_field question.key,
           size: 23, 
           value: @client.first_name,
+          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
@@ -33,6 +34,7 @@
         <%= client_attributes.text_field question.key,
           size: 23, 
           value: @client.last_name,
+          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
@@ -43,6 +45,7 @@
           class: "block leading-snug font-semibold" %>
         <%= client_attributes.date_field question.key,
           value: Date.current - 50.years,
+          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
       </div>
 

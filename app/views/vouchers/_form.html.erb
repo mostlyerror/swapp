@@ -11,7 +11,7 @@
         <% question = Intake::SLEEP_LAST_NIGHT %>
         <%= short_intake_form.label question.key, question.text,
           class: "block leading-tight font-semibold"  %>
-        <ul class="p-4 flex flex-1 flex-col space-y-12 p-12 text-6xl">
+        <ul class="flex flex-1 flex-col space-y-12 p-12 text-6xl">
           <% question.choices.each do |choice| %>
             <li>
               <%= short_intake_form.label question.key, choice %>
@@ -30,7 +30,7 @@
             <%= short_intake_form.text_field question.key,
               value: @short_intake.where_did_you_sleep_last_night&.starts_with?("Other:") && @short_intake.where_did_you_sleep_last_night,
               id: "#{question.key}_other_text_field",
-              class: "flex-1 focus:ring-indigo-500 focus:border-indigo-500 block mr-8 pl-48 py-6 border-gray-300 rounded-lg text-5xl"
+              class: "flex-1 focus:ring-indigo-500 focus:border-indigo-500 block mr-6 pl-48 py-6 border-gray-300 rounded-lg text-5xl"
             %>
           <%= short_intake_form.radio_button question.key,
             "other_radio",
@@ -42,7 +42,7 @@
         </ul>
     </div>
 
-    <div class="text-gray-700">
+    <div class="mt-16 text-gray-700">
       <% question = Intake::CITY_LAST_NIGHT %>
       <%= short_intake_form.label question.key, question.text,
         class: "block leading-snug font-semibold"
@@ -54,7 +54,7 @@
     %>
     </div>
 
-    <div class="text-gray-700">
+    <div class="mt-16 text-gray-700">
       <% question = Intake::WHY_NOT_SHELTER %>
       <%= short_intake_form.label question.key, question.text, 
         class: "block leading-tight font-semibold" %>
@@ -82,7 +82,7 @@
             id: "why_not_shelter_other_checkbox",
             checked: other_checked,
             value: other_checked && @short_intake.why_not_shelter,
-            class: "w-11 h-11 text-indigo-600"
+            class: "w-11 h-11 mr-10 text-indigo-600"
           },
           "other_checkbox"
         %>
@@ -95,11 +95,21 @@
       </ul>
     </div>
 
-    <!-- 
-      - [ ]  Has your household composition changed?
-    -->
 
-    <div class="w-full text-gray-700">
+    <!-- 
+      if we have household data (previous ShortIntake)
+        # has your household composition changed?
+        if yes
+          form me
+        end
+      end
+
+      if we dont have housedhold data,
+        if we dont have any ShortIntakes, we don't have household data, this becomes for "first-time client"
+        show the form
+      end
+    -->
+    <div class="mt-16 w-full text-gray-700">
       <h3 class="text-6xl leading-6 font-medium text-gray-900">
         Family Members
       </h3>
@@ -178,7 +188,7 @@
 <% end %> <!-- end client_form -->
 
   <div class="mt-16 text-6xl">
-    <h3 class="leading-6 font-medium text-gray-500 uppercase tracking-wide">
+    <h3 class="text-center leading-6 font-medium text-gray-500 uppercase tracking-wide">
       INTERNAL USE BELOW
     </h3>
 
