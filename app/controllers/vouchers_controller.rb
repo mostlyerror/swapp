@@ -2,7 +2,9 @@ class VouchersController < ApplicationController
   before_action :set_voucher, only: %i[ show created ]
 
   def new
+    @client = Client.find(params['client_id'])
     if @swap
+      @existing_voucher = Swap.current.vouchers.find_by(client: @client)
       @voucher = Voucher.new
       supply = RoomSupply.vouchers_remaining_today(@swap)
       @disabled = []
@@ -13,14 +15,12 @@ class VouchersController < ApplicationController
         end
         memo.merge(Hash[name, motel.id])
       end
-      @client = Client.find(params['client_id'])
     end
   end
 
   def create
-    @motels = Motel.all
     @client = Client.find(params['client']['id'])
-
+    @motels = Motel.all
     @voucher = Voucher.new(
       user: current_user,
       client_id: params['client']['id'],
@@ -32,7 +32,7 @@ class VouchersController < ApplicationController
 
     if !@voucher.save
       if @voucher.errors[:client_id].include? "has already been taken"
-        @existing_voucher = Swap.current.vouchers.find_by(client: @voucher.client)
+        @existing_voucher = Swap.current.vouchers.find_by(client_id: @voucher.client_id)
       end
       return render :new
     end
@@ -41,13 +41,17 @@ class VouchersController < ApplicationController
   end
 
   def created
-
   end
 
   def show
   end
 
   private
+    def set_existing_voucher
+      if @swap
+        @existing_voucher = @swap.vouchers.find_by(client_id: params[:client_id])
+      end
+    end
 
     def set_voucher
       @voucher = Voucher.find(params[:id])

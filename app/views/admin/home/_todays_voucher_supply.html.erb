@@ -2,7 +2,12 @@
   <%= form_for(:voucher_supply, url: admin_update_room_supply_path(@swap), method: :put) do |form| %>
     <table class="shadow bg-white rounded text-left w-full table-fixed">
       <h2 class="bg-gray-900 text-white text-6xl text-center font-semibold p-6">Today's Voucher Supply</h2>
-      <% if SwapIntake.can_issue_voucher_today?(@swap) %>
+      <% if @swap&.intake_ended? %>
+        <section id="notice--intake-ended" class="notice bg-indigo-300">
+          <h3>Swap must be activated in order to update today's voucher supply.</h3>
+          <p class="text-indigo-900"></p>
+        </section>
+      <% elsif SwapIntake.can_issue_voucher_today?(@swap) %>
         <thead>
           <tr class="bg-gray-900 text-white text-4xl">
             <th class="w-2/5 p-6"></th>
@@ -43,11 +48,6 @@
           <%= form.submit "update supply", data: { confirm: "WARNING here..." }, class:"py-4 px-8 rounded-lg bg-yellow-300 text-gray-900 font-bold border-b border-gray-900 shadow-lg" %>
         </div>
       </div>
-    <% else %>
-      <section id="notice--no-nights-remaining" class="notice bg-red-300">
-        <h3>The intake period for the most recent SWAP activation has ended.</h3>
-        <p class="text-red-900">Vouchers can only be issued during the intake period, which runs from 1 day before the swap period begins to 1 day before the swap period ends.</p>
-      </section>
     <% end %>
   <% end %>
 </section>
