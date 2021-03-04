@@ -10,14 +10,10 @@
   <div class="flex flex-1 flex-col font-bold space-y-16 ">
     <div class="w-full">
       <% if @existing_voucher.present? %>
-        <p class="notice bg-green-400 text-7xl">
-          <%= @client.first_name %> has already been issued a <%= link_to 'voucher', @existing_voucher %> for this SWAP period!
-        </p>
+        <%= render partial: 'shared/notices/existing_voucher' %>
       <% else %>
         <% if @swap.present? %>
-          <% if @num_vouchers_remaining_today.zero? %> 
-            <%= render partial: 'shared/notices/no_vouchers' %>
-          <% else %>
+          <% if !@num_vouchers_remaining_today.zero? %> 
             <p class="px-6 mt-16 text-6xl">Issue a <%= link_to 'hotel voucher', new_voucher_path(client_id: @client.id), class: 'link' %>.</p>
           <% end %>
         <% else %>

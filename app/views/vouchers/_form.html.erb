@@ -1,23 +1,118 @@
-  <%= form_with(model: @voucher, local: true) do |form| %>
-  <%= hidden_field :client, :id %>
+<%= form_with(model: @voucher, local: true) do |form| %>
   <% if @voucher.errors.any? %>
-    <div id="error_explanation" class="my-16 p-8 text-7xl bg-red-400 font-bold">
-      <p><%= pluralize(@voucher.errors.count, "error") %> prohibited this voucher from being saved:</p>
-      <ul class="mt-8">
-        <% if @existing_voucher.present? %>
-          <li class="font-bold">
-            <%= @client.first_name %> has already been issued a <%= link_to 'voucher', @existing_voucher, class: 'link' %> for this SWAP period!
-          </li>
-        <% else %>
-          <% if @voucher.errors.any? %>
-            <% @voucher.errors.full_messages.each do |message| %>
-              <li class="text-6xl"><%= message %></li>
-            <% end %>
+    <% @voucher.errors.full_messages.each do |message| %>
+      <li class="text-6xl"><%= message %></li>
+    <% end %>
+  <% end %>
+
+  <div class="mt-16 text-6xl">
+    <div class="text-gray-700">
+      <%= form.fields_for :short_intake, @short_intake do |short_intake_form| %>
+        <% question = Intake::SLEEP_LAST_NIGHT %>
+        <%= short_intake_form.label question.key, question.text,
+          class: "block leading-tight font-semibold"  %>
+        <ul class="p-4 flex flex-1 flex-col space-y-12 p-12 text-6xl">
+          <% question.choices.each do |choice| %>
+            <li>
+              <%= short_intake_form.label question.key, choice %>
+              <%= short_intake_form.radio_button question.key,
+                choice, 
+                class: "h-10 w-10 text-indigo-600",
+                checked: @short_intake.where_did_you_sleep_last_night == choice %>
+            </li>
           <% end %>
+          <li class="flex flex-1 items-center relative">
+            <div class="absolute inset-y-0 left-8 flex items-center pointer-events-none">
+              <span class="text-gray-500 text-5xl">
+                Other:
+              </span>
+            </div>
+            <%= short_intake_form.text_field question.key,
+              value: @short_intake.where_did_you_sleep_last_night&.starts_with?("Other:") && @short_intake.where_did_you_sleep_last_night,
+              id: "#{question.key}_other_text_field",
+              class: "flex-1 focus:ring-indigo-500 focus:border-indigo-500 block mr-8 pl-48 py-6 border-gray-300 rounded-lg text-5xl"
+            %>
+          <%= short_intake_form.radio_button question.key,
+            "other_radio",
+            id: "#{question.key}_other_radio",
+            checked: @short_intake.where_did_you_sleep_last_night&.starts_with?("Other:"),
+            class: "h-10 w-10 text-indigo-600"
+          %>
+          </li>
+        </ul>
+    </div>
+
+    <div class="text-gray-700">
+      <% question = Intake::CITY_LAST_NIGHT %>
+      <%= short_intake_form.label question.key, question.text,
+        class: "block leading-snug font-semibold"
+      %>
+    <%= short_intake_form.text_field question.key,
+      size: 23, 
+      value: @short_intake.what_city_did_you_sleep_in_last_night,
+      class: "mt-4 w-full rounded-lg p-8 text-6xl"
+    %>
+    </div>
+
+    <div class="text-gray-700">
+      <% question = Intake::WHY_NOT_SHELTER %>
+      <%= short_intake_form.label question.key, question.text, 
+        class: "block leading-tight font-semibold" %>
+      <ul class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl">
+        <% question.choices.each do |reason| %>
+          <li class="flex flex-1 space-x-10 items-baseline">
+            <%= short_intake_form.check_box question.key, 
+              {multiple: true, class: "w-11 h-11 text-indigo-600"},
+              reason, 
+              nil
+            %>
+          <%= short_intake_form.label question.key, reason %>
+          </li>
         <% end %>
+        <li class="flex flex-1 items-center relative">
+          <div class="absolute inset-y-0 left-28 flex items-center pointer-events-none">
+            <span class="text-gray-500 text-5xl">
+              Other:
+            </span>
+          </div>
+          <% other_checked = @short_intake.why_not_shelter&.find {|r| r.starts_with?("Other:") } %>
+          <%= short_intake_form.check_box question.key, 
+            {
+            multiple: true, 
+            id: "why_not_shelter_other_checkbox",
+            checked: other_checked,
+            value: other_checked && @short_intake.why_not_shelter,
+            class: "w-11 h-11 text-indigo-600"
+          },
+          "other_checkbox"
+        %>
+      <input type="text" 
+             value="<%= other_checked %>"
+             id="<%= "#{question.key}_other_text_field" %>"
+             class="w-full focus:ring-indigo-500 focus:border-indigo-500 block
+             pl-44 py-6 border-gray-300 rounded-lg text-5xl">
+        </li>
       </ul>
     </div>
-  <% end %>
+
+    <!-- 
+      - [ ]  Has your household composition changed?
+    -->
+
+    <div class="w-full text-gray-700">
+      <h3 class="text-6xl leading-6 font-medium text-gray-900">
+        Family Members
+      </h3>
+      <p class="mt-8 text-5xl text-gray-500">
+      If client has family currently with them, please add them below.
+      </p>
+      <div id="family_members" class="mt-16"></div>
+      <a id="add_family_member" class="btn btn-outline">
+        + Add Family Member
+      </a>
+    </div>
+  </div>
+
   <div class="mt-16 bg-white border-8 border-black text-5xl">
     <section class="p-16 border-b-8 border-gray-400 border-dashed">
       <div class="flex flex-1 justify-between">
@@ -33,47 +128,165 @@
       <div class="w-full">
         <strong>Check In</strong>
         <%= form.date_field :check_in, 
-                value: [@swap.start_date, Date.current].max, 
-                min: [@swap.start_date, Date.current].max,
-                max: @swap.end_date - 1,
-                required: true,
-                class: "mt-8 w-full bg-white rounded-lg p-2 text-5xl" %>
+          value: [@swap.start_date, Date.current].max, 
+          min: [@swap.start_date, Date.current].max,
+          max: @swap.end_date - 1,
+          required: true,
+          class: "mt-8 w-full bg-white rounded-lg p-2 text-5xl" %>
       </div>
+
       <div class="w-full">
         <strong>Check Out</strong>
         <%= form.date_field :check_out, 
-                value: @swap.end_date,
-                min: [@swap.end_date, Date.current].min,
-                max: @swap.end_date,
-                required: true,
-                class: "mt-8 w-full bg-white rounded-lg p-2 text-5xl" %>
-      </p>
-    </div>
-  </section>
-  <section class="p-16">
+          value: @swap.end_date,
+          min: [@swap.end_date, Date.current].min,
+          max: @swap.end_date,
+          required: true,
+          class: "mt-8 w-full bg-white rounded-lg p-2 text-5xl" %>
+          </p>
+      </div>
+    </section>
+
+    <section class="p-16">
+      <div class="field w-full">
+        <%= form.label "motel_id", "Hotel (vouchers remaining)", class: "font-bold block leading-relaxed" %>
+        <%= form.select "motel_id", 
+          options_for_select(@motels, disabled: @disabled),
+          {include_blank: true},
+          class: "mt-4 w-full rounded-lg p-8 text-6xl",
+          required: true %>
+      </div>
+    </section>
+  </div>
+
+<%= form.fields_for :client, @client do |client_form| %>
+  <%= client_form.hidden_field :id, value: @client.id %>
+
+  <div class="p-12 text-6xl">
     <div class="field w-full">
-      <%= form.label "motel_id", "Hotel (vouchers remaining)", class: "font-bold block leading-relaxed" %>
-      <%= form.select "motel_id", 
-        options_for_select(@motels, disabled: @disabled),
-        {include_blank: true},
-        class: "mt-4 w-full rounded-lg p-8 text-6xl",
-        required: true %>
+      <%= client_form.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
+      <%= client_form.telephone_field :phone_number, 
+        class: "w-full rounded-lg p-8 text-6xl" %>
     </div>
-  </section>
-</div>
-<div class="p-12 text-5xl">
-  <div class="field w-full">
-    <%= form.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
-    <%= form.telephone_field :phone_number, 
-          class: "w-full rounded-lg p-8 text-6xl" %>
+
+    <div class="mt-12 field w-full">
+      <%= client_form.label :email, "Email (optional)", class: "block leading-relaxed"  %>
+      <%= client_form.email_field :email, 
+        class: "w-full rounded-lg p-8 text-6xl" %>
+    </div>
   </div>
-  <div class="mt-12 field w-full">
-    <%= form.label :email, "Email (optional)", class: "block leading-relaxed"  %>
-    <%= form.email_field :email, 
-          class: "w-full rounded-lg p-8 text-6xl" %>
+<% end %> <!-- end client_form -->
+
+  <div class="mt-16 text-6xl">
+    <h3 class="leading-6 font-medium text-gray-500 uppercase tracking-wide">
+      INTERNAL USE BELOW
+    </h3>
+
+    <div class="mt-16 w-full text-gray-700">
+      <% question = Intake::NUM_ADULTS_HOUSEHOLD %>
+      <%= form.label question.key, question.text,
+        class: "block leading-relaxed font-semibold" %>
+      <%= form.number_field question.key, 
+        min: 0, step: 1, 
+        class: "mt-4 rounded-lg w-full p-8 text-6xl", 
+        value: @voucher.num_adults_in_household,
+        placeholder: question.placeholder 
+      %>
+    </div>
+
+  <div class="mt-16 w-full text-gray-700">
+    <% question = Intake::NUM_CHILDREN_HOUSEHOLD %>
+    <%= form.label question.key, question.text,
+      class: "block leading-relaxed font-semibold" %>
+    <%= form.number_field question.key, 
+      min: 0, step: 1, 
+      class: "mt-4 rounded-lg w-full p-8 text-6xl", 
+      value: @voucher.num_children_in_household,
+      placeholder: question.placeholder 
+    %>
+  </div>
+
+  <div class="mt-16 text-gray-700">
+    <% question = Intake::BUS_PASS %>
+    <%= short_intake_form.label question.key, question.text,
+      class: "block leading-snug font-semibold" %>
+    <div class="p-4">
+      <% question.choices.each do |choice| %>
+        <%= short_intake_form.label question.key, choice %>
+        <%= short_intake_form.radio_button question.key, choice, 
+          class: "h-10 w-10 mr-8",
+          checked: @short_intake.bus_pass == choice %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-16 text-gray-700">
+    <% question = Intake::KING_SOOPERS_CARD %>
+    <%= short_intake_form.label question.key, question.text,
+      class: "block leading-snug font-semibold" %>
+    <div class="p-4">
+      <% question.choices.each do |choice| %>
+        <%= short_intake_form.label question.key, choice %>
+        <%= short_intake_form.radio_button question.key, choice, 
+          class: "h-10 w-10 mr-8",
+          checked: @short_intake.king_soopers_card == choice %>
+      <% end %>
+    </div>
   </div>
 </div>
+<% end %> <!-- end short_intake_form -->
+
+
+
 <div class="actions p-12">
   <%= form.submit 'Create', class: 'w-full btn btn-blue h-32 text-6xl' %>
 </div>
-<% end %>
+<% end %> <!-- end voucher form -->
+
+
+<div id="template_family_member" class="hidden flex flex-1 flex-col space-y-2">
+  <label for="intake[survey][family_members][replace][name]">
+    <p class="block">Name</p>
+  </label>
+  <input name="intake[survey][family_members][replace][name]" class="w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+
+  <label for="intake[survey][family_members][replace][relationship]">
+    <p class="block">Relationship</p>
+  </label>
+  <input name="intake[survey][family_members][replace][relationship]" class="w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+
+  <label for="intake[survey][family_members][replace][date_of_birth]">
+    <p class="block">Date of birth</p>
+  </label>
+  <input type="date" name="intake[survey][family_members][replace][date_of_birth]" class="w-full rounded-lg p-3 text-6xl text-gray-400 focus:ring-indigo-500 focus:border-indigo-500">
+
+  <label for="intake[survey][family_members][replace][gender]">
+    <p class="block">Gender Identity</p>
+  </label>
+  <select class="w-full rounded-lg p-3 text-6xl" name="intake[survey][family_members][replace][gender]">
+    <option value="Female">Female</option>
+    <option value="Male">Male</option>
+    <option value="Trans Female (MTF)">Trans Female (MTF)</option>
+    <option value="Trans Male (FTM)">Trans Male (FTM)</option>
+    <option value="Gender Non-Conforming">Gender Non-Conforming</option>
+    <option value="Client Doesn't Know">Client Doesn't Know</option>
+    <option value="Client Refused">Client Refused</option>
+  </select>
+
+  <label for="intake[survey][family_members][replace][race][]">
+    <p class="block">Race</p>
+  </label>
+
+  <ul class="flex flex-1 flex-col w-full p-3 text-6xl text-gray-700">
+    <li class="flex flex-1 items-baseline">
+      <input class="w-11 h-11 text-indigo-600" type="checkbox" value="American Indian or Alaskan Native" name="intake[survey][family_members][replace][race][]">
+      <label for="intake[survey][family_members][replace][race][]">American Indian or Alaskan Native</label>
+    </li>
+    <li class="flex flex-1 items-baseline">
+      <input class="w-11 h-11 text-indigo-600" type="checkbox" value="Asian" name="intake[survey][family_members][replace][race][]">
+      <label for="intake[survey][family_members][replace][race][]">Asian</label>
+    </li>
+  </ul>
+</div>
+
+<%= javascript_pack_tag 'voucher_form' %>

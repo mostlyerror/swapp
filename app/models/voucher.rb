@@ -8,6 +8,8 @@ class Voucher < ApplicationRecord
   validates_uniqueness_of :client_id, scope: :swap_id
   validate :dates_must_be_today_or_later_when_issued, on: :create
   validate :order_of_dates, :dates_must_fall_within_swap
+  # num_adults_in_household
+  # num_children_in_household
 
   after_create :save_number
 
@@ -35,6 +37,7 @@ class Voucher < ApplicationRecord
 
   private 
     def save_number
+      # todo get the latest sequence number
       self.number = "AH%.5d" % id
       save!
     end
