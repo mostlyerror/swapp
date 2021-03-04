@@ -22,7 +22,6 @@
         <%= client_attributes.text_field question.key,
           size: 23, 
           value: @client.first_name,
-          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
@@ -35,7 +34,6 @@
         <%= client_attributes.text_field question.key,
           size: 23, 
           value: @client.last_name,
-          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
@@ -46,7 +44,6 @@
           class: "block leading-snug font-semibold" %>
         <%= client_attributes.date_field question.key,
           value: Date.current - 50.years,
-          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
       </div>
 
@@ -101,7 +98,6 @@
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8 text-indigo-600",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
           <!-- checked: @intake.survey ? @intake.survey['homelessness_first_time'] == 'false' : true %> -->
@@ -117,7 +113,6 @@
           size: 23, 
           value: @intake.survey.dig(question.key),
           placeholder: question.placeholder,
-          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
@@ -133,7 +128,6 @@
               <%= form.radio_button "survey[#{question.key}]", 
                 choice, 
                 class: "h-10 w-10 text-indigo-600",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
             </div>
           <% end %>
@@ -149,7 +143,6 @@
           size: 23, 
           value: @intake.survey.dig(question.key),
           placeholder: question.placeholder,
-          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
@@ -231,7 +224,6 @@
             selected: @intake.survey.dig(question.key)
           ),
           {},
-          required: true,
           class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl"
         %>
       </div>
@@ -245,7 +237,6 @@
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
         </div>
@@ -260,7 +251,6 @@
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
         </div>
@@ -276,7 +266,6 @@
               <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
               <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
             <% end %>
           </li>
@@ -293,7 +282,6 @@
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
             <% end %>
             </li>
@@ -310,7 +298,6 @@
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
           </li>
@@ -327,7 +314,6 @@
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
             <% end %>
           </li>
@@ -343,7 +329,6 @@
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
             <% end %>
           </li>
@@ -360,7 +345,6 @@
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
             <% end %>
           </li>
@@ -376,10 +360,17 @@
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
         </div>
+      </div>
+
+      <div class="w-full text-gray-700">
+        <p class="help-text">If client has family currently with them, please add family members below.</p>
+        <div id="family_members" class="mt-16"></div>
+        <a id="add_family_member" class="btn btn-outline">
+          (+) Add Family Member
+        </a>
       </div>
 
       <div class="w-full text-gray-700">
@@ -389,7 +380,6 @@
         <%= form.number_field "survey[#{question.key}]", 
           min: 0, step: 1, 
           class: "mt-4 rounded-lg w-full p-8 text-6xl", 
-          required: true,
           value: @intake.survey.dig(question.key),
           placeholder: question.placeholder 
         %>
@@ -402,7 +392,6 @@
         <%= form.number_field "survey[#{question.key}]", 
           min: 0, step: 1, 
           class: "mt-4 rounded-lg w-full p-8 text-6xl", 
-          required: true,
           value: @intake.survey.dig(question.key),
           placeholder: question.placeholder 
         %>
@@ -416,7 +405,6 @@
         <%= form.text_field "survey[#{question.key}]",
           value: @intake.survey.dig(question.key),
           placeholder: question.placeholder,
-          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
@@ -430,7 +418,6 @@
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
           <!-- checked: @intake.survey ? @intake.survey['bus_pass'] == 'false' : true -->
@@ -446,7 +433,6 @@
             <%= form.label "survey[#{question.key}]_#{to_htmlfor(choice)}", choice %>
             <%= form.radio_button "survey[#{question.key}]", choice, 
                 class: "h-10 w-10 mr-8",
-                required: true,
                 checked: @intake.survey.dig(question.key) == choice %>
           <% end %>
         </div>
@@ -461,7 +447,6 @@
           value: [@swap.start_date, Date.current].max, 
           min: [@swap.start_date, Date.current].max,
           max: @swap.end_date - 1,
-          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
       </div>
 
@@ -473,7 +458,6 @@
           value: @swap.end_date,
           min: [@swap.end_date, Date.current].min,
           max: @swap.end_date,
-          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
       </div>
 
@@ -483,7 +467,6 @@
           class: "block leading-relaxed font-semibold" %>
         <%= form.select "survey[#{question.key}]", options_for_select(@motels, selected: @motel&.id, disabled: @disabled),
           {},
-          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
@@ -511,5 +494,18 @@
     </div>
   </div>
 <% end %>
+
+
+<ul id="template_family_member" class="hidden">
+  <li>First Name:<input class="" name="survey[family_members][first_name][]"/></li>
+  <li>Last Name:<input class="focus:ring-indigo-500 focus:border-indigo-500" name="survey[family_members][last_name][]"/></li>
+  <li>Date of Birth<input class="focus:ring-indigo-500 focus:border-indigo-500" name="survey[family_members][date_of_birth][]"/></li>
+  <li>Gender:<input class="focus:ring-indigo-500 focus:border-indigo-500" name="survey[family_members][gender][]"/></li>
+  <li>Relationship:<input class="focus:ring-indigo-500 focus:border-indigo-500" name="survey[family_members][relationship][]"/></li>
+  <li>Race:<input class="focus:ring-indigo-500 focus:border-indigo-500" name="survey[family_members][race][]"/></li>
+  <li>Ethnicity:<input class="focus:ring-indigo-500 focus:border-indigo-500" name="survey[family_members][ethnicity][]"/></li>
+  <li>Veteran:<input class="focus:ring-indigo-500 focus:border-indigo-500" name="survey[family_members][veteran][]"/></li>
+  <li>Disabling Condition(s):<input class="focus:ring-indigo-500 focus:border-indigo-500" name="survey[family_members][disabling_condition][]"/></li>
+</ul>
 
 <%= javascript_pack_tag 'intake_form' %>
