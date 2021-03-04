@@ -100,6 +100,12 @@ class Intake < ApplicationRecord
       "Incarcerated",
     ]
   )
+
+  CITY_LAST_NIGHT = OpenStruct.new(
+    key: :what_city_did_you_sleep_in_last_night,
+    text: "What city did you sleep in last night?"
+  )
+
   WHY_NOT_SHELTER = OpenStruct.new(
     key: :why_not_shelter,
     text: "Why haven't you accessed shelter?",

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_04_093239) do
+ActiveRecord::Schema.define(version: 2021_03_04_160147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_093239) do
     t.boolean "bus_pass"
     t.integer "num_adults_in_household"
     t.integer "num_children_in_household"
+    t.string "what_city_did_you_sleep_in_last_night"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end

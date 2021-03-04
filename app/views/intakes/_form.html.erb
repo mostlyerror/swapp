@@ -182,6 +182,18 @@
       </div>
 
       <div class="text-gray-700">
+        <% question = Intake::CITY_LAST_NIGHT %>
+        <%= form.label question.key, question.text,
+          class: "block leading-snug font-semibold"
+        %>
+        <%= client_attributes.text_field question.key,
+          size: 23, 
+          value: @intake.what_city_did_you_sleep_in_last_night,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+        %>
+      </div>
+
+      <div class="text-gray-700">
         <% question = Intake::WHY_NOT_SHELTER %>
         <%= form.label question.key, question.text, 
           class: "block leading-tight font-semibold" %>
