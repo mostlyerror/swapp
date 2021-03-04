@@ -73,8 +73,6 @@ ActiveRecord::Schema.define(version: 2021_03_04_180713) do
     t.boolean "developmental_disability"
     t.boolean "fleeing_domestic_violence"
     t.string "last_permanent_residence_county"
-    t.boolean "king_soopers_card"
-    t.boolean "bus_pass"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end
@@ -92,6 +90,8 @@ ActiveRecord::Schema.define(version: 2021_03_04_180713) do
     t.string "where_did_you_sleep_last_night"
     t.string "what_city_did_you_sleep_in_last_night"
     t.string "why_not_shelter", default: [], array: true
+    t.boolean "bus_pass"
+    t.boolean "king_soopers_card"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "client_id", null: false

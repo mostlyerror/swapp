@@ -189,7 +189,7 @@
       <%= form.number_field question.key, 
         min: 0, step: 1, 
         class: "mt-4 rounded-lg w-full p-8 text-6xl", 
-        value: @short_intake.num_adults_in_household,
+        value: @voucher.num_adults_in_household,
         placeholder: question.placeholder 
       %>
     </div>
@@ -201,7 +201,7 @@
     <%= form.number_field question.key, 
       min: 0, step: 1, 
       class: "mt-4 rounded-lg w-full p-8 text-6xl", 
-      value: @short_intake.num_children_in_household,
+      value: @voucher.num_children_in_household,
       placeholder: question.placeholder 
     %>
   </div>
