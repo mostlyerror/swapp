@@ -75,8 +75,6 @@ ActiveRecord::Schema.define(version: 2021_03_04_180713) do
     t.string "last_permanent_residence_county"
     t.boolean "king_soopers_card"
     t.boolean "bus_pass"
-    t.integer "num_adults_in_household"
-    t.integer "num_children_in_household"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end
