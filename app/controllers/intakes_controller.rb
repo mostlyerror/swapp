@@ -15,11 +15,12 @@ class IntakesController < ApplicationController
     @client.race = client_params[:race].reject {|r| r == "0" }
 
     @intake.client = @client
+    @intake.user = current_user
     if !@intake.save
       return render :new
     end
 
-    return redirect_to new_voucher_path(client_id: @client.id)
+    redirect_to new_voucher_path(client_id: @client.id, intake_id: @intake.id)
   end
 
   private

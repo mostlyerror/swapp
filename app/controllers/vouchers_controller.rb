@@ -2,9 +2,15 @@ class VouchersController < ApplicationController
   before_action :set_voucher, only: %i[ show created ]
 
   def new
-    @client = Client.find(params['client_id'])
+    @client = Client.find(params[:client_id])
+
     if @swap
-      @intake = Intake.new
+      if params[:intake_id]  # from full intake form
+        @intake = Intake.find(params[:intake_id])
+      else
+        @intake = Intake.new # from clients page
+      end
+
       @existing_voucher = @swap.vouchers.find_by(client: @client)
       @voucher = Voucher.new(client: @client)
       supply = RoomSupply.vouchers_remaining_today(@swap)
@@ -20,25 +26,27 @@ class VouchersController < ApplicationController
   end
 
   def create
-    @client = Client.find(params['client_id'])
+    byebug
 
-    intake_params = voucher_params[:intake_attributes]
+    @client = Client.find(voucher_params[:client][:id])
+    @motels = Motel.all
+
+    intake_params = voucher_params[:intake]
     @intake = Intake.new(intake_params)
     @intake.why_not_shelter = intake_params[:why_not_shelter].reject {|r| r == "0" }
     @intake.user = current_user
 
-
-    @motels = Motel.all
     @voucher = Voucher.new(
+      swap: @swap,
+      client: @client,
       user: current_user,
-      client_id: @client.id,
-      motel_id: params['voucher']['motel_id'],
-      check_in: params['voucher']['check_in'],
-      check_out: params['voucher']['check_out'],
-      swap: @swap
+      motel_id: voucher_params[:motel_id],
+      check_in: voucher_params[:check_in],
+      check_out: voucher_params[:check_out],
     )
 
     if !@voucher.save
+      # client has already received a voucher for the current swap period?
       if @voucher.errors[:client_id].include? "has already been taken"
         @existing_voucher = @swap.vouchers.find_by(client_id: @voucher.client_id)
       end
@@ -57,7 +65,25 @@ class VouchersController < ApplicationController
   private
     def voucher_params
       params.require(:voucher).permit(
-        intake_attributes: []
+        :check_in, 
+        :check_out, 
+        :motel_id, 
+        :num_adults_in_household, 
+        :num_children_in_household,
+        client: [
+          :id,
+          :phone_number,
+          :email
+        ],
+        intake: [
+          :where_did_you_sleep_last_night,
+          :what_city_did_you_sleep_in_last_night, 
+          {why_not_shelter: []},
+          :num_adults_in_household, 
+          :num_children_in_household,
+          :bus_pass,
+          :king_soopers_card,
+        ],
       )
     end
 
