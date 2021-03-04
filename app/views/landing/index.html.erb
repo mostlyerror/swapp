@@ -10,16 +10,16 @@
         Vouchers can be issued beginning <%= humanize_date(@swap.intake_period.first) %> through <%= humanize_date(@swap.intake_period.last) %>
       </p>
       <div class="text-center text-gray-400 mt-8">
-      <i class="bi bi-search text-5xl text-black"></i>
+        <i class="bi bi-search text-5xl text-black"></i>
         <%= link_to 'Search for Clients', clients_path, class:"mt-6 p-3 text-5xl" %>
       </div>
     </section>
     <% else %>
     <section>
       <% if @swap.nil? %>
-        <section id="notice--swap-inactive" class="notice bg-gray-300">
-         <h3 class="pt-12 pl-12">SWAP is <span class="text-red-900">NOT ACTIVE.</span></h3>
-          <section class="mt-6 text-center text-4xl">
+        <section id="notice--swap-inactive" class="notice bg-blue-300">
+         <h3 class="pt-12 pl-12">There is currently no scheduled SWAP period.</h3>
+          <section class="mt-6 text-center text-6xl">
             Cannot issue vouchers while SWAP is inactive!
           </section>
         </section>
@@ -72,7 +72,7 @@
       </div>
       <div class="my-24">
         <a href="https://www.almosthomeonline.org/" target="_blank">
-          <img src="https://static.wixstatic.com/media/d5c3cb_6e8da3e0f3424ecba9758fdb99f00ff7~mv2.png/v1/fill/w_879,h_192,al_c,lg_1,q_85/AlmostHome_Logo_Horizontal_01_Web.webp" alt="Almost Home" width="500" height="500">
+          <img src="https://static.wixstatic.com/media/d5c3cb_6e8da3e0f3424ecba9758fdb99f00ff7~mv2.png/v1/fill/w_879,h_192,al_c,lg_1,q_85/AlmostHome_Logo_Horizontal_01_Web.webp" alt="Almost Home" width="600" height="600">
         </a>
       </div>
   </div>

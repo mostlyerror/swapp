@@ -1,8 +1,12 @@
 class LandingController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_swap_current
+  
   def index
-    @motel_map = Motel.all.pluck(:id, :name).to_h
     @swap = Swap.current
-    @supply = RoomSupply.by_motel(@swap).to_h
+    if @swap
+      @motel_map = Motel.all.pluck(:id, :name).to_h
+      @supply = RoomSupply.by_motel(@swap).to_h
+    end
   end
 end
