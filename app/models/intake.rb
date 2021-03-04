@@ -14,8 +14,6 @@ class Intake < ApplicationRecord
       :physical_disability,
       :developmental_disability,
       :fleeing_domestic_violence,
-      :bus_pass,
-      :king_soopers_card,
       :how_long_this_time,
       :total_how_long_shelters_or_streets,
       :are_you_working,
