@@ -31,11 +31,19 @@ addFamilyMemberBtn.onclick = () => {
 	let template = document.getElementById("template_family_member");
 	let container = document.getElementById("family_members");
 	let clone = template.cloneNode(true)
+
 	clone.classList.remove('hidden')
 	clone.classList.add('block')
 	clone.id = `family_member_${++familyMembers}`
+
+	let select = clone.querySelector('select')
+	select.name = select.name.replace("replace", familyMembers);
+
 	clone.querySelectorAll('input')
-	     .forEach(input => { input.value = '' });
+	     .forEach(input => { 
+		     input.name = input.name.replace("replace", familyMembers);
+		     if (input.type != 'checkbox') input.value = ''
+	     });
 
 	container.appendChild(clone);
 }
