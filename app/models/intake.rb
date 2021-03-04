@@ -2,49 +2,71 @@ class Intake < ApplicationRecord
   belongs_to :client
   accepts_nested_attributes_for :client
   belongs_to :user
-  # before_save :trim_survey_fields
+
+  auto_strip_attributes :homelessness_first_time,
+      :episodes_last_three_years_fewer_than_four_times,
+      :where_did_you_sleep_last_night,
+      :why_not_shelter,
+      :armed_forces,
+      :active_duty,
+      :substance_abuse,
+      :chronic_health_condition,
+      :mental_health_condition,
+      :mental_health_disability,
+      :physical_disability,
+      :developmental_disability,
+      :fleeing_domestic_violence,
+      :bus_pass,
+      :king_soopers_card,
+      :how_long_this_time,
+      :total_how_long_shelters_or_streets,
+      :are_you_working,
+      :num_adults_in_household,
+      :num_children_in_household,
+      :last_permanent_residence_county
+
 
   FIRST_NAME = OpenStruct.new(
-    key: 'first_name',
+    key: :first_name,
     text: "First Name" 
   )
 
   LAST_NAME = OpenStruct.new(
-    key: 'last_name',
+    key: :last_name,
     text: "Last Name"
   )
 
   DATE_OF_BIRTH = OpenStruct.new(
-    key: 'date_of_birth',
+    key: :date_of_birth,
     text: "Date of Birth"
   )
 
   GENDER = OpenStruct.new(
-    key: 'gender',
+    key: :gender,
     text: "Gender Identity",
     choices: Client::GENDER
   )
 
   RACE = OpenStruct.new(
-    key: 'race',
+    key: :race,
     text: "Race",
     choices: Client::RACE
   )
 
   ETHNICITY = OpenStruct.new(
-    key: 'ethnicity',
+    key: :ethnicity,
     text: "Hispanic or Latino?",
     choices: Client::ETHNICITY
   )
 
   HOMELESSNESS_FIRST_TIME = OpenStruct.new(
-    key: 'homelessness_first_time',
+    key: :homelessness_first_time,
     text: "Is this the first time you have been homeless?", 
     choices: %w[ Yes No ]
   )
 
   HOMELESSNESS_HOW_LONG_THIS_TIME = OpenStruct.new(
-    key: 'homelessness_how_long_this_time',
+    key: :homelessness_how_long_this_time,
     text: "How long have you been homeless this time?", 
     placeholder: "(e.g, 2 months, 5 years, etc.)"
   )
@@ -212,14 +234,4 @@ class Intake < ApplicationRecord
     key: :email,
     text: "Email (optional)"
   )
-
-  private 
-
-    # def trim_survey_fields
-    #   survey.present? && survey.keys.each do |key|
-    #     if survey[key].is_a? String
-    #       survey[key] = survey[key]&.strip
-    #     end
-    #   end
-    # end
 end
