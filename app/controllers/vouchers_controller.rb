@@ -5,12 +5,7 @@ class VouchersController < ApplicationController
     @client = Client.find(params[:client_id])
 
     if @swap
-      if params[:intake_id]  # from full intake form
-        @intake = Intake.find(params[:intake_id])
-      else
-        @intake = Intake.new # from clients page
-      end
-
+      @short_intake = ShortIntake.new(client: @client, user: current_user)
       @existing_voucher = @swap.vouchers.find_by(client: @client)
       @voucher = Voucher.new(client: @client)
       supply = RoomSupply.vouchers_remaining_today(@swap)
@@ -26,15 +21,13 @@ class VouchersController < ApplicationController
   end
 
   def create
-    byebug
-
     @client = Client.find(voucher_params[:client][:id])
     @motels = Motel.all
 
-    intake_params = voucher_params[:intake]
-    @intake = Intake.new(intake_params)
-    @intake.why_not_shelter = intake_params[:why_not_shelter].reject {|r| r == "0" }
-    @intake.user = current_user
+    short_intake_params = voucher_params[:short_intake]
+    @short_intake = ShrotIntake.new(short_intake_params)
+    @short_intake.why_not_shelter = short-intake_params[:why_not_shelter].reject {|r| r == "0" }
+    @short_intake.user = current_user
 
     @voucher = Voucher.new(
       swap: @swap,
@@ -75,7 +68,7 @@ class VouchersController < ApplicationController
           :phone_number,
           :email
         ],
-        intake: [
+        short_intake: [
           :where_did_you_sleep_last_night,
           :what_city_did_you_sleep_in_last_night, 
           {why_not_shelter: []},

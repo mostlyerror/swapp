@@ -5,8 +5,6 @@ class Intake < ApplicationRecord
 
   auto_strip_attributes :homelessness_first_time,
       :episodes_last_three_years_fewer_than_four_times,
-      :where_did_you_sleep_last_night,
-      :why_not_shelter,
       :armed_forces,
       :active_duty,
       :substance_abuse,
@@ -21,8 +19,6 @@ class Intake < ApplicationRecord
       :how_long_this_time,
       :total_how_long_shelters_or_streets,
       :are_you_working,
-      :num_adults_in_household,
-      :num_children_in_household,
       :last_permanent_residence_county
 
 

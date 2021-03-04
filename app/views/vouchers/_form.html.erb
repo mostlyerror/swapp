@@ -7,18 +7,18 @@
 
   <div class="mt-16 text-6xl">
     <div class="text-gray-700">
-      <%= form.fields_for :intake, @intake do |intake_form| %>
+      <%= form.fields_for :short_intake, @short_intake do |short_intake_form| %>
         <% question = Intake::SLEEP_LAST_NIGHT %>
-        <%= intake_form.label question.key, question.text,
+        <%= short_intake_form.label question.key, question.text,
           class: "block leading-tight font-semibold"  %>
         <ul class="p-4 flex flex-1 flex-col space-y-12 p-12 text-6xl">
           <% question.choices.each do |choice| %>
             <li>
-              <%= intake_form.label question.key, choice %>
-              <%= intake_form.radio_button question.key,
+              <%= short_intake_form.label question.key, choice %>
+              <%= short_intake_form.radio_button question.key,
                 choice, 
                 class: "h-10 w-10 text-indigo-600",
-                checked: @intake.where_did_you_sleep_last_night == choice %>
+                checked: @short_intake.where_did_you_sleep_last_night == choice %>
             </li>
           <% end %>
           <li class="flex flex-1 items-center relative">
@@ -27,15 +27,15 @@
                 Other:
               </span>
             </div>
-            <%= intake_form.text_field question.key,
-              value: @intake.where_did_you_sleep_last_night&.starts_with?("Other:") && @intake.where_did_you_sleep_last_night,
+            <%= short_intake_form.text_field question.key,
+              value: @short_intake.where_did_you_sleep_last_night&.starts_with?("Other:") && @short_intake.where_did_you_sleep_last_night,
               id: "#{question.key}_other_text_field",
               class: "flex-1 focus:ring-indigo-500 focus:border-indigo-500 block mr-8 pl-48 py-6 border-gray-300 rounded-lg text-5xl"
             %>
-          <%= intake_form.radio_button question.key,
+          <%= short_intake_form.radio_button question.key,
             "other_radio",
             id: "#{question.key}_other_radio",
-            checked: @intake.where_did_you_sleep_last_night&.starts_with?("Other:"),
+            checked: @short_intake.where_did_you_sleep_last_night&.starts_with?("Other:"),
             class: "h-10 w-10 text-indigo-600"
           %>
           </li>
@@ -44,29 +44,29 @@
 
     <div class="text-gray-700">
       <% question = Intake::CITY_LAST_NIGHT %>
-      <%= intake_form.label question.key, question.text,
+      <%= short_intake_form.label question.key, question.text,
         class: "block leading-snug font-semibold"
       %>
-    <%= intake_form.text_field question.key,
+    <%= short_intake_form.text_field question.key,
       size: 23, 
-      value: @intake.what_city_did_you_sleep_in_last_night,
+      value: @short_intake.what_city_did_you_sleep_in_last_night,
       class: "mt-4 w-full rounded-lg p-8 text-6xl"
     %>
     </div>
 
     <div class="text-gray-700">
       <% question = Intake::WHY_NOT_SHELTER %>
-      <%= intake_form.label question.key, question.text, 
+      <%= short_intake_form.label question.key, question.text, 
         class: "block leading-tight font-semibold" %>
       <ul class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl">
         <% question.choices.each do |reason| %>
           <li class="flex flex-1 space-x-10 items-baseline">
-            <%= intake_form.check_box question.key, 
+            <%= short_intake_form.check_box question.key, 
               {multiple: true, class: "w-11 h-11 text-indigo-600"},
               reason, 
               nil
             %>
-          <%= intake_form.label question.key, reason %>
+          <%= short_intake_form.label question.key, reason %>
           </li>
         <% end %>
         <li class="flex flex-1 items-center relative">
@@ -75,13 +75,13 @@
               Other:
             </span>
           </div>
-          <% other_checked = @intake.why_not_shelter&.find {|r| r.starts_with?("Other:") } %>
-          <%= intake_form.check_box question.key, 
+          <% other_checked = @short_intake.why_not_shelter&.find {|r| r.starts_with?("Other:") } %>
+          <%= short_intake_form.check_box question.key, 
             {
             multiple: true, 
             id: "why_not_shelter_other_checkbox",
             checked: other_checked,
-            value: other_checked && @intake.why_not_shelter,
+            value: other_checked && @short_intake.why_not_shelter,
             class: "w-11 h-11 text-indigo-600"
           },
           "other_checkbox"
@@ -189,7 +189,7 @@
       <%= form.number_field question.key, 
         min: 0, step: 1, 
         class: "mt-4 rounded-lg w-full p-8 text-6xl", 
-        value: @intake.num_adults_in_household,
+        value: @short_intake.num_adults_in_household,
         placeholder: question.placeholder 
       %>
     </div>
@@ -201,40 +201,40 @@
     <%= form.number_field question.key, 
       min: 0, step: 1, 
       class: "mt-4 rounded-lg w-full p-8 text-6xl", 
-      value: @intake.num_children_in_household,
+      value: @short_intake.num_children_in_household,
       placeholder: question.placeholder 
     %>
   </div>
 
   <div class="mt-16 text-gray-700">
     <% question = Intake::BUS_PASS %>
-    <%= intake_form.label question.key, question.text,
+    <%= short_intake_form.label question.key, question.text,
       class: "block leading-snug font-semibold" %>
     <div class="p-4">
       <% question.choices.each do |choice| %>
-        <%= intake_form.label question.key, choice %>
-        <%= intake_form.radio_button question.key, choice, 
+        <%= short_intake_form.label question.key, choice %>
+        <%= short_intake_form.radio_button question.key, choice, 
           class: "h-10 w-10 mr-8",
-          checked: @intake.bus_pass == choice %>
+          checked: @short_intake.bus_pass == choice %>
       <% end %>
     </div>
   </div>
 
   <div class="mt-16 text-gray-700">
     <% question = Intake::KING_SOOPERS_CARD %>
-    <%= intake_form.label question.key, question.text,
+    <%= short_intake_form.label question.key, question.text,
       class: "block leading-snug font-semibold" %>
     <div class="p-4">
       <% question.choices.each do |choice| %>
-        <%= intake_form.label question.key, choice %>
-        <%= intake_form.radio_button question.key, choice, 
+        <%= short_intake_form.label question.key, choice %>
+        <%= short_intake_form.radio_button question.key, choice, 
           class: "h-10 w-10 mr-8",
-          checked: @intake.king_soopers_card == choice %>
+          checked: @short_intake.king_soopers_card == choice %>
       <% end %>
     </div>
   </div>
 </div>
-<% end %> <!-- end intake_form -->
+<% end %> <!-- end short_intake_form -->
 
 
 
