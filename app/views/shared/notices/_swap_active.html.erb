@@ -6,15 +6,17 @@
       <div class="bg-indigo-300">
         <h3>SWAP is active.</h3>
         <p class="text-indigo-900">
-        Vouchers can be issued beginning <%= humanize_date(@swap.intake_period.first) %> to <%= humanize_date(@swap.intake_period.last) %>
+          Vouchers can be issued beginning <%= humanize_date(@swap.intake_period.first) %> to <%= humanize_date(@swap.intake_period.last) %>
         </p>
+
         <% if SwapIntake.today_is_first_intake_day?(@swap) %>
           <p class="text-indigo-900">
-          Please notify clients that hotel check in is for <em>tomorrow</em>, not today.
+            Please notify clients that hotel check in is for <em>tomorrow</em>, not today.
           </p>
+
         <% elsif SwapIntake.today_is_last_intake_day?(@swap) %>
           <p class="text-indigo-900">
-          <strong>Today is the last day to issue vouchers for the current SWAP period</strong>. However, administrators may extend voucher stays as well as the intake period.
+            <strong>Today is the last day to issue vouchers for the current SWAP period</strong>. However, administrators may extend voucher stays as well as the intake period.
           </p>
         <% end %>
     </section>
@@ -40,4 +42,9 @@
       </ul>
     </div>
   <% end %>
+    <% if @num_vouchers_remaining_today&.zero? %> 
+      <section id="notice--no-vouchers" class="notice bg-yellow-300">
+        <h3>Currently, there are no available vouchers to dispense.</h3>
+      </section>
+    <% end %>
 <% end %>

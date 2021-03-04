@@ -1,7 +1,4 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: %i[ show ]
-
-  # GET /clients or /clients.json
   def index
     @q = Client.ransack(params[:q])
     @searched = !params[:q].nil?
@@ -9,13 +6,8 @@ class ClientsController < ApplicationController
     @clients = @q.result(distinct: true)
   end
 
-  # GET /clients/1 or /clients/1.json
   def show
+    @client = Client.find(params[:id])
     @existing_voucher = @swap&.vouchers&.find_by(client: @client)
   end
-
-  private
-    def set_client
-      @client = Client.find(params[:id])
-    end
 end
