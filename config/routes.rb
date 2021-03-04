@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'landing/index'
   devise_for :users, controllers: {
     sessions: 'sessions/sessions'
   }

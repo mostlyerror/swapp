@@ -1,5 +1,4 @@
 class LandingController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_swap_current
   
   def index
