@@ -35,6 +35,7 @@ class Voucher < ApplicationRecord
 
   private 
     def save_number
+      # todo get the latest sequence number
       self.number = "AH%.5d" % id
       save!
     end
