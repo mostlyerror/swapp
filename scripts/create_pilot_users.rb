@@ -32,10 +32,10 @@ user_data = [
 ]
 
 user_data.each do |data|
-  first_name_part = data[1].slice(0, 3)
-  last_name_part = data[2].slice(0, 4)
+  first_part = data[1].slice(0, 3)
+  last_part = data[2].slice(0, 4)
 
-  whole_together = "#{first_name_part + last_name_part}2021".downcase
+  whole_together = "#{first_part + last_part}2021".downcase
 
   passwords = {
     password: whole_together,
