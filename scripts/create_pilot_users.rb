@@ -10,9 +10,6 @@ keys = [
 ]
 
 user_data = [
-  ['bpoon@codeforamerica.org', 'Ben', 'Poon', true],
-  ['bjohnson@codeforamerica.org', 'Brandon', 'Johnson', true],
-  ['ftang@codeforamerica.org', 'Fiona', 'Tang', true],
   ['learl@adcogov.org', 'Lindsey', 'Earl', true],
   ['pdiaz@adcogov.org', 'Paolo', 'Diaz', true],
   ['mcercone@adcogov.org', 'Max', 'Cercone', true],
@@ -40,8 +37,7 @@ user_data.each do |data|
   passwords = {
     password: whole_together,
     password_confirmation: whole_together
-
-}
+  }
 
   User.create! keys.zip(data).to_h.merge(passwords)
 end
