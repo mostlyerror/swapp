@@ -32,6 +32,7 @@ class Client < ApplicationRecord
   validates_format_of :email, with: Devise.email_regexp, allow_nil: true
 
   has_many :intakes
+  has_many :short_intakes
   has_many :vouchers
   has_many :incident_reports
 
