@@ -1,0 +1,80 @@
+<div class="px-6 mt-16">
+  <h3 class="">Hello, <span class="text-gray-900"><strong><em><%= current_user.first_name %></em></strong><span>!</h3>
+</div>
+
+<section class="mt-16">
+  <% if @swap.present? %>
+    <section id="notice--swap-inactive" class="notice bg-blue-300">
+     <h3>SWAP is active.</h3>
+      <p class="text-blue-900">
+        Vouchers can be issued beginning <%= humanize_date(@swap.intake_period.first) %> through <%= humanize_date(@swap.intake_period.last) %>
+      </p>
+      <div class="text-center text-gray-400 mt-8">
+        <i class="bi bi-search text-5xl text-black"></i>
+        <%= link_to 'Search for Clients', clients_path, class:"mt-6 p-3 text-5xl" %>
+      </div>
+    </section>
+    <% else %>
+    <section>
+      <% if @swap.nil? %>
+        <section id="notice--swap-inactive" class="notice bg-blue-300">
+         <h3 class="">There is currently no scheduled SWAP period.</h3>
+         <p class="text-blue-900">Vouchers may be issued up to 1 day before a new period is activated.</p>
+        </section>
+        <section class="mt-48 text-center text-7xl font-bold">
+            <h3 class="px-2 leading-normal"><a href="mailto:nubia@almosthomeonline.org?cc=Ashley@almosthomeonline.org&subject=Next%20SWAP%20Activation", class="link">Contact</a> your program administrators for details on the next activation.</h3>
+          </section>
+      <% end %>
+      </section>
+  <% end %>
+</section >
+
+<div class="p-3 mt-10 mb-96">
+  <% if @swap.present? %>
+   <h4 class="m-5 font-bold text-gray-900">Vouchers Remaining:</h4>
+   <ul class="p-6 flex flex-1 flex-col space-y-6 border-2 border-gray-900 shadow-2xl divide-y-4 divide-gray-900 divide-dashed">
+      <% @vouchers_remaining_today.each do |(motel_id, vouchers)| %>
+       <li class="flex flex-1 justify-between items-center p-1">
+         <p class="font-bold text-5xl mt-4 pl-7"><%= @motel_map[motel_id] %></p>
+         <p class="text-red-900 text-5xl mt-4 pr-10"><%= vouchers %></p>
+      </li>
+    <% end %>
+   </ul>
+  <% end %>
+</div>
+
+<div class="text-center tracking-wide">
+  <h1 class="m-2 p-3 font-bold">How it works:</h1>
+  <section class="flex flex-col items-center p-8 mb-32 text-6xl">
+  <div class="mb-24">
+    <i class="bi bi-search text-9xl"></i>
+    <p class="my-14 leading-normal">Search for the client</p>
+  </div>
+  <div class="mb-24">
+    <i class="bi bi-pencil-square text-9xl"></i>
+    <p class="my-10 px-7 leading-normal">Conduct questionnaire to learn more about their history</p>
+  </div>
+  <div>
+    <i class="bi bi-house-door text-9xl p-3"></i>
+    <p class="my-10 px-7 leading-normal">Submit the form and send the client to the motel of their choice</p>
+  </div>
+  </section>
+  <hr>
+  <div class="flex flex-col justify-items items-center">
+      <div class="my-24">
+        <a href="https://www.codeforamerica.org/" target="_blank">
+          <img src="https://www.codeforamerica.org/resources/images/cfa-logo-color.png" alt="Code For America" width="500" height="500">
+        </a>
+      </div>
+      <div class="my-24">
+        <a href="https://www.adcogov.org/community-safety-well-being" target="_blank">
+          <img src="https://www.adcogov.org/sites/all/themes/adams/images/logo.png" alt="Adams County" width="500" height="500">
+        </a>
+      </div>
+      <div class="my-24">
+        <a href="https://www.almosthomeonline.org/" target="_blank">
+          <img src="https://static.wixstatic.com/media/d5c3cb_6e8da3e0f3424ecba9758fdb99f00ff7~mv2.png/v1/fill/w_879,h_192,al_c,lg_1,q_85/AlmostHome_Logo_Horizontal_01_Web.webp" alt="Almost Home" width="600" height="600">
+        </a>
+      </div>
+  </div>
+</div>
