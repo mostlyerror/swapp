@@ -35,9 +35,11 @@ user_data.each do |data|
   first_name_part = data[1].slice(0, 3)
   last_name_part = data[2].slice(0, 4)
 
+  whole_together = "#{first_name_part + last_name_part}2021".downcase
+
   passwords = {
-    password: '"#{first_name_part + last_name_part}2021".downcase',
-    password_confirmation:'"#{first_name_part + last_name_part}2021".downcase'
+    password: whole_together,
+    password_confirmation: whole_together
 
 }
 
