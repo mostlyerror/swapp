@@ -121,7 +121,7 @@
       If client has family currently with them, please add them below.
       </p>
       <div id="family_members" class="mt-16"></div>
-      <a id="add_family_member" class="btn btn-outline">
+      <a id="add_family_member" class="btn btn-outline block rounded-lg text-center">
         + Add Family Member
       </a>
     </div>
@@ -258,31 +258,31 @@
 <% end %> <!-- end short_intake_form -->
 
 <div class="actions p-12">
-  <%= form.submit "Create", class: "w-full btn btn-blue h-32" %>
+  <%= form.submit "Create", class: "w-full btn btn-blue h-32 text-6xl" %>
 </div>
 <% end %> <!-- end voucher form -->
 
-<div id="template_family_member" class="hidden space-y-4 text-5xl">
+<div id="template_family_member" class="hidden space-y-4 text-5xl my-12">
   <input 
     placeholder="Name"
-    name="short_intake[survey][family_members][replace][name]"
+    name="short_intake[family_members][replace][name]"
     class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
 
   <input
     placeholder="Relationship"
-    name="short_intake[survey][family_members][replace][relationship]"
+    name="short_intake[family_members][replace][relationship]"
     class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
 
   <div class="p-4 flex flex-1 justify-between items-center text-gray-700">
-    <label for="short_intake[survey][family_members][replace][date_of_birth]">
+    <label for="short_intake[family_members][replace][date_of_birth]">
       Date of birth
     </label>
     <input type="date" 
-       name="short_intake[survey][family_members][replace][date_of_birth]" 
+       name="short_intake[family_members][replace][date_of_birth]" 
        class="text-5xl rounded-lg text-gray-400 focus:ring-indigo-500 focus:border-indigo-500">
   </div>
 
-  <select class="text-5xl w-full rounded-lg p-3" name="short_intake[survey][family_members][replace][gender]">
+  <select class="text-5xl w-full rounded-lg p-3" name="short_intake[family_members][replace][gender]">
     <% Client::GENDER.each do |gender| %>
       <option value="<%= gender %>"><%= gender %></option>
     <% end %>
@@ -291,12 +291,12 @@
   <ul class="flex flex-1 flex-col w-full p-3 space-y-4 text-gray-700">
     <% Client::RACE.each do |race| %>
       <li class="flex flex-1 items-baseline">
-        <label class="" for="short_intake[survey][family_members][replace][race][]">
+        <label class="" for="short_intake[family_members][replace][race][]">
           <input 
             class="w-11 h-11 text-indigo-600"
             type="checkbox"
             value="<%= race %>"
-            name="short_intake[survey][family_members][replace][race][]"
+            name="short_intake[family_members][replace][race][]"
           >
           <%= race %>
         </label>
@@ -305,7 +305,7 @@
   </ul>
 
   <div class="text-gray-700">
-    <select class="text-5xl w-full rounded-lg p-3" name="short_intake[survey][family_members][replace][ethnicity]">
+    <select class="text-5xl w-full rounded-lg p-3" name="short_intake[family_members][replace][ethnicity]">
       <% Client::ETHNICITY.each do |ethnicity| %>
         <option value="<%= ethnicity %>"><%= ethnicity %></option>
       <% end %>
@@ -313,44 +313,44 @@
   </div>
 
   <div class="text-gray-700 flex items-center justify-between">
-    <label for="short_intake[survey][family_members][replace][veteran][]">
+    <label for="short_intake[family_members][replace][veteran][]">
       Veteran?
     </label>
     <div class="inline">
-      <label for="short_intake[survey][family_members][replace][veteran][]">
+      <label for="short_intake[family_members][replace][veteran][]">
         Yes
         <input type="radio" 
                class="w-8 h-8"
-               name="short_intake[survey][family_members][replace][veteran][]"
+               name="short_intake[family_members][replace][veteran][]"
                value="Yes">
       </label>
-      <label for="short_intake[survey][family_members][replace][veteran][]">
+      <label for="short_intake[family_members][replace][veteran][]">
         No
         <input type="radio" 
                class="w-8 h-8"
-               name="short_intake[survey][family_members][replace][veteran][]"
+               name="short_intake[family_members][replace][veteran][]"
                value="No">
       </label>
     </div>
   </div>
 
   <div class="text-gray-700 flex items-center justify-between">
-    <label for="short_intake[survey][family_members][replace][disabling_condition][]">
+    <label for="short_intake[family_members][replace][disabling_condition][]">
       Disabling Condition?
     </label>
     <div class="inline">
-      <label for="short_intake[survey][family_members][replace][disabling_condition][]">
+      <label for="short_intake[family_members][replace][disabling_condition][]">
         Yes
         <input type="radio" 
                class="w-8 h-8"
-               name="short_intake[survey][family_members][replace][disabling_condition][]"
+               name="short_intake[family_members][replace][disabling_condition][]"
                value="Yes">
       </label>
-      <label for="short_intake[survey][family_members][replace][disabling_condition][]">
+      <label for="short_intake[family_members][replace][disabling_condition][]">
         No
         <input type="radio" 
                class="w-8 h-8"
-               name="short_intake[survey][family_members][replace][disabling_condition][]"
+               name="short_intake[family_members][replace][disabling_condition][]"
                value="No">
       </label>
     </div>
