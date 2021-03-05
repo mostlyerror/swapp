@@ -2,16 +2,21 @@
   <p class="step-description">Issue hotel voucher </p>
   <h1 class="mt-24 text-9xl text-black font-bold">Create a voucher. 🎫</h1>
   <p class="mt-6 help-text">
-    Which hotel is the client headed to and for how long?
-    Try to collect phone/email at this stage if you can, in order to share the digital voucher easily.
-    You may want to copy the created voucher info and send it to your client.
   </p>
 </div>
+
 <section class="mt-16">
   <%= render partial: 'shared/swap_notices' %>
 </section>
-<section class="px-6 mt-16 pb-24">
-  <% if SwapIntake.can_issue_voucher_today?(@swap) %>
-    <%= render partial: 'form' %>
-  <% end %>
-</section>
+
+<% if @existing_voucher.present? %>
+  <%= render partial: 'shared/notices/existing_voucher' %>
+<% else %> 
+  <section class="px-6 mt-16 pb-24">
+    <% if SwapIntake.can_issue_voucher_today?(@swap) %>
+      <%= render partial: 'form' %>
+    <% else %>
+      <!-- todo notice we can't issue vouchers today -->
+    <% end %>
+  </section>
+<% end %>

@@ -1,5 +1,6 @@
 class IntakesController < ApplicationController
   before_action :hydrate_form, only: %i[ new create ]
+
   def new
     @intake = Intake.new
     @client = Client.new
@@ -7,67 +8,44 @@ class IntakesController < ApplicationController
   end
 
   def create
-    Intake.transaction do |t|
-      @intake = Intake.new(intake_params)
-      @intake.user = current_user
+    @intake = Intake.new(intake_params.except(:voucher))
 
-      client_params = intake_params['client_attributes']
-      @client = Client.new(client_params)
-      @client.race = client_params['race']&.join(',')
+    client_params = intake_params[:client_attributes]
+    @client = Client.new(client_params)
+    @client.race = client_params[:race].reject {|r| r == "0" }
 
-      @motel = Motel.find(intake_params["survey"]["motel_id"])
-      @check_in = intake_params["survey"]["check_in"]
-      @check_out = intake_params["survey"]["check_out"]
-
-      @intake.client = @client
-      if !@intake.save
-        return render :new
-      end
-
-      if !@client.save
-        @client.errors.full_messages.each do |message|
-          @intake.errors[:client] << message
-        end
-        return render :new
-      end
-
-      @voucher = Voucher.create!(
-        client: @client,
-        user: current_user,
-        motel: @motel,
-        check_in: @check_in,
-        check_out: @check_out,
-        swap: @swap
-      )
-
-      return redirect_to voucher_created_path(@voucher)
+    @intake.client = @client
+    @intake.user = current_user
+    if !@intake.save
+      return render :new
     end
 
-    redirect_to @intake
+    redirect_to new_voucher_path(client_id: @client.id, intake_id: @intake.id)
   end
 
   private
 
   def intake_params
     params.require(:intake).permit(
-      survey: [
-        "king_soopers_card", "bus_pass", 
-        "homelessness_first_time", "homelessness_how_long_this_time",
-        "homelessness_episodes_last_three_years",
-        "homelessness_episodes_how_long", "how_long_living_in_this_community",
-        "where_did_you_sleep_last_night", "why_not_shelter", "are_you_working",
-        "armed_forces", "active_duty", "substance_abuse",
-        "substance_abuse_impairment", "chronic_health_condition",
-        "chronic_health_condition_impairment", "mental_health_disability",
-        "mental_health_disability_impairment", "physical_disability",
-        "physical_disability_impairment", "developmental_disability",
-        "developmental_disability_impairment", "fleeing_domestic_violence",
-        "num_adults_household", "num_children_household",
-        "last_permanent_residence_city_and_state",
-        "last_permanent_residence_county",
-        "motel_id", "check_in", "check_out"
-      ],
-      client_attributes: ["first_name", "last_name", "date_of_birth", "gender", "ethnicity", "phone_number", "email", {race: []}],
+      :homelessness_first_time,
+      :episodes_last_three_years_fewer_than_four_times,
+      :where_did_you_sleep_last_night, 
+      {why_not_shelter: []},
+      :armed_forces,
+      :active_duty, 
+      :substance_abuse, 
+      :chronic_health_condition,
+      :mental_health_condition, 
+      :mental_health_disability,
+      :physical_disability, 
+      :developmental_disability,
+      :fleeing_domestic_violence, 
+      :how_long_this_time,
+      :total_how_long_shelters_or_streets,
+      :are_you_working,
+      :last_permanent_residence_county,
+      client_attributes: [:first_name, :last_name, :date_of_birth, :gender, {race: []}, :ethnicity, :phone_number, :email],
+      voucher: [:check_in, :check_out, :motel_id],
     )
   end
 
