@@ -28,6 +28,8 @@ whyNotShelterInput.onchange = () => {
 	whyNotShelterCheckbox.value = `Other: ${whyNotShelterInput.value}`;
 };
 
+
+
 const addFamilyMemberBtn = document.getElementById("add_family_member");
 let familyMembers = 0;
 
@@ -42,6 +44,11 @@ addFamilyMemberBtn.onclick = () => {
 
 	let select = clone.querySelector('select')
 	select.name = select.name.replace("replace", familyMembers);
+
+	clone.querySelectorAll('label')
+	     .forEach(label => { 
+		     label.name = label.htmlFor.replace("replace", familyMembers);
+	     });
 
 	clone.querySelectorAll('input')
 	     .forEach(input => { 
