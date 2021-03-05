@@ -88,10 +88,12 @@ class Intake < ApplicationRecord
       "In a shelter",
       "In a motel",
       "Doubled Up",
-      "In a car/RV",
+      "In a car",
+      "In an RV",
       "On the streets or in a tent",
       "In the hospital",
       "Incarcerated",
+      "Institution",
     ]
   )
 
@@ -174,6 +176,7 @@ class Intake < ApplicationRecord
     text: "Do you have a Developmental Disability?",
     choices: %w[ Yes No ]
   )
+
   FLEEING_DOMESTIC_VIOLENCE = OpenStruct.new(
     key: :fleeing_domestic_violence,
     text: "Are you experiencing homelessness because you are fleeing Domestic Violence, Sexual Assault or Stalking?",
