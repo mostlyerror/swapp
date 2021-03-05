@@ -16,5 +16,5 @@ Rails.application.routes.draw do
     put "swaps/:id/room_supply" => "swaps#update_room_supply", as: :update_room_supply
   end
  
-  root to: "clients#index"
+  root to: "landing#index"
 end
