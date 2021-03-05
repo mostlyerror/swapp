@@ -10,6 +10,10 @@ keys = [
 ]
 
 user_data = [
+  ['swapp@codeforamerica.org', 'Swapp', 'User', true],
+  ['bpoon@codeforamerica.org', 'Ben', 'Poon', true],
+  ['bjohnson@codeforamerica.org', 'Brandon', 'Johnson', true],
+  ['ftang@codeforamerica.org', 'Fiona', 'Tang', true],
   ['learl@adcogov.org', 'Lindsey', 'Earl', true],
   ['pdiaz@adcogov.org', 'Paolo', 'Diaz', true],
   ['mcercone@adcogov.org', 'Max', 'Cercone', true],

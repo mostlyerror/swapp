@@ -99,6 +99,22 @@ ActiveRecord::Base.transaction do |t|
     ['bpoon@codeforamerica.org', 'Ben', 'Poon', true],
     ['bjohnson@codeforamerica.org', 'Brandon', 'Johnson', true],
     ['ftang@codeforamerica.org', 'Fiona', 'Tang', true],
+    ['learl@adcogov.org', 'Lindsey', 'Earl', true],
+    ['pdiaz@adcogov.org', 'Paolo', 'Diaz', true],
+    ['mcercone@adcogov.org', 'Max', 'Cercone', true],
+    ['cjurischk@adcogov.org', 'Courtney', 'Jurischk', true],
+    ['mrivera@adcogov.org', 'Matt', 'Rivera', true],
+    ['hmcclure@adcogov.org', 'Heather', 'McClure', false],
+    ['jschultz@adcogov.org', 'Jason', 'Schultz', true],
+    ['ashley@almosthomeonline.org', 'Ashley', 'Dunn', true],
+    ['stephanie@almosthomeonline.org', 'Stephanie', 'Beazley', true],
+    ['jeanette@almosthomeonline.org', 'Jeanette', 'Causey', true],
+    ['nubia@almosthomeonline.org', 'Nubia', 'Saenz', true],
+    ['mayra.galaviz@thorntonco.gov', 'Mayra', 'Galaviz', false],
+    ['jaylin.stotler@thorntonco.gov', 'Jaylin', 'Stotler', false],
+    ['mario.solis-armenta@thorntonco.gov', 'Mario', 'Solis-Armenta', false],
+    ['rvenkatesh@northglenn.org', 'Rupa', 'Venkatesh', false],
+    ['jhulse@northglenn.org', 'Jessica', 'Hulse', false],
   ]
 
   user_data.each do |data|
