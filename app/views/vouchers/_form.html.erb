@@ -14,12 +14,14 @@
         <ul class="flex flex-1 flex-col space-y-12 p-12 text-6xl">
           <% question.choices.each do |choice| %>
             <li>
-              <%= short_intake_form.label question.key, choice %>
-              <%= short_intake_form.radio_button question.key,
-                choice, 
-                class: "h-10 w-10 text-indigo-600",
-                required: true,
-                checked: @short_intake.where_did_you_sleep_last_night == choice %>
+              <label>
+                <%= choice %>
+                <%= short_intake_form.radio_button question.key, choice,
+                  class: "h-10 w-10 mr-8",
+                  checked: @short_intake.where_did_you_sleep_last_night,
+                  required: true
+                %>
+              </label>
             </li>
           <% end %>
           <li class="flex flex-1 items-center relative">
@@ -29,16 +31,16 @@
               </span>
             </div>
             <%= short_intake_form.text_field question.key,
-              value: @short_intake.where_did_you_sleep_last_night&.starts_with?("Other:") && @short_intake.where_did_you_sleep_last_night,
+              value: @short_intake&.where_did_you_sleep_last_night&.starts_with?("Other:") && @short_intake&.where_did_you_sleep_last_night,
+              name: "",
               id: "#{question.key}_other_text_field",
               class: "flex-1 focus:ring-indigo-500 focus:border-indigo-500 block mr-6 pl-48 py-6 border-gray-300 rounded-lg text-5xl"
             %>
-          <%= short_intake_form.radio_button question.key,
-            "other_radio",
-            id: "#{question.key}_other_radio",
-            checked: @short_intake.where_did_you_sleep_last_night&.starts_with?("Other:"),
-            class: "h-10 w-10 text-indigo-600"
-          %>
+            <%= short_intake_form.radio_button question.key,
+              "other_radio",
+              id: "#{question.key}_other_radio",
+              class: "h-10 w-10 text-indigo-600"
+            %>
           </li>
         </ul>
     </div>
@@ -50,7 +52,7 @@
       %>
     <%= short_intake_form.text_field question.key,
       size: 23, 
-      value: @short_intake.what_city_did_you_sleep_in_last_night,
+      value: @short_intake&.what_city_did_you_sleep_in_last_night,
       required: true,
       class: "mt-4 w-full rounded-lg p-8 text-6xl"
     %>
@@ -100,31 +102,51 @@
       </ul>
     </div>
 
-    <!-- 
-      if we have household data (previous ShortIntake)
-      # has your household composition changed?
-      if yes
-      form me
-      end
-      end
-
-      if we dont have housedhold data,
-      if we dont have any ShortIntakes, we don't have household data, this becomes for "first-time client"
-      show the form
-      end
-    -->
     <div class="mt-16 w-full text-gray-700">
-      <h3 class="text-6xl leading-6 font-medium text-gray-900">
-        Family Members
-      </h3>
-      <p class="mt-8 text-5xl text-gray-500">
-      If client has family currently with them, please add them below.
-      </p>
-      <div id="family_members" class="mt-16"></div>
-      <a id="add_family_member" class="btn btn-outline block rounded-lg text-center">
-        + Add Family Member
-      </a>
+      <% if !@previous_short_intakes.present? %>
+        <p class="block leading-tight font-semibold">
+          Has your household composition changed?
+        </p>
+        <div class="p-4 flex">
+          <label class="household_composition_changed_yes">
+            Yes
+            <input type="radio" 
+              class="w-8 h-8 mr-8 household_composition_changed_yes"
+              name="household_composition_changed"
+              required=true
+              value="Yes">
+          </label>
+          <label class="household_composition_changed_no">
+            No
+            <input type="radio" 
+              class="w-8 h-8 household_composition_changed_no"
+              name="household_composition_changed"
+              required=true
+              value="No">
+          </label>
+        </div>
+        <div id="family_members_container" class="hidden">
+          <div id="family_members" class="mt-16"></div>
+          <button type="button" id="add_family_member" class="btn btn-outline block rounded-lg text-center">
+            + Add Family Member
+          </button>
+        </div>
+      <% else %>
+        <div id="family_members_container">
+          <h3 class="text-6xl leading-6 font-medium text-gray-900">
+            Family Members
+          </h3>
+          <p class="mt-8 text-5xl text-gray-500">
+          If client has family currently with them, please add them below.
+          </p>
+          <div id="family_members" class="mt-16"></div>
+          <button type="button" id="add_family_member" class="btn btn-outline block rounded-lg text-center">
+            + Add Family Member
+          </button>
+        </div>
+      <% end %>
     </div>
+
   </div>
 
   <div class="mt-16 bg-white border-8 border-black text-5xl">
@@ -230,7 +252,7 @@
       <div class="p-4">
         <% question.choices.each do |choice| %>
           <%= short_intake_form.label question.key, choice %>
-          <%= short_intake_form.radio_button question.key, choice, 
+          <%= short_intake_form.radio_button question.key, choice == "Yes", 
             class: "h-10 w-10 mr-8",
             checked: @short_intake.bus_pass == choice,
             required: true
@@ -246,7 +268,7 @@
       <div class="p-4">
         <% question.choices.each do |choice| %>
           <%= short_intake_form.label question.key, choice %>
-          <%= short_intake_form.radio_button question.key, choice, 
+          <%= short_intake_form.radio_button question.key, choice == "Yes", 
             class: "h-10 w-10 mr-8",
             checked: @short_intake.king_soopers_card == choice,
             required: true
@@ -264,22 +286,22 @@
 
 <div id="template_family_member" class="hidden space-y-4 text-5xl my-12">
   <input 
-    placeholder="Name"
-    name="short_intake[family_members][replace][name]"
-    class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+  placeholder="Name"
+  name="short_intake[family_members][replace][name]"
+  class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
 
   <input
-    placeholder="Relationship"
-    name="short_intake[family_members][replace][relationship]"
-    class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+  placeholder="Relationship"
+  name="short_intake[family_members][replace][relationship]"
+  class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
 
   <div class="p-4 flex flex-1 justify-between items-center text-gray-700">
     <label for="short_intake[family_members][replace][date_of_birth]">
       Date of birth
     </label>
     <input type="date" 
-       name="short_intake[family_members][replace][date_of_birth]" 
-       class="text-5xl rounded-lg text-gray-400 focus:ring-indigo-500 focus:border-indigo-500">
+    name="short_intake[family_members][replace][date_of_birth]" 
+    class="text-5xl rounded-lg text-gray-400 focus:ring-indigo-500 focus:border-indigo-500">
   </div>
 
   <select class="text-5xl w-full rounded-lg p-3" name="short_intake[family_members][replace][gender]">
@@ -293,10 +315,10 @@
       <li class="flex flex-1 items-baseline">
         <label class="" for="short_intake[family_members][replace][race][]">
           <input 
-            class="w-11 h-11 text-indigo-600"
-            type="checkbox"
-            value="<%= race %>"
-            name="short_intake[family_members][replace][race][]"
+          class="w-11 h-11 text-indigo-600"
+          type="checkbox"
+          value="<%= race %>"
+          name="short_intake[family_members][replace][race][]"
           >
           <%= race %>
         </label>
