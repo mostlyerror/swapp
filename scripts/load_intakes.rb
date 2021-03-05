@@ -28,7 +28,18 @@ def parse_date(val)
 end
 
 def parse_dob(val)
-  parse_date(val).first
+  formats = [
+    "%m/%d/%Y", # m_d_yy_slash
+    "%m-%d-%Y"  # m_d_yy_dash
+  ]
+  date = date_str = val.to_s.strip
+  formats.each do |fmt|
+    date = Date.strptime(date_str, fmt)
+    break
+  rescue Date::Error
+    next
+  end
+  date
 end
 
 def parse_phone_number(val)
@@ -56,9 +67,8 @@ def parse_race(val)
 end
 
 ActiveRecord::Base.transaction do
-  factory_bot
-  user = create(:user)
-  swap = create(:swap, :tomorrow)
+  user = User.find_by(email: "swapp@codeforamerica.org")
+  
   CSV.foreach(filename, opts) do |row|
     line += 1
 
@@ -73,6 +83,21 @@ ActiveRecord::Base.transaction do
       email: parse_email(row['Email']),
       ethnicity: row['Ethnicity']
     }
+
+    client = Client.where("lower(last_name) = ? and lower(first_name) = ? and date_of_birth = ?", 
+        client_attrs[:last_name].downcase, 
+        client_attrs[:first_name].downcase, 
+        client_attrs[:date_of_birth]
+      ).first
+
+    client ||= Client.new(client_attrs)
+
+    if client.errors.any?
+      ap row
+      ap client.errors
+      ap client
+      gets
+    end
 
     intake_attrs = {
       user: user,
@@ -105,8 +130,9 @@ ActiveRecord::Base.transaction do
         last_permanent_residence_city_and_state: row['City and State of Last Permanent Residence:']&.strip,
         last_permanent_residence_county: row['County of Last Permanent Residence:']&.strip
       },
-      client_attributes: client_attrs
+      client: client
     }
+
     intake = Intake.create(intake_attrs)
 
     if intake.errors.any?
@@ -116,5 +142,6 @@ ActiveRecord::Base.transaction do
       gets
     end
   end
-  raise :finished
+  puts "#{Client.count} clients"
+  puts "#{Intake.count} intakes"
 end
