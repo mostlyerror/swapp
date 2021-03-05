@@ -18,6 +18,7 @@
               <%= short_intake_form.radio_button question.key,
                 choice, 
                 class: "h-10 w-10 text-indigo-600",
+                required: true,
                 checked: @short_intake.where_did_you_sleep_last_night == choice %>
             </li>
           <% end %>
@@ -32,12 +33,12 @@
               id: "#{question.key}_other_text_field",
               class: "flex-1 focus:ring-indigo-500 focus:border-indigo-500 block mr-6 pl-48 py-6 border-gray-300 rounded-lg text-5xl"
             %>
-          <%= short_intake_form.radio_button question.key,
-            "other_radio",
-            id: "#{question.key}_other_radio",
-            checked: @short_intake.where_did_you_sleep_last_night&.starts_with?("Other:"),
-            class: "h-10 w-10 text-indigo-600"
-          %>
+            <%= short_intake_form.radio_button question.key,
+              "other_radio",
+              id: "#{question.key}_other_radio",
+              checked: @short_intake.where_did_you_sleep_last_night&.starts_with?("Other:"),
+              class: "h-10 w-10 text-indigo-600"
+            %>
           </li>
         </ul>
     </div>
@@ -47,11 +48,12 @@
       <%= short_intake_form.label question.key, question.text,
         class: "block leading-snug font-semibold"
       %>
-    <%= short_intake_form.text_field question.key,
-      size: 23, 
-      value: @short_intake.what_city_did_you_sleep_in_last_night,
-      class: "mt-4 w-full rounded-lg p-8 text-6xl"
-    %>
+      <%= short_intake_form.text_field question.key,
+        size: 23, 
+        value: @short_intake.what_city_did_you_sleep_in_last_night,
+        required: true,
+        class: "mt-4 w-full rounded-lg p-8 text-6xl"
+      %>
     </div>
 
     <div class="mt-16 text-gray-700">
@@ -62,7 +64,10 @@
         <% question.choices.each do |reason| %>
           <li class="flex flex-1 space-x-10 items-baseline">
             <%= short_intake_form.check_box question.key, 
-              {multiple: true, class: "w-11 h-11 text-indigo-600"},
+              {
+                multiple: true,
+                class: "w-11 h-11 text-indigo-600"
+              },
               reason, 
               nil
             %>
@@ -78,19 +83,19 @@
           <% other_checked = @short_intake.why_not_shelter&.find {|r| r.starts_with?("Other:") } %>
           <%= short_intake_form.check_box question.key, 
             {
-            multiple: true, 
-            id: "why_not_shelter_other_checkbox",
-            checked: other_checked,
-            value: other_checked && @short_intake.why_not_shelter,
-            class: "w-11 h-11 mr-10 text-indigo-600"
-          },
-          "other_checkbox"
-        %>
-      <input type="text" 
-             value="<%= other_checked %>"
-             id="<%= "#{question.key}_other_text_field" %>"
-             class="w-full focus:ring-indigo-500 focus:border-indigo-500 block
-             pl-44 py-6 border-gray-300 rounded-lg text-5xl">
+              multiple: true, 
+              id: "why_not_shelter_other_checkbox",
+              checked: other_checked,
+              value: other_checked && @short_intake.why_not_shelter,
+              class: "w-11 h-11 mr-10 text-indigo-600"
+            },
+            "other_checkbox"
+          %>
+          <input type="text" 
+            value="<%= other_checked %>"
+            id="<%= "#{question.key}_other_text_field" %>"
+            class="w-full focus:ring-indigo-500 focus:border-indigo-500 block
+            pl-44 py-6 border-gray-300 rounded-lg text-5xl">
         </li>
       </ul>
     </div>
@@ -114,7 +119,7 @@
         Family Members
       </h3>
       <p class="mt-8 text-5xl text-gray-500">
-      If client has family currently with them, please add them below.
+        If client has family currently with them, please add them below.
       </p>
       <div id="family_members" class="mt-16"></div>
       <a id="add_family_member" class="btn btn-outline">
@@ -164,7 +169,8 @@
           options_for_select(@motels, disabled: @disabled),
           {include_blank: true},
           class: "mt-4 w-full rounded-lg p-8 text-6xl",
-          required: true %>
+          required: true 
+        %>
       </div>
     </section>
   </div>
@@ -200,6 +206,7 @@
         min: 0, step: 1, 
         class: "mt-4 rounded-lg w-full p-8 text-6xl", 
         value: @voucher.num_adults_in_household,
+        required: true,
         placeholder: question.placeholder 
       %>
     </div>
@@ -212,6 +219,7 @@
       min: 0, step: 1, 
       class: "mt-4 rounded-lg w-full p-8 text-6xl", 
       value: @voucher.num_children_in_household,
+      required: true,
       placeholder: question.placeholder 
     %>
   </div>
@@ -225,7 +233,9 @@
         <%= short_intake_form.label question.key, choice %>
         <%= short_intake_form.radio_button question.key, choice, 
           class: "h-10 w-10 mr-8",
-          checked: @short_intake.bus_pass == choice %>
+          checked: @short_intake.bus_pass == choice,
+          required: true
+        %>
       <% end %>
     </div>
   </div>
@@ -239,7 +249,9 @@
         <%= short_intake_form.label question.key, choice %>
         <%= short_intake_form.radio_button question.key, choice, 
           class: "h-10 w-10 mr-8",
-          checked: @short_intake.king_soopers_card == choice %>
+          checked: @short_intake.king_soopers_card == choice,
+          required: true
+        %>
       <% end %>
     </div>
   </div>

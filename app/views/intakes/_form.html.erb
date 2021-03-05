@@ -56,6 +56,7 @@
         <%= client_attributes.select question.key,
           options_for_select(question.choices, @client.gender),
           {},
+          required: true,
           class: "mt-6 rounded-lg w-full p-8 text-6xl"
         %>
       </div>
@@ -87,6 +88,7 @@
         <%= client_attributes.select question.key,
           options_for_select(question.choices, @client.ethnicity),
           {},
+          required: true,
           class: "mt-6 rounded-lg w-full p-8 text-6xl"
         %>
       </div>
@@ -100,6 +102,7 @@
             <%= form.label :homelessness_first_time, choice %>
             <%= form.radio_button :homelessness_first_time, choice == "Yes", 
               class: "h-10 w-10 mr-8 text-indigo-600",
+              required: true,
               checked: @intake.homelessness_first_time == choice %>
           <% end %>
         </div>
@@ -114,6 +117,7 @@
         size: 23, 
         value: @intake.how_long_this_time,
         placeholder: question.placeholder,
+        required: true,
         class: "mt-4 w-full rounded-lg p-8 text-6xl"
       %>
       </div>
@@ -125,11 +129,11 @@
         <div class="mt-4 p-4 flex flex-1 flex-col space-y-8">
           <% question.choices.each do |choice| %>
             <div>
-
               <%= form.label :episodes_last_three_years_fewer_than_four_times, choice %>
               <%= form.radio_button :episodes_last_three_years_fewer_than_four_times,
                 choice == "Fewer than 4 times",
                 class: "h-10 w-10 text-indigo-600",
+                required: true,
                 checked: @intake.episodes_last_three_years_fewer_than_four_times == choice %>
             </div>
           <% end %>
@@ -141,12 +145,13 @@
         <%= form.label question.key, question.text,
           class: "block leading-tight font-semibold"
         %>
-      <%= form.text_field question.key,
-        size: 23, 
-        value: @intake.total_how_long_shelters_or_streets,
-        placeholder: question.placeholder,
-        class: "mt-4 w-full rounded-lg p-8 text-6xl"
-      %>
+        <%= form.text_field question.key,
+          size: 23, 
+          value: @intake.total_how_long_shelters_or_streets,
+          placeholder: question.placeholder,
+          required: true,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+        %>
       </div>
 
       <div class="text-gray-700">
@@ -156,11 +161,12 @@
         <%= form.select question.key, 
           options_for_select(
             Intake::ARE_YOU_WORKING.choices, 
-            selected: @intake.are_you_working
-        ),
-        {},
-        class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl"
-      %>
+            @intake.are_you_working || ''
+          ),
+          {include_blank: ''},
+          required: true,
+          class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl"
+          %>
       </div>
 
       <div class="text-gray-700">
@@ -172,6 +178,7 @@
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
               class: "h-10 w-10 mr-8",
+              required: true,
               checked: @intake.armed_forces == choice %>
           <% end %>
         </div>
@@ -186,6 +193,7 @@
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
               class: "h-10 w-10 mr-8",
+              required: true,
               checked: @intake.active_duty == choice %>
           <% end %>
         </div>
@@ -200,6 +208,7 @@
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
               class: "h-10 w-10 mr-8",
+              required: true,
               checked: @intake.substance_abuse == choice %>
           <% end %>
         </ul>
@@ -214,6 +223,7 @@
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
               class: "h-10 w-10 mr-8",
+              required: true,
               checked: @intake.chronic_health_condition == choice %>
           <% end %>
         </ul>
@@ -228,6 +238,7 @@
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
               class: "h-10 w-10 mr-8",
+              required: true,
               checked: @intake.mental_health_condition == choice %>
           <% end %>
         </ul>
@@ -242,6 +253,7 @@
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes",
               class: "h-10 w-10 mr-8",
+              required: true,
               checked: @intake.mental_health_disability == choice %>
           <% end %>
         </ul>
@@ -255,6 +267,7 @@
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
               class: "h-10 w-10 mr-8",
+              required: true,
               checked: @intake.physical_disability == choice %>
           <% end %>
         </ul>
@@ -269,6 +282,7 @@
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
               class: "h-10 w-10 mr-8",
+              required: true,
               checked: @intake.developmental_disability == choice %>
           <% end %>
         </ul>
@@ -283,6 +297,7 @@
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
               class: "h-10 w-10 mr-8",
+              required: true,
               checked: @intake.fleeing_domestic_violence == choice %>
           <% end %>
         </div>
@@ -296,6 +311,7 @@
         <%= form.text_field question.key,
           value: @intake.last_permanent_residence_county,
           placeholder: question.placeholder,
+          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
