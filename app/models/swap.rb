@@ -1,6 +1,8 @@
 class Swap < ApplicationRecord
   validates_presence_of :start_date, :end_date
-  validate :order_of_dates, :overlapping_events, :at_least_one_night
+  validate :order_of_dates
+  validate :overlapping_events
+  validate :at_least_one_night
 
   has_many :vouchers
   has_many :availabilities
@@ -83,7 +85,7 @@ class Swap < ApplicationRecord
     end
 
     def overlapping_events
-      overlapping = self.class.where("id <> ? AND start_date <= ? AND ? <= end_date", id, end_date, start_date)
+      overlapping = self.class.where("start_date <= ? AND ? <= end_date", end_date, start_date)
       if overlapping.present?
         errors.add(:overlapping, "can't overlap other swap period: #{overlapping.first}")
       end
