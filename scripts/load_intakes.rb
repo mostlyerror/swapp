@@ -88,6 +88,7 @@ ActiveRecord::Base.transaction do
       ['2021-01-16', '2021-01-18'],
       ['2021-01-23', '2021-01-27'],
       ['2021-02-02', '2021-02-19'],
+      ['2021-02-24', '2021-03-05']
     ]
 
     @swap_periods.each do |(start_date, end_date)|
@@ -213,7 +214,14 @@ ActiveRecord::Base.transaction do
     motel_id = hotels.fetch(row['Hotel'].parameterize.underscore)
     date_range = parse_date(row['Date']).compact
     check_in = date_range.first
-    check_out = date_range.last || date_range.first + row['# of Nights']
+    if date_range.last
+      if date_range.last == date_range.first
+        check_out = date_range.last + 1
+      end
+    else
+      date_range.first + row['# of Nights']
+    end
+
     swap = Swap.where("start_date <= ? AND ? <= end_date", check_out, check_in).first
 
     if !swap
