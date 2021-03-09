@@ -54,8 +54,9 @@ class Swap < ApplicationRecord
     self.transaction do
       self.end_date = self.end_date.to_date + nights
       save!
-      vouchers.each { |voucher| voucher.extend!(nights) }
+      self.vouchers.each { |voucher| voucher.extend!(nights) }
     end
+    self
   end
 
   def to_s
@@ -86,6 +87,7 @@ class Swap < ApplicationRecord
 
     def overlapping_events
       overlapping = self.class.where("start_date <= ? AND ? <= end_date", end_date, start_date)
+        .reject { |sw| sw == self }
       if overlapping.present?
         errors.add(:overlapping, "can't overlap other swap period: #{overlapping.first}")
       end
