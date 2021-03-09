@@ -9,17 +9,26 @@
   <%= render partial: 'shared/swap_notices' %>
   <div class="flex flex-1 flex-col font-bold space-y-16 ">
     <div class="w-full">
-      <% if @existing_voucher.present? %>
-        <%= render partial: 'shared/notices/existing_voucher' %>
+      <% if @client.incident_reports.any? %>
+        <section class="text-5xl px-6 mt-16">
+          <p class="help-text">
+            <strong class="text-red-500"><%= @client.first_name %> has been red flagged program-wide</strong>. They are not currently eligible to receive SWAP hotel vouchers.
+          </p>
+        </section>
       <% else %>
-        <% if @swap.present? %>
-          <% if !@num_vouchers_remaining_today.zero? %> 
-            <p class="px-6 mt-16 text-6xl text-center">Issue a <%= link_to 'hotel voucher', new_voucher_path(client_id: @client.id), class: 'link' %> 🎫</p>
-          <% end %>
+        <% if @existing_voucher.present? %>
+          <%= render partial: 'shared/notices/existing_voucher' %>
         <% else %>
-          <p class="px-6 mt-16 text-6xl">Hotel vouchers can only be issued during a SWAP period.</p>
+          <% if @swap.present? %>
+            <% if !@num_vouchers_remaining_today.zero? %> 
+              <p class="px-6 mt-16 text-6xl text-center">Issue a <%= link_to 'hotel voucher', new_voucher_path(client_id: @client.id), class: 'link' %> 🎫</p>
+            <% end %>
+          <% else %>
+            <p class="px-6 mt-16 text-6xl">Hotel vouchers can only be issued during a SWAP period.</p>
+          <% end %>
         <% end %>
       <% end %>
+
     </div>
   </div>
 </section>
@@ -34,11 +43,6 @@
         <p class="text-5xl"><strong>Description:</strong> <%= incident.description %></p>
       </div>
     <% end %>
-    <section class="text-5xl px-6 mt-16">
-      <p class="help-text">
-        <strong class="text-red-500"><%= @client.first_name %> has been red flagged at MOTEL</strong>. If you send them to a motel, be sure you DON'T send them to MOTEL!
-      </p>
-    </section>
   <% else %>
     <div class="bg-white text-6xl font-bold text-center py-12 leading-relaxed border border-b-1 border-black">
       <p>No incidents found.</p>
