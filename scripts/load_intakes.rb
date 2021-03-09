@@ -133,7 +133,7 @@ ActiveRecord::Base.transaction do
 
     client ||= Client.new(client_attrs)
     client.save
-
+    
     if client.errors.any?
       ap row
       ap client.errors
@@ -143,6 +143,7 @@ ActiveRecord::Base.transaction do
 
     intake_attrs = {
       user: user,
+
       client: client,
       homelessness_first_time:
         "Is this the first time you have been homeless?",
