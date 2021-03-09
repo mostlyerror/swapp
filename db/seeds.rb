@@ -49,7 +49,7 @@ ActiveRecord::Base.transaction do |t|
       pet_friendly: false,
     },
     {
-      name: 'Comfort Inn-Denver',
+      name: 'Comfort Inn Denver',
       address: {
         street: '401 E. 58th Ave', 
         city: 'Denver',
