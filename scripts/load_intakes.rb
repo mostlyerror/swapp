@@ -1,4 +1,3 @@
-reload!
 filename = Rails.root.join("intakes.csv")
 line = 1
 
@@ -8,7 +7,7 @@ def parse_date(val)
     "%m-%d",    # m_d_no_year_dash
     "%m/%d/%Y", # m_d_yy_slash
     "%m-%d-%Y", # m_d_yy_dash
-    "%d-%b",    # d_b_no_year_dash 
+    "%d-%b",    # d_b_no_year_dash
     "%d/%b",    # d_b_no_year_slash
   ]
   d1, d2 = val.to_s.strip.split("-")
@@ -101,7 +100,7 @@ ActiveRecord::Base.transaction do
   hotels = Motel.all.reduce({}) do |memo, hotel|
     memo.merge(Hash[hotel.name.parameterize.underscore, hotel.id])
   end
-  
+
   opts = {
     headers: true,
     header_converters: ->(h) { h&.strip },
@@ -125,9 +124,9 @@ ActiveRecord::Base.transaction do
       client_attrs[:date_of_birth] = "1600-01-01".to_date
     end
 
-    client = Client.where("lower(last_name) = ? and lower(first_name) = ? and date_of_birth = ?", 
-        client_attrs[:last_name].downcase, 
-        client_attrs[:first_name].downcase, 
+    client = Client.where("lower(last_name) = ? and lower(first_name) = ? and date_of_birth = ?",
+        client_attrs[:last_name].downcase,
+        client_attrs[:first_name].downcase,
         client_attrs[:date_of_birth].to_s
       ).first
 
@@ -188,7 +187,7 @@ ActiveRecord::Base.transaction do
     short_intake_attrs = {
       user: user,
       client: client,
-      where_did_you_sleep_last_night: 
+      where_did_you_sleep_last_night:
         "Where did you sleep last night?",
       what_city_did_you_sleep_in_last_night:
         "City and State of Last Permanent Residence:",

@@ -33,7 +33,7 @@ user_data = [
 ]
 
 user_data.each do |data|
-  first_part = data[1].slice(0, 3)
+  first_part = data[1].slice(0, 1)
   last_part = data[2].slice(0, 4)
 
   whole_together = "#{first_part + last_part}2021".downcase
