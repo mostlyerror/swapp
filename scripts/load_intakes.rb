@@ -1,6 +1,5 @@
 reload!
 filename = Rails.root.join("intakes.csv")
-opts = {headers: true}
 line = 1
 
 def parse_date(val)
@@ -67,8 +66,48 @@ def parse_race(val)
 end
 
 ActiveRecord::Base.transaction do
-  user = User.find_by(email: "swapp@codeforamerica.org")
+  @swap_periods = nil
+  swaps_start = Swap.count
+  clients_start = Client.count
+  intakes_start = Intake.count
+  short_intakes_start = ShortIntake.count
+  vouchers_start = Voucher.count
+
+  Swap.transaction do
+    ap "creating swaps.."
+    Swap.destroy_all
+    @swap_periods = [
+      ['2020-10-26', '2020-10-27'],
+      ['2020-11-08', '2020-11-12'],
+      ['2020-11-23', '2020-11-29'],
+      ['2020-12-01', '2020-12-03'],
+      ['2020-12-10', '2020-12-18'],
+      ['2020-12-22', '2020-12-23'],
+      ['2020-12-26', '2021-01-01'],
+      ['2021-01-05', '2021-01-06'],
+      ['2021-01-08', '2021-01-12'],
+      ['2021-01-16', '2021-01-18'],
+      ['2021-01-23', '2021-01-27'],
+      ['2021-02-02', '2021-02-19'],
+    ]
+
+    @swap_periods.each do |(start_date, end_date)|
+      Swap.create!(start_date: start_date.to_date, end_date: end_date.to_date)
+    end
+  end
+
+  user = User.first_or_create(email: "swapp@codeforamerica.org")
+
+  hotels = Motel.all.reduce({}) do |memo, hotel|
+    memo.merge(Hash[hotel.name.parameterize.underscore, hotel.id])
+  end
   
+  opts = {
+    headers: true,
+    header_converters: ->(h) { h&.strip },
+    converters: ->(f) { f&.strip }
+  }
+
   CSV.foreach(filename, opts) do |row|
     line += 1
 
@@ -76,22 +115,25 @@ ActiveRecord::Base.transaction do
       last_name: row['Last Name'],
       first_name: row['First Name'],
       date_of_birth: parse_dob(row['DOB']),
-      phone_number_raw: row['Phone'],
       phone_number: parse_phone_number(row['Phone']),
       gender: parse_gender(row['Gender']),
-      email_raw: row['Email'],
       email: parse_email(row['Email']),
       ethnicity: row['Ethnicity']
     }
 
+    if client_attrs[:date_of_birth].blank?
+      client_attrs[:date_of_birth] = "1600-01-01".to_date
+    end
+
     client = Client.where("lower(last_name) = ? and lower(first_name) = ? and date_of_birth = ?", 
         client_attrs[:last_name].downcase, 
         client_attrs[:first_name].downcase, 
-        client_attrs[:date_of_birth]
+        client_attrs[:date_of_birth].to_s
       ).first
 
     client ||= Client.new(client_attrs)
-
+    client.save
+    
     if client.errors.any?
       ap row
       ap client.errors
@@ -101,36 +143,37 @@ ActiveRecord::Base.transaction do
 
     intake_attrs = {
       user: user,
-      survey: {
-        king_soopers_card: row['King Soopers Card']&.strip,
-        bus_pass: row['Bus Pass']&.strip,
-        homelessness_first_time: row['Is this the first time you have been homeless?']&.strip,
-        homelessness_how_long_this_time: row['How long have you been homeless this time?']&.strip,
-        homelessness_episodes_last_three_years: row['Including this time, how many separate times have you stayed in shelters or on the streets in the past 3 years?']&.strip,
-        homelessness_episodes_how_long: row['In total, how long did you stay in shelters or on the streets those times?']&.strip,
-        how_long_living_in_this_community: row['How long have you been living in this community?']&.strip,
-        where_did_you_sleep_last_night: row['Where did you sleep last night?']&.strip,
-        why_not_shelter: row['What is the reason you have not accessed shelter?']&.strip,
-        are_you_working: row['Are you working?']&.strip,
-        active_duty: row['Were you ever called into active duty as a member of the National Guard or as a Reservist?']&.strip,
-        armed_forces: row['Have you ever served in the US Armed Forces (Army, Navy, Air Force, Marines or Coast Guard)?']&.strip,
-        substance_abuse: row['Do you have any Substance Abuse Issues?']&.strip,
-        substance_abuse_impairment: row['impair_substance']&.strip,
-        chronic_health_condition: row['Do you have a Chronic Health Condition?']&.strip,
-        chronic_health_condition_impairment: row['impair_chronic_health_condition']&.strip,
-        mental_health_disability: row['Do you have a Mental Health disability?']&.strip,
-        mental_health_disability_impairment: row['impair_mental_health']&.strip,
-        physical_disability: row['Do you have a Physical Disability?']&.strip,
-        physical_disability_impairment: row['impair_physical_disability']&.strip,
-        developmental_disability: row['Do you have a Developmental Disability?']&.strip,
-        developmental_disability_impairment: row['impair_developmental_disability']&.strip,
-        fleeing_domestic_violence: row['Are you experiencing homelessness because you are fleeing Domestic Violence, Sexual Assault or Stalking?']&.strip,
-        num_adults_household: row['Number of adults in household']&.strip,
-        num_children_household: row['Number of children in household']&.strip,
-        last_permanent_residence_city_and_state: row['City and State of Last Permanent Residence:']&.strip,
-        last_permanent_residence_county: row['County of Last Permanent Residence:']&.strip
-      },
-      client: client
+
+      client: client,
+      homelessness_first_time:
+        "Is this the first time you have been homeless?",
+      how_long_this_time:
+        "How long have you been homeless this time?",
+      episodes_last_three_years_fewer_than_four_times:
+        "Including this time, how many separate times have you stayed in shelters or on the streets in the past 3 years?",
+      total_how_long_shelters_or_streets:
+        "In total, how long did you stay in shelters or on the streets those times?",
+      are_you_working:
+        "Are you working?",
+      armed_forces:
+        "Have you ever served in the US Armed Forces (Army, Navy, Air Force, Marines or Coast Guard)?",
+      active_duty:
+        "Were you ever called into active duty as a member of the National Guard or as a Reservist?",
+      substance_abuse:
+        "Do you have any Substance Abuse Issues?",
+      chronic_health_condition:
+        "Do you have a Chronic Health Condition?",
+      mental_health_disability:
+        "Do you have a Mental Health disability?",
+      physical_disability:
+        "Do you have a Physical Disability?",
+      developmental_disability:
+        "Do you have a Developmental Disability?",
+      fleeing_domestic_violence:
+        "Are you experiencing homelessness because you are fleeing Domestic
+        Violence, Sexual Assault or Stalking?",
+      last_permanent_residence_county:
+        "County of Last Permanent Residence:"
     }
 
     intake = Intake.create(intake_attrs)
@@ -141,7 +184,68 @@ ActiveRecord::Base.transaction do
       ap intake
       gets
     end
+
+    short_intake_attrs = {
+      user: user,
+      client: client,
+      where_did_you_sleep_last_night: 
+        "Where did you sleep last night?",
+      what_city_did_you_sleep_in_last_night:
+        "City and State of Last Permanent Residence:",
+      why_not_shelter:
+        "What is the reason you have not accessed shelter?",
+      bus_pass:
+        "Bus Pass",
+      king_soopers_card:
+        "King Soopers Card",
+      family_members: {},
+      household_composition_changed: nil
+    }
+
+    short_intake = ShortIntake.create(short_intake_attrs)
+
+    if short_intake.errors.any?
+      ap row
+      ap short_intake.errors
+      ap short_intake
+      gets
+    end
+
+    motel_id = hotels.fetch(row['Hotel'].parameterize.underscore)
+    date_range = parse_date(row['Date']).compact
+    check_in = date_range.first
+    check_out = date_range.last || date_range.first + row['# of Nights']
+    swap = Swap.where("start_date <= ? AND ? <= end_date", check_out, check_in).first
+
+    if !swap
+      ap check_in
+      ap check_out
+      ap @swap_periods
+      gets
+    end
+
+    timestamp = Time.zone.now
+
+    voucher_attrs = {
+      client_id: client.id,
+      user_id: user.id,
+      motel_id: motel_id,
+      swap_id: swap.id,
+      check_in: check_in,
+      check_out: check_out,
+      number: row['Voucher #']&.strip,
+      num_adults_in_household: row['Number of adults in household']&.strip.to_i,
+      num_children_in_household: row['Number of children in household']&.strip.to_i,
+      created_at: timestamp,
+      updated_at: timestamp
+    }
+
+    voucher = Voucher.insert(voucher_attrs)
   end
-  puts "#{Client.count} clients"
-  puts "#{Intake.count} intakes"
+
+  puts "Swap start: #{swaps_start}, end: #{Swap.count}"
+  puts "Swap start: #{clients_start}, end: #{Client.count}"
+  puts "Swap start: #{intakes_start}, end: #{Intake.count}"
+  puts "Swap start: #{short_intakes_start}, end: #{ShortIntake.count}"
+  puts "Swap start: #{vouchers_start}, end: #{Voucher.count}"
 end

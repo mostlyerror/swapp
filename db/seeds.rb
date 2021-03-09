@@ -1,33 +1,33 @@
 ActiveRecord::Base.transaction do |t|
   user_data = [
     {
-      email: 'sudney@cityinn.com',
-      first_name: 'Sydney',
-      last_name: 'Motel',
+      email: 'frontdesk@cityinn.com',
+      first_name: 'City',
+      last_name: 'Inn',
       password: 'password',
       password_confirmation: 'password',
       admin: false,
     },
     {
-      email: 'carol@comfortinn.com',
-      first_name: 'Carol',
-      last_name: 'Motel',
+      email: 'frontdesk@comfortinn.com',
+      first_name: 'Comfort',
+      last_name: 'Inn Denver',
       password: 'password',
       password_confirmation: 'password',
       admin: false,
     },
     {
-      email: 'harriet@hometownestudios.com',
-      first_name: 'Harriett',
-      last_name: 'Motel',
+      email: 'frontdesk@hometownestudios.com',
+      first_name: 'Hometowne',
+      last_name: 'Studios',
       password: 'password',
       password_confirmation: 'password',
       admin: false,
     },
     {
-      email: 'quincey@qualityinn.com',
-      first_name: 'Quincey',
-      last_name: 'Motel',
+      email: 'frontdesk@qualityinn.com',
+      first_name: 'Quality',
+      last_name: 'Inn',
       password: 'password',
       password_confirmation: 'password',
       admin: false
@@ -49,7 +49,7 @@ ActiveRecord::Base.transaction do |t|
       pet_friendly: false,
     },
     {
-      name: 'Comfort Inn-Denver Central',
+      name: 'Comfort Inn-Denver',
       address: {
         street: '401 E. 58th Ave', 
         city: 'Denver',
@@ -104,17 +104,17 @@ ActiveRecord::Base.transaction do |t|
     ['mcercone@adcogov.org', 'Max', 'Cercone', true],
     ['cjurischk@adcogov.org', 'Courtney', 'Jurischk', true],
     ['mrivera@adcogov.org', 'Matt', 'Rivera', true],
-    ['hmcclure@adcogov.org', 'Heather', 'McClure', true],
+    ['hmcclure@adcogov.org', 'Heather', 'McClure', false],
     ['jschultz@adcogov.org', 'Jason', 'Schultz', true],
     ['ashley@almosthomeonline.org', 'Ashley', 'Dunn', true],
     ['stephanie@almosthomeonline.org', 'Stephanie', 'Beazley', true],
     ['jeanette@almosthomeonline.org', 'Jeanette', 'Causey', true],
     ['nubia@almosthomeonline.org', 'Nubia', 'Saenz', true],
-    ['mayra.galaviz@thorntonco.gov', 'Mayra', 'Galaviz', true],
-    ['jaylin.stotler@thorntonco.gov', 'Jaylin', 'Stotler', true],
-    ['mario.solis-armenta@thorntonco.gov', 'Mario', 'Solis-Armenta', true],
-    ['rvenkatesh@northglenn.org', 'Rupa', 'Venkatesh', true],
-    ['jhulse@northglenn.org', 'Jessica', 'Hulse', true],
+    ['mayra.galaviz@thorntonco.gov', 'Mayra', 'Galaviz', false],
+    ['jaylin.stotler@thorntonco.gov', 'Jaylin', 'Stotler', false],
+    ['mario.solis-armenta@thorntonco.gov', 'Mario', 'Solis-Armenta', false],
+    ['rvenkatesh@northglenn.org', 'Rupa', 'Venkatesh', false],
+    ['jhulse@northglenn.org', 'Jessica', 'Hulse', false],
   ]
 
   user_data.each do |data|
