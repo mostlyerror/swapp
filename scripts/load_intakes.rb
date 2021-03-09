@@ -66,6 +66,7 @@ def parse_race(val)
 end
 
 ActiveRecord::Base.transaction do
+  @swap_periods = nil
   swaps_start = Swap.count
   clients_start = Client.count
   intakes_start = Intake.count
@@ -75,7 +76,7 @@ ActiveRecord::Base.transaction do
   Swap.transaction do
     ap "creating swaps.."
     Swap.destroy_all
-    periods = [
+    @swap_periods = [
       ['2020-10-26', '2020-10-27'],
       ['2020-11-08', '2020-11-12'],
       ['2020-11-23', '2020-11-29'],
@@ -90,13 +91,16 @@ ActiveRecord::Base.transaction do
       ['2021-02-02', '2021-02-19'],
     ]
 
-    periods.each do |(start_date, end_date)|
+    @swap_periods.each do |(start_date, end_date)|
       Swap.create!(start_date: start_date.to_date, end_date: end_date.to_date)
     end
   end
 
-  ap "creating user.."
   user = User.first_or_create(email: "swapp@codeforamerica.org")
+
+  hotels = Motel.all.reduce({}) do |memo, hotel|
+    memo.merge(Hash[hotel.name.parameterize.underscore, hotel.id])
+  end
   
   opts = {
     headers: true,
@@ -205,15 +209,42 @@ ActiveRecord::Base.transaction do
       ap short_intake
       gets
     end
-  end
 
-  ap "finished..?"
+    motel_id = hotels.fetch(row['Hotel'].parameterize.underscore)
+    date_range = parse_date(row['Date']).compact
+    check_in = date_range.first
+    check_out = date_range.last || date_range.first + row['# of Nights']
+    swap = Swap.where("start_date <= ? AND ? <= end_date", check_out, check_in).first
+
+    if !swap
+      ap check_in
+      ap check_out
+      ap @swap_periods
+      gets
+    end
+
+    timestamp = Time.zone.now
+
+    voucher_attrs = {
+      client_id: client.id,
+      user_id: user.id,
+      motel_id: motel_id,
+      swap_id: swap.id,
+      check_in: check_in,
+      check_out: check_out,
+      number: row['Voucher #']&.strip,
+      num_adults_in_household: row['Number of adults in household']&.strip.to_i,
+      num_children_in_household: row['Number of children in household']&.strip.to_i,
+      created_at: timestamp,
+      updated_at: timestamp
+    }
+
+    voucher = Voucher.insert(voucher_attrs)
+  end
 
   puts "Swap start: #{swaps_start}, end: #{Swap.count}"
   puts "Swap start: #{clients_start}, end: #{Client.count}"
   puts "Swap start: #{intakes_start}, end: #{Intake.count}"
   puts "Swap start: #{short_intakes_start}, end: #{ShortIntake.count}"
   puts "Swap start: #{vouchers_start}, end: #{Voucher.count}"
-
-  raise 'fin'
 end
