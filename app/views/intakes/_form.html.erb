@@ -203,22 +203,22 @@
         <% question = Intake::SUBSTANCE_ABUSE %>
         <%= form.label question.key, question.text,
           class: "block leading-snug font-semibold" %>
-        <ul class="p-4 flex flex-1">
-          <% question.choices.each do |choice| %>
-            <%= form.label question.key, choice %>
-            <%= form.radio_button question.key, choice == "Yes", 
-              class: "h-10 w-10 mr-8",
-              required: true,
-              checked: @intake.substance_abuse == choice %>
-          <% end %>
-        </ul>
+          <ul class="p-4">
+            <% question.choices.each do |choice| %>
+              <%= form.label question.key, choice %>
+              <%= form.radio_button question.key, choice == "Yes", 
+                class: "h-10 w-10 mr-8",
+                required: true,
+                checked: @intake.substance_abuse == choice %>
+            <% end %>
+          </ul>
       </div>
 
       <div class="text-gray-700">
         <% question = Intake::CHRONIC_HEALTH_CONDITION %>
         <%= form.label question.key, question.text,
           class: "block leading-snug font-semibold" %>
-        <ul class="p-4 flex flex-1">
+        <ul class="p-4">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
@@ -233,7 +233,7 @@
         <% question = Intake::MENTAL_HEALTH_CONDITION %>
         <%= form.label question.key, question.text,
           class: "block leading-snug font-semibold" %>
-        <ul class="p-4 flex flex-1">
+        <ul class="p-4">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
@@ -248,7 +248,7 @@
         <% question = Intake::MENTAL_HEALTH_DISABILITY %>
         <%= form.label question.key, question.text,
           class: "block leading-snug font-semibold" %>
-        <ul class="p-4 flex flex-1">
+        <ul class="p-4">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes",
@@ -262,7 +262,7 @@
         <% question = Intake::PHYSICAL_DISABILITY %>
         <%= form.label question.key, question.text,
           class: "block leading-snug font-semibold" %>
-        <ul class="p-4 flex flex-1">
+        <ul class="p-4">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
@@ -277,7 +277,7 @@
         <% question = Intake::DEVELOPMENTAL_DISABILITY %>
         <%= form.label question.key, question.text,
           class: "block leading-snug font-semibold" %>
-        <ul class="p-4 flex flex-1">
+        <ul class="p-4">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
