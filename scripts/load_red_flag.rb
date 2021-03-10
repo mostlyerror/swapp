@@ -1,4 +1,3 @@
-reload!
 IncidentReport.transaction do
   irs_start = IncidentReport.count
   filename = Rails.root.join("red_flag.csv")
