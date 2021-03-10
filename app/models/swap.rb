@@ -1,8 +1,4 @@
 class Swap < ApplicationRecord
-  include AASM
-
-  aasm do
-  end
   include AASM 
 
   validates_presence_of :start_date, :end_date
