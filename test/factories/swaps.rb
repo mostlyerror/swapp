@@ -16,7 +16,7 @@ FactoryBot.define do
     end
 
     trait :future do
-      start_date { Date.current + 5 }
+      start_date { Date.current + 6 }
       end_date { Date.current + 8 }
     end
   end

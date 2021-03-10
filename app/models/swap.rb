@@ -1,4 +1,6 @@
 class Swap < ApplicationRecord
+  include AASM 
+
   validates_presence_of :start_date, :end_date
   validate :order_of_dates
   validate :overlapping_events
@@ -6,6 +8,19 @@ class Swap < ApplicationRecord
 
   has_many :vouchers
   has_many :availabilities
+
+  aasm do
+    state :inactive, initial: true
+    state :active
+
+    event :activate do
+      transitions from: :inactive, to: :active
+    end
+
+    event :deactivate do
+      transitions from: :active, to: :inactive
+    end
+  end
 
   def self.current
     where("start_date <= ? AND end_date >= ?", Date.current.tomorrow, Date.current).first
