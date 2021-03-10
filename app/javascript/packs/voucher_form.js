@@ -7,8 +7,6 @@ document.addEventListener("change", (event) => {
 			"where_did_you_sleep_last_night_other_radio"
 		)
 
-		console.log("setting Other: sleep last night value");
-
 		sleepLastNightRadio.setAttribute("checked", "checked");
 		sleepLastNightRadio.value = `Other: ${sleepLastNightInput.value}`;
 	}
