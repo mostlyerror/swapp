@@ -73,8 +73,6 @@ ActiveRecord::Base.transaction do
   vouchers_start = Voucher.count
 
   Swap.transaction do
-    ap "creating swaps.."
-    Swap.destroy_all
     @swap_periods = [
       ['2020-10-26', '2020-10-27'],
       ['2020-11-08', '2020-11-12'],
@@ -97,6 +95,7 @@ ActiveRecord::Base.transaction do
   end
 
   user = User.first_or_create(email: "swapp@codeforamerica.org")
+
 
   hotels = Motel.all.reduce({}) do |memo, hotel|
     memo.merge(Hash[hotel.name.parameterize.underscore, hotel.id])
@@ -214,13 +213,7 @@ ActiveRecord::Base.transaction do
     motel_id = hotels.fetch(row['Hotel'].parameterize.underscore)
     date_range = parse_date(row['Date']).compact
     check_in = date_range.first
-    if date_range.last
-      if date_range.last == date_range.first
-        check_out = date_range.last + 1
-      end
-    else
-      date_range.first + row['# of Nights']
-    end
+    check_out = date_range.first + row['# of Nights']&.strip.to_i
 
     swap = Swap.where("start_date <= ? AND ? <= end_date", check_out, check_in).first
 
