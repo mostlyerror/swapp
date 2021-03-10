@@ -65,5 +65,4 @@ IncidentReport.transaction do
 
   puts "irs start: #{irs_start}"
   puts "irs end: #{IncidentReport.count}"
-  raise 'finsihed?'
 end
