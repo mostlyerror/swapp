@@ -4,11 +4,12 @@
 
 <section class="mt-16">
   <% if @swap.present? %>
-    <section id="notice--swap-inactive" class="notice bg-blue-300">
+    <section id="notice--swap-inactive" class="notice bg-indigo-300">
      <h3>SWAP is active.</h3>
-      <p class="text-blue-900">
-        Vouchers can be issued beginning <%= humanize_date(@swap.intake_period.first) %> through <%= humanize_date(@swap.intake_period.last) %>
-      </p>
+      <div class="text-indigo-900">
+        <p>Vouchers can be issued beginning <strong><%= humanize_date(@swap.intake_start_date) %></strong> through <strong><%= humanize_date(@swap.intake_end_date) %></strong></p>
+        <p>Voucher check-in is <strong><%= humanize_date(@swap.start_date) %></strong> and check-out is <strong><%= humanize_date(@swap.end_date) %></strong></p>
+      </div>
       <div class="text-center text-gray-400 mt-8">
         <i class="bi bi-search text-5xl text-black"></i>
         <%= link_to 'Search for Clients', clients_path, class:"mt-6 p-3 text-5xl" %>
