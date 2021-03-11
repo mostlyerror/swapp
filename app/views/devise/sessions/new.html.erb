@@ -12,13 +12,15 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <h1 class="text-9xl text-center font-bold">swapp.</h1>
       <div class="flex flex-col space-y-16 mt-24 text-5xl text-gray-600">
-        <% if flash.alert %>
-          <div id="error_explanation">
-            <ul>
-              <li><%= flash.alert %></li>
-            </ul>
-          </div>
-        <% end %>
+        <div class="field">
+          <% if flash.alert %>
+            <div id="error_explanation">
+              <ul>
+                <li><%= flash.alert %></li>
+              </ul>
+            </div>
+          <% end %>
+        </div>
         <div class="field">
           <%= f.label :email, class: "block leading-relaxed" %>
           <%= f.email_field :email, 
