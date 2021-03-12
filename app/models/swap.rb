@@ -1,4 +1,6 @@
 class Swap < ApplicationRecord
+  include AASM 
+
   validates_presence_of :start_date, :end_date
   validate :order_of_dates
   validate :overlapping_events
@@ -6,6 +8,19 @@ class Swap < ApplicationRecord
 
   has_many :vouchers
   has_many :availabilities
+
+  aasm do
+    state :inactive, initial: true
+    state :active
+
+    event :activate do
+      transitions from: :inactive, to: :active
+    end
+
+    event :deactivate do
+      transitions from: :active, to: :inactive
+    end
+  end
 
   def self.current
     where("start_date <= ? AND end_date >= ?", Date.current.tomorrow, Date.current).first
@@ -17,14 +32,6 @@ class Swap < ApplicationRecord
 
   def intake_period
     (start_date - 1.day)..(end_date - 1.day)
-  end
-
-  def intake_start_date
-    intake_period.first
-  end
-
-  def intake_end_date
-    intake_period.last
   end
 
   def stay_period
@@ -54,8 +61,9 @@ class Swap < ApplicationRecord
     self.transaction do
       self.end_date = self.end_date.to_date + nights
       save!
-      vouchers.each { |voucher| voucher.extend!(nights) }
+      self.vouchers.each { |voucher| voucher.extend!(nights) }
     end
+    self
   end
 
   def to_s
@@ -86,6 +94,7 @@ class Swap < ApplicationRecord
 
     def overlapping_events
       overlapping = self.class.where("start_date <= ? AND ? <= end_date", end_date, start_date)
+        .reject { |sw| sw == self }
       if overlapping.present?
         errors.add(:overlapping, "can't overlap other swap period: #{overlapping.first}")
       end

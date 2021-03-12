@@ -35,4 +35,19 @@ class ExtendingSwapTest < ActiveSupport::TestCase
     voucher = create(:voucher, swap: swap)
     assert_raises { voucher.extend!(-1)}
   end
+
+  test "vouchers not assoc'd to the swap period are not extended" do
+    s1 = create(:swap, :tomorrow)
+    v1 = create(:voucher, swap: s1)
+    s2 = create(:swap, :future)
+    v2 = create(:voucher, swap: s2)
+
+    assert_changes -> { v1.reload.check_out } do
+      s1.extend!(1)
+    end
+
+    assert_no_changes -> { v2.reload.check_out } do
+      s1.extend!(1)
+    end
+  end
 end

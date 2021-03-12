@@ -1,4 +1,3 @@
-reload!
 filename = Rails.root.join("intakes.csv")
 line = 1
 
@@ -8,7 +7,7 @@ def parse_date(val)
     "%m-%d",    # m_d_no_year_dash
     "%m/%d/%Y", # m_d_yy_slash
     "%m-%d-%Y", # m_d_yy_dash
-    "%d-%b",    # d_b_no_year_dash 
+    "%d-%b",    # d_b_no_year_dash
     "%d/%b",    # d_b_no_year_slash
   ]
   d1, d2 = val.to_s.strip.split("-")
@@ -74,8 +73,6 @@ ActiveRecord::Base.transaction do
   vouchers_start = Voucher.count
 
   Swap.transaction do
-    ap "creating swaps.."
-    Swap.destroy_all
     @swap_periods = [
       ['2020-10-26', '2020-10-27'],
       ['2020-11-08', '2020-11-12'],
@@ -89,6 +86,7 @@ ActiveRecord::Base.transaction do
       ['2021-01-16', '2021-01-18'],
       ['2021-01-23', '2021-01-27'],
       ['2021-02-02', '2021-02-19'],
+      ['2021-02-24', '2021-03-05']
     ]
 
     @swap_periods.each do |(start_date, end_date)|
@@ -98,10 +96,11 @@ ActiveRecord::Base.transaction do
 
   user = User.first_or_create(email: "swapp@codeforamerica.org")
 
+
   hotels = Motel.all.reduce({}) do |memo, hotel|
     memo.merge(Hash[hotel.name.parameterize.underscore, hotel.id])
   end
-  
+
   opts = {
     headers: true,
     header_converters: ->(h) { h&.strip },
@@ -125,9 +124,9 @@ ActiveRecord::Base.transaction do
       client_attrs[:date_of_birth] = "1600-01-01".to_date
     end
 
-    client = Client.where("lower(last_name) = ? and lower(first_name) = ? and date_of_birth = ?", 
-        client_attrs[:last_name].downcase, 
-        client_attrs[:first_name].downcase, 
+    client = Client.where("lower(last_name) = ? and lower(first_name) = ? and date_of_birth = ?",
+        client_attrs[:last_name].downcase,
+        client_attrs[:first_name].downcase,
         client_attrs[:date_of_birth].to_s
       ).first
 
@@ -188,7 +187,7 @@ ActiveRecord::Base.transaction do
     short_intake_attrs = {
       user: user,
       client: client,
-      where_did_you_sleep_last_night: 
+      where_did_you_sleep_last_night:
         "Where did you sleep last night?",
       what_city_did_you_sleep_in_last_night:
         "City and State of Last Permanent Residence:",
@@ -214,7 +213,8 @@ ActiveRecord::Base.transaction do
     motel_id = hotels.fetch(row['Hotel'].parameterize.underscore)
     date_range = parse_date(row['Date']).compact
     check_in = date_range.first
-    check_out = date_range.last || date_range.first + row['# of Nights']
+    check_out = date_range.first + row['# of Nights']&.strip.to_i
+
     swap = Swap.where("start_date <= ? AND ? <= end_date", check_out, check_in).first
 
     if !swap

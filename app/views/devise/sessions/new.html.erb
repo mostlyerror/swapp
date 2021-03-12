@@ -7,10 +7,18 @@
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <body class="min-h-screen bg-gray-100 overscroll-x-contain">
-  <div class="flex mx-auto justify-center mt-96">
+  <div class="flex mx-auto justify-center mt-96 max-w-xs">
+
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <h1 class="text-9xl text-center font-bold">swapp.</h1>
       <div class="flex flex-col space-y-16 mt-24 text-5xl text-gray-600">
+        <% if flash.alert %>
+          <div id="error_explanation">
+            <ul>
+              <li><%= flash.alert %></li>
+            </ul>
+          </div>
+        <% end %>
         <div class="field">
           <%= f.label :email, class: "block leading-relaxed" %>
           <%= f.email_field :email, 
@@ -27,7 +35,7 @@
           %>
         </div>
         <div>
-          <%= f.submit "Log in", class: "btn btn-blue w-full h-26" %>
+          <%= f.submit "Log in", class: "bg-indigo-500 text-white hover:bg-indigo-700 font-bold py-8 mt-10 w-full" %>
           <% if devise_mapping.rememberable? %>
             <div class="field text-center mt-8">
               <%= f.check_box :remember_me, class: "m-2 h-10 w-10" %>
