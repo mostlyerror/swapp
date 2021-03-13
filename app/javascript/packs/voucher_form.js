@@ -10,7 +10,7 @@ document.addEventListener("change", (event) => {
 		sleepLastNightRadio.setAttribute("checked", "checked");
 		sleepLastNightRadio.value = `Other: ${sleepLastNightInput.value}`;
 	}
-})
+}, false)
 
 document.addEventListener("change", (event) => {
 	if (event.target.matches("#why_not_shelter_other_text_field")) {
@@ -23,7 +23,7 @@ document.addEventListener("change", (event) => {
 		whyNotShelterCheckbox.setAttribute("checked", "checked");
 		whyNotShelterCheckbox.value = `Other: ${whyNotShelterInput.value}`;
 	}
-})
+}, false)
 
 document.addEventListener("click", (event) => {
 	if (event.target.matches(".household_composition_changed_yes")) {
