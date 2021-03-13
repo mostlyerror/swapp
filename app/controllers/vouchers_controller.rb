@@ -23,8 +23,8 @@ class VouchersController < ApplicationController
     )
 
     if !@client.update(
-      phone_number: client_params[:phone_number],
-      email: client_params[:email],
+        phone_number: client_params[:phone_number],
+        email: client_params[:email],
     )
       return render :new
     end
@@ -50,13 +50,18 @@ class VouchersController < ApplicationController
       motel_id: voucher_params[:motel_id],
       check_in: voucher_params[:check_in],
       check_out: voucher_params[:check_out],
+      num_adults_in_household: voucher_params[:num_adults_in_household],
+      num_children_in_household: voucher_params[:num_children_in_household]
     )
 
+    @voucher.validate
+    # client has already received a voucher for the current swap period?
+    if @voucher.errors[:client_id].include? "has already been taken"
+      @existing_voucher = @swap.vouchers.find_by(client_id: @voucher.client_id)
+      return render :new
+    end
+
     if !@voucher.save
-      # client has already received a voucher for the current swap period?
-      if @voucher.errors[:client_id].include? "has already been taken"
-        @existing_voucher = @swap.vouchers.find_by(client_id: @voucher.client_id)
-      end
       return render :new
     end
 
@@ -70,46 +75,47 @@ class VouchersController < ApplicationController
   end
 
   private
-    def voucher_params
-      params.require(:voucher).permit(
-        :check_in, 
-        :check_out, 
-        :motel_id, 
+
+  def voucher_params
+    params.require(:voucher).permit(
+      :check_in, 
+      :check_out, 
+      :motel_id, 
+      :num_adults_in_household, 
+      :num_children_in_household,
+      client: [
+        :id,
+        :phone_number,
+        :email
+      ],
+      short_intake: [
+        :where_did_you_sleep_last_night,
+        :what_city_did_you_sleep_in_last_night, 
+        {why_not_shelter: []},
+        :household_composition_changed,
         :num_adults_in_household, 
         :num_children_in_household,
-        client: [
-          :id,
-          :phone_number,
-          :email
-        ],
-        short_intake: [
-          :where_did_you_sleep_last_night,
-          :what_city_did_you_sleep_in_last_night, 
-          {why_not_shelter: []},
-          :household_composition_changed,
-          :num_adults_in_household, 
-          :num_children_in_household,
-          :bus_pass,
-          :king_soopers_card,
-        ],
-      )
-    end
+        :bus_pass,
+        :king_soopers_card,
+      ],
+    )
+  end
 
-    def set_voucher
-      @voucher = Voucher.find(params[:id])
-    end
+  def set_voucher
+    @voucher = Voucher.find(params[:id])
+  end
 
-    def set_voucher_supply_for_hotel_dropdown
-      if @swap
-        supply = RoomSupply.vouchers_remaining_today(@swap)
-        @disabled = []
-        @motels = Motel.all.reduce({}) do |memo, motel|
-          name = "#{motel.name} (#{supply[motel.id]})"
-          if supply[motel.id].to_i <= 0
-            @disabled << motel.id
-          end
-          memo.merge(Hash[name, motel.id])
+  def set_voucher_supply_for_hotel_dropdown
+    if @swap
+      supply = RoomSupply.vouchers_remaining_today(@swap)
+      @disabled = []
+      @motels = Motel.all.reduce({}) do |memo, motel|
+        name = "#{motel.name} (#{supply[motel.id]})"
+        if supply[motel.id].to_i <= 0
+          @disabled << motel.id
         end
+        memo.merge(Hash[name, motel.id])
       end
     end
+  end
 end
