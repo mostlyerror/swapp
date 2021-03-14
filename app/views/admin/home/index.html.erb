@@ -12,5 +12,6 @@
   </section>
   <section class="mt-16">
     <%= render partial: 'vouchers_issued' %>
+    <%= link_to 'download voucher report', admin_swap_report_url(format: :csv) %>
   </section>
 </div>
