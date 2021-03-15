@@ -96,7 +96,7 @@
       <div class="text-gray-700">
         <% question = Intake::HOMELESSNESS_FIRST_TIME %>
         <%= form.label :homelessness_first_time, question.text, class: "block leading-tight font-semibold" %>
-        <ul class="p-4 flex">
+        <ul class="py-4 mb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button :homelessness_first_time, choice == "Yes", 
@@ -130,7 +130,7 @@
       <div class="text-gray-700">
         <% question = Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS %>
         <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
-        <ul class="p-4 flex">
+        <ul class="py-4 mb-32 flex">
           <li class="relative flex-1">
             <% choice = "Fewer than 4 times" %>
             <%= form.radio_button question.key, choice == "Fewer than 4 times", 
@@ -196,7 +196,7 @@
       <div class="text-gray-700">
         <% question = Intake::VETERAN %>
         <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
-        <ul class="p-4 flex">
+        <ul class="py-4 mb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button question.key, choice == "Yes", 
@@ -218,7 +218,7 @@
         <% question = Intake::ACTIVE_DUTY %>
         <%= form.label question.key, question.text, 
           class: "block leading-tight font-semibold" %>
-        <ul class="p-4 flex">
+        <ul class="py-4 mb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button question.key, choice == "Yes", 
@@ -240,7 +240,7 @@
         <% question = Intake::SUBSTANCE_ABUSE %>
         <%= form.label question.key, question.text, 
           class: "block leading-tight font-semibold" %>
-        <ul class="p-4 flex">
+        <ul class="py-4 mb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button question.key, choice == "Yes", 
@@ -262,7 +262,7 @@
         <% question = Intake::CHRONIC_HEALTH_CONDITION %>
         <%= form.label question.key, question.text, 
           class: "block leading-tight font-semibold" %>
-        <ul class="p-4 flex">
+        <ul class="py-4 mb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button question.key, choice == "Yes", 
@@ -284,7 +284,7 @@
         <% question = Intake::MENTAL_HEALTH_CONDITION %>
         <%= form.label question.key, question.text, 
           class: "block leading-tight font-semibold" %>
-        <ul class="p-4 flex">
+        <ul class="py-4 mb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button question.key, choice == "Yes", 
@@ -306,7 +306,7 @@
         <% question = Intake::MENTAL_HEALTH_DISABILITY %>
         <%= form.label question.key, question.text, 
           class: "block leading-tight font-semibold" %>
-        <ul class="p-4 flex">
+        <ul class="py-4 mb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button question.key, choice == "Yes", 
@@ -328,7 +328,7 @@
         <% question = Intake::PHYSICAL_DISABILITY %>
         <%= form.label question.key, question.text, 
           class: "block leading-tight font-semibold" %>
-        <ul class="p-4 flex">
+        <ul class="py-4 mb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button question.key, choice == "Yes", 
@@ -351,7 +351,7 @@
         <% question = Intake::DEVELOPMENTAL_DISABILITY %>
         <%= form.label question.key, question.text, 
           class: "block leading-tight font-semibold" %>
-        <ul class="p-4 flex">
+        <ul class="py-4 mb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button question.key, choice == "Yes", 
@@ -373,7 +373,7 @@
         <% question = Intake::FLEEING_DOMESTIC_VIOLENCE %>
         <%= form.label question.key, question.text, 
           class: "block leading-tight font-semibold" %>
-        <ul class="p-4 flex">
+        <ul class="py-4 mb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button question.key, choice == "Yes", 
