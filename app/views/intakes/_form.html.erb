@@ -174,12 +174,14 @@
         <%= form.label question.key, question.text,
           class: "block leading-snug font-semibold" %>
         <div class="p-4">
-        <button id="<%= question.key %>_yes" class="btn btn-outline" type="button">Yes</button>
-        <button id="<%= question.key %>_no" class="btn btn-outline" type="button">No</button>
+          <button id="<%= question.key %>_yes" class="btn btn-outline p-12" type="button">Yes</button>
+          <button id="<%= question.key %>_no" class="btn btn-outline" type="button">No</button>
+        </div>
+        <div class="invisible">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
-              class: "h-10 w-10 mr-8",
+              class: "invisible h-10 w-10 mr-8",
               required: true,
               checked: @intake.armed_forces == choice %>
           <% end %>
