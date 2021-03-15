@@ -101,7 +101,7 @@
           <button id="<%= question.key %>_yes" class="btn btn-outline w-96" type="button">Yes</button>
           <button id="<%= question.key %>_no" class="btn btn-outline w-96" type="button">No</button>
         </div>
-        <div class="invisible">
+        <div class="opacity-0">
           <% question.choices.each do |choice| %>
             <%= form.label :homelessness_first_time, choice %>
             <%= form.radio_button :homelessness_first_time, choice == "Yes", 
@@ -121,7 +121,6 @@
           size: 23, 
           value: @intake.how_long_this_time,
           placeholder: question.placeholder,
-          required: true,
           class: "mt-4 w-full rounded-lg p-8 text-6xl"
         %>
       </div>
@@ -185,12 +184,12 @@
           <button id="<%= question.key %>_yes" class="btn btn-outline w-96" type="button">Yes</button>
           <button id="<%= question.key %>_no" class="btn btn-outline w-96" type="button">No</button>
         </div>
-        <div class="invisible">
+        <div class="opacity-0">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
-              required: true,
-              checked: @intake.armed_forces == choice %>
+            required: true,
+            checked: @intake.armed_forces == choice %>
           <% end %>
         </div>
       </div>
@@ -203,7 +202,7 @@
           <button id="<%= question.key %>_yes" class="btn btn-outline w-96" type="button">Yes</button>
           <button id="<%= question.key %>_no" class="btn btn-outline w-96" type="button">No</button>
         </div>
-        <div class="invisible">
+        <div class="opacity-0">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
@@ -222,7 +221,7 @@
           <button id="<%= question.key %>_yes" class="btn btn-outline w-96" type="button">Yes</button>
           <button id="<%= question.key %>_no" class="btn btn-outline w-96" type="button">No</button>
         </div>
-          <ul class="invisible">
+          <ul class="opacity-0">
             <% question.choices.each do |choice| %>
               <%= form.label question.key, choice %>
               <%= form.radio_button question.key, choice == "Yes", 
@@ -241,7 +240,7 @@
           <button id="<%= question.key %>_yes" class="btn btn-outline w-96" type="button">Yes</button>
           <button id="<%= question.key %>_no" class="btn btn-outline w-96" type="button">No</button>
         </div>
-        <ul class="invisible">
+        <ul class="opacity-0">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
@@ -260,7 +259,7 @@
           <button id="<%= question.key %>_yes" class="btn btn-outline w-96" type="button">Yes</button>
           <button id="<%= question.key %>_no" class="btn btn-outline w-96" type="button">No</button>
         </div>
-        <ul class="invisible">
+        <ul class="opacity-0">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
@@ -279,7 +278,7 @@
           <button id="<%= question.key %>_yes" class="btn btn-outline w-96" type="button">Yes</button>
           <button id="<%= question.key %>_no" class="btn btn-outline w-96" type="button">No</button>
         </div>
-        <ul class="invisible">
+        <ul class="opacity-0">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes",
@@ -297,7 +296,7 @@
           <button id="<%= question.key %>_yes" class="btn btn-outline w-96" type="button">Yes</button>
           <button id="<%= question.key %>_no" class="btn btn-outline w-96" type="button">No</button>
         </div>
-        <ul class="invisible">
+        <ul class="opacity-0">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
@@ -316,7 +315,7 @@
           <button id="<%= question.key %>_yes" class="btn btn-outline w-96" type="button">Yes</button>
           <button id="<%= question.key %>_no" class="btn btn-outline w-96" type="button">No</button>
         </div>
-        <ul class="invisible">
+        <ul class="opacity-0">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
@@ -335,7 +334,7 @@
           <button id="<%= question.key %>_yes" class="btn btn-outline w-96" type="button">Yes</button>
           <button id="<%= question.key %>_no" class="btn btn-outline w-96" type="button">No</button>
         </div>
-        <div class="invisible">
+        <div class="opacity-0">
           <% question.choices.each do |choice| %>
             <%= form.label question.key, choice %>
             <%= form.radio_button question.key, choice == "Yes", 
