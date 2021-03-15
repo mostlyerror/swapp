@@ -8,7 +8,8 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body class="bg-gray-100 overscroll-x-contain font-sans">
+  <body class="bg-gray-50 overscroll-x-contain font-sans">
+    <%= render partial: 'shared/test_environment' %>
     <%= render partial: 'layouts/admin/header' %>
     <div class="min-h-screen">
       <%= yield %>
