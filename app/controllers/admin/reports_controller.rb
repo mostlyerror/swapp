@@ -3,19 +3,43 @@ class Admin::ReportsController < Admin::BaseController
     remove_attrs = %w( id created_at updated_at )
 
     csv = CSV.generate(headers: true) do |csv|
-      client_attrs = Client.attribute_names.reject { |attr| attr.in?(remove_attrs)  }
-      voucher_attrs = Voucher.attribute_names.reject { |attr| attr.in?(remove_attrs)  }
-      csv << client_attrs.concat(voucher_attrs)
+      csv << %w(
+        voucher_number
+        voucher_check_in
+        voucher_check_out
+        voucher_motel_name
+        client_first_name
+        client_last_name
+        client_date_of_birth
+        client_gender
+        client_phone_number
+        client_email
+        client_race
+        client_ethnicity
+      )
 
-      Voucher.all.each do |voucher|
-        voucher_attrs = voucher.attributes.except(*remove_attrs).values
-        client_attrs = voucher.client.attributes.except(*remove_attrs).values
-        csv << client_attrs.concat(voucher_attrs)
+      Voucher.includes(:client, :motel)
+        .order(id: :asc)
+        .find_each do |voucher|
+        csv << [
+          voucher.number,
+          voucher.check_in,
+          voucher.check_out,
+          voucher.motel.name,
+          voucher.client.first_name,
+          voucher.client.last_name,
+          voucher.client.date_of_birth,
+          voucher.client.gender,
+          voucher.client.phone_number,
+          voucher.client.email,
+          voucher.client.race&.join(","),
+          voucher.client.ethnicity,
+        ]
       end
     end
 
     respond_to do |format|
-      format.csv { send_data csv, filename: "vouchers-#{Date.today}.csv" }
+      format.csv { send_data csv, filename: "vouchers-#{Time.zone.now.iso8601}.csv" }
     end
   end
 end
