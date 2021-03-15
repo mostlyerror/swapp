@@ -130,7 +130,11 @@
         <% question = Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS %>
         <%= form.label :episodes_last_three_years_fewer_than_four_times, question.text,
           class: "block leading-tight font-semibold" %>
-        <div class="mt-4 p-4 flex flex-1 flex-col space-y-8">
+          <div class="p-4">
+            <button id="<%= question.key %>_fewer" class="btn btn-outline w-96" type="button">Fewer than 4 times</button>
+            <button id="<%= question.key %>_more" class="btn btn-outline w-96" type="button">4 or more times</button>
+          </div>
+        <div class="invisible mt-4 p-4 flex flex-1 flex-col space-y-8">
           <% question.choices.each do |choice| %>
             <div>
               <%= form.label :episodes_last_three_years_fewer_than_four_times, choice %>

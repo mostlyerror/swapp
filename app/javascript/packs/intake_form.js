@@ -41,6 +41,64 @@ document.addEventListener("click", (event) => {
     buttonYes.classList.remove("text-white");
   }
 
+  // EPISODES LAST THREE YEARS
+
+  if (
+    event.target.matches(
+      "#episodes_last_three_years_fewer_than_four_times_fewer"
+    )
+  ) {
+    const radio = document.getElementById(
+      "intake_episodes_last_three_years_fewer_than_four_times_true"
+    );
+    const button = document.getElementById(
+      "episodes_last_three_years_fewer_than_four_times_fewer"
+    );
+    const radioMore = document.getElementById(
+      "intake_episodes_last_three_years_fewer_than_four_times_false"
+    );
+    const buttonMore = document.getElementById(
+      "episodes_last_three_years_fewer_than_four_times_more"
+    );
+
+    buttonMore.classList.remove("bg-indigo-900");
+    buttonMore.classList.remove("text-white");
+
+    button.classList.add("bg-indigo-900");
+    button.classList.add("text-white");
+
+    radio.value = "true";
+    radioMore.value = "false";
+  }
+
+  if (
+    event.target.matches(
+      "#episodes_last_three_years_fewer_than_four_times_more"
+    )
+  ) {
+    const radio = document.getElementById(
+      "intake_episodes_last_three_years_fewer_than_four_times_false"
+    );
+    const button = document.getElementById(
+      "episodes_last_three_years_fewer_than_four_times_more"
+    );
+    const radioFewer = document.getElementById(
+      "intake_episodes_last_three_years_fewer_than_four_times_true"
+    );
+    const buttonFewer = document.getElementById(
+      "episodes_last_three_years_fewer_than_four_times_fewer"
+    );
+
+    button.classList.add("bg-indigo-900");
+    button.classList.add("text-white");
+
+    radio.value = "true";
+    radioFewer.value = "false";
+
+    buttonFewer.classList.remove("bg-indigo-900");
+    buttonFewer.classList.remove("text-white");
+  }
+
   // ARMED FORCES
 
   if (event.target.matches("#armed_forces_yes")) {
