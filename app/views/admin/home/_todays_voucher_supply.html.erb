@@ -45,7 +45,15 @@
       </table>
       <div class="p-12 bg-gray-100 border border-gray-500 flex flex-1 flex-col gap-y-6">
         <div class="flex flex-1 justify-center">
-          <%= form.submit "update supply", data: { confirm: "Warning! You are choosing to update the total voucher supply. As soon as the supply is updated, users can immediately issue vouchers." }, class:"py-4 px-8 rounded-lg bg-yellow-300 text-gray-900 font-bold border-b border-gray-900 shadow-lg" %>
+          <button class="flex items-center py-4 px-8 rounded-lg bg-yellow-300 border-b border-gray-900 shadow-lg">
+            <i class="bi bi-arrow-clockwise"></i>
+            <%= form.submit "update supply", 
+              data: { confirm: "Warning! You are choosing to update the total voucher
+              supply. As soon as the supply is updated, users can immediately
+              issue vouchers." },
+              class: "ml-6 font-bold bg-yellow-300"
+            %>
+          </button>
         </div>
       </div>
     <% end %>
