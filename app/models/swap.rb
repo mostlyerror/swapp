@@ -31,7 +31,7 @@ class Swap < ApplicationRecord
   end
 
   def intake_period
-    (start_date - 1.day)..(end_date - 1.day)
+    intake_start_date..intake_end_date
   end
 
   def stay_period
