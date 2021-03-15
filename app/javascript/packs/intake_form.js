@@ -1,4 +1,46 @@
 document.addEventListener("click", (event) => {
+  // HOMELESSNESS FIRST TIME
+
+  if (event.target.matches("#homelessness_first_time_yes")) {
+    const radio = document.getElementById(
+      "intake_homelessness_first_time_true"
+    );
+    const button = document.getElementById("homelessness_first_time_yes");
+    const radioNo = document.getElementById(
+      "intake_homelessness_first_time_false"
+    );
+    const buttonNo = document.getElementById("homelessness_first_time_no");
+
+    buttonNo.classList.remove("bg-indigo-900");
+    buttonNo.classList.remove("text-white");
+
+    button.classList.add("bg-indigo-900");
+    button.classList.add("text-white");
+
+    radio.value = "true";
+    radioNo.value = "false";
+  }
+
+  if (event.target.matches("#homelessness_first_time_no")) {
+    const radio = document.getElementById(
+      "intake_homelessness_first_time_false"
+    );
+    const button = document.getElementById("homelessness_first_time_no");
+    const radioYes = document.getElementById(
+      "intake_homelessness_first_time_true"
+    );
+    const buttonYes = document.getElementById("homelessness_first_time_yes");
+
+    button.classList.add("bg-indigo-900");
+    button.classList.add("text-white");
+
+    radio.value = "true";
+    radioYes.value = "false";
+
+    buttonYes.classList.remove("bg-indigo-900");
+    buttonYes.classList.remove("text-white");
+  }
+
   // ARMED FORCES
 
   if (event.target.matches("#armed_forces_yes")) {
