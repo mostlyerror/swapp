@@ -141,8 +141,8 @@ class Intake < ApplicationRecord
     choices: %w[ Yes No ]
   )
 
-  SUBSTANCE_ABUSE = OpenStruct.new(
-    key: :substance_abuse,
+  SUBSTANCE_MISUSE = OpenStruct.new(
+    key: :substance_misuse,
     text: "Do you have any Substance Misuse Issues?",
     choices: [ 
       "No",

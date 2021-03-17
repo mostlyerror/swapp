@@ -237,25 +237,18 @@
       </div>
 
       <div class="text-gray-700">
-        <% question = Intake::SUBSTANCE_ABUSE %>
+        <% question = Intake::SUBSTANCE_MISUSE %>
         <%= form.label question.key, question.text, 
           class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
-          <% question.choices.each do |choice| %>
-            <li class="relative flex-1">
-              <%= form.radio_button question.key, choice == "Yes", 
-                class: "absolute z-0 h-1 w-1",
-                required: true,
-                checked: @intake.substance_abuse == choice,
-                tabindex: -1
-              %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
-            </li>
-          <% end %>
-        </ul>
+            <%= form.select question.key, 
+            options_for_select(
+              Intake::SUBSTANCE_MISUSE.choices, 
+              @intake.substance_misuse || ''
+            ),
+            {include_blank: ''},
+            required: true,
+            class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl"
+            %>
       </div>
 
       <div class="text-gray-700">

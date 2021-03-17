@@ -3,7 +3,6 @@ const questionKeys = [
   "intake_episodes_last_three_years_fewer_than_four_times",
   "intake_armed_forces",
   "intake_active_duty",
-  "intake_substance_abuse",
   "intake_chronic_health_condition",
   "intake_mental_health_condition",
   "intake_mental_health_disability",
