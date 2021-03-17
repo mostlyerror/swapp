@@ -144,7 +144,12 @@ class Intake < ApplicationRecord
   SUBSTANCE_ABUSE = OpenStruct.new(
     key: :substance_abuse,
     text: "Do you have any Substance Misuse Issues?",
-    choices: %w[ Yes No ]
+    choices: [ 
+      "No",
+      "Alcohol",
+      "Drugs",
+      "Alcohol and Drugs"
+     ]
   )
 
   CHRONIC_HEALTH_CONDITION = OpenStruct.new(
