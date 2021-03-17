@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_17_233912) do
+ActiveRecord::Schema.define(version: 2021_03_17_235628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,6 @@ ActiveRecord::Schema.define(version: 2021_03_17_233912) do
     t.string "are_you_working"
     t.boolean "armed_forces"
     t.boolean "active_duty"
-    t.boolean "substance_abuse"
     t.boolean "chronic_health_condition"
     t.boolean "mental_health_condition"
     t.boolean "mental_health_disability"
