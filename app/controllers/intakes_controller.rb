@@ -10,7 +10,9 @@ class IntakesController < ApplicationController
   def create
     @intake = Intake.new(intake_params.except(:voucher).merge(
       have_you_ever_experienced_homelessness_before:
-      !intake_params[:homelessness_first_time]
+      ActiveRecord::Type::Boolean.new.cast(
+        intake_params[:homelessness_first_time]
+      )
     ))
 
     client_params = intake_params[:client_attributes]
