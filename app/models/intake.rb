@@ -7,7 +7,7 @@ class Intake < ApplicationRecord
       :episodes_last_three_years_fewer_than_four_times,
       :armed_forces,
       :active_duty,
-      :substance_abuse,
+      :substance_misuse,
       :chronic_health_condition,
       :mental_health_condition,
       :mental_health_disability,
@@ -183,10 +183,15 @@ class Intake < ApplicationRecord
     choices: %w[ Yes No ]
   )
 
-  SUBSTANCE_ABUSE = OpenStruct.new(
-    key: :substance_abuse,
-    text: "Do you have any Substance Abuse Issues?",
-    choices: %w[ Yes No ]
+  SUBSTANCE_MISUSE = OpenStruct.new(
+    key: :substance_misuse,
+    text: "Do you have any Substance Misuse Issues?",
+    choices: [ 
+      "No",
+      "Alcohol",
+      "Drugs",
+      "Alcohol and Drugs"
+     ]
   )
 
   CHRONIC_HEALTH_CONDITION = OpenStruct.new(
