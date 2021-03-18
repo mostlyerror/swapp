@@ -1,4 +1,3 @@
-reload!
 filename = Rails.root.join("intakes.csv")
 
 ActiveRecord::Base.transaction do
