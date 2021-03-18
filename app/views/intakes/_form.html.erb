@@ -181,6 +181,21 @@
       </div>
 
       <div class="text-gray-700">
+      <% question = Intake::HEALTH_INSURANCE %>
+      <%= form.label question.key, question.text, 
+        class: "block leading-tight font-semibold" %>
+          <%= form.select question.key, 
+          options_for_select(
+            Intake::HEALTH_INSURANCE.choices, 
+            @intake.health_insurance || ''
+          ),
+          {include_blank: ''},
+          required: true,
+          class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl"
+          %>
+    </div>
+
+      <div class="text-gray-700">
         <% question = Intake::ARE_YOU_WORKING %>
         <%= form.label question.key, question.text,
           class: "block leading-snug font-semibold" %>

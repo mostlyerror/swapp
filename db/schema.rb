@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_211202) do
-
+ActiveRecord::Schema.define(version: 2021_03_18_211908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -77,6 +76,7 @@ ActiveRecord::Schema.define(version: 2021_03_18_211202) do
     t.string "last_permanent_residence_county"
     t.string "substance_misuse"
     t.string "homelessness_total_last_three_years"
+    t.string "health_insurance"
     t.boolean "have_you_ever_experienced_homelessness_before"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"

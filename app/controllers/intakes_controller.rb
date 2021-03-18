@@ -46,6 +46,7 @@ class IntakesController < ApplicationController
       :are_you_working,
       :last_permanent_residence_county,
       :homelessness_total_last_three_years,
+      :health_insurance,
       client_attributes: [
         :first_name, 
         :last_name, 
