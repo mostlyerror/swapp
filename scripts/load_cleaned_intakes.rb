@@ -37,6 +37,18 @@ ActiveRecord::Base.transaction do
       end
 
       client = voucher.client
+      row['race'] && client.race = row['race']
+      row['gender'] && client.gender = row['gender']
+      row['email'] && client.email = row['email']
+      row['phone'] && client.phone_number = row['phone']
+      row['ethnicity'] && client.ethnicity = row['ethnicity']
+
+      if !client.save(validate: false)
+        ap client
+        ap client.errors.messages
+        raise :fail
+      end
+
       user = voucher.user
 
       intake_attrs = {
