@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_11_173156) do
+ActiveRecord::Schema.define(version: 2021_03_18_170203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,10 @@ ActiveRecord::Schema.define(version: 2021_03_11_173156) do
     t.string "email"
     t.string "phone_number"
     t.jsonb "race", default: []
+    t.boolean "veteran"
+    t.string "veteran_military_branch"
+    t.string "veteran_separation_year"
+    t.string "veteran_discharge_status"
   end
 
   create_table "incident_reports", force: :cascade do |t|
