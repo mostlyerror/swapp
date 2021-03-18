@@ -31,8 +31,9 @@ ActiveRecord::Base.transaction do
       voucher.num_adults_in_household = row['adults_ct']
       voucher.num_children_in_household = row['children_ct']
       if !voucher.save(validate: false)
+        ap row
         ap voucher.errors.messages
-        gets
+        raise :fail
       end
 
       client = voucher.client
@@ -75,7 +76,7 @@ ActiveRecord::Base.transaction do
       if !intake.persisted?
         ap row
         ap intake.errors.messages
-        gets
+        raise :fail
       end
 
       short_intake_attrs = {
@@ -101,9 +102,8 @@ ActiveRecord::Base.transaction do
       if !short_intake.persisted?
         ap row
         ap short_intake.errors.messages
-        gets
+        raise :fail
       end
     end
   end
-  raise 'finished'
 end
