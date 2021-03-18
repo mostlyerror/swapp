@@ -44,6 +44,7 @@ class IntakesController < ApplicationController
       :total_how_long_shelters_or_streets,
       :are_you_working,
       :last_permanent_residence_county,
+
       client_attributes: [
         :first_name, 
         :last_name, 
