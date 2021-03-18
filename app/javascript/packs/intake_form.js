@@ -1,4 +1,5 @@
 const questionKeys = [
+  "intake_client_attributes_veteran",
   "intake_homelessness_first_time",
   "intake_episodes_last_three_years_fewer_than_four_times",
   "intake_armed_forces",

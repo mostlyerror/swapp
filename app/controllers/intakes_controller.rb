@@ -44,7 +44,7 @@ class IntakesController < ApplicationController
       :total_how_long_shelters_or_streets,
       :are_you_working,
       :last_permanent_residence_county,
-      client_attributes: [:first_name, :last_name, :date_of_birth, :gender, {race: []}, :ethnicity, :phone_number, :email],
+      client_attributes: [:first_name, :last_name, :date_of_birth, :gender, {race: []}, :ethnicity, :phone_number, :email, :veteran],
       voucher: [:check_in, :check_out, :motel_id],
     )
   end

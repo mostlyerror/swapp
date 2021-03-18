@@ -195,18 +195,18 @@
 
       <div class="text-gray-700">
         <% question = Intake::VETERAN %>
-        <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
+        <%= client_attributes.label question.key, question.text, class: "block leading-tight font-semibold" %>
         <ul class="py-4 mb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
-              <%= form.radio_button question.key, choice == "Yes", 
+              <%= client_attributes.radio_button question.key, choice == "Yes", 
                 class: "absolute z-0 h-1 w-1",
                 required: true,
-                checked: @intake.armed_forces == choice,
+                checked: @client.veteran == choice,
                 tabindex: -1
               %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
+              <%= client_attributes.label question.key, choice, 
+                id: "intake_client_attributes_#{question.key}_#{choice.downcase}",
                 class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
               %>
             </li>
