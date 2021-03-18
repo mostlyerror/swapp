@@ -137,7 +137,14 @@ class Intake < ApplicationRecord
 
   VETERAN_MILITARY_BRANCH = OpenStruct.new(
     key: :veteran_military_branch,
-    text: "Branch of military"
+    text: "Branch of military",
+    choices: [
+      "Army",
+      "Navy",
+      "Airforce",
+      "Marines",
+      "Coast Guard"
+    ],
   )
 
   VETERAN_SEPARATION_YEAR = OpenStruct.new(
