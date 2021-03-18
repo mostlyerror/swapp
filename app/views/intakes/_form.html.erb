@@ -212,6 +212,53 @@
             </li>
           <% end %>
         </ul>
+        <div id="veteran_container" class="hidden p-12">
+          <div>
+            <% question = Intake::VETERAN_MILITARY_BRANCH %>
+            <%= client_attributes.label question.key, question.text, class: "block leading-tight font-semibold" %>
+            <ul class="flex flex-col">
+              <% question.choices.each do |choice| %>
+                <li class="mt-6">
+                  <%= client_attributes.radio_button question.key, choice,
+                    class: "h-12 w-12",
+                    required: @client.veteran,
+                    checked: @client.veteran_military_branch == choice
+                  %>
+                  <%= client_attributes.label question.key, choice, 
+                    id: "intake_client_attributes_#{question.key}_#{choice.downcase}"
+                  %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="mt-8">
+            <% question = Intake::VETERAN_SEPARATION_YEAR %>
+            <%= client_attributes.label question.key, question.text, class: "block leading-snug font-semibold" %>
+            <%= client_attributes.text_field question.key,
+              required: @client.veteran,
+              value: @client.veteran_separation_year,
+              class: "mt-4 w-full rounded-lg p-8 text-6xl"
+            %>
+          </div>
+          <div class="mt-8">
+            <% question = Intake::VETERAN_DISCHARGE_STATUS %>
+            <%= client_attributes.label question.key, question.text, class: "block leading-snug font-semibold" %>
+            <ul class="flex flex-col">
+              <% question.choices.each do |choice| %>
+                <li class="mt-6">
+                  <%= client_attributes.radio_button question.key, choice,
+                    class: "h-12 w-12",
+                    required: @client.veteran,
+                    checked: @client.veteran_discharge_status == choice
+                  %>
+                  <%= client_attributes.label question.key, choice, 
+                    id: "intake_client_attributes_#{question.key}_#{choice.downcase}"
+                  %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
       </div>
 
       <div class="text-gray-700">
