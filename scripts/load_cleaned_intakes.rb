@@ -55,15 +55,15 @@ ActiveRecord::Base.transaction do
         client: client,
         user: user,
         homelessness_first_time: 
-          row['firsttime_hl'],
+          ActiveRecord::Type::Boolean.new.cast(row['firsttime_hl']),
         how_long_this_time: 
           row['duration_hl'],
         episodes_last_three_years_fewer_than_four_times: 
-          row['sheltersstreets_3yr_ct'],
+          row['sheltersstreets_3yr_ct'] == "Fewer than 4 times",
         total_how_long_shelters_or_streets: 
           row['duration_sheltersstreets'],
-        are_you_working: 
-          ActiveRecord::Type::Boolean.new.cast(row['working']),
+        are_you_working:
+          row['working'],
         armed_forces:
           ActiveRecord::Type::Boolean.new.cast(row['armedforces']),
         active_duty:
@@ -81,7 +81,7 @@ ActiveRecord::Base.transaction do
         fleeing_domestic_violence:
           ActiveRecord::Type::Boolean.new.cast(row['dom_viol']),
         last_permanent_residence_county:
-          ActiveRecord::Type::Boolean.new.cast(row['lastperm_county'])
+          row['lastperm_county']
       }
 
       intake = Intake.create(intake_attrs)
@@ -95,7 +95,7 @@ ActiveRecord::Base.transaction do
         client: client,
         user: user,
         where_did_you_sleep_last_night:
-          row['last_night'],
+          row['where_last_night'],
         what_city_did_you_sleep_in_last_night:
           nil,
         why_not_shelter:
