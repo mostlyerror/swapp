@@ -15,7 +15,7 @@ class Intake < ApplicationRecord
       :developmental_disability,
       :fleeing_domestic_violence,
       :how_long_this_time,
-      :total_how_long_shelters_or_streets,
+      :homelessness_total_last_three_years,
       :are_you_working,
       :last_permanent_residence_county
 
@@ -74,10 +74,24 @@ class Intake < ApplicationRecord
     ]
   )
 
-  HOMELESSNESS_EPISODES_HOW_LONG = OpenStruct.new(
-    key: :total_how_long_shelters_or_streets,
-    text: "In total, how long did you stay in shelters or on the streets those times?", 
-    placeholder: "(e.g, 2 months, 5 years, etc.)"
+  HOMELESSNESS_TOTAL_LAST_THREE_YEARS = OpenStruct.new(
+    key: :homelessness_total_last_three_years,
+    text: "Total number of months of homelessness in the past three years.", 
+    choices: [
+      "One", 
+      "Two",
+      "Three",
+      "Four",
+      "Five",
+      "Six",
+      "Seven",
+      "Eight",
+      "Nine",
+      "Ten",
+      "Eleven",
+      "Twelve",
+      "More than Twelve"
+    ]
   )
 
   SLEEP_LAST_NIGHT = OpenStruct.new(
@@ -130,9 +144,37 @@ class Intake < ApplicationRecord
   )
 
   VETERAN = OpenStruct.new(
-    key: :armed_forces,
-    text: "Have you ever served in the US Armed Forces (Army, Navy, Air Force, Marines or Coast Guard)?", 
+    key: :veteran,
+    text: "Are you a veteran?",
     choices: %w[ Yes No ]
+  )
+
+  VETERAN_MILITARY_BRANCH = OpenStruct.new(
+    key: :veteran_military_branch,
+    text: "Branch of military",
+    choices: [
+      "Army",
+      "Navy",
+      "Airforce",
+      "Marines",
+      "Coast Guard"
+    ],
+  )
+
+  VETERAN_SEPARATION_YEAR = OpenStruct.new(
+    key: :veteran_separation_year,
+    text: "Year separated"
+  )
+
+  VETERAN_DISCHARGE_STATUS = OpenStruct.new(
+    key: :veteran_discharge_status,
+    text: "Discharge status",
+    choices: [
+      "Honorable",
+      "Dishonorable",
+      "Bad Conduct",
+      "Other than honorable",
+    ]
   )
 
   ACTIVE_DUTY = OpenStruct.new(
