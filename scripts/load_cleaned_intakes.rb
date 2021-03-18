@@ -1,8 +1,9 @@
 filename = Rails.root.join("intakes.csv")
 
 ActiveRecord::Base.transaction do
-  Intake.destroy_all
-  ShortIntake.destroy_all
+  swapp_launch_date = '2021-03-11'
+  Intake.where("created_at < ?", swapp_launch_date).destroy_all
+  ShortIntake.where("created_at < ?", swapp_launch_date).destroy_all
 
   swaps_start = Swap.count
   clients_start = Client.count
