@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_211908) do
+ActiveRecord::Schema.define(version: 2021_03_18_222406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_03_18_211908) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "homelessness_first_time"
-    t.string "how_long_this_time"
+    t.string "homelessness_how_long_this_time"
     t.boolean "episodes_last_three_years_fewer_than_four_times"
     t.string "total_how_long_shelters_or_streets"
     t.string "are_you_working"
