@@ -37,7 +37,7 @@ ActiveRecord::Base.transaction do
       end
 
       client = voucher.client
-      row['race'] && client.race = row['race']
+      row['race'] && client.race = row['race'].split(",")
       row['gender'] && client.gender = row['gender']
       row['email'] && client.email = row['email']
       row['phone'] && client.phone_number = row['phone']
