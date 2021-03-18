@@ -18,7 +18,7 @@ class Intake < ApplicationRecord
       :homelessness_total_last_three_years,
       :are_you_working,
       :last_permanent_residence_county
-
+      :health_insurance
 
   FIRST_NAME = OpenStruct.new(
     key: :first_name,
@@ -129,6 +129,23 @@ class Intake < ApplicationRecord
       "Banned from shelter",
       "Current restraining order",
       "Did not want to separate from significant other",
+    ]
+  )
+  
+  HEALTH_INSURANCE = OpenStruct.new(
+    key: :health_insurance,
+    text: "Are you covered by health insurance?",
+    choices: [
+      "No",
+      "Medicaid",
+      "Medicare",
+      "VA Medical",
+      "Employer Provided",
+      "Private Pay",
+      "State Children's Health Insurance Program",
+      "State Health Insurance for Adults",
+      "Health Insurance through Cobra",
+      "Indian Health Services Program"
     ]
   )
 
