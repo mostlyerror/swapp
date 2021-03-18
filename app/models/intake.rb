@@ -144,9 +144,37 @@ class Intake < ApplicationRecord
   )
 
   VETERAN = OpenStruct.new(
-    key: :armed_forces,
-    text: "Have you ever served in the US Armed Forces (Army, Navy, Air Force, Marines or Coast Guard)?", 
+    key: :veteran,
+    text: "Are you a veteran?",
     choices: %w[ Yes No ]
+  )
+
+  VETERAN_MILITARY_BRANCH = OpenStruct.new(
+    key: :veteran_military_branch,
+    text: "Branch of military",
+    choices: [
+      "Army",
+      "Navy",
+      "Airforce",
+      "Marines",
+      "Coast Guard"
+    ],
+  )
+
+  VETERAN_SEPARATION_YEAR = OpenStruct.new(
+    key: :veteran_separation_year,
+    text: "Year separated"
+  )
+
+  VETERAN_DISCHARGE_STATUS = OpenStruct.new(
+    key: :veteran_discharge_status,
+    text: "Discharge status",
+    choices: [
+      "Honorable",
+      "Dishonorable",
+      "Bad Conduct",
+      "Other than honorable",
+    ]
   )
 
   ACTIVE_DUTY = OpenStruct.new(

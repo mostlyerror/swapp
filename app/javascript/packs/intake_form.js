@@ -1,4 +1,6 @@
+// attaching event handlers for yes/no toggles
 const questionKeys = [
+  "intake_client_attributes_veteran",
   "intake_homelessness_first_time",
   "intake_episodes_last_three_years_fewer_than_four_times",
   "intake_armed_forces",
@@ -54,3 +56,36 @@ questionKeys.forEach((key) => {
     }
   });
 });
+
+// -- dependent question behavior ------
+
+// show dependent question container on parent question == "yes"
+document.addEventListener(
+  "click",
+  (event) => {
+    if (event.target.id === "intake_client_attributes_veteran_yes") {
+      const container = document.getElementById("veteran_container");
+      container.classList.remove("hidden");
+      const inputs = container.querySelectorAll("input");
+      inputs.forEach((input) => (input.required = true));
+    }
+  },
+  false
+);
+
+document.addEventListener(
+  "click",
+  (event) => {
+    if (event.target.id === "intake_client_attributes_veteran_no") {
+      const container = document.getElementById("veteran_container");
+      container.classList.add("hidden");
+      const inputs = container.querySelectorAll("input");
+      inputs.forEach((input) => {
+        input.required = false;
+        input.type === "radio" && (input.checked = false);
+        input.type === "text" && (input.value = "");
+      });
+    }
+  },
+  false
+);
