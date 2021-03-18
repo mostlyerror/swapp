@@ -14,7 +14,7 @@ class Intake < ApplicationRecord
       :physical_disability,
       :developmental_disability,
       :fleeing_domestic_violence,
-      :how_long_this_time,
+      :homelessness_how_long_this_time,
       :homelessness_total_last_three_years,
       :are_you_working,
       :last_permanent_residence_county
@@ -62,7 +62,13 @@ class Intake < ApplicationRecord
   HOMELESSNESS_HOW_LONG_THIS_TIME = OpenStruct.new(
     key: :homelessness_how_long_this_time,
     text: "How long have you been homeless this time?", 
-    placeholder: "(e.g, 2 months, 5 years, etc.)"
+    choices: [
+      "1 night or less",
+      "2 to 6 nights",
+      "1 week or more but less than 1 month",
+      "1 month or more but less than 90 days",
+      "90 days or more but less than 1 year"
+    ]
   )
 
   HOMELESSNESS_EPISODES_LAST_THREE_YEARS = OpenStruct.new(

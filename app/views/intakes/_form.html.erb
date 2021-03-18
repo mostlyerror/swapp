@@ -116,15 +116,22 @@
 
       <div class="text-gray-700">
         <% question = Intake::HOMELESSNESS_HOW_LONG_THIS_TIME %>
-        <%= form.label :how_long_this_time, question.text,
+        <%= form.label question.key, question.text,
           class: "block leading-tight font-semibold"
         %>
-        <%= form.text_field :how_long_this_time,
-          size: 23, 
-          value: @intake.how_long_this_time,
-          placeholder: question.placeholder,
-          class: "mt-4 w-full rounded-lg p-8 text-6xl"
-        %>
+        <ul class="flex flex-col">
+          <% question.choices.each do |choice| %>
+            <li class="mt-12 flex items-center text-5xl">
+
+              <%= form.radio_button question.key, choice,
+                class: "h-10 w-10",
+                required: true,
+                checked: @intake.homelessness_how_long_this_time == choice
+              %>
+            <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice, class: "ml-4" %>
+            </li>
+          <% end %>
+        </ul>
       </div>
 
       <div class="text-gray-700">
@@ -140,11 +147,11 @@
               checked: @intake.episodes_last_three_years_fewer_than_four_times == "Fewer than 4 times",
               tabindex: -1
             %>
-          <%= form.label question.key, choice, 
-            id: "intake_#{question.key}_#{choice.downcase}",
-            id: "intake_episodes_last_three_years_fewer_than_four_times_yes",
-            class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
+            <%= form.label question.key, choice, 
+              id: "intake_#{question.key}_#{choice.downcase}",
+              id: "intake_episodes_last_three_years_fewer_than_four_times_yes",
+              class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+            %>
           </li>
           <li class="relative flex-1">
             <% choice = "4 or more times" %>
@@ -155,11 +162,11 @@
               checked: @intake.episodes_last_three_years_fewer_than_four_times == "4 or more times",
               tabindex: -1
             %>
-          <%= form.label question.key, choice, 
-            id: "intake_#{question.key}_#{choice.downcase}",
-            id: "intake_episodes_last_three_years_fewer_than_four_times_no",
-            class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
+            <%= form.label question.key, choice, 
+              id: "intake_#{question.key}_#{choice.downcase}",
+              id: "intake_episodes_last_three_years_fewer_than_four_times_no",
+              class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+            %>
           </li>
         </ul>
       </div>

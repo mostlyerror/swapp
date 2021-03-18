@@ -41,7 +41,7 @@ class IntakesController < ApplicationController
       :physical_disability, 
       :developmental_disability,
       :fleeing_domestic_violence, 
-      :how_long_this_time,
+      :homelessness_how_long_this_time,
       :total_how_long_shelters_or_streets,
       :are_you_working,
       :last_permanent_residence_county,
