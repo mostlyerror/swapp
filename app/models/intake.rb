@@ -7,7 +7,7 @@ class Intake < ApplicationRecord
       :episodes_last_three_years_fewer_than_four_times,
       :armed_forces,
       :active_duty,
-      :substance_abuse,
+      :substance_misuse,
       :chronic_health_condition,
       :mental_health_condition,
       :mental_health_disability,
