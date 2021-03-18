@@ -8,6 +8,7 @@ class IntakesController < ApplicationController
   end
 
   def create
+    intake_params[:have_you_ever_experienced_homelessness_before] = !intake_params[:homelessness_first_time] 
     @intake = Intake.new(intake_params.except(:voucher))
 
     client_params = intake_params[:client_attributes]
