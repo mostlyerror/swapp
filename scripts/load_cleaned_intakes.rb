@@ -83,7 +83,7 @@ ActiveRecord::Base.transaction do
         client: client,
         user: user,
         where_did_you_sleep_last_night:
-          [row['last_night']],
+          row['last_night'],
         what_city_did_you_sleep_in_last_night:
           nil,
         why_not_shelter:
