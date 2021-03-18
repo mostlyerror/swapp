@@ -33,7 +33,7 @@ class IntakesController < ApplicationController
       {why_not_shelter: []},
       :armed_forces,
       :active_duty, 
-      :substance_abuse, 
+      :substance_misuse, 
       :chronic_health_condition,
       :mental_health_condition, 
       :mental_health_disability,
@@ -44,7 +44,7 @@ class IntakesController < ApplicationController
       :total_how_long_shelters_or_streets,
       :are_you_working,
       :last_permanent_residence_county,
-
+      :homelessness_total_last_three_years,
       client_attributes: [
         :first_name, 
         :last_name, 
