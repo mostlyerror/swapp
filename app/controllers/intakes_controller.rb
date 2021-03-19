@@ -8,6 +8,7 @@ class IntakesController < ApplicationController
   end
 
   def create
+    byebug
     @intake = Intake.new(intake_params.except(:voucher).merge(
       have_you_ever_experienced_homelessness_before:
       ActiveRecord::Type::Boolean.new.cast(

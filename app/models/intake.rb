@@ -19,8 +19,8 @@ class Intake < ApplicationRecord
       :are_you_working,
       :last_permanent_residence_county,
       :health_insurance,
-      :non_cash_benefits,
-      
+      :non_cash_benefits
+
 
   FIRST_NAME = OpenStruct.new(
     key: :first_name,

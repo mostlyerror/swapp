@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 2021_03_18_233751) do
     t.string "homelessness_total_last_three_years"
     t.string "health_insurance"
     t.boolean "have_you_ever_experienced_homelessness_before"
-    t.boolean "non_cash_benefits"
+    t.jsonb "non_cash_benefits", default: []
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end
