@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2021_03_19_022927) do
     t.boolean "have_you_ever_experienced_homelessness_before"
     t.jsonb "non_cash_benefits", default: []
     t.string "income_source"
-    t.integer "income_total_monthly"
+    t.jsonb "income_total_monthly", default: []
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end
