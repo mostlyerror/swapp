@@ -218,6 +218,28 @@
       </div>
 
       <div class="text-gray-700">
+        <% question = Intake::NON_CASH_BENEFITS %>
+        <%= form.label question.key, question.text, 
+          class: "block leading-tight font-semibold" %>
+        <ul class="py-4 mb-32 flex">
+          <% question.choices.each do |choice| %>
+            <li class="relative flex-1">
+              <%= form.radio_button question.key, choice == "Yes", 
+                class: "absolute z-0 h-1 w-1",
+                required: true,
+                checked: @intake.non_cash_benefits == choice,
+                tabindex: -1
+              %>
+              <%= form.label question.key, choice, 
+                id: "intake_#{question.key}_#{choice.downcase}",
+                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+              %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="text-gray-700">
         <% question = Intake::VETERAN %>
         <%= client_attributes.label question.key, question.text, class: "block leading-tight font-semibold" %>
         <ul class="py-4 mb-32 flex">
