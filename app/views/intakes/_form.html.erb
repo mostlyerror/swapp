@@ -218,6 +218,21 @@
       </div>
 
       <div class="text-gray-700">
+      <% question = Intake::INCOME_SOURCE %>
+      <%= form.label question.key, question.text, 
+        class: "block leading-tight font-semibold" %>
+          <%= form.select question.key, 
+          options_for_select(
+            Intake::INCOME_SOURCE.choices, 
+            @intake.income_source || ''
+          ),
+          {include_blank: ''},
+          required: true,
+          class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl"
+          %>
+    </div>
+
+      <div class="text-gray-700">
         <% question = Intake::VETERAN %>
         <%= client_attributes.label question.key, question.text, class: "block leading-tight font-semibold" %>
         <ul class="py-4 mb-32 flex">

@@ -155,6 +155,24 @@ class Intake < ApplicationRecord
     ]
   )
 
+  INCOME_SOURCE = OpenStruct.new(
+    key: :income_source,
+    text: "Do you have income of any source?",
+    choices: [
+      "No",
+      "Earned Income (Paycheck)",
+      "SSDI (Disability)",
+      "SSI",
+      "Unemployment Insurance",
+      "TANF",
+      "Child Support",
+      "Retirement from Former Job",
+      "Alimony or Spousal Support",
+      "VA Service Compensation",
+      "General Assistance"
+    ]
+  )
+
   ARE_YOU_WORKING = OpenStruct.new(
     key: :are_you_working,
     text: "Are you working?",
