@@ -10,14 +10,14 @@ class IntakesController < ApplicationController
   def create
     @intake = Intake.new(intake_params.except(:voucher).merge(
       have_you_ever_experienced_homelessness_before:
-      ActiveRecord::Type::Boolean.new.cast(
-        intake_params[:homelessness_first_time]
-      )
+      ActiveRecord::Type::Boolean.new.cast(intake_params[:homelessness_first_time]),
+      non_cash_benefits: intake_params[:non_cash_benefits].reject {|r| r == "0" }
     ))
 
     client_params = intake_params[:client_attributes]
-    @client = Client.new(client_params)
-    @client.race = client_params[:race].reject {|r| r == "0" }
+    @client = Client.new(client_params.merge(
+      race: client_params[:race].reject {|r| r == "0" }
+    ))
 
     @intake.client = @client
     @intake.user = current_user
