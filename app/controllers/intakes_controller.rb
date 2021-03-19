@@ -52,6 +52,7 @@ class IntakesController < ApplicationController
       :homelessness_total_last_three_years,
       :health_insurance,
       :income_source,
+      :income_total_monthly,
       client_attributes: [
         :first_name, 
         :last_name, 

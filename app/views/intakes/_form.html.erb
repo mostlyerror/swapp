@@ -230,6 +230,18 @@
           required: true,
           class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl"
           %>
+          <% form.label question.key, choice,
+            id: "intake_#{question.key}_#{choice.downcase}"
+          %>
+          <div class="mt-8">
+            <% question = Intake::INCOME_TOTAL_MONTHLY %>
+            <%= form.label question.key, question.text, class: "block leading-snug font-semibold" %>
+            <%= form.text_field question.key,
+              required: @intake.income_source,
+              value: @intake.income_total_monthly,
+              class: "mt-4 w-full rounded-lg p-8 text-6xl"
+            %>
+          </div>
     </div>
 
       <div class="text-gray-700">

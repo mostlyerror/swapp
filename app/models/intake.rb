@@ -19,6 +19,7 @@ class Intake < ApplicationRecord
       :are_you_working,
       :last_permanent_residence_county
       :health_insurance
+      :income_total_monthly
 
   FIRST_NAME = OpenStruct.new(
     key: :first_name,
@@ -171,6 +172,11 @@ class Intake < ApplicationRecord
       "VA Service Compensation",
       "General Assistance"
     ]
+  )
+
+  INCOME_TOTAL_MONTHLY = OpenStruct.new(
+    key: :income_total_monthly,
+    text: "What is your total amount of monthly income?",
   )
 
   ARE_YOU_WORKING = OpenStruct.new(
