@@ -23,7 +23,7 @@ class Swap < ApplicationRecord
   end
 
   def self.current
-    where("start_date <= ? AND end_date >= ?", Date.current.tomorrow, Date.current).first
+    where(aasm_state: "active").first
   end
 
   def swap
