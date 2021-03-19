@@ -52,7 +52,7 @@ class IntakesController < ApplicationController
       :last_permanent_residence_county,
       :homelessness_total_last_three_years,
       :health_insurance,
-      :non_cash_benefits,
+      {non_cash_benefits: []},
       client_attributes: [
         :first_name, 
         :last_name, 

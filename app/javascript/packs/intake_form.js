@@ -11,7 +11,6 @@ const questionKeys = [
   "intake_physical_disability",
   "intake_developmental_disability",
   "intake_fleeing_domestic_violence",
-  "intake_non_cash_benefits",
 ];
 
 questionKeys.forEach((key) => {

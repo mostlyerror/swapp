@@ -217,23 +217,21 @@
           %>
       </div>
 
-      <div class="text-gray-700">
+      <div class="field w-full">
         <% question = Intake::NON_CASH_BENEFITS %>
-        <%= form.label question.key, question.text, 
-          class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
+        <%= form.label question.key, question.text, class: "block leading-snug font-semibold" %>
+        <ul class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl text-gray-700">
           <% question.choices.each do |choice| %>
-            <li class="relative flex-1">
-              <%= form.radio_button question.key, choice == "Yes", 
-                class: "absolute z-0 h-1 w-1",
-                required: true,
-                checked: @intake.non_cash_benefits == choice,
-                tabindex: -1
-              %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
+            <li class="flex flex-1 items-baseline">
+              <%= form.check_box question.key,
+                { 
+                multiple: true, 
+                checked: choice.in?(@intake.non_cash_benefits || []),
+                class: "mr-8 w-11 h-11 text-indigo-600"
+              },
+              choice
+            %>
+          <%= form.label "choice_#{to_htmlfor(choice)}", choice %>
             </li>
           <% end %>
         </ul>

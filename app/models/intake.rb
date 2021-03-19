@@ -171,7 +171,13 @@ class Intake < ApplicationRecord
   NON_CASH_BENEFITS = OpenStruct.new(
     key: :non_cash_benefits,
     text: "Are you receiving non-cash benefits?",
-    choices: %w[ Yes No ]
+    choices: [
+      "No",
+      "SNAP (Food Stamps)",
+      "WIC",
+      "TANF Childcare Services",
+      "TANF Transportation Services"
+    ]
   )
 
   VETERAN = OpenStruct.new(
