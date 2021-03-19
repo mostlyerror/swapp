@@ -10,10 +10,6 @@
           <p>Voucher check-in is <strong><%= humanize_date(@swap.start_date) %></strong> and check-out is <strong><%= humanize_date(@swap.end_date) %></strong></p>
         </div>
         <% if SwapIntake.today_is_first_intake_day?(@swap) %>
-          <p class="text-indigo-900">
-            Please notify clients that hotel check in is for <em>tomorrow</em>, not today.
-          </p>
-
         <% elsif SwapIntake.today_is_last_intake_day?(@swap) %>
           <p class="text-indigo-900">
             <strong>Today is the last day to issue vouchers for the current SWAP period</strong>. However, administrators may extend voucher stays as well as the intake period.
