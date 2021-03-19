@@ -75,7 +75,7 @@
               },
               race
             %>
-          <%= client_attributes.label "race_#{to_htmlfor(race)}", race %>
+          <%= client_attributes.label "#{question.key}_#{to_htmlfor(race)}", race %>
             </li>
           <% end %>
         </ul>
@@ -231,7 +231,7 @@
               },
               choice
             %>
-          <%= form.label "choice_#{to_htmlfor(choice)}", choice %>
+          <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice %>
             </li>
           <% end %>
         </ul>
