@@ -4,12 +4,11 @@ class Intake < ApplicationRecord
   belongs_to :user
 
   auto_strip_attributes :homelessness_first_time,
-      :episodes_last_three_years_fewer_than_four_times,
+      :homelessness_episodes_last_three_years,
       :armed_forces,
       :active_duty,
       :substance_misuse,
       :chronic_health_condition,
-      :mental_health_condition,
       :mental_health_disability,
       :physical_disability,
       :developmental_disability,
@@ -74,11 +73,13 @@ class Intake < ApplicationRecord
   )
 
   HOMELESSNESS_EPISODES_LAST_THREE_YEARS = OpenStruct.new(
-    key: :episodes_last_three_years_fewer_than_four_times,
-    text: "Including this time, how many separate times have you stayed in shelters or on the streets in the past 3 years?", 
+    key: :homelessness_episodes_last_three_years,
+    text: "Number of episodes of homelessness in the past three years?", 
     choices: [
-      "Fewer than 4 times",
-      "4 or more times"
+      '1',
+      '2',
+      '3',
+      '4 or more'
     ]
   )
 
@@ -234,12 +235,6 @@ class Intake < ApplicationRecord
   CHRONIC_HEALTH_CONDITION = OpenStruct.new(
     key: :chronic_health_condition,
     text: "Do you have a Chronic Health Condition?",
-    choices: %w[ Yes No ]
-  )
-
-  MENTAL_HEALTH_CONDITION = OpenStruct.new(
-    key: :mental_health_condition,
-    text: "Do you have a Mental Health Condition?",
     choices: %w[ Yes No ]
   )
 
