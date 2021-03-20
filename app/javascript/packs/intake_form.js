@@ -56,9 +56,29 @@ questionKeys.forEach((key) => {
   });
 });
 
-// -- dependent question behavior ------
+// non cash benefits
+// clicking "No" unchecks the other boxes
+// clicking any other box unchecks "No"
+document.addEventListener(
+  "click",
+  (event) => {
+    if (event.target.id === "intake_non_cash_benefits_no") {
+      const checkboxes = document.querySelectorAll(
+        "ul#non_cash_benefits_list > li + li > input"
+      );
 
-// show dependent question container on parent question == "yes"
+      if (event.target.checked) {
+        checkboxes.forEach((checkbox) => (checkbox.checked = false));
+      }
+    } else if (event.target.id.match(/intake_non_cash_benefits/)) {
+      const noCheckbox = document.getElementById("intake_non_cash_benefits_no");
+      noCheckbox.checked = false;
+    }
+  },
+  false
+);
+
+// veteran status
 document.addEventListener(
   "click",
   (event) => {

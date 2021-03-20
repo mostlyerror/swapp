@@ -17,8 +17,10 @@ class Intake < ApplicationRecord
       :homelessness_how_long_this_time,
       :homelessness_total_last_three_years,
       :are_you_working,
-      :last_permanent_residence_county
-      :health_insurance
+      :last_permanent_residence_county,
+      :health_insurance,
+      :non_cash_benefits
+
 
   FIRST_NAME = OpenStruct.new(
     key: :first_name,
@@ -163,6 +165,18 @@ class Intake < ApplicationRecord
       "Yes - Full-Time",
       "Yes - Part-Time",
       "Yes - Seasonal/Temporary"
+    ]
+  )
+
+  NON_CASH_BENEFITS = OpenStruct.new(
+    key: :non_cash_benefits,
+    text: "Are you receiving non-cash benefits?",
+    choices: [
+      "No",
+      "SNAP (Food Stamps)",
+      "WIC",
+      "TANF Childcare Services",
+      "TANF Transportation Services"
     ]
   )
 

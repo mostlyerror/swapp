@@ -75,7 +75,7 @@
               },
               race
             %>
-          <%= client_attributes.label "race_#{to_htmlfor(race)}", race %>
+          <%= client_attributes.label "#{question.key}_#{to_htmlfor(race)}", race %>
             </li>
           <% end %>
         </ul>
@@ -213,6 +213,26 @@
           required: true,
           class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl"
           %>
+      </div>
+
+      <div class="field w-full">
+        <% question = Intake::NON_CASH_BENEFITS %>
+        <%= form.label question.key, question.text, class: "block leading-snug font-semibold" %>
+        <ul id=<%= "#{question.key}_list" %> class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl text-gray-700">
+          <% question.choices.each do |choice| %>
+            <li class="flex flex-1 items-baseline">
+              <%= form.check_box question.key,
+                { 
+                  multiple: true, 
+                  checked: choice.in?(@intake.non_cash_benefits || []),
+                  class: "mr-8 w-11 h-11 text-indigo-600"
+                },
+                choice
+              %>
+          <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice %>
+            </li>
+          <% end %>
+        </ul>
       </div>
 
       <div class="text-gray-700">
