@@ -40,7 +40,6 @@ class IntakesController < ApplicationController
       :active_duty, 
       :substance_misuse, 
       :chronic_health_condition,
-      :mental_health_condition, 
       :mental_health_disability,
       :physical_disability, 
       :developmental_disability,

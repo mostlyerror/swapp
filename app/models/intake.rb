@@ -9,7 +9,6 @@ class Intake < ApplicationRecord
       :active_duty,
       :substance_misuse,
       :chronic_health_condition,
-      :mental_health_condition,
       :mental_health_disability,
       :physical_disability,
       :developmental_disability,
@@ -236,12 +235,6 @@ class Intake < ApplicationRecord
   CHRONIC_HEALTH_CONDITION = OpenStruct.new(
     key: :chronic_health_condition,
     text: "Do you have a Chronic Health Condition?",
-    choices: %w[ Yes No ]
-  )
-
-  MENTAL_HEALTH_CONDITION = OpenStruct.new(
-    key: :mental_health_condition,
-    text: "Do you have a Mental Health Condition?",
     choices: %w[ Yes No ]
   )
 
