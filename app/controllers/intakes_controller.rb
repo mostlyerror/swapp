@@ -33,7 +33,7 @@ class IntakesController < ApplicationController
   def intake_params
     params.require(:intake).permit(
       :homelessness_first_time,
-      :episodes_last_three_years_fewer_than_four_times,
+      :homelessness_episodes_last_three_years,
       :where_did_you_sleep_last_night, 
       {why_not_shelter: []},
       :armed_forces,

@@ -4,7 +4,7 @@ class Intake < ApplicationRecord
   belongs_to :user
 
   auto_strip_attributes :homelessness_first_time,
-      :episodes_last_three_years_fewer_than_four_times,
+      :homelessness_episodes_last_three_years,
       :armed_forces,
       :active_duty,
       :substance_misuse,
@@ -74,11 +74,13 @@ class Intake < ApplicationRecord
   )
 
   HOMELESSNESS_EPISODES_LAST_THREE_YEARS = OpenStruct.new(
-    key: :episodes_last_three_years_fewer_than_four_times,
-    text: "Including this time, how many separate times have you stayed in shelters or on the streets in the past 3 years?", 
+    key: :episodes_last_three_years,
+    text: "Number of episodes of homelessness in the past three years?", 
     choices: [
-      "Fewer than 4 times",
-      "4 or more times"
+      '1',
+      '2',
+      '3',
+      '4 or more'
     ]
   )
 

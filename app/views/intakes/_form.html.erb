@@ -136,37 +136,18 @@
 
       <div class="text-gray-700">
         <% question = Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS %>
-        <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
-          <li class="relative flex-1">
-            <% choice = "Fewer than 4 times" %>
-            <%= form.radio_button question.key, choice == "Fewer than 4 times", 
-              id: "intake_episodes_last_three_years_fewer_than_four_times_true",
-              class: "absolute z-0 h-1 w-1",
-              required: true,
-              checked: @intake.episodes_last_three_years_fewer_than_four_times == "Fewer than 4 times",
-              tabindex: -1
-            %>
-            <%= form.label question.key, choice, 
-              id: "intake_#{question.key}_#{choice.downcase}",
-              class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-            %>
-          </li>
-          <li class="relative flex-1">
-            <% choice = "4 or more times" %>
-            <%= form.radio_button question.key, choice == "4 or more times", 
-              id: "intake_episodes_last_three_years_fewer_than_four_times_false",
-              class: "absolute z-0 h-1 w-1",
-              required: true,
-              checked: @intake.episodes_last_three_years_fewer_than_four_times == "4 or more times",
-              tabindex: -1
-            %>
-            <%= form.label question.key, choice, 
-              id: "intake_#{question.key}_#{choice.downcase}",
-              class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-            %>
-          </li>
-        </ul>
+        <%= form.label question.key, question.text,
+          class: "block leading-tight font-semibold"
+        %>
+        <%= form.select question.key, 
+          options_for_select(
+            Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS.choices, 
+            @intake.homelessness_episodes_last_three_years || ''
+          ),
+          {include_blank: ''},
+          required: true,
+          class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl"
+          %>
       </div>
 
       <div class="text-gray-700">
