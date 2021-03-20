@@ -344,28 +344,6 @@
       </div>
 
       <div class="text-gray-700">
-        <% question = Intake::MENTAL_HEALTH_CONDITION %>
-        <%= form.label question.key, question.text, 
-          class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
-          <% question.choices.each do |choice| %>
-            <li class="relative flex-1">
-              <%= form.radio_button question.key, choice == "Yes", 
-                class: "absolute z-0 h-1 w-1",
-                required: true,
-                checked: @intake.mental_health_condition == choice,
-                tabindex: -1
-              %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-
-      <div class="text-gray-700">
         <% question = Intake::MENTAL_HEALTH_DISABILITY %>
         <%= form.label question.key, question.text, 
           class: "block leading-tight font-semibold" %>
