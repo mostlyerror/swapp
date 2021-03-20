@@ -73,7 +73,7 @@ class Intake < ApplicationRecord
   )
 
   HOMELESSNESS_EPISODES_LAST_THREE_YEARS = OpenStruct.new(
-    key: :episodes_last_three_years,
+    key: :homelessness_episodes_last_three_years,
     text: "Number of episodes of homelessness in the past three years?", 
     choices: [
       '1',
