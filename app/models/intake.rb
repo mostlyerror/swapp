@@ -86,19 +86,19 @@ class Intake < ApplicationRecord
     key: :homelessness_total_last_three_years,
     text: "Total number of months of homelessness in the past three years.", 
     choices: [
-      "One", 
-      "Two",
-      "Three",
-      "Four",
-      "Five",
-      "Six",
-      "Seven",
-      "Eight",
-      "Nine",
-      "Ten",
-      "Eleven",
-      "Twelve",
-      "More than Twelve"
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12',
+      'More than 12'
     ]
   )
 
