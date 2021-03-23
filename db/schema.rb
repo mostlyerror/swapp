@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2021_03_23_165525) do
     t.string "health_insurance"
     t.jsonb "non_cash_benefits", default: []
     t.string "homelessness_episodes_last_three_years"
+    t.boolean "income_any_source"
     t.integer "income_source_earned_income"
     t.integer "income_source_ssdi"
     t.integer "income_source_ssi"
