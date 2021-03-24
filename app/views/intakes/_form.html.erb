@@ -121,14 +121,13 @@
         %>
         <ul class="flex flex-col">
           <% question.choices.each do |choice| %>
-            <li class="mt-12 flex items-center text-5xl">
-
+            <li class="mt-12 flex items-center">
               <%= form.radio_button question.key, choice,
                 class: "h-10 w-10",
                 required: true,
                 checked: @intake.homelessness_how_long_this_time == choice
               %>
-            <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice, class: "ml-4" %>
+              <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice, class: "ml-4 text-5.5xl" %>
             </li>
           <% end %>
         </ul>
