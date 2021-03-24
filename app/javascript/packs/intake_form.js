@@ -106,3 +106,31 @@ document.addEventListener(
   },
   false
 );
+
+// calculating approx monthly income total
+const incomeSourceContainer = document.getElementById(
+  "income_source_container"
+);
+const incomeSourceInputs = incomeSourceContainer.querySelectorAll("input");
+
+incomeSourceInputs.forEach((input) => {
+  input.addEventListener(
+    "change",
+    (event) => {
+      let total = Array.prototype.reduce.call(
+        incomeSourceInputs,
+        (acc, input) => {
+          let parsed = parseInt(input.value);
+          if (isNaN(parsed)) {
+            parsed = 0;
+          }
+          return acc + parsed;
+        },
+        0
+      );
+      let totalSpan = document.getElementById("income_source_total");
+      totalSpan.innerHTML = new Intl.NumberFormat().format(total);
+    },
+    false
+  );
+});
