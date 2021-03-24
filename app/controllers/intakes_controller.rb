@@ -11,11 +11,13 @@ class IntakesController < ApplicationController
     @intake = Intake.new(intake_params.except(:voucher).merge(
       have_you_ever_experienced_homelessness_before:
         ActiveRecord::Type::Boolean.new.cast(intake_params[:homelessness_first_time]),
+      non_cash_benefits: intake_params[:non_cash_benefits].reject {|r| r == "0" }
     ))
 
     client_params = intake_params[:client_attributes]
-    @client = Client.new(client_params)
-    @client.race = client_params[:race].reject {|r| r == "0" }
+    @client = Client.new(client_params.merge(
+      race: client_params[:race].reject {|r| r == "0" }
+    ))
 
     @intake.client = @client
     @intake.user = current_user
@@ -32,14 +34,13 @@ class IntakesController < ApplicationController
   def intake_params
     params.require(:intake).permit(
       :homelessness_first_time,
-      :episodes_last_three_years_fewer_than_four_times,
+      :homelessness_episodes_last_three_years,
       :where_did_you_sleep_last_night, 
       {why_not_shelter: []},
       :armed_forces,
       :active_duty, 
       :substance_misuse, 
       :chronic_health_condition,
-      :mental_health_condition, 
       :mental_health_disability,
       :physical_disability, 
       :developmental_disability,
@@ -61,6 +62,7 @@ class IntakesController < ApplicationController
       :income_source_alimony,
       :income_source_veteran_service_compensation,
       :income_source_general_assistance,
+      {non_cash_benefits: []},
       client_attributes: [
         :first_name, 
         :last_name, 
