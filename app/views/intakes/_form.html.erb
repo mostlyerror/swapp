@@ -95,7 +95,7 @@
       <div>
         <% question = Intake::HOMELESSNESS_FIRST_TIME %>
         <%= form.label :homelessness_first_time, question.text, class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
+        <ul class="py-4 pb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button :homelessness_first_time, choice == "Yes", 
