@@ -1,12 +1,12 @@
 ActiveRecord::Base.transaction do |t|
-  user_data = [
+  hotel_user_data = [
     {
       email: 'frontdesk@cityinn.com',
       first_name: 'City',
       last_name: 'Inn',
       password: 'password',
       password_confirmation: 'password',
-      admin_user: false,
+      hotel_user: true
     },
     {
       email: 'frontdesk@comfortinn.com',
@@ -14,7 +14,7 @@ ActiveRecord::Base.transaction do |t|
       last_name: 'Inn Denver',
       password: 'password',
       password_confirmation: 'password',
-      admin_user: false,
+      hotel_user: true
     },
     {
       email: 'frontdesk@hometownestudios.com',
@@ -22,7 +22,7 @@ ActiveRecord::Base.transaction do |t|
       last_name: 'Studios',
       password: 'password',
       password_confirmation: 'password',
-      admin_user: false,
+      hotel_user: true
     },
     {
       email: 'frontdesk@qualityinn.com',
@@ -30,11 +30,11 @@ ActiveRecord::Base.transaction do |t|
       last_name: 'Inn',
       password: 'password',
       password_confirmation: 'password',
-      admin_user: false
+      hotel_user: true
     }
   ]
 
-  User.create!(user_data)
+  User.create!(hotel_user_data)
 
   keys = [
     :email, :first_name, :last_name, :admin_user
@@ -61,7 +61,7 @@ ActiveRecord::Base.transaction do |t|
     ['mario.solis-armenta@thorntonco.gov', 'Mario', 'Solis-Armenta', false],
     ['rvenkatesh@northglenn.org', 'Rupa', 'Venkatesh', false],
     ['jhulse@northglenn.org', 'Jessica', 'Hulse', false],
-    ['claudia@almosthomeonline.org', 'Claudia', 'Melendez', false]
+    ['claudia@almosthomeonline.org', 'Claudia', 'Melendez', true]
   ]
 
   user_data.each do |data|
