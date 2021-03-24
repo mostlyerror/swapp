@@ -8,8 +8,11 @@ Rails.application.routes.draw do
   resources :vouchers
   get "vouchers/:id/created" => "vouchers#created", as: :voucher_created
   resources :swaps
-  get "/motels", to: "motels#index"
-  get "/motels/guests/:id", to: "motels#show"
+
+  namespace :hotels do
+    get "/", to: "home#index"
+    # get "/guests/:id", to: "hotels#show"
+  end
 
   namespace :admin do
     get "/" => "home#index", as: :home
