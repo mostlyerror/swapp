@@ -1,6 +1,6 @@
 // attaching event handlers for yes/no toggles
 const questionKeys = [
-  "intake_income_any_source",
+  "intake_income_source_any",
   "intake_client_attributes_veteran",
   "intake_homelessness_first_time",
   "intake_episodes_last_three_years_fewer_than_four_times",
@@ -63,11 +63,14 @@ questionKeys.forEach((key) => {
 document.addEventListener(
   "click",
   (event) => {
-    if (event.target.id === "intake_income_any_source_yes") {
+    if (event.target.id === "intake_income_source_any_yes") {
       let container = document.getElementById("income_source_container");
       container.classList.remove("hidden");
       let inputs = container.querySelectorAll("input");
-      inputs.forEach((input) => (input.required = true));
+      inputs.forEach((input) => {
+        input.required = true;
+        input.type === "number" && (input.value = "0");
+      });
     }
 
     if (event.target.id === "intake_client_attributes_veteran_yes") {
@@ -83,7 +86,7 @@ document.addEventListener(
 document.addEventListener(
   "click",
   (event) => {
-    if (event.target.id === "intake_income_any_source_no") {
+    if (event.target.id === "intake_income_source_any_no") {
       let container = document.getElementById("income_source_container");
       container.classList.add("hidden");
       let inputs = container.querySelectorAll("input");
@@ -91,6 +94,8 @@ document.addEventListener(
         input.required = false;
         input.type === "number" && (input.value = "");
       });
+      let totalSpan = document.getElementById("income_source_total");
+      totalSpan.innerHTML = "";
     }
 
     if (event.target.id === "intake_client_attributes_veteran_no") {
