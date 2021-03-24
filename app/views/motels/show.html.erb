@@ -1,4 +1,4 @@
-<div class="px-12 mt-12">
+<div class="px-16 mt-12">
     <h4>Guest Detail: <%= @client.name %></h4>
 
     <section class="mt-16">
@@ -14,5 +14,13 @@
 
     <section class="mt-16">
         <h4>Past Incidents</h4>
+        <% if @client.incident_reports.any? %>
+            <% @client.incident_reports.each do |incident| %>
+
+            <% end %>
+        <% else %>
+
+            <p><strong>No incident reports to show</strong></p>
+        <% end %>
     </section>
 </div>
