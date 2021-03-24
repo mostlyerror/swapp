@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_11_173156) do
+ActiveRecord::Schema.define(version: 2021_03_24_223739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,10 @@ ActiveRecord::Schema.define(version: 2021_03_11_173156) do
     t.string "email"
     t.string "phone_number"
     t.jsonb "race", default: []
+    t.boolean "veteran"
+    t.string "veteran_military_branch"
+    t.string "veteran_separation_year"
+    t.string "veteran_discharge_status"
   end
 
   create_table "incident_reports", force: :cascade do |t|
@@ -57,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_03_11_173156) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "homelessness_first_time"
-    t.string "how_long_this_time"
+    t.string "homelessness_how_long_this_time"
     t.boolean "episodes_last_three_years_fewer_than_four_times"
     t.string "total_how_long_shelters_or_streets"
     t.string "are_you_working"
@@ -71,6 +75,24 @@ ActiveRecord::Schema.define(version: 2021_03_11_173156) do
     t.boolean "developmental_disability"
     t.boolean "fleeing_domestic_violence"
     t.string "last_permanent_residence_county"
+    t.string "substance_misuse"
+    t.string "homelessness_total_last_three_years"
+    t.boolean "have_you_ever_experienced_homelessness_before"
+    t.string "health_insurance"
+    t.jsonb "non_cash_benefits", default: []
+    t.string "homelessness_episodes_last_three_years"
+    t.boolean "income_source_any"
+    t.integer "income_source_earned_income"
+    t.integer "income_source_ssdi"
+    t.integer "income_source_ssi"
+    t.integer "income_source_unemployment_insurance"
+    t.integer "income_source_tanf"
+    t.integer "income_source_child_support"
+    t.integer "income_source_retirement"
+    t.integer "income_source_alimony"
+    t.integer "income_source_veteran_service_compensation"
+    t.integer "income_source_general_assistance"
+    t.date "homelessness_date_began"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end
@@ -121,6 +143,7 @@ ActiveRecord::Schema.define(version: 2021_03_11_173156) do
     t.boolean "admin", default: false, null: false
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
+    t.boolean "hotel_user"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
