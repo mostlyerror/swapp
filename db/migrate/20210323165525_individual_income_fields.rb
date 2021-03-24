@@ -3,7 +3,7 @@ class IndividualIncomeFields < ActiveRecord::Migration[6.0]
     remove_column :intakes, :income_source, :string
     remove_column :intakes, :income_total_monthly, :jsonb
 
-    add_column :intakes, :income_any_source, :boolean
+    add_column :intakes, :income_source_any, :boolean
     add_column :intakes, :income_source_earned_income, :integer
     add_column :intakes, :income_source_ssdi, :integer
     add_column :intakes, :income_source_ssi, :integer
