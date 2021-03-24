@@ -1,6 +1,6 @@
 class MotelsController < ApplicationController
   def index
-    @vouchers = Voucher.all
+    @vouchers = Voucher.order(created_at: :desc).limit(60)
   end
 
   def show
