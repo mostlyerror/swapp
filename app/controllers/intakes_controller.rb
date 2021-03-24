@@ -19,6 +19,7 @@ class IntakesController < ApplicationController
 
     @intake.client = @client
     @intake.user = current_user
+
     if !@intake.save
       return render :new
     end
