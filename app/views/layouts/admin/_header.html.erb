@@ -1,7 +1,7 @@
 <header class="p-4 w-full flex items-center justify-between">
   <span class="font-semibold text-5xl">
     <%= link_to 'swapp', clients_path %>
-    <% if current_user.admin? %>
+    <% if current_user.admin_user? %>
       <span class="text-blue-500">admin</span>
     <% end %>
   </span>

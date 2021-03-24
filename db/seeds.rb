@@ -6,7 +6,7 @@ ActiveRecord::Base.transaction do |t|
       last_name: 'Inn',
       password: 'password',
       password_confirmation: 'password',
-      admin: false,
+      admin_user: false,
     },
     {
       email: 'frontdesk@comfortinn.com',
@@ -14,7 +14,7 @@ ActiveRecord::Base.transaction do |t|
       last_name: 'Inn Denver',
       password: 'password',
       password_confirmation: 'password',
-      admin: false,
+      admin_user: false,
     },
     {
       email: 'frontdesk@hometownestudios.com',
@@ -22,7 +22,7 @@ ActiveRecord::Base.transaction do |t|
       last_name: 'Studios',
       password: 'password',
       password_confirmation: 'password',
-      admin: false,
+      admin_user: false,
     },
     {
       email: 'frontdesk@qualityinn.com',
@@ -30,14 +30,14 @@ ActiveRecord::Base.transaction do |t|
       last_name: 'Inn',
       password: 'password',
       password_confirmation: 'password',
-      admin: false
+      admin_user: false
     }
   ]
 
   User.create!(user_data)
 
   keys = [
-    :email, :first_name, :last_name, :admin
+    :email, :first_name, :last_name, :admin_user
   ]
 
   user_data = [

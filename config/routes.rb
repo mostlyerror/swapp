@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :swaps
 
   namespace :hotels do
-    get "/", to: "home#index"
+    get "/", to: "home#index", as: :home
     # get "/guests/:id", to: "hotels#show"
   end
 
