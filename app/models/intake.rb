@@ -18,8 +18,17 @@ class Intake < ApplicationRecord
       :are_you_working,
       :last_permanent_residence_county,
       :health_insurance,
+      :income_source_earned_income,
+      :income_source_ssdi,
+      :income_source_ssi,
+      :income_source_unemployment_insurance,
+      :income_source_tanf,
+      :income_source_child_support,
+      :income_source_retirement,
+      :income_source_alimony,
+      :income_source_veteran_service_compensation,
+      :income_source_general_assistance
       :non_cash_benefits
-
 
   FIRST_NAME = OpenStruct.new(
     key: :first_name,
@@ -157,6 +166,25 @@ class Intake < ApplicationRecord
       "Indian Health Services Program"
     ]
   )
+
+  INCOME_SOURCE = OpenStruct.new(
+    key: :income_source_any,
+    text: "Do you have income of any source?",
+    choices: %w[ Yes No ],
+    sub_choices: {
+      income_source_earned_income: "Earned Income (Paycheck)",
+      income_source_ssdi: "SSDI (Disability)",
+      income_source_ssi: "SSI",
+      income_source_unemployment_insurance: "Unemployment Insurance",
+      income_source_tanf: "TANF",
+      income_source_child_support: "Child Support",
+      income_source_retirement: "Retirement from Former Job",
+      income_source_alimony: "Alimony or Spousal Support",
+      income_source_veteran_service_compensation: "VA Service Compensation",
+      income_source_general_assistance: "General Assistance"
+    }
+  )
+
 
   ARE_YOU_WORKING = OpenStruct.new(
     key: :are_you_working,

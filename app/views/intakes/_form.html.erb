@@ -217,6 +217,51 @@
       </div>
 
       <div class="text-gray-700">
+        <% question = Intake::INCOME_SOURCE %>
+        <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
+        <ul class="py-4 mb-32 flex">
+          <% question.choices.each do |choice| %>
+            <li class="relative flex-1">
+              <%= form.radio_button question.key, choice == "Yes", 
+                class: "absolute z-0 h-1 w-1",
+                required: true,
+                checked: @intake.income_source_any == choice,
+                tabindex: -1
+              %>
+              <%= form.label question.key, choice, 
+                id: "intake_#{question.key}_#{choice.downcase}",
+                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+              %>
+            </li>
+          <% end %>
+        </ul>
+        <div id="income_source_container" class="hidden">
+          <div class="grid grid-cols-4 gap-8">
+            <span class="col-span-3 items-start text-5xl font-semibold">
+              Income Category
+            </span>
+            <span class="text-5xl items-start font-semibold">
+              Approx Mthly $
+            </span>
+            <% question.sub_choices.each do |(sub_key, sub_choice)| %>
+              <%= form.label sub_key, sub_choice, class: "col-span-3 items-center text-5xl py-2" %>
+              <%= form.number_field sub_key, 
+                value: @intake.public_send(sub_key) || 0,
+                class: "text-5xl items-center rounded py-2 px-4" ,
+                required: false
+              %>
+            <% end %>
+          </div>
+          <div class="grid grid-cols-4 gap-8 items-center mt-12">
+            <span class="col-span-3 text-5xl font-semibold">
+              Approx Total Monthly
+            </span>
+            <span id="income_source_total" class="text-5xl px-4 font-semibold"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-gray-700">
         <% question = Intake::VETERAN %>
         <%= client_attributes.label question.key, question.text, class: "block leading-tight font-semibold" %>
         <ul class="py-4 mb-32 flex">
