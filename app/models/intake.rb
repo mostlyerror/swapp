@@ -69,6 +69,11 @@ class Intake < ApplicationRecord
     choices: %w[ Yes No ]
   )
 
+  HOMELESSNESS_DATE_BEGAN = OpenStruct.new(
+    key: :homelessness_date_began,
+    text: "Approximate date homelessness first began"
+  )
+
   HOMELESSNESS_HOW_LONG_THIS_TIME = OpenStruct.new(
     key: :homelessness_how_long_this_time,
     text: "How long have you been homeless this time?", 

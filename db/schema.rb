@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema.define(version: 2021_03_24_155205) do
 
-ActiveRecord::Schema.define(version: 2021_03_23_165525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 2021_03_23_165525) do
     t.integer "income_source_alimony"
     t.integer "income_source_veteran_service_compensation"
     t.integer "income_source_general_assistance"
+    t.date "homelessness_date_began"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end

@@ -34,6 +34,7 @@ class IntakesController < ApplicationController
   def intake_params
     params.require(:intake).permit(
       :homelessness_first_time,
+      :homelessness_date_began,
       :homelessness_episodes_last_three_years,
       :where_did_you_sleep_last_night, 
       {why_not_shelter: []},
