@@ -10,9 +10,7 @@ class IntakesController < ApplicationController
   def create
     @intake = Intake.new(intake_params.except(:voucher).merge(
       have_you_ever_experienced_homelessness_before:
-      ActiveRecord::Type::Boolean.new.cast(
-        intake_params[:homelessness_first_time]),
-        income_source: intake_params[:income_source].reject {|r| r === "0"}
+        ActiveRecord::Type::Boolean.new.cast(intake_params[:homelessness_first_time]),
     ))
 
     client_params = intake_params[:client_attributes]
@@ -51,8 +49,17 @@ class IntakesController < ApplicationController
       :last_permanent_residence_county,
       :homelessness_total_last_three_years,
       :health_insurance,
-      :income_total_monthly,
-      {income_source: []},
+      :income_source_any,
+      :income_source_earned_income,
+      :income_source_ssdi,
+      :income_source_ssi,
+      :income_source_unemployment_insurance,
+      :income_source_tanf,
+      :income_source_child_support,
+      :income_source_retirement,
+      :income_source_alimony,
+      :income_source_veteran_service_compensation,
+      :income_source_general_assistance,
       client_attributes: [
         :first_name, 
         :last_name, 
