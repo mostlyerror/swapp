@@ -115,6 +115,16 @@
       </div>
 
       <div class="text-gray-700">
+        <% question = Intake::HOMELESSNESS_DATE_BEGAN %>
+        <%= form.label question.key, question.text,
+          class: "block leading-snug font-semibold" %>
+        <%= form.date_field question.key,
+          value: Date.current - 1.year,
+          required: true,
+          class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
+      </div>
+
+      <div class="text-gray-700">
         <% question = Intake::HOMELESSNESS_HOW_LONG_THIS_TIME %>
         <%= form.label question.key, question.text,
           class: "block leading-tight font-semibold"
