@@ -6,7 +6,7 @@
   <% end %>
 
   <div class="mt-16 text-6xl">
-    <div class="text-gray-700">
+    <div >
       <%= form.fields_for :short_intake, @short_intake do |short_intake_form| %>
         <% question = Intake::SLEEP_LAST_NIGHT %>
         <%= short_intake_form.label question.key, question.text,
@@ -326,7 +326,7 @@
     <% end %>
   </ul>
 
-  <div class="text-gray-700">
+  <div >
     <select class="text-5xl w-full rounded-lg p-3" name="short_intake[family_members][replace][ethnicity]">
       <% Client::ETHNICITY.each do |ethnicity| %>
         <option value="<%= ethnicity %>"><%= ethnicity %></option>

@@ -291,7 +291,7 @@ class Intake < ApplicationRecord
 
   FLEEING_DOMESTIC_VIOLENCE = OpenStruct.new(
     key: :fleeing_domestic_violence,
-    text: "Are you experiencing homelessness because you are fleeing Domestic Violence, Sexual Assault or Stalking?",
+    text: "Are you fleeing Domestic Violence, Sexual Assault or Stalking?",
     choices: %w[ Yes No ]
   )
 

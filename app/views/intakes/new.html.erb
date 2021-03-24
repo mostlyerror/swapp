@@ -10,7 +10,7 @@
   <%= render partial: 'shared/swap_notices' %>
 </section >
 <% if SwapIntake.can_issue_voucher_today?(@swap) %>
-  <section class="px-6 mt-16">
+  <section>
     <%= render partial: 'form' %>
   </section>
 <% end %>
