@@ -7,6 +7,6 @@ FactoryBot.define do
     ethnicity { Client::ETHNICITY.sample }
     email { Faker::Internet.email }
     phone_number { '5555555555' }
-    race { Client::RACE.sample }
+    race { [Client::RACE.sample] }
   end
 end
