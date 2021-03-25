@@ -1,7 +1,7 @@
 class Voucher < ApplicationRecord
   belongs_to :client
   belongs_to :user
-  belongs_to :motel
+  belongs_to :hotel
   belongs_to :swap
 
   validates_presence_of :check_in, :check_out

@@ -7,7 +7,7 @@ class SwapNoticesTest < ApplicationSystemTestCase
   setup do 
     user = create(:user)
     sign_in user
-    motel = create(:motel)
+    hotel = create(:hotel)
   end
 
   test "notice for swap inactive" do

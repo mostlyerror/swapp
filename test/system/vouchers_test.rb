@@ -10,16 +10,16 @@ class VouchersTest < ApplicationSystemTestCase
 
   test "issuing a voucher to existing client" do
 
-    motel = create(:motel)
+    hotel = create(:hotel)
     swap = create(:swap, :current)
-    create(:availability, motel: motel, swap: swap, vacant: 1)
+    create(:availability, hotel: hotel, swap: swap, vacant: 1)
 
     client = create(:client)
     visit new_voucher_path(client_id: client.id)
 
     assert_selector "[value='#{Date.current.strftime("%Y-%m-%d")}']"
 
-    select motel.name, from: "Hotel"
+    select hotel.name, from: "Hotel"
     click_on "Create"
 
     # voucher ID saved after creation

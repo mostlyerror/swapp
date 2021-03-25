@@ -25,10 +25,10 @@
       <span class="underline text-indigo-200" @click="open = false" x-show="open">- collapse</span>
       </p>
       <ul class="p-6 flex flex-1 flex-col space-y-6 bg-white border-2 border-gray-400" x-show="open" @click.away="open = false">
-        <% @vouchers_remaining_today.each do |(motel_id, vouchers)| %>
+        <% @vouchers_remaining_today.each do |(hotel_id, vouchers)| %>
           <li class="flex flex-1 justify-between items-center">
-            <p class=""><%= @motel_map[motel_id] %>
-          <% if Motel.find(motel_id).pet_friendly %>
+            <p class=""><%= @hotel_map[hotel_id] %>
+          <% if Hotel.find(hotel_id).pet_friendly %>
             <span class="bg-yellow-100 text-4xl py-1 px-2">dogs ok</span>
           <% end %>
             </p>

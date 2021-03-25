@@ -123,7 +123,7 @@ class Intake < ApplicationRecord
     choices: [
       "In own home",
       "In a shelter",
-      "In a motel",
+      "In a hotel",
       "Doubled Up",
       "In a car",
       "In an RV",
@@ -335,8 +335,8 @@ class Intake < ApplicationRecord
     text: "Check Out"
   )
 
-  MOTEL_ID = OpenStruct.new(
-    key: :motel_id,
+  HOTEL_ID = OpenStruct.new(
+    key: :hotel_id,
     text: "Hotel (vouchers remaining)", 
   )
 

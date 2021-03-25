@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :motel do
-    name { "#{Faker::Company.name} motel" }
+  factory :hotel do
+    name { "#{Faker::Company.name} hotel" }
     address {
       {
         street: Faker::Address.street_address,

@@ -34,9 +34,9 @@
   <% if @swap.present? %>
    <h4 class="m-5 font-bold text-gray-900">Vouchers Remaining:</h4>
    <ul class="p-6 flex flex-1 flex-col space-y-6 border-2 border-gray-900 shadow-2xl divide-y-4 divide-gray-900 divide-dashed">
-      <% @vouchers_remaining_today.each do |(motel_id, vouchers)| %>
+      <% @vouchers_remaining_today.each do |(hotel_id, vouchers)| %>
        <li class="flex flex-1 justify-between items-center p-1">
-         <p class="font-bold text-5xl mt-4 pl-7"><%= @motel_map[motel_id] %></p>
+         <p class="font-bold text-5xl mt-4 pl-7"><%= @hotel_map[hotel_id] %></p>
          <p class="text-red-900 text-5xl mt-4 pr-10"><%= vouchers %></p>
       </li>
     <% end %>
@@ -57,7 +57,7 @@
   </div>
   <div>
     <i class="bi bi-house-door text-9xl p-3"></i>
-    <p class="my-10 px-7 leading-normal">Submit the form and send the client to the motel of their choice</p>
+    <p class="my-10 px-7 leading-normal">Submit the form and send the client to the hotel of their choice</p>
   </div>
   </section>
   <hr>

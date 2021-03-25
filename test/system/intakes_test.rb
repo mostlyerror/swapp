@@ -9,9 +9,9 @@ class IntakesTest < ApplicationSystemTestCase
   end
 
   test "filling out intake form and seeing created voucher" do
-    motel = create(:motel)
+    hotel = create(:hotel)
     swap = create(:swap, :current)
-    create(:availability, motel: motel, swap: swap, vacant: 1)
+    create(:availability, hotel: hotel, swap: swap, vacant: 1)
     client = Client.new
 
     visit new_intake_path
@@ -54,7 +54,7 @@ class IntakesTest < ApplicationSystemTestCase
     fill_in "intake_survey[last_permanent_residence_county]", with: "Adams"
     find(id: "intake_survey[bus_pass]_no").click
     find(id: "intake_survey[king_soopers_card]_no").click
-    select "#{motel.name} (1)", from: "intake_survey[motel_id]"
+    select "#{hotel.name} (1)", from: "intake_survey[hotel_id]"
     fill_in "intake_client_attributes_phone_number", with: client.phone_number
     fill_in "intake_client_attributes_email", with: client.email
 

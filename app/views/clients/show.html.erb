@@ -54,7 +54,7 @@
     <% @client.vouchers.each do |voucher| %>
       <div class="flex flex-col flex-1 space-y-4 py-8 px-6 border border-b-1 border-black bg-white">
         <p class="text-5xl"><strong>Number:</strong> <%= voucher.number %></p>
-        <p class="text-5xl"><strong>Motel:</strong> <%= voucher.motel.name %></p>
+        <p class="text-5xl"><strong>Hotel:</strong> <%= voucher.hotel.name %></p>
         <p class="text-5xl"><strong>Check In:</strong> <%= formatted_date(voucher.check_in) %></p>
         <p class="text-5xl"><strong>Check Out:</strong> <%= formatted_date(voucher.check_out) %></p>
         <p class="text-5xl"><strong>Issued By:</strong> <%= "#{voucher.user.name} (#{voucher.user.email})" %></p>

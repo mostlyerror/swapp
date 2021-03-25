@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   get "vouchers/:id/created" => "vouchers#created", as: :voucher_created
   resources :swaps
 
+  namespace :hotels do
+    get "/", to: "home#index", as: :home
+    # get "/guests/:id", to: "hotels#show"
+  end
+
   namespace :admin do
     get "/" => "home#index", as: :home
     put "swaps/:id/extend" => "swaps#extend", as: :extend_swap
