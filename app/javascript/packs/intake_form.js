@@ -1,9 +1,11 @@
+// attaching event handlers for yes/no toggles
 const questionKeys = [
+  "intake_income_source_any",
+  "intake_client_attributes_veteran",
   "intake_homelessness_first_time",
   "intake_episodes_last_three_years_fewer_than_four_times",
   "intake_armed_forces",
   "intake_active_duty",
-  "intake_substance_abuse",
   "intake_chronic_health_condition",
   "intake_mental_health_condition",
   "intake_mental_health_disability",
@@ -53,4 +55,107 @@ questionKeys.forEach((key) => {
       radioFalse.checked = true;
     }
   });
+});
+
+// non cash benefits
+// clicking "No" unchecks the other boxes
+// clicking any other box unchecks "No"
+document.addEventListener(
+  "click",
+  (event) => {
+    if (event.target.id === "intake_non_cash_benefits_no") {
+      const checkboxes = document.querySelectorAll(
+        "ul#non_cash_benefits_list > li + li > input"
+      );
+
+      if (event.target.checked) {
+        checkboxes.forEach((checkbox) => (checkbox.checked = false));
+      }
+    } else if (event.target.id.match(/intake_non_cash_benefits/)) {
+      const noCheckbox = document.getElementById("intake_non_cash_benefits_no");
+      noCheckbox.checked = false;
+    }
+  },
+  false
+);
+
+// veteran status
+document.addEventListener(
+  "click",
+  (event) => {
+    if (event.target.id === "intake_income_source_any_yes") {
+      let container = document.getElementById("income_source_container");
+      container.classList.remove("hidden");
+      let inputs = container.querySelectorAll("input");
+      inputs.forEach((input) => {
+        input.required = true;
+        input.type === "number" && (input.value = "0");
+      });
+    }
+
+    if (event.target.id === "intake_client_attributes_veteran_yes") {
+      let container = document.getElementById("veteran_container");
+      container.classList.remove("hidden");
+      let inputs = container.querySelectorAll("input");
+      inputs.forEach((input) => (input.required = true));
+    }
+  },
+  false
+);
+
+document.addEventListener(
+  "click",
+  (event) => {
+    if (event.target.id === "intake_income_source_any_no") {
+      let container = document.getElementById("income_source_container");
+      container.classList.add("hidden");
+      let inputs = container.querySelectorAll("input");
+      inputs.forEach((input) => {
+        input.required = false;
+        input.type === "number" && (input.value = "");
+      });
+      let totalSpan = document.getElementById("income_source_total");
+      totalSpan.innerHTML = "";
+    }
+
+    if (event.target.id === "intake_client_attributes_veteran_no") {
+      let container = document.getElementById("veteran_container");
+      container.classList.add("hidden");
+      let inputs = container.querySelectorAll("input");
+      inputs.forEach((input) => {
+        input.required = false;
+        input.type === "radio" && (input.checked = false);
+        input.type === "text" && (input.value = "");
+      });
+    }
+  },
+  false
+);
+
+// calculating approx monthly income total
+const incomeSourceContainer = document.getElementById(
+  "income_source_container"
+);
+const incomeSourceInputs = incomeSourceContainer.querySelectorAll("input");
+
+incomeSourceInputs.forEach((input) => {
+  input.addEventListener(
+    "change",
+    (event) => {
+      let total = Array.prototype.reduce.call(
+        incomeSourceInputs,
+        (acc, input) => {
+          let parsed = parseInt(input.value);
+          if (isNaN(parsed)) {
+            parsed = 0;
+          }
+          return acc + parsed;
+        },
+        0
+      );
+      let totalSpan = document.getElementById("income_source_total");
+      totalSpan.innerHTML = new Intl.NumberFormat().format(total);
+    },
+    false
+  );
 });

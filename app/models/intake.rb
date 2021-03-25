@@ -4,21 +4,31 @@ class Intake < ApplicationRecord
   belongs_to :user
 
   auto_strip_attributes :homelessness_first_time,
-      :episodes_last_three_years_fewer_than_four_times,
+      :homelessness_episodes_last_three_years,
       :armed_forces,
       :active_duty,
-      :substance_abuse,
+      :substance_misuse,
       :chronic_health_condition,
-      :mental_health_condition,
       :mental_health_disability,
       :physical_disability,
       :developmental_disability,
       :fleeing_domestic_violence,
-      :how_long_this_time,
-      :total_how_long_shelters_or_streets,
+      :homelessness_how_long_this_time,
+      :homelessness_total_last_three_years,
       :are_you_working,
-      :last_permanent_residence_county
-
+      :last_permanent_residence_county,
+      :health_insurance,
+      :income_source_earned_income,
+      :income_source_ssdi,
+      :income_source_ssi,
+      :income_source_unemployment_insurance,
+      :income_source_tanf,
+      :income_source_child_support,
+      :income_source_retirement,
+      :income_source_alimony,
+      :income_source_veteran_service_compensation,
+      :income_source_general_assistance
+      :non_cash_benefits
 
   FIRST_NAME = OpenStruct.new(
     key: :first_name,
@@ -59,25 +69,52 @@ class Intake < ApplicationRecord
     choices: %w[ Yes No ]
   )
 
+  HOMELESSNESS_DATE_BEGAN = OpenStruct.new(
+    key: :homelessness_date_began,
+    text: "Approximate date homelessness first began"
+  )
+
   HOMELESSNESS_HOW_LONG_THIS_TIME = OpenStruct.new(
     key: :homelessness_how_long_this_time,
     text: "How long have you been homeless this time?", 
-    placeholder: "(e.g, 2 months, 5 years, etc.)"
-  )
-
-  HOMELESSNESS_EPISODES_LAST_THREE_YEARS = OpenStruct.new(
-    key: :episodes_last_three_years_fewer_than_four_times,
-    text: "Including this time, how many separate times have you stayed in shelters or on the streets in the past 3 years?", 
     choices: [
-      "Fewer than 4 times",
-      "4 or more times"
+      "1 night or less",
+      "2 to 6 nights",
+      "1 week or more but less than 1 month",
+      "1 month or more but less than 90 days",
+      "90 days or more but less than 1 year"
     ]
   )
 
-  HOMELESSNESS_EPISODES_HOW_LONG = OpenStruct.new(
-    key: :total_how_long_shelters_or_streets,
-    text: "In total, how long did you stay in shelters or on the streets those times?", 
-    placeholder: "(e.g, 2 months, 5 years, etc.)"
+  HOMELESSNESS_EPISODES_LAST_THREE_YEARS = OpenStruct.new(
+    key: :homelessness_episodes_last_three_years,
+    text: "Number of episodes of homelessness in the past three years?", 
+    choices: [
+      '1',
+      '2',
+      '3',
+      '4 or more'
+    ]
+  )
+
+  HOMELESSNESS_TOTAL_LAST_THREE_YEARS = OpenStruct.new(
+    key: :homelessness_total_last_three_years,
+    text: "Total number of months of homelessness in the past three years.", 
+    choices: [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12',
+      'More than 12'
+    ]
   )
 
   SLEEP_LAST_NIGHT = OpenStruct.new(
@@ -117,6 +154,42 @@ class Intake < ApplicationRecord
       "Did not want to separate from significant other",
     ]
   )
+  
+  HEALTH_INSURANCE = OpenStruct.new(
+    key: :health_insurance,
+    text: "Are you covered by health insurance?",
+    choices: [
+      "No",
+      "Medicaid",
+      "Medicare",
+      "VA Medical",
+      "Employer Provided",
+      "Private Pay",
+      "State Children's Health Insurance Program",
+      "State Health Insurance for Adults",
+      "Health Insurance through Cobra",
+      "Indian Health Services Program"
+    ]
+  )
+
+  INCOME_SOURCE = OpenStruct.new(
+    key: :income_source_any,
+    text: "Do you have income of any source?",
+    choices: %w[ Yes No ],
+    sub_choices: {
+      income_source_earned_income: "Earned Income (Paycheck)",
+      income_source_ssdi: "SSDI (Disability)",
+      income_source_ssi: "SSI",
+      income_source_unemployment_insurance: "Unemployment Insurance",
+      income_source_tanf: "TANF",
+      income_source_child_support: "Child Support",
+      income_source_retirement: "Retirement from Former Job",
+      income_source_alimony: "Alimony or Spousal Support",
+      income_source_veteran_service_compensation: "VA Service Compensation",
+      income_source_general_assistance: "General Assistance"
+    }
+  )
+
 
   ARE_YOU_WORKING = OpenStruct.new(
     key: :are_you_working,
@@ -129,10 +202,50 @@ class Intake < ApplicationRecord
     ]
   )
 
+  NON_CASH_BENEFITS = OpenStruct.new(
+    key: :non_cash_benefits,
+    text: "Are you receiving non-cash benefits?",
+    choices: [
+      "No",
+      "SNAP (Food Stamps)",
+      "WIC",
+      "TANF Childcare Services",
+      "TANF Transportation Services"
+    ]
+  )
+
   VETERAN = OpenStruct.new(
-    key: :armed_forces,
-    text: "Have you ever served in the US Armed Forces (Army, Navy, Air Force, Marines or Coast Guard)?", 
+    key: :veteran,
+    text: "Are you a veteran?",
     choices: %w[ Yes No ]
+  )
+
+  VETERAN_MILITARY_BRANCH = OpenStruct.new(
+    key: :veteran_military_branch,
+    text: "Branch of military",
+    choices: [
+      "Army",
+      "Navy",
+      "Airforce",
+      "Marines",
+      "Coast Guard"
+    ],
+  )
+
+  VETERAN_SEPARATION_YEAR = OpenStruct.new(
+    key: :veteran_separation_year,
+    text: "Year separated"
+  )
+
+  VETERAN_DISCHARGE_STATUS = OpenStruct.new(
+    key: :veteran_discharge_status,
+    text: "Discharge status",
+    choices: [
+      "Honorable",
+      "Dishonorable",
+      "Bad Conduct",
+      "Other than honorable",
+    ]
   )
 
   ACTIVE_DUTY = OpenStruct.new(
@@ -141,21 +254,20 @@ class Intake < ApplicationRecord
     choices: %w[ Yes No ]
   )
 
-  SUBSTANCE_ABUSE = OpenStruct.new(
-    key: :substance_abuse,
-    text: "Do you have any Substance Abuse Issues?",
-    choices: %w[ Yes No ]
+  SUBSTANCE_MISUSE = OpenStruct.new(
+    key: :substance_misuse,
+    text: "Do you have any Substance Misuse Issues?",
+    choices: [ 
+      "No",
+      "Alcohol",
+      "Drugs",
+      "Alcohol and Drugs"
+     ]
   )
 
   CHRONIC_HEALTH_CONDITION = OpenStruct.new(
     key: :chronic_health_condition,
     text: "Do you have a Chronic Health Condition?",
-    choices: %w[ Yes No ]
-  )
-
-  MENTAL_HEALTH_CONDITION = OpenStruct.new(
-    key: :mental_health_condition,
-    text: "Do you have a Mental Health Condition?",
     choices: %w[ Yes No ]
   )
 
@@ -179,7 +291,7 @@ class Intake < ApplicationRecord
 
   FLEEING_DOMESTIC_VIOLENCE = OpenStruct.new(
     key: :fleeing_domestic_violence,
-    text: "Are you experiencing homelessness because you are fleeing Domestic Violence, Sexual Assault or Stalking?",
+    text: "Are you fleeing Domestic Violence, Sexual Assault or Stalking?",
     choices: %w[ Yes No ]
   )
 
