@@ -1,6 +1,6 @@
 <%= form_with(model: @intake) do |form| %>
   <% if @intake.errors.any? %>
-    <div id="error_explanation" class="my-16 p-8 text-7xl bg-red-400 font-bold">
+    <div id="error_explanation" class="my-16 p-8 text-6xl bg-red-400 font-bold">
       <p><%= pluralize(@intake.errors.count, "error") %> prohibited this intake from being saved:</p>
       <ul class="mt-8">
         <% @intake.errors.full_messages.each do |message| %>
@@ -10,10 +10,9 @@
     </div>
   <% end %>
 
-  <div class="w-full flex flex-col space-y-32 mt-24 pb-24 text-6xl text-gray-800 tracking-wide">
+  <div class="mt-16 w-full space-y-32 px-8 pb-24 text-5xl text-gray-700 tracking-wide">
     <%= form.fields_for :client, @client do |client_attributes|%>
-
-      <div class="text-gray-700">
+      <div>
         <% question = Intake::FIRST_NAME %>
         <%= client_attributes.label question.key, question.text,
           class: "block leading-snug font-semibold"
@@ -22,11 +21,11 @@
           size: 23, 
           value: @client.first_name,
           required: true,
-          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+          class: "mt-4 w-full rounded-lg p-8 text-5xl"
         %>
       </div>
 
-      <div class="text-gray-700">
+      <div>
         <% question = Intake::LAST_NAME %>
         <%= client_attributes.label question.key, question.text,
           class: "block leading-snug font-semibold"
@@ -35,21 +34,22 @@
           size: 23, 
           value: @client.last_name,
           required: true,
-          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+          class: "mt-4 w-full rounded-lg p-8 text-5xl"
         %>
       </div>
 
-      <div class="text-gray-700">
+      <div>
         <% question = Intake::DATE_OF_BIRTH %>
         <%= client_attributes.label question.key, question.text,
           class: "block leading-snug font-semibold" %>
         <%= client_attributes.date_field question.key,
           value: Date.current - 50.years,
           required: true,
-          class: "mt-4 w-full rounded-lg p-8 text-6xl" %>
+          class: "mt-4 w-full rounded-lg p-8 text-5xl"
+        %>
       </div>
 
-      <div class="text-gray-700">
+      <div>
         <% question = Intake::GENDER %>
         <%= client_attributes.label question.key, question.text,
           class: "block leading-snug font-semibold" %>
@@ -57,31 +57,30 @@
           options_for_select(question.choices, @client.gender),
           {},
           required: true,
-          class: "mt-6 rounded-lg w-full p-8 text-6xl"
+          class: "mt-4 w-full rounded-lg p-8 text-5xl"
         %>
       </div>
 
-      <div class="field w-full">
+      <div>
         <% question = Intake::RACE %>
         <%= client_attributes.label question.key, question.text, class: "block leading-snug font-semibold" %>
-        <ul class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl text-gray-700">
+        <ul class="flex flex-1 flex-col w-full space-y-12 p-12">
           <% question.choices.each do |race| %>
-            <li class="flex flex-1 items-baseline">
-              <%= client_attributes.check_box question.key,
-                { 
-                multiple: true, 
-                checked: race.in?(@client.race || []),
-                class: "mr-8 w-11 h-11 text-indigo-600"
-              },
-              race
-            %>
-          <%= client_attributes.label "race_#{to_htmlfor(race)}", race %>
+            <li class="flex flex-1 items-center">
+              <%= client_attributes.check_box question.key, { 
+                  multiple: true, 
+                  checked: race.in?(@client.race || []),
+                  class: "mr-8 w-10 h-10 text-indigo-600"
+                },
+                race
+              %>
+              <%= client_attributes.label "#{question.key}_#{to_htmlfor(race)}", race %>
             </li>
           <% end %>
         </ul>
       </div>
 
-      <div class="text-gray-700">
+      <div>
         <% question = Intake::ETHNICITY %>
         <%= client_attributes.label question.key, question.text,
           class: "block leading-snug font-semibold" %>
@@ -89,14 +88,14 @@
           options_for_select(question.choices, @client.ethnicity),
           {},
           required: true,
-          class: "mt-6 rounded-lg w-full p-8 text-6xl"
+          class: "mt-6 rounded-lg w-full p-8 text-5xl"
         %>
       </div>
 
-      <div class="text-gray-700">
+      <div>
         <% question = Intake::HOMELESSNESS_FIRST_TIME %>
         <%= form.label :homelessness_first_time, question.text, class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
+        <ul class="py-4 pb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button :homelessness_first_time, choice == "Yes", 
@@ -114,95 +113,115 @@
         </ul>
       </div>
 
-      <div class="text-gray-700">
-        <% question = Intake::HOMELESSNESS_HOW_LONG_THIS_TIME %>
-        <%= form.label :how_long_this_time, question.text,
-          class: "block leading-tight font-semibold"
-        %>
-        <%= form.text_field :how_long_this_time,
-          size: 23, 
-          value: @intake.how_long_this_time,
-          placeholder: question.placeholder,
-          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+      <div>
+        <% question = Intake::HOMELESSNESS_DATE_BEGAN %>
+        <%= form.label question.key, question.text,
+          class: "block leading-snug font-semibold" %>
+        <%= form.date_field question.key,
+          value: Date.current - 1.year,
+          required: true,
+          class: "mt-4 w-full rounded-lg p-8 text-5xl"
         %>
       </div>
 
-      <div class="text-gray-700">
-        <% question = Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS %>
+      <div>
+        <% question = Intake::HOMELESSNESS_HOW_LONG_THIS_TIME %>
         <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
-          <li class="relative flex-1">
-            <% choice = "Fewer than 4 times" %>
-            <%= form.radio_button question.key, choice == "Fewer than 4 times", 
-              id: "intake_episodes_last_three_years_fewer_than_four_times_true",
-              class: "absolute z-0 h-1 w-1",
-              required: true,
-              checked: @intake.episodes_last_three_years_fewer_than_four_times == "Fewer than 4 times",
-              tabindex: -1
-            %>
-          <%= form.label question.key, choice, 
-            id: "intake_#{question.key}_#{choice.downcase}",
-            id: "intake_episodes_last_three_years_fewer_than_four_times_yes",
-            class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
-          </li>
-          <li class="relative flex-1">
-            <% choice = "4 or more times" %>
-            <%= form.radio_button question.key, choice == "4 or more times", 
-              id: "intake_episodes_last_three_years_fewer_than_four_times_false",
-              class: "absolute z-0 h-1 w-1",
-              required: true,
-              checked: @intake.episodes_last_three_years_fewer_than_four_times == "4 or more times",
-              tabindex: -1
-            %>
-          <%= form.label question.key, choice, 
-            id: "intake_#{question.key}_#{choice.downcase}",
-            id: "intake_episodes_last_three_years_fewer_than_four_times_no",
-            class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
-          </li>
+        <ul class="flex flex-col">
+          <% question.choices.each do |choice| %>
+            <li class="mt-12 flex items-center">
+              <%= form.radio_button question.key, choice,
+                class: "h-10 w-10",
+                required: true,
+                checked: @intake.homelessness_how_long_this_time == choice
+              %>
+              <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice, class: "ml-4" %>
+            </li>
+          <% end %>
         </ul>
       </div>
 
-      <div class="text-gray-700">
-        <% question = Intake::HOMELESSNESS_EPISODES_HOW_LONG %>
-        <%= form.label question.key, question.text,
-          class: "block leading-tight font-semibold"
-        %>
-        <%= form.text_field question.key,
-          size: 23, 
-          value: @intake.total_how_long_shelters_or_streets,
-          placeholder: question.placeholder,
+      <div>
+        <% question = Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS %>
+        <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
+        <%= form.select question.key, options_for_select(
+            Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS.choices, 
+            @intake.homelessness_episodes_last_three_years || ''
+          ),
+          {include_blank: ''},
           required: true,
-          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+          class: "mt-6 bg-white rounded-lg w-full p-8 text-5xl"
         %>
       </div>
 
-      <div class="text-gray-700">
+      <div>
+        <% question = Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS %>
+        <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
+        <%= form.select question.key, options_for_select(
+            Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS.choices, 
+            @intake.homelessness_total_last_three_years || ''
+          ),
+          {include_blank: ''},
+          required: true,
+          class: "mt-6 bg-white rounded-lg w-full p-8 text-5xl"
+        %>
+      </div>
+
+      <div>
+        <% question = Intake::HEALTH_INSURANCE %>
+        <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
+        <%= form.select question.key, options_for_select(
+            Intake::HEALTH_INSURANCE.choices, 
+            @intake.health_insurance || ''
+          ),
+          {include_blank: ''},
+          required: true,
+          class: "mt-6 bg-white rounded-lg w-full p-8 text-5xl"
+        %>
+      </div>
+
+      <div>
         <% question = Intake::ARE_YOU_WORKING %>
-        <%= form.label question.key, question.text,
-          class: "block leading-snug font-semibold" %>
-        <%= form.select question.key, 
-          options_for_select(
+        <%= form.label question.key, question.text, class: "block leading-snug font-semibold" %>
+        <%= form.select question.key, options_for_select(
             Intake::ARE_YOU_WORKING.choices, 
             @intake.are_you_working || ''
           ),
           {include_blank: ''},
           required: true,
-          class: "mt-6 bg-white rounded-lg w-full p-8 text-6xl"
-          %>
+          class: "mt-6 bg-white rounded-lg w-full p-8 text-5xl"
+        %>
       </div>
 
-      <div class="text-gray-700">
-        <% question = Intake::VETERAN %>
+      <div>
+        <% question = Intake::NON_CASH_BENEFITS %>
+        <%= form.label question.key, question.text, class: "block leading-snug font-semibold" %>
+        <ul id="<%= "#{question.key}_list" %>" class="flex flex-1 flex-col w-full space-y-12 p-12">
+          <% question.choices.each do |choice| %>
+            <li class="flex flex-1 items-baseline">
+              <%= form.check_box question.key, { 
+                  multiple: true, 
+                  checked: choice.in?(@intake.non_cash_benefits || []),
+                  class: "mr-8 w-11 h-11 text-indigo-600"
+                },
+                choice
+              %>
+              <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div>
+        <% question = Intake::INCOME_SOURCE %>
         <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
+        <ul class="py-4 pb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button question.key, choice == "Yes", 
                 class: "absolute z-0 h-1 w-1",
                 required: true,
-                checked: @intake.armed_forces == choice,
+                checked: @intake.income_source_any == choice,
                 tabindex: -1
               %>
               <%= form.label question.key, choice, 
@@ -212,13 +231,106 @@
             </li>
           <% end %>
         </ul>
+
+        <div id="income_source_container" class="hidden">
+          <div class="grid grid-cols-4 gap-8">
+            <span class="col-span-3 items-start font-semibold">
+              Income Category
+            </span>
+            <span class="items-start font-semibold">
+              Approx Mthly $
+            </span>
+            <% question.sub_choices.each do |(sub_key, sub_choice)| %>
+              <%= form.label sub_key, sub_choice, class: "col-span-3 items-center py-2" %>
+              <%= form.number_field sub_key, 
+                value: @intake.public_send(sub_key) || 0,
+                class: "text-5xl items-center rounded py-2 px-4" ,
+                required: false
+              %>
+            <% end %>
+          </div>
+
+          <div class="grid grid-cols-4 gap-8 items-center mt-12">
+            <span class="col-span-3 font-semibold">
+              Approx Total Monthly
+            </span>
+            <span id="income_source_total" class="px-4 font-semibold"></span>
+          </div>
+        </div>
       </div>
 
-      <div class="text-gray-700">
+      <div>
+        <% question = Intake::VETERAN %>
+        <%= client_attributes.label question.key, question.text, class: "block leading-tight font-semibold" %>
+        <ul class="py-4 pb-24 flex">
+          <% question.choices.each do |choice| %>
+            <li class="relative flex-1">
+              <%= client_attributes.radio_button question.key, choice == "Yes", 
+                class: "absolute z-0 h-1 w-1",
+                required: true,
+                checked: @client.veteran == choice,
+                tabindex: -1
+              %>
+              <%= client_attributes.label question.key, choice, 
+                id: "intake_client_attributes_#{question.key}_#{choice.downcase}",
+                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+              %>
+            </li>
+          <% end %>
+        </ul>
+        <div id="veteran_container" class="hidden p-8 space-y-16">
+          <div>
+            <% question = Intake::VETERAN_MILITARY_BRANCH %>
+            <ul class="flex flex-col space-y-6">
+              <%= client_attributes.label question.key, question.text, class: "block leading-tight font-semibold" %>
+              <% question.choices.each do |choice| %>
+                <li class="items-center">
+                  <%= client_attributes.radio_button question.key, choice,
+                    class: "h-10 w-10",
+                    required: @client.veteran,
+                    checked: @client.veteran_military_branch == choice
+                  %>
+                  <%= client_attributes.label question.key, choice, 
+                    id: "intake_client_attributes_#{question.key}_#{choice.downcase}"
+                  %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <div>
+            <% question = Intake::VETERAN_SEPARATION_YEAR %>
+            <%= client_attributes.label question.key, question.text, class: "block leading-snug font-semibold" %>
+            <%= client_attributes.text_field question.key,
+              required: @client.veteran,
+              value: @client.veteran_separation_year,
+              class: "mt-6 w-full rounded-lg p-8 text-5xl"
+            %>
+          </div>
+          <div>
+            <% question = Intake::VETERAN_DISCHARGE_STATUS %>
+            <ul class="flex flex-col space-y-6">
+              <%= client_attributes.label question.key, question.text, class: "block leading-snug font-semibold" %>
+              <% question.choices.each do |choice| %>
+                <li class="items-center">
+                  <%= client_attributes.radio_button question.key, choice,
+                    class: "h-10 w-10",
+                    required: @client.veteran,
+                    checked: @client.veteran_discharge_status == choice
+                  %>
+                  <%= client_attributes.label question.key, choice, 
+                    id: "intake_client_attributes_#{question.key}_#{choice.downcase}"
+                  %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
         <% question = Intake::ACTIVE_DUTY %>
-        <%= form.label question.key, question.text, 
-          class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
+        <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
+        <ul class="py-4 pb-32 flex">
           <% question.choices.each do |choice| %>
             <li class="relative flex-1">
               <%= form.radio_button question.key, choice == "Yes", 
@@ -236,179 +348,149 @@
         </ul>
       </div>
 
-      <div class="text-gray-700">
-        <% question = Intake::SUBSTANCE_ABUSE %>
-        <%= form.label question.key, question.text, 
-          class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
-          <% question.choices.each do |choice| %>
-            <li class="relative flex-1">
-              <%= form.radio_button question.key, choice == "Yes", 
-                class: "absolute z-0 h-1 w-1",
-                required: true,
-                checked: @intake.substance_abuse == choice,
-                tabindex: -1
-              %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-
-      <div class="text-gray-700">
-        <% question = Intake::CHRONIC_HEALTH_CONDITION %>
-        <%= form.label question.key, question.text, 
-          class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
-          <% question.choices.each do |choice| %>
-            <li class="relative flex-1">
-              <%= form.radio_button question.key, choice == "Yes", 
-                class: "absolute z-0 h-1 w-1",
-                required: true,
-                checked: @intake.chronic_health_condition == choice,
-                tabindex: -1
-              %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-
-      <div class="text-gray-700">
-        <% question = Intake::MENTAL_HEALTH_CONDITION %>
-        <%= form.label question.key, question.text, 
-          class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
-          <% question.choices.each do |choice| %>
-            <li class="relative flex-1">
-              <%= form.radio_button question.key, choice == "Yes", 
-                class: "absolute z-0 h-1 w-1",
-                required: true,
-                checked: @intake.mental_health_condition == choice,
-                tabindex: -1
-              %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-
-      <div class="text-gray-700">
-        <% question = Intake::MENTAL_HEALTH_DISABILITY %>
-        <%= form.label question.key, question.text, 
-          class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
-          <% question.choices.each do |choice| %>
-            <li class="relative flex-1">
-              <%= form.radio_button question.key, choice == "Yes", 
-                class: "absolute z-0 h-1 w-1",
-                required: true,
-                checked: @intake.mental_health_disability == choice,
-                tabindex: -1
-              %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-
-      <div class="text-gray-700">
-        <% question = Intake::PHYSICAL_DISABILITY %>
-        <%= form.label question.key, question.text, 
-          class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
-          <% question.choices.each do |choice| %>
-            <li class="relative flex-1">
-              <%= form.radio_button question.key, choice == "Yes", 
-                class: "absolute z-0 h-1 w-1",
-                required: true,
-                checked: @intake.physical_disability == choice,
-                tabindex: -1
-              %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-
-
-      <div class="text-gray-700">
-        <% question = Intake::DEVELOPMENTAL_DISABILITY %>
-        <%= form.label question.key, question.text, 
-          class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
-          <% question.choices.each do |choice| %>
-            <li class="relative flex-1">
-              <%= form.radio_button question.key, choice == "Yes", 
-                class: "absolute z-0 h-1 w-1",
-                required: true,
-                checked: @intake.developmental_disability == choice,
-                tabindex: -1
-              %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-
-      <div class="text-gray-700">
-        <% question = Intake::FLEEING_DOMESTIC_VIOLENCE %>
-        <%= form.label question.key, question.text, 
-          class: "block leading-tight font-semibold" %>
-        <ul class="py-4 mb-32 flex">
-          <% question.choices.each do |choice| %>
-            <li class="relative flex-1">
-              <%= form.radio_button question.key, choice == "Yes", 
-                class: "absolute z-0 h-1 w-1",
-                required: true,
-                checked: @intake.fleeing_domestic_violence == choice,
-                tabindex: -1
-              %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-
-      <div class="text-gray-700">
-        <% question = Intake::LAST_PERMANENT_RESIDENCE_COUNTY %>
-        <%= form.label question.key, question.text,
-          class: "block leading-snug font-semibold"
-        %>
-        <%= form.text_field question.key,
-          value: @intake.last_permanent_residence_county,
-          placeholder: question.placeholder,
+      <div>
+        <% question = Intake::SUBSTANCE_MISUSE %>
+        <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
+        <%= form.select question.key, options_for_select(
+            Intake::SUBSTANCE_MISUSE.choices, 
+            @intake.substance_misuse || ''
+          ),
+          {include_blank: ''},
           required: true,
-          class: "mt-4 w-full rounded-lg p-8 text-6xl"
+          class: "mt-6 bg-white rounded-lg w-full p-8 text-5xl"
         %>
       </div>
+    </div>
+  </div>
 
-      <div class="actions mt-12">
-        <%= form.submit 'Submit', class: 'w-full btn btn-blue h-32 text-6xl' %>
-      </div>
+  <div class="bg-gray-200 w-full p-8 text-5xl leading-snug">
+    For the following section, only select ‘yes’ when the condition is a long-term impairment.
+  </div>
+
+  <div class="w-full flex flex-col space-y-32 mt-24 px-8 pb-24 text-5xl text-gray-700 tracking-wide">
+    <div>
+      <% question = Intake::CHRONIC_HEALTH_CONDITION %>
+      <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
+      <ul class="py-4 mb-32 flex">
+        <% question.choices.each do |choice| %>
+          <li class="relative flex-1">
+            <%= form.radio_button question.key, choice == "Yes", 
+              class: "absolute z-0 h-1 w-1",
+              required: true,
+              checked: @intake.chronic_health_condition == choice,
+              tabindex: -1
+            %>
+            <%= form.label question.key, choice, 
+              id: "intake_#{question.key}_#{choice.downcase}",
+              class: "mt-4 absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+            %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div>
+      <% question = Intake::MENTAL_HEALTH_DISABILITY %>
+      <%= form.label question.key, question.text, 
+        class: "block leading-tight font-semibold" %>
+      <ul class="py-4 mb-32 flex">
+        <% question.choices.each do |choice| %>
+          <li class="relative flex-1">
+            <%= form.radio_button question.key, choice == "Yes", 
+              class: "absolute z-0 h-1 w-1",
+              required: true,
+              checked: @intake.mental_health_disability == choice,
+              tabindex: -1
+            %>
+            <%= form.label question.key, choice, 
+              id: "intake_#{question.key}_#{choice.downcase}",
+              class: "mt-4 absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+            %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div>
+      <% question = Intake::PHYSICAL_DISABILITY %>
+      <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
+      <ul class="py-4 mb-32 flex">
+        <% question.choices.each do |choice| %>
+          <li class="relative flex-1">
+            <%= form.radio_button question.key, choice == "Yes", 
+              class: "absolute z-0 h-1 w-1",
+              required: true,
+              checked: @intake.physical_disability == choice,
+              tabindex: -1
+            %>
+            <%= form.label question.key, choice, 
+              id: "intake_#{question.key}_#{choice.downcase}",
+              class: "mt-4 absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+            %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+
+    <div>
+      <% question = Intake::DEVELOPMENTAL_DISABILITY %>
+      <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
+      <ul class="py-4 mb-32 flex">
+        <% question.choices.each do |choice| %>
+          <li class="relative flex-1">
+            <%= form.radio_button question.key, choice == "Yes", 
+              class: "absolute z-0 h-1 w-1",
+              required: true,
+              checked: @intake.developmental_disability == choice,
+              tabindex: -1
+            %>
+            <%= form.label question.key, choice, 
+              id: "intake_#{question.key}_#{choice.downcase}",
+              class: "mt-4 absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+            %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div>
+      <% question = Intake::FLEEING_DOMESTIC_VIOLENCE %>
+      <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
+      <ul class="py-4 mb-32 flex">
+        <% question.choices.each do |choice| %>
+          <li class="relative flex-1">
+            <%= form.radio_button question.key, choice == "Yes", 
+              class: "absolute z-0 h-1 w-1",
+              required: true,
+              checked: @intake.fleeing_domestic_violence == choice,
+              tabindex: -1
+            %>
+            <%= form.label question.key, choice, 
+              id: "intake_#{question.key}_#{choice.downcase}",
+              class: "mt-4 absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+            %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div>
+      <% question = Intake::LAST_PERMANENT_RESIDENCE_COUNTY %>
+      <%= form.label question.key, question.text, class: "block leading-snug font-semibold" %>
+      <%= form.text_field question.key,
+        value: @intake.last_permanent_residence_county,
+        placeholder: question.placeholder,
+        required: true,
+        class: "mt-4 w-full rounded-lg p-8 text-5xl"
+      %>
+    </div>
+
+    <div class="actions mt-12">
+      <%= form.submit "Submit", class: "w-full btn btn-blue h-32 text-5xl" %>
+    </div>
     <% end %>
   </div>
 <% end %>
 
-<%= javascript_pack_tag 'intake_form' %>
+<%= javascript_pack_tag "intake_form" %>
