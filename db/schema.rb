@@ -93,8 +93,8 @@ ActiveRecord::Schema.define(version: 2021_03_24_235302) do
     t.string "last_permanent_residence_county"
     t.string "substance_misuse"
     t.string "homelessness_total_last_three_years"
-    t.boolean "have_you_ever_experienced_homelessness_before"
     t.string "health_insurance"
+    t.boolean "have_you_ever_experienced_homelessness_before"
     t.jsonb "non_cash_benefits", default: []
     t.string "homelessness_episodes_last_three_years"
     t.boolean "income_source_any"
