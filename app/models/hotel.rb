@@ -1,5 +1,6 @@
 class Hotel < ApplicationRecord
   has_many :availabilities
+  has_many :vouchers
   has_many :hotel_users, class_name: 'HotelUser', table_name: :hotels_users
   has_many :users, through: :hotel_users
 
