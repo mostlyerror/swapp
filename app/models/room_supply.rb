@@ -1,25 +1,25 @@
 class RoomSupply
-  # how many rooms did each motel say they had available today?
+  # how many rooms did each hotel say they had available today?
   def self.latest_vacancies(swap)
     avs = swap.availabilities
       .reload
       .where(created_at: Date.current.beginning_of_day..Date.current.end_of_day)
-    Motel.pluck(:id).reduce({}) do |memo, motel_id|
-      av = avs.select { |av| av.motel_id == motel_id }.first
+    Hotel.pluck(:id).reduce({}) do |memo, hotel_id|
+      av = avs.select { |av| av.hotel_id == hotel_id }.first
       vacancy = av.present? ? av.vacant : 0
-      memo.merge(Hash[motel_id, vacancy])
+      memo.merge(Hash[hotel_id, vacancy])
     end
   end
 
-  # how many vouchers per motel were issued today?
+  # how many vouchers per hotel were issued today?
   def self.vouchers_issued_today(swap)
-    motel_ids = Motel.pluck(:id)
-    motels = motel_ids.zip(Array.new(motel_ids.size, 0)).to_h
+    hotel_ids = Hotel.pluck(:id)
+    hotels = hotel_ids.zip(Array.new(hotel_ids.size, 0)).to_h
     vouchers = swap.vouchers
       .where(created_at: Date.current.beginning_of_day..Date.current.end_of_day)
-      .group(:motel_id)
+      .group(:hotel_id)
       .count
-    motels.merge(vouchers)
+    hotels.merge(vouchers)
   end
 
   # vacancies - vouchers issued
@@ -33,24 +33,24 @@ class RoomSupply
     vouchers_remaining_today(swap).values.reduce(:+).to_i
   end
 
-  def self.by_motel(swap)
-    supply = Motel.all.reduce({}) do |memo, motel| 
+  def self.by_hotel(swap)
+    supply = Hotel.all.reduce({}) do |memo, hotel| 
       dates = swap.intake_period.to_a.reduce({}) do |dates, day|
         dates.merge(Hash[day, {vacant: nil, issued: nil}])
       end
-      memo.merge(Hash[motel.id, dates])
+      memo.merge(Hash[hotel.id, dates])
     end
 
     vouchers = swap.vouchers
       .where(created_at: Date.current.beginning_of_day..Date.current.end_of_day)
-      .group(:motel_id)
+      .group(:hotel_id)
       .count
 
     swap.availabilities
       .where(created_at: Date.current.beginning_of_day..Date.current.end_of_day)
       .each_with_object(supply) do |av, supply|
-        supply[av.motel_id][av.date][:vacant] = av.vacant
-        supply[av.motel_id][Date.current][:issued] = vouchers[av.motel_id].to_i
+        supply[av.hotel_id][av.date][:vacant] = av.vacant
+        supply[av.hotel_id][Date.current][:issued] = vouchers[av.hotel_id].to_i
       end
   end
 end

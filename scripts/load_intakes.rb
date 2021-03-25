@@ -97,7 +97,7 @@ ActiveRecord::Base.transaction do
   user = User.first_or_create(email: "swapp@codeforamerica.org")
 
 
-  hotels = Motel.all.reduce({}) do |memo, hotel|
+  hotels = Hotel.all.reduce({}) do |memo, hotel|
     memo.merge(Hash[hotel.name.parameterize.underscore, hotel.id])
   end
 
@@ -210,7 +210,7 @@ ActiveRecord::Base.transaction do
       gets
     end
 
-    motel_id = hotels.fetch(row['Hotel'].parameterize.underscore)
+    hotel_id = hotels.fetch(row['Hotel'].parameterize.underscore)
     date_range = parse_date(row['Date']).compact
     check_in = date_range.first
     check_out = date_range.first + row['# of Nights']&.strip.to_i
@@ -229,7 +229,7 @@ ActiveRecord::Base.transaction do
     voucher_attrs = {
       client_id: client.id,
       user_id: user.id,
-      motel_id: motel_id,
+      hotel_id: hotel_id,
       swap_id: swap.id,
       check_in: check_in,
       check_out: check_out,

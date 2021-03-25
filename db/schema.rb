@@ -10,20 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_155205) do
+ActiveRecord::Schema.define(version: 2021_03_24_235302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "availabilities", force: :cascade do |t|
-    t.bigint "motel_id", null: false
+    t.bigint "hotel_id", null: false
     t.bigint "swap_id", null: false
     t.date "date", null: false
     t.integer "vacant"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["motel_id", "swap_id", "date"], name: "index_availabilities_on_motel_id_and_swap_id_and_date", unique: true
-    t.index ["motel_id"], name: "index_availabilities_on_motel_id"
+    t.index ["hotel_id", "swap_id", "date"], name: "index_availabilities_on_hotel_id_and_swap_id_and_date", unique: true
+    t.index ["hotel_id"], name: "index_availabilities_on_hotel_id"
     t.index ["swap_id"], name: "index_availabilities_on_swap_id"
   end
 
@@ -42,6 +42,22 @@ ActiveRecord::Schema.define(version: 2021_03_24_155205) do
     t.string "veteran_military_branch"
     t.string "veteran_separation_year"
     t.string "veteran_discharge_status"
+  end
+
+  create_table "hotels", force: :cascade do |t|
+    t.string "name", null: false
+    t.json "address"
+    t.string "phone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "pet_friendly"
+  end
+
+  create_table "hotels_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "hotel_id", null: false
+    t.index ["hotel_id"], name: "index_hotels_users_on_hotel_id"
+    t.index ["user_id"], name: "index_hotels_users_on_user_id"
   end
 
   create_table "incident_reports", force: :cascade do |t|
@@ -97,15 +113,6 @@ ActiveRecord::Schema.define(version: 2021_03_24_155205) do
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end
 
-  create_table "motels", force: :cascade do |t|
-    t.string "name", null: false
-    t.json "address"
-    t.string "phone"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.boolean "pet_friendly"
-  end
-
   create_table "short_intakes", force: :cascade do |t|
     t.string "where_did_you_sleep_last_night"
     t.string "what_city_did_you_sleep_in_last_night"
@@ -140,9 +147,10 @@ ActiveRecord::Schema.define(version: 2021_03_24_155205) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "admin", default: false, null: false
+    t.boolean "admin_user", default: false, null: false
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
+    t.boolean "hotel_user", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -150,7 +158,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_155205) do
   create_table "vouchers", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "user_id", null: false
-    t.bigint "motel_id", null: false
+    t.bigint "hotel_id", null: false
     t.date "check_in", null: false
     t.date "check_out", null: false
     t.string "number"
@@ -161,12 +169,12 @@ ActiveRecord::Schema.define(version: 2021_03_24_155205) do
     t.integer "num_children_in_household"
     t.index ["client_id", "swap_id"], name: "index_vouchers_on_client_id_and_swap_id"
     t.index ["client_id"], name: "index_vouchers_on_client_id"
-    t.index ["motel_id"], name: "index_vouchers_on_motel_id"
+    t.index ["hotel_id"], name: "index_vouchers_on_hotel_id"
     t.index ["swap_id"], name: "index_vouchers_on_swap_id"
     t.index ["user_id"], name: "index_vouchers_on_user_id"
   end
 
-  add_foreign_key "availabilities", "motels"
+  add_foreign_key "availabilities", "hotels"
   add_foreign_key "availabilities", "swaps"
   add_foreign_key "incident_reports", "clients"
   add_foreign_key "incident_reports", "users", column: "reporter_id"
@@ -175,7 +183,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_155205) do
   add_foreign_key "short_intakes", "clients"
   add_foreign_key "short_intakes", "users"
   add_foreign_key "vouchers", "clients"
-  add_foreign_key "vouchers", "motels"
+  add_foreign_key "vouchers", "hotels"
   add_foreign_key "vouchers", "swaps"
   add_foreign_key "vouchers", "users"
 end

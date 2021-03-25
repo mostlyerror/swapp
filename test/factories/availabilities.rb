@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :availability do
-    motel
+    hotel
     swap
     vacant { 1 }
     date { swap.start_date }

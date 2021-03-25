@@ -6,10 +6,10 @@ FactoryBot.define do
     password_confirmation { password }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    admin { false }
+    admin_user { false }
 
-    trait :admin do
-      admin { true }
+    trait :admin_user do
+      admin_user { true }
     end
   end
 end
