@@ -29,8 +29,6 @@ class VouchersController < ApplicationController
       return render :new
     end
 
-    @hotels = Hotel.all
-
     short_intake_params = voucher_params[:short_intake]
     @short_intake = ShortIntake.new(short_intake_params)
     @short_intake.why_not_shelter = short_intake_params[:why_not_shelter].reject {|r| r == "0" }
