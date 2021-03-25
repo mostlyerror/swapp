@@ -66,5 +66,14 @@ class IntakesTest < ApplicationSystemTestCase
     assert new_client.veteran_military_branch = "Army"
     assert new_client.veteran_separation_year = "1979"
     assert new_client.veteran_discharge_status = "Honorable"
+
+    new_intake = new_client.intakes.last
+    assert new_intake.active_duty
+    assert new_intake.substance_misuse = "Alcohol and Drugs"
+    assert new_intake.chronic_health_condition
+    assert new_intake.mental_health_disability
+    assert new_intake.physical_disability
+    assert new_intake.developmental_disability
+    assert new_intake.fleeing_domestic_violence
   end
 end
