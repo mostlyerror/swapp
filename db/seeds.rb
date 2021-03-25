@@ -43,8 +43,7 @@ ActiveRecord::Base.transaction do |t|
     last_name: 'Inn Denver',
     password: 'password',
     password_confirmation: 'password',
-    hotel_user: true,
-    hotel_id: comfort.id
+    hotel_user: true
   ) 
 
   HotelUser.create!(
@@ -70,8 +69,7 @@ ActiveRecord::Base.transaction do |t|
     last_name: 'Studios',
     password: 'password',
     password_confirmation: 'password',
-    hotel_user: true,
-    hotel_id: hometowne.id
+    hotel_user: true
   )
 
   HotelUser.create!(
@@ -97,8 +95,7 @@ ActiveRecord::Base.transaction do |t|
     last_name: 'Inn',
     password: 'password',
     password_confirmation: 'password',
-    hotel_user: true,
-    hotel_id: quality.id
+    hotel_user: true
   )
 
   HotelUser.create!(
