@@ -17,9 +17,9 @@ class Admin::SwapsController < Admin::BaseController
       swap.availabilities.destroy_all
       supply_params
       .reject {|_, v| v.blank? }
-      .each do |(motel_id, vacant)|
+      .each do |(hotel_id, vacant)|
         swap.availabilities.create!(
-          motel_id: motel_id,
+          hotel_id: hotel_id,
           date: Date.current, # this should come from the page.. cause what if you open the page before midnight, then submit afterwards...?
           vacant: vacant
         )

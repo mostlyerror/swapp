@@ -24,7 +24,7 @@ ActiveRecord::Base.transaction do
   }
   CSV.foreach(filename, opts) do |row|
     voucher = Voucher
-      .includes(:client, :motel, :user)
+      .includes(:client, :hotel, :user)
       .find_by(number: row['voucher_number'])
 
     if voucher

@@ -29,7 +29,7 @@ class VouchersController < ApplicationController
       return render :new
     end
 
-    @motels = Motel.all
+    @hotels = Hotel.all
 
     short_intake_params = voucher_params[:short_intake]
     @short_intake = ShortIntake.new(short_intake_params)
@@ -47,7 +47,7 @@ class VouchersController < ApplicationController
     end
 
     @voucher.assign_attributes(
-      motel_id: voucher_params[:motel_id],
+      hotel_id: voucher_params[:hotel_id],
       check_in: voucher_params[:check_in],
       check_out: voucher_params[:check_out],
       num_adults_in_household: voucher_params[:num_adults_in_household],
@@ -80,7 +80,7 @@ class VouchersController < ApplicationController
     params.require(:voucher).permit(
       :check_in, 
       :check_out, 
-      :motel_id, 
+      :hotel_id, 
       :num_adults_in_household, 
       :num_children_in_household,
       client: [
@@ -109,12 +109,12 @@ class VouchersController < ApplicationController
     if @swap
       supply = RoomSupply.vouchers_remaining_today(@swap)
       @disabled = []
-      @motels = Motel.all.reduce({}) do |memo, motel|
-        name = "#{motel.name} (#{supply[motel.id]})"
-        if supply[motel.id].to_i <= 0
-          @disabled << motel.id
+      @hotels = Hotel.all.reduce({}) do |memo, hotel|
+        name = "#{hotel.name} (#{supply[hotel.id]})"
+        if supply[hotel.id].to_i <= 0
+          @disabled << hotel.id
         end
-        memo.merge(Hash[name, motel.id])
+        memo.merge(Hash[name, hotel.id])
       end
     end
   end

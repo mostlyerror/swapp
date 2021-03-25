@@ -10,9 +10,9 @@ class IssueVoucherToExistingClientTest < ApplicationSystemTestCase
 
   # search client -> client page -> voucher form -> voucher created
   test "happy path" do
-    motel = create(:motel)
+    hotel = create(:hotel)
     swap = create(:swap, :current)
-    create(:availability, motel: motel, swap: swap, vacant: 1)
+    create(:availability, hotel: hotel, swap: swap, vacant: 1)
     client = create(:client)
 
     # searching for client
@@ -34,7 +34,7 @@ class IssueVoucherToExistingClientTest < ApplicationSystemTestCase
     assert_current_path new_voucher_path(client_id: client.id)
     # prefilled
     assert_text client.name
-    select "#{motel.name} (1)", from: "Hotel (vouchers remaining)"
+    select "#{hotel.name} (1)", from: "Hotel (vouchers remaining)"
 
     click_on "Create"
 

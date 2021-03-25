@@ -45,19 +45,19 @@ class IntakesController < ApplicationController
       :are_you_working,
       :last_permanent_residence_county,
       client_attributes: [:first_name, :last_name, :date_of_birth, :gender, {race: []}, :ethnicity, :phone_number, :email],
-      voucher: [:check_in, :check_out, :motel_id],
+      voucher: [:check_in, :check_out, :hotel_id],
     )
   end
 
   def hydrate_form
     @disabled = []
     supply = RoomSupply.vouchers_remaining_today(@swap)
-    @motels = Motel.all.reduce({}) do |memo, motel|
-      name = "#{motel.name} (#{supply[motel.id]})"
-      if supply[motel.id].to_i <= 0
-        @disabled << motel.id
+    @hotels = Hotel.all.reduce({}) do |memo, hotel|
+      name = "#{hotel.name} (#{supply[hotel.id]})"
+      if supply[hotel.id].to_i <= 0
+        @disabled << hotel.id
       end
-      memo.merge(Hash[name, motel.id])
+      memo.merge(Hash[name, hotel.id])
     end
   end
 end

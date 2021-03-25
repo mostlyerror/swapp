@@ -8,7 +8,7 @@ class ActiveSupport::TestCase
 
   Faker::Config.locale = 'en-US'
 
-  # load Motel and Race data?
+  # load Hotel and Race data?
   # load "#{Rails.root}/db/seeds/base.rb"
 
   # Run tests in parallel with specified workers

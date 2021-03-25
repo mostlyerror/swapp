@@ -15,7 +15,7 @@
             <% @vouchers.each do |voucher| %>
                 <tr>
                   <td class="w-1/4 text-left py-3 px-4"><p><%= voucher.number %></p></td>
-                  <td class="w-1/3 text-left py-3 px-4"><a href="/motels/guests/<%= voucher.client.id %>" class="link"><%= voucher.client.name %></a></td>
+                  <td class="w-1/3 text-left py-3 px-4"><a href="/hotels/guests/<%= voucher.client.id %>" class="link"><%= voucher.client.name %></a></td>
                   <td class="text-left py-3 px-4"><p><%= voucher.check_in.to_date.to_formatted_s(:short) %></p></td>
                   <td class="text-left py-3 px-4"><p><%= voucher.check_out.to_date.to_formatted_s(:short) %></p> </td>
                 </tr>
