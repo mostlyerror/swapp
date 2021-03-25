@@ -13,28 +13,21 @@ class IntakesTest < ApplicationSystemTestCase
     hotel = create(:hotel)
     create(:availability, hotel: hotel, swap: swap, vacant: 1)
     client = build_stubbed(:client)
+    intake = build_stubbed(:intake, client: client)
+
 
     visit new_intake_path
     assert_text /intake/i
     assert_text /1 vouchers remaining today/i
 
     fill_in Intake::FIRST_NAME.text, with: client.first_name
-
     fill_in Intake::LAST_NAME.text, with: client.last_name
-
     fill_in Intake::DATE_OF_BIRTH.text, with: client.date_of_birth
-
     select client.gender, from: Intake::GENDER.text
-
     client.race.each { |r| check(r) }
-
     select client.ethnicity, from: Intake::ETHNICITY.text
 
-    if rand(2) == 0
-      find(id: "intake_homelessness_first_time_no").click
-    else
-      find(id: "intake_homelessness_first_time_yes").click
-    end
+    toggle(intake.homelessness_first_time)
 
     fill_in Intake::HOMELESSNESS_DATE_BEGAN.text, with: (Date.current - 1.year)
 
@@ -159,5 +152,11 @@ class IntakesTest < ApplicationSystemTestCase
     # assert new_intake.physical_disability
     # assert new_intake.developmental_disability
     # assert new_intake.fleeing_domestic_violence
+  end
+
+  def toggle(key, bool, &block)
+    id = "#{key}_#{bool.true? ? 'yes' : 'no'}"
+    find(id: id).click
+    block.call if block_given?
   end
 end
