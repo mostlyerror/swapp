@@ -9,10 +9,10 @@ class IntakesTest < ApplicationSystemTestCase
   end
 
   test "filling out intake form and seeing created voucher" do
+    swap = create(:swap, :tomorrow)
     hotel = create(:hotel)
-    swap = create(:swap, :current)
     create(:availability, hotel: hotel, swap: swap, vacant: 1)
-    client = Client.new
+    client = build_stubbed(:client)
 
     visit new_intake_path
     assert_text /intake/i
@@ -22,49 +22,38 @@ class IntakesTest < ApplicationSystemTestCase
     fill_in "Last Name", with: client.last_name
     fill_in "Date of Birth", with: client.date_of_birth
     select client.gender, from: "Gender"
-    find(id: "intake_client_attributes_race_american_indian_or_alaskan_native").set(true)
-    find(id: "intake_client_attributes_race_asian").set(true)
+    client.race.each { |r| check(r) }
     select client.ethnicity, from: "Hispanic or Latino?"
-    find(id: "intake_survey[homelessness_first_time]_no").click
-    fill_in "intake_survey[homelessness_how_long_this_time]", with: "2 years"
-    find(id: "intake_survey[homelessness_episodes_last_three_years]_fewer_than_4_times").click
-    fill_in "intake_survey[homelessness_episodes_how_long]", with: "2 weeks"
-    fill_in "intake_survey[how_long_living_in_this_community]", with: "20 years"
-    find(id: "intake_survey[where_did_you_sleep_last_night]_on_the_streets_or_in_a_tent").click
-    find(id: "intake_survey[why_not_shelter]_safety_concerns").click
-    select "No", from: "intake_survey[are_you_working]"
-    find(id: "intake_survey[armed_forces]_no").click
-    find(id: "intake_survey[active_duty]_no").click
-    find(id: "intake_survey[substance_abuse]_no").click
-    find(id: "intake_survey[substance_abuse_impairment]_no").click
-    find(id: "intake_survey[chronic_health_condition]_no").click
-    find(id: "intake_survey[chronic_health_condition_impairment]_no").click
-    find(id: "intake_survey[mental_health_condition]_no").click
-    find(id: "intake_survey[mental_health_condition_impairment]_no").click
-    find(id: "intake_survey[mental_health_disability]_no").click
-    find(id: "intake_survey[mental_health_disability_impairment]_no").click
-    find(id: "intake_survey[physical_disability]_no").click
-    find(id: "intake_survey[physical_disability_impairment]_no").click
-    find(id: "intake_survey[developmental_disability]_no").click
-    find(id: "intake_survey[developmental_disability_impairment]_no").click
-    find(id: "intake_survey[fleeing_domestic_violence]_no").click
-    fill_in "intake_survey[num_adults_household]", with: "1"
-    fill_in "intake_survey[num_children_household]", with: "0"
-    fill_in "intake_survey[last_permanent_residence_city_and_state]", with: "Brighton, CO"
-    fill_in "intake_survey[last_permanent_residence_county]", with: "Adams"
-    find(id: "intake_survey[bus_pass]_no").click
-    find(id: "intake_survey[king_soopers_card]_no").click
-    select "#{hotel.name} (1)", from: "intake_survey[hotel_id]"
-    fill_in "intake_client_attributes_phone_number", with: client.phone_number
-    fill_in "intake_client_attributes_email", with: client.email
-
+    find(id: "intake_homelessness_first_time_yes").click
+    fill_in "Approximate date homelessness first began", with: (Date.current - 1.year)
+    choose "2 to 6 nights"
+    select "2", from: "Number of episodes of homelessness in the past three years?"
+    select "6", from: "Total number of months of homelessness in the past three years."
+    select "Medicaid", from: "Are you covered by health insurance?"
+    select "No", from: "Are you working?"
+    check "SNAP (Food Stamps)"
+    check "WIC"
+    find(id: "intake_income_source_any_yes").click
+    fill_in "SSDI (Disability)", with: "600"
+    fill_in "VA Service Compensation", with: "800"
+    find(id: "intake_client_attributes_veteran_yes").click
+    find(id: "intake_client_attributes_veteran_military_branch_army").choose
+    fill_in "Year separated", with: "1979"
+    find(id: "intake_client_attributes_veteran_discharge_status_honorable").choose
+    find(id: "intake_active_duty_yes").click
+    select "Alcohol and Drugs", from: "Do you have any Substance Misuse Issues?"
+    find(id: "intake_chronic_health_condition_yes").click
+    find(id: "intake_mental_health_disability_yes").click
+    find(id: "intake_physical_disability_yes").click
+    find(id: "intake_developmental_disability_yes").click
+    find(id: "intake_fleeing_domestic_violence_yes").click
+    fill_in "In what county was your last permanent residence?", with: "Adams"
     click_on "Submit"
 
-    assert_text /voucher created/i
-    assert_current_path voucher_created_path(Voucher.last)
-    assert_text client.name
+    # assert_current_path new_voucher_path(client_id: Client.last.id, intake_id: Intake.last.id)
+    assert_text /create a voucher/i
 
-    # assert values are saved
+    # # assert values are saved
     new_client = Client.last
     assert_equal client.first_name, new_client.first_name
     assert_equal client.last_name, new_client.last_name
@@ -72,5 +61,10 @@ class IntakesTest < ApplicationSystemTestCase
     assert_equal client.race, new_client.race
     assert_equal client.ethnicity, new_client.ethnicity
     assert new_client.intakes.size == 1
+
+    assert new_client.veteran
+    assert new_client.veteran_military_branch = "Army"
+    assert new_client.veteran_separation_year = "1979"
+    assert new_client.veteran_discharge_status = "Honorable"
   end
 end
