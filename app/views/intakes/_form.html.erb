@@ -290,9 +290,7 @@
                     required: @client.veteran,
                     checked: @client.veteran_military_branch == choice
                   %>
-                  <%= client_attributes.label question.key, choice, 
-                    id: "intake_client_attributes_#{question.key}_#{choice.downcase}"
-                  %>
+                  <%= client_attributes.label question.key, choice %>
                 </li>
               <% end %>
             </ul>
@@ -317,9 +315,7 @@
                     required: @client.veteran,
                     checked: @client.veteran_discharge_status == choice
                   %>
-                  <%= client_attributes.label question.key, choice, 
-                    id: "intake_client_attributes_#{question.key}_#{choice.downcase}"
-                  %>
+                  <%= client_attributes.label question.key, choice %>
                 </li>
               <% end %>
             </ul>
