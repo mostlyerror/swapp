@@ -1,16 +1,23 @@
 FactoryBot.define do
     has_income = [true, false].sample
   factory :intake do
-    homelessness_first_time { [true, false].sample }
+    is_first_time = [true, false].sample
+    homelessness_first_time { is_first_time }
+    have_you_ever_experienced_homelessness_before { !is_first_time }
     homelessness_date_began { Faker::Date.backward(days: rand(10 * 360)) }
     homelessness_how_long_this_time { Intake::HOMELESSNESS_HOW_LONG_THIS_TIME.choices.sample }
     homelessness_episodes_last_three_years { Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS.choices.sample }
     homelessness_total_last_three_years { Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS.choices.sample }
     health_insurance { Intake::HEALTH_INSURANCE.choices.sample }
     are_you_working { Intake::ARE_YOU_WORKING.choices.sample }
-    non_cash_benefits do 
-      choices = Intake::NON_CASH_BENEFITS.choices
-      choices.size.times.map { choices.sample }
+
+    non_cash_benefits { ["No"] }
+    trait :with_non_cash_benefits do
+      non_cash_benefits do 
+        choices = Intake::NON_CASH_BENEFITS.choices
+        no_choice = choices.shift
+        choices.size.times.map { choices.sample }.uniq
+      end
     end
 
     income_source_any { false }
