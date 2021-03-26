@@ -60,26 +60,13 @@ class IntakesTest < ApplicationSystemTestCase
     assert_text /create a voucher/i
 
     new_client = Client.last
-    assert_equal client.first_name, new_client.first_name
-    assert_equal client.last_name, new_client.last_name
-    assert_equal client.gender, new_client.gender
-    assert_equal client.race, new_client.race
-    assert_equal client.ethnicity, new_client.ethnicity
-    assert_equal client.veteran, new_client.veteran
-    assert_equal client.veteran_military_branch, new_client.veteran_military_branch
-    assert_equal client.veteran_separation_year, new_client.veteran_separation_year
-    assert_equal client.veteran_discharge_status, new_client.veteran_discharge_status
-
     assert new_client.intakes.size == 1
     new_intake = new_client.intakes.last
-    assert_equal intake.substance_misuse, new_intake.substance_misuse
-    assert_equal intake.active_duty, new_intake.active_duty
-    assert_equal intake.chronic_health_condition, new_intake.chronic_health_condition
-    assert_equal intake.mental_health_disability, new_intake.mental_health_disability
-    assert_equal intake.physical_disability, new_intake.physical_disability
-    assert_equal intake.developmental_disability, new_intake.developmental_disability
-    assert_equal intake.fleeing_domestic_violence, new_intake.fleeing_domestic_violence
-    assert_equal intake.last_permanent_residence_county, new_intake.last_permanent_residence_county
+
+    # email and phone number collected in voucher form, not intake form
+    ignore_attrs = %w( id user_id client_id email phone_number created_at updated_at )
+    assert_equal client.attributes.except(*ignore_attrs), new_client.attributes.except(*ignore_attrs)
+    assert_equal intake.attributes.except(*ignore_attrs), new_intake.attributes.except(*ignore_attrs)
   end
 
   def toggle(form_prefix, key, bool, &block)
