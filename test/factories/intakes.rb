@@ -1,5 +1,4 @@
 FactoryBot.define do
-    has_income = [true, false].sample
   factory :intake do
     is_first_time = [true, false].sample
     homelessness_first_time { is_first_time }
