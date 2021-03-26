@@ -7,6 +7,7 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     admin_user { false }
+    intake_user { true }
 
     trait :admin_user do
       admin_user { true }
