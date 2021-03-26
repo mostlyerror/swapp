@@ -16,7 +16,8 @@ class IntakesController < ApplicationController
 
     client_params = intake_params[:client_attributes]
     @client = Client.new(client_params.merge(
-      race: client_params[:race].reject {|r| r == "0" }
+      race: client_params[:race].reject {|r| r == "0" },
+      veteran_separation_year: client_params[:veteran_separation_year].presence
     ))
 
     @intake.client = @client
