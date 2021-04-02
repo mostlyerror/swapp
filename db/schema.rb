@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_000739) do
+ActiveRecord::Schema.define(version: 2021_03_30_205846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_000739) do
     t.string "veteran_military_branch"
     t.string "veteran_separation_year"
     t.string "veteran_discharge_status"
+    t.jsonb "family_members", default: {}
   end
 
   create_table "hotels", force: :cascade do |t|
@@ -123,7 +124,6 @@ ActiveRecord::Schema.define(version: 2021_03_26_000739) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "client_id", null: false
     t.bigint "user_id", null: false
-    t.jsonb "family_members", default: {}
     t.boolean "household_composition_changed"
     t.index ["client_id"], name: "index_short_intakes_on_client_id"
     t.index ["user_id"], name: "index_short_intakes_on_user_id"
