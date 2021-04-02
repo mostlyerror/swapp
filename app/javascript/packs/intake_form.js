@@ -193,7 +193,6 @@ document.addEventListener(
       clone.querySelectorAll("input").forEach((input) => {
         input.id = input.id.replace("replace", familyMembers);
         input.name = input.name.replace("replace", familyMembers);
-        if (input.type != "checkbox") input.value = "";
       });
 
       container.appendChild(clone);
