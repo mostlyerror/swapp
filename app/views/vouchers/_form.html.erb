@@ -149,6 +149,20 @@
         %>
       </div>
     </section>
+
+    <section class="p-16">
+      <div class="field w-full">
+        <h3 class="text-6xl leading-6 font-medium text-gray-900">
+          Additional Guest Name(s)
+        </h3>
+        <div id="guests_container">
+          <div id="guests" class="mt-16"></div>
+          <button type="button" id="add_guest" class="btn btn-outline block rounded-lg text-center">
+            + Add Guest
+          </button>
+        </div>
+      </div>
+    </section>
   </div>
 
   <%= form.fields_for :client, @client do |client_form| %>
@@ -232,12 +246,12 @@
       </div>
     </div>
   </div>
-<% end %> <!-- end short_intake_form -->
+<% end %> <!-- end short intake form -->
 
 <div class="actions p-12">
   <%= form.submit "Create", class: "w-full btn btn-blue h-32 text-6xl" %>
 </div>
 <% end %> <!-- end voucher form -->
 
-
+<%= render partial: 'guest_template' %>
 <%= javascript_pack_tag "voucher_form" %>
