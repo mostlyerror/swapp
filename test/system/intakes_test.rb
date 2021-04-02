@@ -28,14 +28,15 @@ class IntakesTest < ApplicationSystemTestCase
 
     click_on("add_family_member")
     within("#family_member_1") do
-      fill_in("family_members_1_name", with: Faker::Name.name)
+      fill_in("family_members_1_first_name", with: Faker::Name.first_name)
+      fill_in("family_members_1_last_name", with: Faker::Name.last_name)
       fill_in("family_members_1_relationship", with: Faker::Relationship.familial)
       fill_in("family_members_1_date_of_birth", with: Faker::Date.birthday)
       check(Client::RACE.sample)
       select(Client::GENDER.sample, from: "family_members_1_gender")
       select(Client::ETHNICITY.sample, from: "family_members_1_ethnicity")
-      choose("family_members_1_veteran_yes")
-      choose("family_members_1_disabling_condition_yes")
+      choose("family_members_1_veteran_#{rand(2) == 1 ? "yes" : "no"}")
+      choose("family_members_1_disabling_condition_#{rand(2) == 1 ? "yes" : "no"}")
     end
 
     toggle("intake", Intake::HOMELESSNESS_FIRST_TIME.key, intake.homelessness_first_time)
