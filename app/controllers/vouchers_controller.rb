@@ -7,7 +7,6 @@ class VouchersController < ApplicationController
     @voucher = Voucher.new(client: @client)
 
     if @swap
-      @previous_short_intakes = ShortIntake.where(client: @client)
       @short_intake = ShortIntake.new(client: @client, user: current_user)
       @existing_voucher = @swap.vouchers.find_by(client: @client)
     end
@@ -34,11 +33,6 @@ class VouchersController < ApplicationController
     @short_intake.why_not_shelter = short_intake_params[:why_not_shelter].reject {|r| r == "0" }
     @short_intake.client = @client
     @short_intake.user = current_user
-
-    @short_intake.household_composition_changed = short_intake_params[:household_composition_changed] == "No"
-    if @short_intake.household_composition_changed
-      @short_intake.family_members = {}
-    end
 
     if !@short_intake.save
       return render :new
@@ -79,8 +73,6 @@ class VouchersController < ApplicationController
       :check_in, 
       :check_out, 
       :hotel_id, 
-      :num_adults_in_household, 
-      :num_children_in_household,
       client: [
         :id,
         :phone_number,
@@ -90,9 +82,6 @@ class VouchersController < ApplicationController
         :where_did_you_sleep_last_night,
         :what_city_did_you_sleep_in_last_night, 
         {why_not_shelter: []},
-        :household_composition_changed,
-        :num_adults_in_household, 
-        :num_children_in_household,
         :bus_pass,
         :king_soopers_card,
       ],
