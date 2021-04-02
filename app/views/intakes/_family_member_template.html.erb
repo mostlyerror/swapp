@@ -9,20 +9,24 @@
     placeholder="Last Name"
     class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
 
+  <input name="intake[client_attributes][family_members][replace][relationship]"
+    id="family_members_replace_relationship"
+    placeholder="Relationship"
+    class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+
   <div class="p-4 flex flex-1 justify-between items-center text-gray-700">
     <label for="client_attributes[family_members][replace][date_of_birth]">
       Date of birth
     </label>
-    <input type="date" 
-    id="family_members_replace_date_of_birth"
-    name="intake[client_attributes][family_members][replace][date_of_birth]" 
-    class="text-5xl rounded-lg text-gray-400 focus:ring-indigo-500 focus:border-indigo-500">
+    <input name="intake[client_attributes][family_members][replace][date_of_birth]" 
+      id="family_members_replace_date_of_birth"
+      type="date" 
+      class="text-5xl rounded-lg text-gray-400 focus:ring-indigo-500 focus:border-indigo-500">
   </div>
 
-  <select 
-    class="text-5xl w-full rounded-lg p-3" 
+  <select name="intake[client_attributes][family_members][replace][gender]"
     id="family_members_replace_gender"
-    name="intake[client_attributes][family_members][replace][gender]">
+    class="text-5xl w-full rounded-lg p-3">
     <% Client::GENDER.each do |gender| %>
       <option value="<%= gender %>"><%= gender %></option>
     <% end %>
@@ -32,13 +36,11 @@
     <% Client::RACE.each do |race| %>
       <li class="flex flex-1 items-baseline">
         <label class="" for="client_attributes[family_members][replace][race][]">
-          <input 
-          class="w-11 h-11 text-indigo-600"
-          id="family_members_replace_race"
-          type="checkbox"
-          value="<%= race %>"
-          name="intake[client_attributes][family_members][replace][race][]"
-          >
+          <input name="intake[client_attributes][family_members][replace][race][]"
+            id="family_members_replace_race"
+            type="checkbox"
+            value="<%= race %>"
+            class="w-11 h-11 text-indigo-600">
           <%= race %>
         </label>
       </li>
@@ -46,10 +48,9 @@
   </ul>
 
   <div >
-    <select 
-      class="text-5xl w-full rounded-lg p-3" 
+    <select name="intake[client_attributes][family_members][replace][ethnicity]"
       id="family_members_replace_ethnicity"
-      name="intake[client_attributes][family_members][replace][ethnicity]">
+      class="text-5xl w-full rounded-lg p-3">
       <% Client::ETHNICITY.each do |ethnicity| %>
         <option value="<%= ethnicity %>"><%= ethnicity %></option>
       <% end %>
@@ -63,19 +64,19 @@
     <div class="inline">
       <label for="intake[client_attributes][family_members][replace][veteran][]">
         Yes
-        <input type="radio" 
+        <input name="intake[client_attributes][family_members][replace][veteran][]"
           id="family_members_replace_veteran_yes"
-          class="w-8 h-8"
-          name="intake[client_attributes][family_members][replace][veteran][]"
-          value="Yes">
+          type="radio" 
+          value="Yes"
+          class="w-8 h-8">
       </label>
       <label for="intake[client_attributes][family_members][replace][veteran][]">
         No
-        <input type="radio" 
+        <input name="intake[client_attributes][family_members][replace][veteran][]"
           id="family_members_replace_veteran_no"
-          class="w-8 h-8"
-          name="intake[client_attributes][family_members][replace][veteran][]"
-          value="No">
+          type="radio" 
+          value="No"
+          class="w-8 h-8">
       </label>
     </div>
   </div>
@@ -87,19 +88,19 @@
     <div class="inline">
       <label for="intake[client_attributes][family_members][replace][disabling_condition][]">
         Yes
-        <input type="radio" 
+        <input name="intake[client_attributes][family_members][replace][disabling_condition][]"
           id="family_members_replace_disabling_condition_no"
-          class="w-8 h-8"
-          name="intake[client_attributes][family_members][replace][disabling_condition][]"
-          value="Yes">
+          type="radio" 
+          value="Yes"
+          class="w-8 h-8">
       </label>
       <label for="intake[client_attributes][family_members][replace][disabling_condition][]">
         No
-        <input type="radio" 
+        <input name="intake[client_attributes][family_members][replace][disabling_condition][]"
           id="family_members_replace_disabling_condition_yes"
-          class="w-8 h-8"
-          name="intake[client_attributes][family_members][replace][disabling_condition][]"
-          value="No">
+          type="radio" 
+          value="No"
+          class="w-8 h-8">
       </label>
     </div>
   </div>
