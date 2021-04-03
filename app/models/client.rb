@@ -1,4 +1,7 @@
 class Client < ApplicationRecord
+  include PgSearch::Model
+  pg_search_scope :that_sounds_like, against: [:first_name, :last_name], using: :dmetaphone
+
   GENDER = [
     "Female",
     "Male",

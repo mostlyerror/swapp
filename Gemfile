@@ -70,3 +70,5 @@ gem "auto_strip_attributes", "~> 2.6"
 gem "aasm", "~> 5.1"
 
 gem "amazing_print", "~> 1.3"
+
+gem "pg_search", "~> 2.3"
