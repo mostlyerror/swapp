@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_000739) do
+ActiveRecord::Schema.define(version: 2021_04_05_232812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 2021_03_26_000739) do
     t.string "veteran_military_branch"
     t.string "veteran_separation_year"
     t.string "veteran_discharge_status"
+    t.boolean "red_flagged", default: false, null: false
+  end
+
+  create_table "clients_hotels", id: false, force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "hotel_id", null: false
+    t.boolean "red_flagged"
+    t.index ["client_id"], name: "index_clients_hotels_on_client_id"
+    t.index ["hotel_id"], name: "index_clients_hotels_on_hotel_id"
   end
 
   create_table "hotels", force: :cascade do |t|
