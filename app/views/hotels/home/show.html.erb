@@ -23,4 +23,16 @@
         <% end %>
         </div>
     </section>
+    <section class="mt-14">
+        <h4>New Incident Report</h4>
+        <%= form_with do |form| %>
+            <%= form.label "Name:" %>
+            <%= form.text_field :name %>
+            <%= form.label "Date:" %>
+            <%= form.text_field :date %>
+            <%= form.label "Description" %>
+            <%= form.text_field :description %>
+            <%= form.submit "Submit" %>
+        <% end %>
+    </section>
 </div>
