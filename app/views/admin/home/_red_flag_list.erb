@@ -9,16 +9,16 @@
         </tr>
       </thead>
       <tbody class="block overflow-y-scroll" style="height: 430px;">
-        <% @clients.each do |client| %>
+        <% @flagged_clients.each do |flagged_client| %>
           <tr>
             <td class="py-3 px-1 w-3/12 text-left tabular-nums">
-              <%= client.first_name%>
+              <%= flagged_client.client_id %>
             </td>
             <td class="py-3 px-0 w-3/12 text-left tabular-nums">
-              <%= client.last_name %>
+              <%= flagged_client.hotel_id %>
             </td>
             <td class="px-3 w-3/12">
-            <%= link_to('<i class="bi bi-x-circle-fill"></i> remove'.html_safe, client_path(client), class: 'text-4xl text-center') %>
+                <a href="/guests/<%= flagged_client.client_id %>" class="link"><i class="bi bi-x-circle-fill"></i></a>
             </td>
           </tr>
         <% end %>

@@ -3,6 +3,7 @@ class Admin::HomeController < Admin::BaseController
     @swap = Swap.current
     @vouchers = Voucher.order(created_at: :desc).limit(20)
     @hotel_map = Hotel.all.pluck(:id, :name).to_h
+    @flagged_clients = ClientHotel.where(red_flagged: true)
 
     if @swap
       @vouchers_remaining_today = RoomSupply.vouchers_remaining_today(@swap)

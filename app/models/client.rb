@@ -36,6 +36,9 @@ class Client < ApplicationRecord
   has_many :vouchers
   has_many :incident_reports
 
+  has_many :client_hotels, class_name: 'ClientHotel', table_name: :clients_hotels
+  has_many :hotels, through: :client_hotels
+
   def name
     "#{first_name} #{last_name}"
   end
