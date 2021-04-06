@@ -1,38 +1,58 @@
 <div class="px-16 mt-12">
     <a href="/hotels" class="link pb-12"><< Vouchers</a>
     <h4>Guest Detail: <%= @client.name %></h4>
+    <%# Admin Only %>
+    <section class="border border-red-500 mt-16 shadow-xl w-96">
+        <h2 class="bg-red-900 text-white text-4xl text-center font-semibold p-2">ADMIN ONLY</h2>
+        <div>
+            <%= form_with do |form| %>
+            <%= form.label "Select Hotel(s) where client is flagged", class: "text-xl" %>
+            <ul class="flex flex-1 flex-col p-3">
+            <% @hotels.each do |hotel| %>
+                <li class="flex flex-1 items-center py-1"><%= check_box_tag "[#{hotel.id}"%><%= label_tag "#{hotel.name}"%></li>
+            <% end %>
+            </ul>
+            <div class="flex flex-1 p-3">
+                <%= form.submit "Update Flags", class: "p-2 bg-blue-600 text-white hover:bg-blue-900" %>
+            </div>
+            <% end %>
+    </section>
     <section class="px-3 mt-16">
         <p>Additional Approved</p>
         <p>Guest Names</p>
         <ul class="mt-6">
             <li>Limp Bizkit</li>
-            <li>Limp Bizkit</li>
-            <li>Limp Bizkit</li>
-            <li>Limp Bizkit</li>
         </ul>
     </section>
     <section class="mt-16">
         <h4>Past Incidents</h4>
-        <div class="px-3 mt-8">
+        <div class="px-3 mt-8 flex flex-wrap">
         <% if @client.incident_reports.any? %>
             <% @client.incident_reports.each do |incident| %>
-                    <p><%= incident.description %></p>
+                <p class="flex-1"><%= incident.description %></p>
+                <p class="flex-1">Reported on <%= humanize_date(incident.created_at) %></p>
             <% end %>
         <% else %>
             <p class="text-2xl"><strong>No incident reports to show!</strong></p>
         <% end %>
         </div>
     </section>
-    <section class="mt-14">
-        <h4>New Incident Report</h4>
-        <%= form_with do |form| %>
-            <%= form.label "Name:" %>
+    <section class="mt-16">
+        <h4 class="mb-12">New Incident Report</h4>
+        <%= form_with url: "/new_report", method: :put do |form| %>
+        <div>
+            <%= form.label "Name:", class:"block"  %>
             <%= form.text_field :name %>
-            <%= form.label "Date:" %>
-            <%= form.text_field :date %>
-            <%= form.label "Description" %>
-            <%= form.text_field :description %>
-            <%= form.submit "Submit" %>
+            <%= form.label "Date:", class: "block" %>
+            <%= form.text_field :date, value: Date.current, disabled: true %>
+        </div>
+        <div class="mt-6">
+            <%= form.label "Description:", class: "block mb-3" %>
+            <%= form.text_field :description, class:"w-96 h-72" %>
+        </div>
+        <div class="my-4">
+            <%= form.submit "Submit New Report", class: "p-3 bg-blue-600 text-white hover:bg-blue-900" %>
+        </div>
         <% end %>
     </section>
 </div>
