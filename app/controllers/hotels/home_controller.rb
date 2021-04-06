@@ -10,4 +10,8 @@ class Hotels::HomeController < Hotels::BaseController
     @client = Client.find(params[:id])
     @hotels = Hotel.all
   end
+
+  def create_report
+    @incident_report = IncidentReport.new(params[:incident_report])
+  end
 end

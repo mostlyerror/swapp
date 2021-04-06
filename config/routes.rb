@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get "/", to: "home#index", as: :home
     end
     get "/guests/:id" => "home#show", as: :show_client
+    post "/new_incident_report" => "home#create_report", as: :create_report
   end
 
   namespace :admin do
@@ -25,6 +26,8 @@ Rails.application.routes.draw do
       put "swaps/:id/room_supply" => "swaps#update_room_supply", as: :update_room_supply
       get "/reports/swap" => "reports#swap", as: :swap_report
     end
+    get "hotels/guests/:id" => "home#show", as: :show_client
+    post "hotels/new_incident_report" => "home#create_report", as: :create_report
   end
  
   root to: "landing#index"

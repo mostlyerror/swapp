@@ -5,7 +5,7 @@
     <section class="border border-red-500 mt-16 shadow-xl w-96">
         <h2 class="bg-red-900 text-white text-4xl text-center font-semibold p-2">ADMIN ONLY</h2>
         <div>
-            <%= form_with do |form| %>
+            <%= form_with model: @clients_hotels do |form| %>
             <%= form.label "Select Hotel(s) where client is flagged", class: "text-xl" %>
             <ul class="flex flex-1 flex-col p-3">
             <% @hotels.each do |hotel| %>
@@ -39,12 +39,12 @@
     </section>
     <section class="mt-16">
         <h4 class="mb-12">New Incident Report</h4>
-        <%= form_with url: "/new_report", method: :put do |form| %>
+        <%= form_with model: @incident_reports do |form| %>
         <div>
-            <%= form.label "Name:", class:"block"  %>
-            <%= form.text_field :name %>
+            <%= form.label "Name:", class: "block"  %>
+            <%= form.text_field :reporter_id, value: "#{current_user.name}", disabled: true %>
             <%= form.label "Date:", class: "block" %>
-            <%= form.text_field :date, value: Date.current, disabled: true %>
+            <%= form.text_field :occurred_at, value: Date.current, disabled: true %>
         </div>
         <div class="mt-6">
             <%= form.label "Description:", class: "block mb-3" %>
