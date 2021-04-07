@@ -2,7 +2,7 @@
     <a href="/hotels" class="link pb-12"><< Vouchers</a>
     <h4>Guest Detail: <%= @client.name %></h4>
     <%# Admin Only %>
-    <section class="border border-red-500 mt-16 shadow-xl w-96">
+    <section class="border border-red-500 mt-16 shadow-xl w-96 mx-auto  ">
         <h2 class="bg-red-900 text-white text-4xl text-center font-semibold p-2">ADMIN ONLY</h2>
         <div>
             <%= form_with model: @clients_hotels do |form| %>
@@ -13,7 +13,7 @@
             <% end %>
             </ul>
             <div class="flex flex-1 p-3">
-                <%= form.submit "Update Flags", class: "p-2 bg-blue-600 text-white hover:bg-blue-900" %>
+                <%= form.submit "Update Flags", class: "p-2 bg-blue-600 text-white hover:bg-blue-900 cursor-pointer" %>
             </div>
             <% end %>
     </section>
@@ -29,8 +29,16 @@
         <div class="px-3 mt-8 flex flex-wrap">
         <% if @client.incident_reports.any? %>
             <% @client.incident_reports.each do |incident| %>
-                <p class="flex-1"><%= incident.description %></p>
-                <p class="flex-1">Reported on <%= humanize_date(incident.created_at) %></p>
+               <div class="px-10 my-4 py-3 rounded shadow-xl bg-white w-3/5">
+                    <div class="flex justify-between items-center">
+                        <span class="font-light text-gray-600"><%= humanize_date(incident.created_at) %></span>
+                    </div>
+                    <div class="mt-2">
+                        <p class="mt-2 text-gray-700">
+                            <%= incident.description %>
+                        </p>
+                    </div>
+                </div>
             <% end %>
         <% else %>
             <p class="text-2xl"><strong>No incident reports to show!</strong></p>
@@ -39,7 +47,7 @@
     </section>
     <section class="mt-16">
         <h4 class="mb-12">New Incident Report</h4>
-        <%= form_with model: @incident_reports do |form| %>
+        <%= form_with model: @incident_report, url: hotels_create_report_path do |form| %>
         <div>
             <%= form.label "Name:", class: "block"  %>
             <%= form.text_field :reporter_id, value: "#{current_user.name}", disabled: true %>
@@ -51,7 +59,7 @@
             <%= form.text_field :description, class:"w-96 h-72" %>
         </div>
         <div class="my-4">
-            <%= form.submit "Submit New Report", class: "p-3 bg-blue-600 text-white hover:bg-blue-900" %>
+            <%= form.submit "Submit New Report", class: "p-3 bg-blue-600 text-white hover:bg-blue-900 cursor-pointer" %>
         </div>
         <% end %>
     </section>
