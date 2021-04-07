@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   }
 
   constraints(lambda { |req| req.env["warden"].user(:user)&.intake_user? }) do
+    get "clients/search" => "clients#search", as: :clients_search
     resources :clients
     resources :intakes
     resources :vouchers
