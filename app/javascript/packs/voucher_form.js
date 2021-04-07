@@ -78,6 +78,12 @@ document.addEventListener("turbolinks:load", function () {
       return "/clients/search.json?q=" + term;
     },
     getValue: (el) => el.name,
+    template: {
+      type: "description",
+      fields: {
+        description: "date_of_birth",
+      },
+    },
   };
 
   $input.easyAutocomplete(options);

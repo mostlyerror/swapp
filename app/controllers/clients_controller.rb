@@ -9,7 +9,7 @@ class ClientsController < ApplicationController
   def search
     q = params[:q].downcase
     clients = Client.where("first_name ILIKE ? or last_name ILIKE ?", "%#{q}%", "%#{q}%").limit(5)
-    @results = clients.map {|c| { name: c.name } }
+    @results = clients.map {|c| { name: c.name, date_of_birth: c.date_of_birth } }
     render json: @results
     # render json: {data: @results}
   end
