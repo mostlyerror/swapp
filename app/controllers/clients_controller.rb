@@ -6,6 +6,14 @@ class ClientsController < ApplicationController
     @clients = @q.result(distinct: true)
   end
 
+  def search
+    q = params[:q].downcase
+    clients = Client.where("first_name ILIKE ? or last_name ILIKE ?", "%#{q}%", "%#{q}%").limit(5)
+    @results = clients.map {|c| { name: c.name } }
+    render json: @results
+    # render json: {data: @results}
+  end
+
   def show
     @client = Client.find(params[:id])
     @existing_voucher = @swap&.vouchers&.find_by(client: @client)

@@ -1,3 +1,6 @@
+require("jquery");
+require("easy-autocomplete");
+
 document.addEventListener(
   "change",
   (event) => {
@@ -68,3 +71,14 @@ document.addEventListener(
   },
   false
 );
+document.addEventListener("turbolinks:load", function () {
+  const $input = $('*[data-behavior="autocomplete"]');
+  const options = {
+    url: function (term) {
+      return "/clients/search.json?q=" + term;
+    },
+    getValue: (el) => el.name,
+  };
+
+  $input.easyAutocomplete(options);
+});
