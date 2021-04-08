@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       get "/", to: "home#index", as: :home
     end
     get "/guests/:id" => "home#show", as: :show_client
-    post "/guests/:id" => "home#create_report", as: :create_report
+    # post "/guests/:id" => "home#create_report", as: :create_report
   end
 
   namespace :admin do
@@ -25,7 +25,11 @@ Rails.application.routes.draw do
       put "swaps/:id/extend" => "swaps#extend", as: :extend_swap
       put "swaps/:id/room_supply" => "swaps#update_room_supply", as: :update_room_supply
       get "/reports/swap" => "reports#swap", as: :swap_report
+      put "/guests/:id" => "red_flags#edit_red_flag", as: :edit_red_flag
+      # post "/guests/:id" => "hotels#create_report", as: :create_report
     end
+    
+
   end
  
   root to: "landing#index"

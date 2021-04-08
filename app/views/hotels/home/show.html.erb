@@ -2,14 +2,23 @@
     <a href="/hotels" class="link pb-12"><< Vouchers</a>
     <h4>Guest Detail: <%= @client.name %></h4>
     <%# Admin Only %>
-    <section class="border border-red-500 mt-16 shadow-xl w-96 mx-auto  ">
+    <section class="border border-red-500 mt-16 shadow-xl w-96 mx-auto">
         <h2 class="bg-red-900 text-white text-4xl text-center font-semibold p-2">ADMIN ONLY</h2>
         <div>
-            <%= form_with model: @clients_hotels do |form| %>
+            <%= form_for(@client, url: admin_edit_red_flag_path(@client), method: :put) do |form| %>
             <%= form.label "Select Hotel(s) where client is flagged", class: "text-xl" %>
             <ul class="flex flex-1 flex-col p-3">
             <% @hotels.each do |hotel| %>
-                <li class="flex flex-1 items-center py-1"><%= check_box_tag "[#{hotel.id}"%><%= label_tag "#{hotel.name}"%></li>
+                <li class="flex flex-1 items-center py-1">
+                  <%= form.check_box :hotel_ids, { 
+                      multiple: true, 
+                      checked: hotel.id.in?(@flag_hotel_ids),
+                      class: ""
+                    },
+                    hotel.id
+                  %>
+                  <%= form.label "#{hotel.name}" %>
+                </li>
             <% end %>
             </ul>
             <div class="flex flex-1 p-3">
@@ -46,21 +55,6 @@
         </div>
     </section>
     <section class="mt-16">
-        <h4 class="mb-12">New Incident Report</h4>
-        <%= form_with model: @incident_report, url: hotels_create_report_path do |form| %>
-        <div>
-            <%= form.label "Name:", class: "block"  %>
-            <%= form.text_field :reporter_id, value: "#{current_user.name}", disabled: true %>
-            <%= form.label "Date:", class: "block" %>
-            <%= form.text_field :occurred_at, value: Date.current, disabled: true %>
-        </div>
-        <div class="mt-6">
-            <%= form.label "Description:", class: "block mb-3" %>
-            <%= form.text_field :description, class:"w-96 h-72" %>
-        </div>
-        <div class="my-4">
-            <%= form.submit "Submit New Report", class: "p-3 bg-blue-600 text-white hover:bg-blue-900 cursor-pointer" %>
-        </div>
-        <% end %>
+       
     </section>
 </div>

@@ -45,14 +45,6 @@ ActiveRecord::Schema.define(version: 2021_04_05_232812) do
     t.boolean "red_flagged", default: false, null: false
   end
 
-  create_table "clients_hotels", id: false, force: :cascade do |t|
-    t.bigint "client_id", null: false
-    t.bigint "hotel_id", null: false
-    t.boolean "red_flagged"
-    t.index ["client_id"], name: "index_clients_hotels_on_client_id"
-    t.index ["hotel_id"], name: "index_clients_hotels_on_hotel_id"
-  end
-
   create_table "hotels", force: :cascade do |t|
     t.string "name", null: false
     t.json "address"
@@ -120,6 +112,13 @@ ActiveRecord::Schema.define(version: 2021_04_05_232812) do
     t.date "homelessness_date_began"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"
+  end
+
+  create_table "red_flags", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "hotel_id"
+    t.index ["client_id"], name: "index_red_flags_on_client_id"
+    t.index ["hotel_id"], name: "index_red_flags_on_hotel_id"
   end
 
   create_table "short_intakes", force: :cascade do |t|
@@ -190,6 +189,8 @@ ActiveRecord::Schema.define(version: 2021_04_05_232812) do
   add_foreign_key "incident_reports", "users", column: "reporter_id"
   add_foreign_key "intakes", "clients"
   add_foreign_key "intakes", "users"
+  add_foreign_key "red_flags", "clients"
+  add_foreign_key "red_flags", "hotels"
   add_foreign_key "short_intakes", "clients"
   add_foreign_key "short_intakes", "users"
   add_foreign_key "vouchers", "clients"
