@@ -71,20 +71,37 @@ document.addEventListener(
   },
   false
 );
+
 document.addEventListener("turbolinks:load", function () {
   const $input = $('*[data-behavior="autocomplete"]');
+  const suggestionClass = "eac-item-suggestion";
   const options = {
     url: function (term) {
       return "/clients/search.json?q=" + term;
     },
     getValue: (el) => el.name,
     template: {
-      type: "description",
-      fields: {
-        description: "date_of_birth",
+      type: "custom",
+      method: function (value, item) {
+        return `<p class="${suggestionClass} text-5xl">${item.name} - ${item.date_of_birth}<span class="remove-me">X</span></p>`;
+      },
+    },
+    list: {
+      onSelectItemEvent: (event) => {
+        let input = $('*[data-behavior="autocomplete"]');
+        $(input).val("");
       },
     },
   };
+
+  document.addEventListener("click", (event) => {
+    if (event.target.matches(`.${suggestionClass}`)) {
+      let clone = event.target.cloneNode(true);
+      clone.classList.remove(suggestionClass);
+      let container = document.getElementById("guests");
+      container.appendChild(clone);
+    }
+  });
 
   $input.easyAutocomplete(options);
 });
