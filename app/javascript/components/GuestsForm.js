@@ -2,34 +2,38 @@ import React from "react";
 import Downshift from "downshift";
 import axios from "axios";
 
+const ClientSuggestion = ({ name, date_of_birth }) => {
+  return (
+    <>
+      {name} - - {date_of_birth}
+    </>
+  );
+};
+
 class ClientAutocomplete extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       clients: [],
     };
-    this.fetchClients = this.fetchClients.bind(this);
-    this.inputOnChange = this.inputOnChange.bind(this);
   }
 
-  inputOnChange(event) {
-    // TODO minimum input size = 2
-    // debounce so we're doing less xhr requests?
+  inputOnChange = (event) => {
     if (!event.target.value) {
       return;
     }
     this.fetchClients(event.target.value);
-  }
+  };
 
-  downshiftOnChange(selectedClient) {
-    alert(`selected client is ${selectedClient.name}`);
-  }
-
-  fetchClients(client) {
-    const clientsURL = `/clients/search.json?q=${client}`;
+  fetchClients = (term) => {
+    const clientsURL = `/clients/search.json?q=${term}`;
     axios.get(clientsURL).then((response) => {
       this.setState({ clients: response.data });
     });
+  };
+
+  downshiftOnChange(selectedClient) {
+    alert(`selected client is ${selectedClient.name}`);
   }
 
   render() {
@@ -68,7 +72,7 @@ class ClientAutocomplete extends React.Component {
                       {...getItemProps({ key: index, index, item })}
                       className="dropdown-item"
                     >
-                      {item.name} - {item.date_of_birth}
+                      <ClientSuggestion {...item} />
                     </div>
                   ))}
               </div>
