@@ -9,6 +9,14 @@ const renderClientName = (state, val) => {
 class GuestsForm extends Component {
   state = { clients: [], selected: [], val: "" };
 
+  removeGuest = (guest) => {
+    this.setState((prevState) => ({
+      selected: prevState.selected.filter((val, idx, arr) => {
+        return val !== guest;
+      }),
+    }));
+  };
+
   render() {
     return (
       <div className="">
@@ -34,7 +42,11 @@ class GuestsForm extends Component {
               <div className="col-span-5  tabular-nums">
                 {item.date_of_birth}
               </div>
-              <div className="text-right" key={idx}>
+              <div
+                className="text-right"
+                key={idx}
+                onClick={() => this.removeGuest(item)}
+              >
                 x
               </div>
             </>
