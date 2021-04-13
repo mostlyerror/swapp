@@ -1,104 +1,17 @@
-import React from "react";
-import Downshift from "downshift";
+import React, { Component } from "react";
+import Autocomplete from "react-autocomplete";
 import axios from "axios";
 
-const ClientSuggestion = ({ name, date_of_birth }) => {
-  return (
-    <>
-      {name} - - {date_of_birth}
-    </>
-  );
+const renderClientName = (state, val) => {
+  return state.name.toLowerCase().indexOf(val.toLowerCase()) !== -1;
 };
 
-class ClientAutocomplete extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      clients: [],
-    };
-  }
-
-  inputOnChange = (event) => {
-    if (!event.target.value) {
-      return;
-    }
-    this.fetchClients(event.target.value);
-  };
-
-  fetchClients = (term) => {
-    const clientsURL = `/clients/search.json?q=${term}`;
-    axios.get(clientsURL).then((response) => {
-      this.setState({ clients: response.data });
-    });
-  };
-
-  downshiftOnChange = (client) => this.props.onSelectClient(client);
+class GuestsForm extends Component {
+  state = { clients: [], selected: [], val: "" };
 
   render() {
     return (
-      <Downshift
-        onChange={this.downshiftOnChange}
-        itemToString={(item) => (item ? item.name : "")}
-      >
-        {({
-          selectedItem,
-          getInputProps,
-          getItemProps,
-          highlightedIndex,
-          isOpen,
-          inputValue,
-          getLabelProps,
-        }) => (
-          <div>
-            <input
-              {...getInputProps({
-                placeholder: "Search guest name..",
-                onChange: this.inputOnChange,
-              })}
-            />
-            {isOpen ? (
-              <div className="downshift-dropdown">
-                {this.state.clients
-                  .filter(
-                    (item) =>
-                      !inputValue ||
-                      item.name.toLowerCase().includes(inputValue.toLowerCase())
-                  )
-                  .slice(0, 10)
-                  .map((item, index) => (
-                    <div
-                      {...getItemProps({ key: index, index, item })}
-                      className="dropdown-item"
-                    >
-                      <ClientSuggestion {...item} />
-                    </div>
-                  ))}
-              </div>
-            ) : null}
-          </div>
-        )}
-      </Downshift>
-    );
-  }
-}
-
-class GuestsForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedClients: [],
-    };
-  }
-
-  onSelectClient = (client) => {
-    this.setState((prevState) => ({
-      selectedClients: [...prevState.selectedClients, client],
-    }));
-  };
-
-  render() {
-    return (
-      <div>
+      <div className="autocomplete-wrapper">
         <h3 className="text-6xl leading-loose font-medium text-gray-900">
           Additional Guest(s)
           <p className="text-4xl text-indigo-800">
@@ -107,13 +20,36 @@ class GuestsForm extends React.Component {
         </h3>
         <div id="guests_container">
           <div id="guests" className="mt-16">
-            {this.state.selectedClients.map((item, index) => (
+            {this.state.selected.map((item, idx) => (
               <div>
-                <ClientSuggestion key={index} {...item} />
+                {item.name} - {item.date_of_birth}
               </div>
             ))}
           </div>
-          <ClientAutocomplete onSelectClient={this.onSelectClient} />
+
+          <Autocomplete
+            value={this.state.val}
+            items={this.state.clients}
+            getItemValue={(item) => item.name}
+            shouldItemRender={renderClientName}
+            renderMenu={(item) => <div className="dropdown">{item}</div>}
+            renderItem={(item, isHighlighted) => (
+              <div className={`item ${isHighlighted ? "selected-item" : ""}`}>
+                {item.name} - {item.date_of_birth}
+              </div>
+            )}
+            onChange={(event, val) => {
+              const clientsURL = `/clients/search.json?q=${val}`;
+              axios.get(clientsURL).then((response) => {
+                this.setState({ clients: response.data, val: val });
+              });
+            }}
+            onSelect={(name, client) => {
+              this.setState((prevState) => ({
+                selected: [...prevState.selected, client],
+              }));
+            }}
+          />
         </div>
       </div>
     );
