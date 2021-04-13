@@ -4,8 +4,8 @@ class Hotel < ApplicationRecord
   has_many :hotel_users, class_name: 'HotelUser', table_name: :hotels_users
   has_many :users, through: :hotel_users
 
-  has_many :clients_hotels, class_name: 'ClientHotel', table_name: :clients_hotels
-  has_many :clients, through: :client_hotels
+  has_many :red_flags, class_name: 'RedFlag', table_name: :red_flags
+  has_many :clients, through: :red_flags
 
   validates_presence_of :name
 

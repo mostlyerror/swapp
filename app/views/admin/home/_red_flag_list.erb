@@ -12,13 +12,13 @@
         <% @flagged_clients.each do |flagged_client| %>
           <tr>
             <td class="py-3 px-1 w-3/12 text-left tabular-nums">
-              <%= flagged_client.client_id %>
+              <%= flagged_client.name %>
             </td>
             <td class="py-3 px-0 w-3/12 text-left tabular-nums">
-              <%= flagged_client.hotel_id %>
+              <%= flagged_client.id %>
             </td>
             <td class="px-3 w-3/12">
-                <a href="hotels/guests/<%= flagged_client.client_id %>" class="link"><i class="bi bi-x-circle-fill"></i></a>
+                <a href="hotels/guests/<%= flagged_client.id %>" class="link"><i class="bi bi-x-circle-fill"></i></a>
             </td>
           </tr>
         <% end %>
