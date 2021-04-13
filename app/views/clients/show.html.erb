@@ -9,11 +9,16 @@
   <%= render partial: 'shared/swap_notices' %>
   <div class="flex flex-1 flex-col font-bold space-y-16 ">
     <div class="w-full">
-      <% if @red_flagged %>
+      <% if @red_flagged.any? %>
         <section class="text-5xl px-6 mt-16">
           <p class="help-text">
-            <strong class="text-red-500"><%= @client.first_name %> has been red flagged program-wide</strong>. They are not currently eligible to receive SWAP hotel vouchers.
+            <strong class="text-red-500"><%= @client.first_name %> has been red flagged.</strong> They are not eligible to receive vouchers at the following hotels:
           </p>
+          <%= @flagged_hotels.each do |flagged_hotel| %>
+          <ul>
+              <li><% flagged_hotel %></li>
+          </ul>
+          <% end %>
         </section>
       <% else %>
         <% if @existing_voucher.present? %>
@@ -27,6 +32,9 @@
             <p class="px-6 mt-16 text-6xl">Hotel vouchers can only be issued during a SWAP period.</p>
           <% end %>
         <% end %>
+      <% end %>
+      <% if current_user.admin_user? %>
+         <p class="px-6 mt-16 text-5xl text-center"><span class="text-red-700">ADMIN ONLY:</span> <%= link_to 'View', hotels_show_client_path(client_id: @client.id), class: 'link' %> flags for this client.</p>
       <% end %>
 
     </div>
