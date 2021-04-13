@@ -65,15 +65,10 @@ class ClientAutocomplete extends React.Component {
                   .slice(0, 10)
                   .map((item, index) => (
                     <div
-                      className="dropdown-item"
                       {...getItemProps({ key: index, index, item })}
-                      style={{
-                        backgroundColor:
-                          highlightedIndex === index ? "lightgray" : "white",
-                        fontWeight: selectedItem === item ? "bold" : "normal",
-                      }}
+                      className="dropdown-item"
                     >
-                      {item.name}
+                      {item.name} - {item.date_of_birth}
                     </div>
                   ))}
               </div>
