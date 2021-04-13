@@ -8,6 +8,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      borderColor: {
+        "gray-350": "rgb(107, 114, 128)",
+      },
       fontSize: {
         "5.5xl": "3.5rem",
       },

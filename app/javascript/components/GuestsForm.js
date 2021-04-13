@@ -40,7 +40,7 @@ class GuestsForm extends Component {
           </p>
         </h3>
 
-        <div id="guests" className="mt-16 grid grid-cols-11 gap-y-1">
+        <div id="guests" className="mt-16 grid grid-cols-11 space-evenly gap-4">
           {this.state.selected.length > 0 && (
             <>
               <div className="col-span-5 font-semibold">Name</div>
@@ -65,21 +65,26 @@ class GuestsForm extends Component {
             </>
           ))}
         </div>
-
-        <Autocomplete
-          value={this.state.val}
-          items={this.state.clients}
-          getItemValue={(item) => item.name}
-          shouldItemRender={renderClientName}
-          renderMenu={(item) => <div className="dropdown">{item}</div>}
-          renderItem={(item, isHighlighted) => (
-            <div className={`item ${isHighlighted ? "selected-item" : ""}`}>
-              {item.name} - {item.date_of_birth}
-            </div>
-          )}
-          onChange={this.handleChange}
-          onSelect={this.handleSelect}
-        />
+        <div className="mt-8">
+          <Autocomplete
+            value={this.state.val}
+            items={this.state.clients}
+            getItemValue={(item) => item.name}
+            inputProps={{
+              className: "border border-gray-350 rounded-lg p-8 w-full",
+            }}
+            wrapperProps={{ className: "w-full" }}
+            shouldItemRender={renderClientName}
+            renderMenu={(item) => <div className="dropdown">{item}</div>}
+            renderItem={(item, isHighlighted) => (
+              <div className={`item ${isHighlighted ? "selected-item" : ""}`}>
+                {item.name} - {item.date_of_birth}
+              </div>
+            )}
+            onChange={this.handleChange}
+            onSelect={this.handleSelect}
+          />
+        </div>
       </div>
     );
   }
