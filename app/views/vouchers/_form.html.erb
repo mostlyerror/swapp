@@ -105,7 +105,7 @@
   </div>
 
   <div class="mt-16 bg-white border-8 border-black text-5xl">
-    <section class="p-16 border-b-8 border-gray-400 border-dashed">
+    <section class="p-12 border-b-8 border-gray-400 border-dashed">
       <div class="flex flex-1 justify-between">
         <strong>Voucher #</strong>
         <p>TBD</p>
@@ -115,7 +115,7 @@
         <p><%= @client.name %></p>
       </div>
     </section>
-    <section class="p-16 border-b-8 border-gray-400 border-dashed flex flex-1 space-x-16">
+    <section class="p-12 border-b-8 border-gray-400 border-dashed flex flex-1 space-x-16">
       <div class="w-full">
         <strong>Check In</strong>
         <%= form.date_field :check_in, 
@@ -138,7 +138,7 @@
       </div>
     </section>
 
-    <section class="p-16">
+    <section class="p-12">
       <div class="field w-full">
         <%= form.label "hotel_id", "Hotel (vouchers remaining)", class: "font-bold block leading-relaxed" %>
         <%= form.select "hotel_id", 
@@ -150,7 +150,7 @@
       </div>
     </section>
 
-    <section class="p-16">
+    <section class="p-12">
       <div class="field w-full">
         <%= react_component("GuestsForm", {}) %>
       </div>
@@ -245,5 +245,4 @@
 </div>
 <% end %> <!-- end voucher form -->
 
-<%= render partial: 'guest_template' %>
 <%= javascript_pack_tag "voucher_form" %>
