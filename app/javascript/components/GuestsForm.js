@@ -9,6 +9,19 @@ const renderClientName = (state, val) => {
 class GuestsForm extends Component {
   state = { clients: [], selected: [], val: "" };
 
+  handleChange = (event, val) => {
+    const clientsURL = `/clients/search.json?q=${val}`;
+    axios.get(clientsURL).then((response) => {
+      this.setState({ clients: response.data, val: val });
+    });
+  };
+
+  handleSelect = (name, client) => {
+    this.setState((prevState) => ({
+      selected: [...prevState.selected, client],
+    }));
+  };
+
   removeGuest = (guest) => {
     this.setState((prevState) => ({
       selected: prevState.selected.filter((val, idx, arr) => {
@@ -64,17 +77,8 @@ class GuestsForm extends Component {
               {item.name} - {item.date_of_birth}
             </div>
           )}
-          onChange={(event, val) => {
-            const clientsURL = `/clients/search.json?q=${val}`;
-            axios.get(clientsURL).then((response) => {
-              this.setState({ clients: response.data, val: val });
-            });
-          }}
-          onSelect={(name, client) => {
-            this.setState((prevState) => ({
-              selected: [...prevState.selected, client],
-            }));
-          }}
+          onChange={this.handleChange}
+          onSelect={this.handleSelect}
         />
       </div>
     );
