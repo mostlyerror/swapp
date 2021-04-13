@@ -150,22 +150,9 @@
       </div>
     </section>
 
-    <%= react_component("HelloWorld", { greeting: "Hello from react-rails." }) %>
-
     <section class="p-16">
       <div class="field w-full">
-        <h3 class="text-6xl leading-loose font-medium text-gray-900">
-          Additional Guest(s)
-          <p class="text-4xl text-indigo-800">some help text about the number of guests?</p>
-        </h3>
-        <div id="guests_container">
-          <div id="guests" class="mt-16"></div>
-
-          <input type="search" 
-            class="text-5xl p-6 w-full"
-            placeholder="Enter name..."
-            data-behavior="autocomplete">
-        </div>
+        <%= react_component("GuestsForm", {}) %>
       </div>
     </section>
   </div>
