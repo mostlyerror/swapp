@@ -8,7 +8,8 @@ class ClientsController < ApplicationController
 
   def search
     q = params[:q].downcase
-    clients = Client.where("first_name ILIKE ? or last_name ILIKE ?", "%#{q}%", "%#{q}%").limit(10)
+    clients = Client.includes(:incident_reports)
+      .where("first_name ILIKE ? or last_name ILIKE ?", "%#{q}%", "%#{q}%").limit(10)
     @results = clients.map do |c| 
       attrs = c.slice(:id, :name, :date_of_birth)
       attrs.merge(red_flag: c.incident_reports.any?)
