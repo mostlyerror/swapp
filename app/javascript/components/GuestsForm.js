@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Autocomplete from "react-autocomplete";
 import axios from "axios";
+import _ from "lodash";
 
 const renderClientName = (state, val) => {
   return state.name.toLowerCase().indexOf(val.toLowerCase()) !== -1;
@@ -20,10 +21,12 @@ class GuestsForm extends Component {
   };
 
   handleSelect = (name, client) => {
-    this.setState((prevState) => ({
-      selected: [...prevState.selected, client],
-      val: "",
-    }));
+    this.setState((prevState) => {
+      return {
+        val: "",
+        selected: _.uniqWith([...prevState.selected, client], _.isEqual),
+      };
+    });
   };
 
   removeGuest = (guest) => {
@@ -77,7 +80,7 @@ class GuestsForm extends Component {
             getItemValue={(item) => item.name}
             inputProps={{
               className: "border border-gray-350 rounded-lg p-8 w-full",
-              autocomplete: "false",
+              autoComplete: "false",
             }}
             wrapperProps={{ className: "w-full" }}
             shouldItemRender={renderClientName}
