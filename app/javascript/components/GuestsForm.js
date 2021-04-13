@@ -20,6 +20,10 @@ class GuestsForm extends Component {
     });
   };
 
+  isItemSelectable = (item) => {
+    return !item.red_flag;
+  };
+
   handleSelect = (name, client) => {
     this.setState((prevState) => {
       return {
