@@ -8,10 +8,12 @@ class ClientsController < ApplicationController
 
   def search
     q = params[:q].downcase
-    clients = Client.where("first_name ILIKE ? or last_name ILIKE ?", "%#{q}%", "%#{q}%").limit(5)
-    @results = clients.map {|c| { id: c.id, name: c.name, date_of_birth: c.date_of_birth } }
+    clients = Client.where("first_name ILIKE ? or last_name ILIKE ?", "%#{q}%", "%#{q}%").limit(10)
+    @results = clients.map do |c| 
+      attrs = c.slice(:id, :name, :date_of_birth)
+      attrs.merge(red_flag: c.incident_reports.any?)
+    end
     render json: @results
-    # render json: {data: @results}
   end
 
   def show
