@@ -10,6 +10,9 @@ class GuestsForm extends Component {
   state = { clients: [], selected: [], val: "" };
 
   handleChange = (event, val) => {
+    if (val === "" || val.length < 2) {
+      return this.setState({ val: val });
+    }
     const clientsURL = `/clients/search.json?q=${val}`;
     axios.get(clientsURL).then((response) => {
       this.setState({ clients: response.data, val: val });
@@ -19,6 +22,7 @@ class GuestsForm extends Component {
   handleSelect = (name, client) => {
     this.setState((prevState) => ({
       selected: [...prevState.selected, client],
+      val: "",
     }));
   };
 
@@ -65,6 +69,7 @@ class GuestsForm extends Component {
             </>
           ))}
         </div>
+
         <div className="mt-8">
           <Autocomplete
             value={this.state.val}
@@ -72,6 +77,7 @@ class GuestsForm extends Component {
             getItemValue={(item) => item.name}
             inputProps={{
               className: "border border-gray-350 rounded-lg p-8 w-full",
+              autocomplete: "false",
             }}
             wrapperProps={{ className: "w-full" }}
             shouldItemRender={renderClientName}
