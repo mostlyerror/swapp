@@ -32,9 +32,7 @@ class ClientAutocomplete extends React.Component {
     });
   };
 
-  downshiftOnChange(selectedClient) {
-    alert(`selected client is ${selectedClient.name}`);
-  }
+  downshiftOnChange = (client) => this.props.onSelectClient(client);
 
   render() {
     return (
@@ -85,6 +83,19 @@ class ClientAutocomplete extends React.Component {
 }
 
 class GuestsForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedClients: [],
+    };
+  }
+
+  onSelectClient = (client) => {
+    this.setState((prevState) => ({
+      selectedClients: [...prevState.selectedClients, client],
+    }));
+  };
+
   render() {
     return (
       <div>
@@ -96,7 +107,7 @@ class GuestsForm extends React.Component {
         </h3>
         <div id="guests_container">
           <div id="guests" className="mt-16"></div>
-          <ClientAutocomplete />
+          <ClientAutocomplete onSelectClient={this.onSelectClient} />
         </div>
       </div>
     );
