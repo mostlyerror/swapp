@@ -10,10 +10,10 @@
       <tbody class=" overflow-y-scroll" style="height: 430px;">
         <% @flagged_clients.each do |flagged_client| %>
           <tr>
-            <td class="py-3 px-2 w-2/3 text-left tabular-nums">
+            <td class="py-3 pl-4 w-2/3 text-left tabular-nums">
               <%= flagged_client.name %> 
             </td>
-            <td class="py-3 px-2 w-1/3 text-center">
+            <td class="py-3 px-5 w-1/3 text-center">
                 <a href="hotels/guests/<%= flagged_client.id %>" class="link"><i class="bi bi-arrow-up-right-circle"></i></a>
             </td>
           </tr>

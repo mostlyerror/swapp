@@ -11,12 +11,6 @@ Rails.application.routes.draw do
     resources :swaps
   end
 
-
-  constraints(lambda { |req| req.env["warden"].user(:user.hotel_user? || user(:user.admin_user?))}) do
-    
-  end
-
-  
   namespace :hotels do
     constraints(lambda { |req| req.env["warden"].user(:user).hotel_user? }) do
       get "/", to: "home#index", as: :home

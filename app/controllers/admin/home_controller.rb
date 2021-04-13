@@ -4,7 +4,6 @@ class Admin::HomeController < Admin::BaseController
     @swap = Swap.current
     @vouchers = Voucher.order(created_at: :desc).limit(20)
     @hotel_map = Hotel.all.pluck(:id, :name).to_h
-    # @flagged_clients = ClientHotel.where(red_flagged: true)
     @flagged_clients = Client.where(id: Client.ids).joins(:red_flags).uniq
 
 
