@@ -106,7 +106,13 @@ class GuestsForm extends React.Component {
           </p>
         </h3>
         <div id="guests_container">
-          <div id="guests" className="mt-16"></div>
+          <div id="guests" className="mt-16">
+            {this.state.selectedClients.map((item, index) => (
+              <div>
+                <ClientSuggestion key={index} {...item} />
+              </div>
+            ))}
+          </div>
           <ClientAutocomplete onSelectClient={this.onSelectClient} />
         </div>
       </div>
