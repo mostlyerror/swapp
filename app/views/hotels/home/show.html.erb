@@ -1,6 +1,10 @@
 <div class="px-16 mt-12">
     <a href="/hotels" class="link pb-12"><< Vouchers</a>
     <h4>Guest Detail: <%= @client.name %></h4>
+    <% if @client.hotels.includes(current_user.hotel)%>
+        <p class="text-red-500 text-2xl">Flagged</p>
+    <% end %>
+    <p class=""></p>
     <%# Admin Only %>
     <% if current_user.admin_user? %>
     <section class="border border-red-500 mt-16 shadow-xl w-96 mx-auto">
