@@ -35,6 +35,14 @@ input[type="search"] {
   @apply outline-black;
 }
 
+.btn-indigo {
+  @apply bg-indigo-500 text-white;
+}
+
+.btn-indigo:hover {
+  @apply bg-indigo-700;
+}
+
 .btn-blue {
   @apply bg-blue-500 text-white;
 }
