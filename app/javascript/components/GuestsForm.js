@@ -106,9 +106,9 @@ class GuestsForm extends Component {
                 {item.red_flag ? (
                   "🚩"
                 ) : (
-                  <span className="text-white bg-indigo-500 rounded-full p-3">
+                  <button type="button" className="btn btn-indigo">
                     +
-                  </span>
+                  </button>
                 )}
               </div>
             </div>
