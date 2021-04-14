@@ -12,11 +12,11 @@
       <% if @red_flagged.any? %>
         <section class="text-5xl px-6 mt-16">
           <p class="help-text">
-            <strong class="text-red-500"><%= @client.first_name %> has been red flagged.</strong> They are not eligible to receive vouchers at certain hotels.
+            <strong class="text-red-500"><%= @client.first_name %> has been red flagged.</strong> They are not eligible to receive vouchers at the following hotel(s):
           </p>
-          <%= @flagged_hotels.each do |flagged_hotel| %>
-          <ul>
-              <li><% flagged_hotel %></li>
+          <% @flagged_hotels.each do |flagged_hotel| %>
+          <ul class="mt-5 py-2 pl-5 text-3xl border border-b-2 border-black w-1/2">
+              <li><%= flagged_hotel %></li>
           </ul>
           <% end %>
         </section>

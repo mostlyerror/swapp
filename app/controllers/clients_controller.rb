@@ -10,7 +10,6 @@ class ClientsController < ApplicationController
     @client = Client.find(params[:id])
     @existing_voucher = @swap&.vouchers&.find_by(client: @client)
     @red_flagged = Client.where(id: @client).joins(:red_flags)
-    print(@red_flagged)
-    @flagged_hotels = Hotel.where(id: ).joins(@client.id)
+    @flagged_hotels = @client.hotels.pluck(:name)
   end
 end
