@@ -19,7 +19,7 @@
               <li><%= flagged_hotel %></li>
           </ul>
           <% end %>
-          <p class="px-6 mt-16 text-6xl text-center">Issue a <%= link_to 'hotel voucher', new_voucher_path(client_id: @client.id), class: 'link' %> 🎫</p>
+          <p class="px-6 mt-10 text-3xl">You can still issue a <%= link_to 'hotel voucher', new_voucher_path(client_id: @client.id), class: 'link' %>, but the above sites will <strong class="text-red-500">not</strong> be available to the client.</p>
         </section>
       <% else %>
         <% if @existing_voucher.present? %>
