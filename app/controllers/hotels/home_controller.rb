@@ -10,6 +10,7 @@ class Hotels::HomeController < Hotels::BaseController
     @client = Client.find(params[:id])
     @hotels = Hotel.all
     @flag_hotel_ids = RedFlag.where(client: @client).pluck(:hotel_id)
+    @flagged_stamps = RedFlag.where(client: @client).pluck(:created_at)
     @incident_report = IncidentReport.new
   end
 
