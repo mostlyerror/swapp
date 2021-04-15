@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_232812) do
+ActiveRecord::Schema.define(version: 2021_04_15_164454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(version: 2021_04_05_232812) do
   create_table "red_flags", force: :cascade do |t|
     t.bigint "client_id"
     t.bigint "hotel_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_red_flags_on_client_id"
     t.index ["hotel_id"], name: "index_red_flags_on_hotel_id"
   end
