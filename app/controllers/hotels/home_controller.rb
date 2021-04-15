@@ -15,19 +15,22 @@ class Hotels::HomeController < Hotels::BaseController
   end
 
   def create_report
+    @client = Client.find(params[:id])
     @incident_report = IncidentReport.new(incident_report_params)
 
-    if @incident_report.save
-      redirect_to show_client_path, notice: "New report created"
-    else
-      render :new
+    @incident_report.client_id = @client.id
+    @incident_report.reporter_id = current_user.id
+
+    byebug
+
+    if !@incident_report.save
+      redirect_to hotels_show_client_path(id: @client)
     end
   end
 
 
   private
-  
   def incident_report_params
-    params.require(:incident_report).permit(:description, :reporter_id)
+    params.require(:incident_report).permit(:occurred_at, :description)
   end
 end
