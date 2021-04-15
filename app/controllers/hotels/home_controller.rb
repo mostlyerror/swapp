@@ -28,6 +28,6 @@ class Hotels::HomeController < Hotels::BaseController
   private
   
   def incident_report_params
-    params.require(:incident_report).permit(:description)
+    params.require(:incident_report).permit(:description, :reporter_id)
   end
 end
