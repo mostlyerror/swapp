@@ -21,9 +21,7 @@ class Hotels::HomeController < Hotels::BaseController
     @incident_report.client_id = @client.id
     @incident_report.reporter_id = current_user.id
 
-    byebug
-
-    if !@incident_report.save
+    if @incident_report.save
       redirect_to hotels_show_client_path(id: @client)
     end
   end

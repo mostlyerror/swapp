@@ -46,17 +46,21 @@
     </section>
     <section class="mt-16">
         <h4>Past Incidents</h4>
-        <div class="px-3 mt-8 flex flex-wrap">
+        <div class="px-3 mt-8 flex flex-wrap border border-4 bg-gradient-to-r from-indigo-900 overflow-y-scroll" style="height: 630px">
         <% if @client.incident_reports.any? %>
             <% @client.incident_reports.each do |incident| %>
-               <div class="px-10 my-4 py-3 rounded shadow-xl bg-white w-3/5">
-                    <div class="flex justify-between items-center">
-                        <span class="font-light text-gray-600"><%= humanize_date(incident.created_at) %></span>
+               <div class="my-4 rounded shadow-xl border-top bg-white w-full">
+                    <div class="px-4 py-2">
+                        <p class="font-black">Incident Date: <%= humanize_date(incident.occurred_at) %></p>
                     </div>
-                    <div class="mt-2">
-                        <p class="mt-2 text-gray-700">
+                    <div class="mt-2 px-4 py-2">
+                        <p class="mt-2 tracking-wide leading-7">
                             <%= incident.description %>
                         </p>
+                    </div>
+                    <div class="mt-2 p-4 bg-gray-900">
+                        <p class="text-white">Reported by: <span><%= incident.reporter.name %></span></p>
+                        <p class="text-white">Submitted: <span><%= humanize_date(incident.created_at) %></span></p>
                     </div>
                 </div>
             <% end %>
@@ -79,7 +83,7 @@
                              </div>
                              <div>
                                 <%= form.label :description, class: "p-1 text-xl block" %>
-                                <%= form.text_area :description, required: true, class: "w-full h-64 mt-2" %>
+                                <%= form.text_area :description, placeholder: "Brief and detailed description of incident", required: true, class: "w-full h-64 mt-2" %>
                              </div>
                             <div class="flex p-1">
                                 <%= form.submit "Submit Report", class: "p-2 bg-blue-600 text-white hover:bg-blue-900 cursor-pointer" %>
