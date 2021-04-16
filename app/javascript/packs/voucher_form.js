@@ -1,5 +1,52 @@
-require("jquery");
-require("easy-autocomplete");
+const questionKeys = ["voucher_guests"];
+
+questionKeys.forEach((key) => {
+  document.addEventListener("click", (event) => {
+    const radioTrue = document.getElementById(`${key}_true`);
+    const radioFalse = document.getElementById(`${key}_false`);
+    const buttonYes = document.getElementById(`${key}_yes`);
+    const buttonNo = document.getElementById(`${key}_no`);
+    const guestsForm = document.getElementById("guests-form-container");
+
+    if (event.target.id === `${key}_yes`) {
+      buttonNo.classList.add("outline-gray-300");
+      buttonNo.classList.add("border-gray-300");
+      buttonNo.classList.add("text-gray-300");
+      buttonNo.classList.remove("bg-indigo-700");
+      buttonNo.classList.remove("text-white");
+
+      buttonYes.classList.add("bg-indigo-700");
+      buttonYes.classList.add("text-white");
+      buttonYes.classList.remove("outline-gray-300");
+      buttonYes.classList.remove("border-gray-300");
+      buttonYes.classList.remove("text-gray-300");
+
+      radioTrue.checked = true;
+      radioFalse.checked = false;
+
+      guestsForm.classList.remove("hidden");
+    }
+
+    if (event.target.id === `${key}_no`) {
+      buttonYes.classList.add("outline-gray-300");
+      buttonYes.classList.add("outline-gray-300");
+      buttonYes.classList.add("text-gray-300");
+      buttonYes.classList.remove("bg-indigo-700");
+      buttonYes.classList.remove("text-white");
+
+      buttonNo.classList.add("bg-indigo-700");
+      buttonNo.classList.add("text-white");
+      buttonNo.classList.remove("outline-gray-300");
+      buttonNo.classList.remove("border--gray-300");
+      buttonNo.classList.remove("text-gray-300");
+
+      radioTrue.checked = false;
+      radioFalse.checked = true;
+
+      guestsForm.classList.add("hidden");
+    }
+  });
+});
 
 document.addEventListener(
   "change",
@@ -52,11 +99,6 @@ document.addEventListener(
       clone.classList.add("block");
       clone.id = `guest_${guests}`;
 
-      // let select = clone.querySelectorAll("select").forEach((select) => {
-      //   select.id = select.id.replace("replace", guests);
-      //   select.name = select.name.replace("replace", guests);
-      // });
-
       clone.querySelectorAll("label").forEach((label) => {
         label.name = label.htmlFor.replace("replace", guests);
       });
@@ -71,37 +113,3 @@ document.addEventListener(
   },
   false
 );
-
-document.addEventListener("turbolinks:load", function () {
-  const $input = $('*[data-behavior="autocomplete"]');
-  const suggestionClass = "eac-item-suggestion";
-  const options = {
-    url: function (term) {
-      return "/clients/search.json?q=" + term;
-    },
-    getValue: (el) => el.name,
-    template: {
-      type: "custom",
-      method: function (value, item) {
-        return `<p class="${suggestionClass} text-5xl">${item.name} - ${item.date_of_birth}<span class="remove-me">X</span></p>`;
-      },
-    },
-    list: {
-      onSelectItemEvent: (event) => {
-        let input = $('*[data-behavior="autocomplete"]');
-        $(input).val("");
-      },
-    },
-  };
-
-  document.addEventListener("click", (event) => {
-    if (event.target.matches(`.${suggestionClass}`)) {
-      let clone = event.target.cloneNode(true);
-      clone.classList.remove(suggestionClass);
-      let container = document.getElementById("guests");
-      container.appendChild(clone);
-    }
-  });
-
-  $input.easyAutocomplete(options);
-});

@@ -44,13 +44,6 @@ class GuestsForm extends Component {
   render() {
     return (
       <div className="">
-        <h3 className="text-6xl leading-loose font-medium text-gray-900">
-          Additional Guest(s)
-          <p className="text-4xl text-indigo-800">
-            some help text about the number of guests?
-          </p>
-        </h3>
-
         <div
           id="guests"
           className="mt-16 pb-8 grid grid-cols-11 space-evenly gap-4"
