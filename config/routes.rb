@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       put "swaps/:id/room_supply" => "swaps#update_room_supply", as: :update_room_supply
       get "/reports/swap" => "reports#swap", as: :swap_report
       put "/guests/:id" => "red_flags#edit_red_flag", as: :edit_red_flag
-      # post "/guests/:id" => "hotels#create_report", as: :create_report
+      post "/guests/:id" => "hotels#create_report", as: :create_report
     end
     
 
