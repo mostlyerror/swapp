@@ -49,6 +49,7 @@
         <div class="px-3 mt-8 flex flex-wrap border border-4 bg-gradient-to-r from-gray-900 overflow-y-scroll" style="height: 630px">
         <% if @client.incident_reports.any? %>
             <% @client.incident_reports.each do |incident| %>
+                <% if incident.reporter == current_user %>
                <div class="my-4 rounded shadow-xl border-top bg-white w-full">
                     <div class="px-4 py-2">
                         <p class="font-black">Incident Date: <%= incident.occurred_at.to_date %></p>
@@ -63,6 +64,22 @@
                         <p class="text-white">Submitted: <span><%= incident.created_at.to_date %></span></p>
                     </div>
                 </div>
+                <% elsif current_user.admin_user? %>
+                <div class="my-4 rounded shadow-xl border-top bg-white w-full">
+                    <div class="px-4 py-2">
+                        <p class="font-black">Incident Date: <%= incident.occurred_at.to_date %></p>
+                    </div>
+                    <div class="mt-2 px-4 py-2">
+                        <p class="mt-2 tracking-wide leading-7">
+                            <%= incident.description %>
+                        </p>
+                    </div>
+                    <div class="mt-2 p-4 bg-gray-900">
+                        <p class="text-white">Reported by: <span><%= incident.reporter.name %></span></p>
+                        <p class="text-white">Submitted: <span><%= incident.created_at.to_date %></span></p>
+                    </div>
+                </div>
+                <% end %>
             <% end %>
         <% else %>
             <p class="text-2xl"><strong>No incident reports to show!</strong></p>
