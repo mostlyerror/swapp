@@ -151,7 +151,39 @@
     </section>
 
     <section class="p-12">
-      <div class="field w-full">
+      <h3 class="font-bold">Guests</h3>
+      <p className="text-4xl text-indigo-800">
+        some help text about the number of guests?
+      </p>
+      <ul class="py-4 pb-32 flex">
+        <li class="relative flex-1">
+          <% choice = "Yes" %>
+          <%= form.radio_button :guests, true,
+            class: "absolute z-0 h-1 w-1",
+            required: true,
+            checked: nil,
+            tabindex: -1
+          %>
+          <%= form.label :guests, choice, 
+            id: "voucher_guests_#{choice.downcase}",
+            class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+          %>
+        </li>
+        <li class="relative flex-1">
+          <% choice = "No" %>
+          <%= form.radio_button :guests, false,
+            class: "absolute z-0 h-1 w-1",
+            required: true,
+            checked: nil,
+            tabindex: -1
+          %>
+          <%= form.label :guests, choice, 
+            id: "voucher_guests_#{choice.downcase}",
+            class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
+          %>
+        </li>
+      </ul>
+      <div id="guests-form-container" class="w-full hidden">
         <%= react_component("GuestsForm", {}) %>
       </div>
     </section>
