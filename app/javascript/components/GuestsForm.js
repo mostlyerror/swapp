@@ -44,9 +44,9 @@ class GuestsForm extends Component {
   render() {
     return (
       <div>
-        <div id="guests" className="grid grid-cols-11 space-evenly gap-4 pt-12">
+        <div id="guests">
           {this.state.selected.length > 0 && (
-            <>
+            <div className="grid grid-cols-11 space-evenly gap-4 pt-12">
               <div className="col-span-5 font-semibold">Name</div>
               <div className="col-span-5 font-semibold">DOB</div>
               <div key="guests-list" className="text-right"></div>
@@ -65,7 +65,7 @@ class GuestsForm extends Component {
                   </div>
                 </>
               ))}
-            </>
+            </div>
           )}
         </div>
 
