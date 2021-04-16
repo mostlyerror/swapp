@@ -1,4 +1,4 @@
-<div class="px-16 mt-12">
+<div class="px-14 mt-12">
     <a href="/hotels" class="link pb-12"><< Vouchers</a>
     <h4>Guest Detail: <%= @client.name %></h4>
     <% if @client.hotels.any? %>
@@ -46,7 +46,7 @@
     </section>
     <section class="mt-16">
         <h4>Past Incidents</h4>
-        <div class="px-3 mt-8 flex flex-wrap border border-4 bg-gradient-to-r from-gray-900 overflow-y-scroll" style="height: 630px">
+        <div class="px-2 mt-8 flex flex-wrap border border-4 bg-gradient-to-r from-gray-900 overflow-y-scroll" style="height: 630px">
         <% if @client.incident_reports.any? %>
             <% @client.incident_reports.each do |incident| %>
                 <% if incident.reporter == current_user %>
