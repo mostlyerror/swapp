@@ -99,7 +99,7 @@ class GuestsForm extends Component {
             <div
               key={item.id}
               className={`item ${
-                isHighlighted ? "selected-item" : ""
+                isHighlighted ? "selected-item" : "text-gray-300"
               } mt-16 grid grid-cols-11 space-evenly gap-4`}
             >
               <div className="col-span-5 font-semibold">{item.name}</div>
