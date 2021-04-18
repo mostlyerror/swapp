@@ -21,6 +21,7 @@
     "react_ujs": "^2.6.1",
     "react-autocomplete": "^1.8.1",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.2.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "turbolinks": "^5.2.0"
   },
