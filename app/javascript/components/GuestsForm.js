@@ -102,8 +102,18 @@ class GuestsForm extends Component {
                 isHighlighted ? "selected-item" : ""
               } mt-16 grid grid-cols-11 space-evenly gap-4`}
             >
-              <div className="col-span-5 font-semibold">{item.name}</div>
-              <div className="col-span-5 font-semibold">
+              <div
+                className={`${
+                  item.red_flag ? "text-gray-300 font-normal" : "font-semibold"
+                } col-span-5`}
+              >
+                {item.name}
+              </div>
+              <div
+                className={`${
+                  item.red_flag ? "text-gray-300 font-normal" : "font-semibold"
+                } col-span-5`}
+              >
                 {item.date_of_birth}
               </div>
               <div className="text-right">
