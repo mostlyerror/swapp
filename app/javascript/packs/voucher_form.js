@@ -84,32 +84,3 @@ document.addEventListener(
   },
   false
 );
-
-let guests = 0;
-document.addEventListener(
-  "click",
-  (event) => {
-    if (event.target.matches("#add_guest")) {
-      let container = document.getElementById("guests");
-      let template = document.getElementById("template_guest");
-      let clone = template.cloneNode(true);
-
-      guests++;
-      clone.classList.remove("hidden");
-      clone.classList.add("block");
-      clone.id = `guest_${guests}`;
-
-      clone.querySelectorAll("label").forEach((label) => {
-        label.name = label.htmlFor.replace("replace", guests);
-      });
-
-      clone.querySelectorAll("input").forEach((input) => {
-        input.id = input.id.replace("replace", guests);
-        input.name = input.name.replace("replace", guests);
-      });
-
-      container.appendChild(clone);
-    }
-  },
-  false
-);
