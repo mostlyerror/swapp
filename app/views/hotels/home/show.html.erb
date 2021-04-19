@@ -48,7 +48,7 @@
     </section>
     <section class="mt-16">
         <h4>Past Incidents</h4>
-        <div class="px-2 mt-8 flex flex-wrap border border-4 bg-gradient-to-r from-gray-900 overflow-y-scroll" style="height: 630px">
+        <div class="px-2 mt-8 flex flex-wrap overflow-y-scroll" style="height: 630px">
         <% if @client.incident_reports.any? %>
             <% @client.incident_reports.each do |incident| %>
                 <% if incident.reporter == current_user %>

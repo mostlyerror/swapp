@@ -14,7 +14,7 @@
               <%= flagged_client.name %> 
             </td>
             <td class="py-3 px-5 w-1/3 text-center">
-                <a href="hotels/guests/<%= flagged_client.id %>" class="link"><i class="bi bi-arrow-up-right-circle"></i></a>
+                <%= link_to '<i class="bi bi-arrow-up-right-circle"></i>'.html_safe, hotels_show_client_path(flagged_client.id), class: 'link' %>
             </td>
           </tr>
         <% end %>
