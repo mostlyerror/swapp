@@ -2,8 +2,8 @@
     <a href="/hotels" class="link pb-12"><< Vouchers</a>
     <h4>Guest Detail: <%= @client.name %></h4>
     <% if @client.hotels.any? %>
-        <% if @client.hotels.ids == current_user || current_user.admin_user %>
-        <p class="text-red-500 text-2xl">Flagged <span class="italic text-xl">(last update: <%= @flagged_stamps[0].to_date %>)</span></p>
+        <% if @client.hotels.ids == current_user.hotels.ids || current_user.admin_user %>
+        <p class="text-red-500 text-2xl">Flagged <span class="italic text-xl">(last updated: <%= @flagged_stamps[-1].to_date %>)</span></p>
         <% end %>
     <% end %>
     <p class=""></p>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="mt-2 px-4 py-2">
                         <p class="mt-2 tracking-wide leading-7">
-                            <%= incident.description %>
+                            <%=incident.description %>
                         </p>
                     </div>
                     <div class="mt-2 p-4 bg-gray-900">
