@@ -94,12 +94,11 @@ class GuestsForm extends Component {
                   className="grid grid-cols-11 space-evenly gap-4 pt-12"
                 >
                   <div className="col-span-5">{item.name}</div>
-                  <div className="col-span-5  tabular-nums">
+                  <div className="col-span-5 tabular-nums">
                     {item.date_of_birth}
                   </div>
                   <div
                     className="text-right"
-                    key={idx}
                     onClick={() => this.removeGuest(item)}
                   >
                     <button type="button">
