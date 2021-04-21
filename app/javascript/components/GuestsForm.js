@@ -111,9 +111,19 @@ class GuestsForm extends Component {
     this.setState({ showModal: true });
   };
 
+  cancelModal = () => {
+    this.setState({
+      showModal: false,
+      newGuestFirstName: "",
+      newGuestLastName: "",
+      newGuestDateOfBirth: "",
+    });
+  };
+
   closeModal = () => {
     this.setState({
       showModal: false,
+      val: "",
       newGuestFirstName: "",
       newGuestLastName: "",
       newGuestDateOfBirth: "",
@@ -153,7 +163,7 @@ class GuestsForm extends Component {
                 >
                   <div className="col-span-5">{item.name}</div>
                   <div className="col-span-5 tabular-nums">
-                    {item.date_of_birth}
+                    {item.date_of_birth || "--"}
                   </div>
                   <div
                     className="text-right"
@@ -262,7 +272,7 @@ class GuestsForm extends Component {
               shadow-sm text-xs font-medium rounded text-gray-700 bg-white
               hover:bg-gray-50 focus:outline-none focus:ring-2
               focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={this.closeModal}
+              onClick={this.cancelModal}
             >
               cancel
             </button>
