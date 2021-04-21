@@ -30,9 +30,7 @@ class GuestsForm extends Component {
     this.fetchClients(val);
   };
 
-  isItemSelectable = (item) => {
-    return !item.red_flag;
-  };
+  isItemSelectable = (item) => !item.red_flag;
 
   handleSelect = (name, client) => {
     this.setState((prevState) => {
