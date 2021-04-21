@@ -36,7 +36,7 @@ class GuestsForm extends Component {
     this.setState((prevState) => {
       return {
         val: "",
-        selected: _.uniqWith([...prevState.selected, client], _.isEqual),
+        selected: _.uniqBy([...prevState.selected, client], "id"),
       };
     });
   };
