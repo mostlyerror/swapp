@@ -197,7 +197,12 @@ class GuestsForm extends Component {
                   key={idx}
                   className="grid grid-cols-11 space-evenly gap-4 pt-12"
                 >
-                  <input className="hidden" type="hidden" value={guest} />
+                  <input
+                    className="hidden"
+                    type="hidden"
+                    name={`voucher[guest_ids][]`}
+                    value={guest.id}
+                  />
                   <div className="col-span-5">{`${guest.first_name} ${guest.last_name}`}</div>
                   <div className="col-span-5 tabular-nums">
                     {(guest.date_of_birth !== NULL_DOB_PLACEHOLDER_VALUE &&
