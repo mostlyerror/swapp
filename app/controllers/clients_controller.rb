@@ -23,15 +23,16 @@ class ClientsController < ApplicationController
   end
 
   def create
-    client_params = params.permit(:first_name, :last_name, :date_of_birth)
+    client_params = params.require('client').permit(:first_name, :last_name, :date_of_birth)
     if client_params['date_of_birth'].blank?
       client_params['date_of_birth'] = '1600-01-01'
     end
 
-    if client = Client.create(client_params)
-      return render json: client
+    client = Client.new(client_params)
+    if client.save
+      return render json: client, status: :ok
     end
 
-    render json: client.errors
+    render json: client.errors.full_messages, status: :unprocessable_entity
   end
 end

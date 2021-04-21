@@ -5,6 +5,8 @@ import _ from "lodash";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import ReactModal from "react-modal";
 
+const NULL_DOB_PLACEHOLDER_VALUE = "1600-01-01";
+
 class GuestsForm extends Component {
   state = {
     clients: [],
@@ -13,6 +15,7 @@ class GuestsForm extends Component {
     newGuestFirstName: "",
     newGuestLastName: "",
     newGuestDateOfBirth: "",
+    errors: [],
   };
 
   fetchClients = _.debounce((term) => {
@@ -36,6 +39,7 @@ class GuestsForm extends Component {
     this.setState((prevState) => {
       return {
         val: "",
+        clients: [],
         selected: _.uniqBy([...prevState.selected, client], "id"),
       };
     });
@@ -91,7 +95,9 @@ class GuestsForm extends Component {
           item.red_flag ? "text-gray-300 font-normal" : "font-semibold"
         } col-span-5`}
       >
-        {item.date_of_birth}
+        {(item.date_of_birth !== NULL_DOB_PLACEHOLDER_VALUE &&
+          item.date_of_birth) ||
+          "--"}
       </div>
       <div className="text-right">
         {item.red_flag ? (
@@ -122,6 +128,7 @@ class GuestsForm extends Component {
     this.setState({
       showModal: false,
       val: "",
+      clients: [],
       newGuestFirstName: "",
       newGuestLastName: "",
       newGuestDateOfBirth: "",
@@ -149,21 +156,33 @@ class GuestsForm extends Component {
       date_of_birth: this.state.newGuestDateOfBirth,
     };
 
-    this.createClient(newGuest).then((response) => {
-      const guest = _.pick(response.data, [
-        "id",
-        "first_name",
-        "last_name",
-        "date_of_birth",
-        "red_flag",
-      ]);
-      guest.name = `${guest.first_name} ${guest.last_name}`;
+    this.createClient(newGuest)
+      .then((response) => {
+        console.log(response);
 
-      this.setState((prevState) => {
-        return { selected: [...prevState.selected, guest] };
+        // if successful
+        const guest = _.pick(response.data, [
+          "id",
+          "first_name",
+          "last_name",
+          "date_of_birth",
+          "red_flag",
+        ]);
+        guest.name = `${guest.first_name} ${guest.last_name}`;
+
+        this.setState((prevState) => {
+          return {
+            selected: [...prevState.selected, guest],
+            errors: [],
+          };
+        });
+        this.closeModal();
+      })
+      .catch((err) => {
+        this.setState({
+          errors: [err.response.data],
+        });
       });
-      this.closeModal();
-    });
   };
 
   render() {
@@ -184,7 +203,9 @@ class GuestsForm extends Component {
                 >
                   <div className="col-span-5">{item.name}</div>
                   <div className="col-span-5 tabular-nums">
-                    {item.date_of_birth || "--"}
+                    {(item.date_of_birth !== NULL_DOB_PLACEHOLDER_VALUE &&
+                      item.date_of_birth) ||
+                      "--"}
                   </div>
                   <div
                     className="text-right"
@@ -229,6 +250,41 @@ class GuestsForm extends Component {
           contentLabel="Create Guest Modal"
         >
           <h3 className="text-5xl font-bold">Create New Guest</h3>
+
+          {this.state.errors.length > 0 && (
+            <div className="mt-12 rounded-lg bg-red-50 p-4">
+              <div className="flex justify-center">
+                <div className="flex-shrink-0">
+                  <svg
+                    className="h-10 w-10 text-red-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    ariaHidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <h3 className="text-4xl font-medium text-red-800">
+                    There were errors with your submission
+                  </h3>
+                  <div className="mt-2 text-4xl text-red-700">
+                    <ul className="list-disc pl-5 space-y-1">
+                      {this.state.errors.map((error, idx) => {
+                        return <li>{error}</li>;
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="mt-12 flex flex-col space-between gap-12">
             <div>
               <label className="block leading-snug text-4xl font-semibold">
