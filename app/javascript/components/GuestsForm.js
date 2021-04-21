@@ -151,7 +151,6 @@ class GuestsForm extends Component {
 
   createGuest = () => {
     const newGuest = {
-      name: `${this.state.newGuestFirstName} ${this.state.newGuestLastName}`,
       first_name: this.state.newGuestFirstName,
       last_name: this.state.newGuestLastName,
       date_of_birth: this.state.newGuestDateOfBirth,
@@ -159,9 +158,6 @@ class GuestsForm extends Component {
 
     this.createClient(newGuest)
       .then((response) => {
-        console.log(response);
-
-        // if successful
         const guest = _.pick(response.data, [
           "id",
           "first_name",
@@ -169,7 +165,6 @@ class GuestsForm extends Component {
           "date_of_birth",
           "red_flag",
         ]);
-        guest.name = `${guest.first_name} ${guest.last_name}`;
 
         this.setState((prevState) => {
           return {
@@ -197,12 +192,12 @@ class GuestsForm extends Component {
                 <div className="col-span-5 font-semibold">DOB</div>
                 <div key="guests-list" className="text-right"></div>
               </div>
-              {this.state.selected.map((item, idx) => (
+              {this.state.selected.map((guest, idx) => (
                 <div
                   key={idx}
                   className="grid grid-cols-11 space-evenly gap-4 pt-12"
                 >
-                  <div className="col-span-5">{item.name}</div>
+                  <div className="col-span-5">{`${guest.first_name} ${guest.last_name}`}</div>
                   <div className="col-span-5 tabular-nums">
                     {(item.date_of_birth !== NULL_DOB_PLACEHOLDER_VALUE &&
                       item.date_of_birth) ||
@@ -225,7 +220,7 @@ class GuestsForm extends Component {
         <Autocomplete
           value={this.state.val}
           items={this.state.clients}
-          getItemValue={(item) => item.name}
+          getItemValue={(item) => item.id}
           inputProps={{
             className: "border border-gray-350 rounded-lg mt-12 p-8 w-full",
             autoComplete: "false",
