@@ -21,4 +21,17 @@ class ClientsController < ApplicationController
     @client = Client.find(params[:id])
     @existing_voucher = @swap&.vouchers&.find_by(client: @client)
   end
+
+  def create
+    client_params = params.permit(:first_name, :last_name, :date_of_birth)
+    if client_params['date_of_birth'].blank?
+      client_params['date_of_birth'] = '1600-01-01'
+    end
+
+    if client = Client.create(client_params)
+      return render json: client
+    end
+
+    render json: client.errors
+  end
 end

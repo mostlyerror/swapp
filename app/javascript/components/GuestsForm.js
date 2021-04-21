@@ -130,19 +130,42 @@ class GuestsForm extends Component {
     });
   };
 
-  createGuest = () => {
-    this.setState((prevState) => {
-      const newGuest = {
-        name: `${this.state.newGuestFirstName} ${this.state.newGuestLastName}`,
-        first_name: this.state.newGuestFirstName,
-        last_name: this.state.newGuestLastName,
-        date_of_birth: this.state.newGuestDateOfBirth,
-      };
-
-      return { selected: [...prevState.selected, newGuest] };
+  createClient = (client) => {
+    const clientsURL = `/clients`;
+    const csrfToken = document
+      .querySelector('[name="csrf-token"]')
+      .getAttribute("content");
+    return axios.post(clientsURL, client, {
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrfToken,
+      },
     });
+  };
 
-    this.closeModal();
+  createGuest = () => {
+    const newGuest = {
+      name: `${this.state.newGuestFirstName} ${this.state.newGuestLastName}`,
+      first_name: this.state.newGuestFirstName,
+      last_name: this.state.newGuestLastName,
+      date_of_birth: this.state.newGuestDateOfBirth,
+    };
+
+    this.createClient(newGuest).then((response) => {
+      const guest = _.pick(response.data, [
+        "id",
+        "first_name",
+        "last_name",
+        "date_of_birth",
+        "red_flag",
+      ]);
+      guest.name = `${guest.first_name} ${guest.last_name}`;
+
+      this.setState((prevState) => {
+        return { selected: [...prevState.selected, guest] };
+      });
+      this.closeModal();
+    });
   };
 
   render() {
