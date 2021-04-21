@@ -132,6 +132,7 @@ class GuestsForm extends Component {
       newGuestFirstName: "",
       newGuestLastName: "",
       newGuestDateOfBirth: "",
+      errors: [],
     });
   };
 
@@ -246,7 +247,7 @@ class GuestsForm extends Component {
           onRequestClose={this.closeModal}
           transparent={true}
           overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-75 z-20"
-          className="absolute inset-y-40 inset-x-12 border border-gray-300 bg-white opacity-100 overflow-auto rounded-lg py-20 px-12"
+          className="absolute inset-y-1/4 sm:inset-y-1/8 inset-x-8 border border-gray-300 bg-white opacity-100 overflow-auto rounded-lg py-20 px-12"
           contentLabel="Create Guest Modal"
         >
           <h3 className="text-5xl font-bold">Create New Guest</h3>
@@ -343,9 +344,9 @@ class GuestsForm extends Component {
               />
             </div>
           </div>
-          <div className="mt-16 flex justify-end items-center gap-6">
+          <div className="mt-16 flex items-center gap-6">
             <button
-              className="text-4xl inline-flex items-center px-6 py-4 border border-gray-300
+              className="flex-1 text-4xl text-center px-6 py-4 border border-gray-300
               shadow-sm text-xs font-medium rounded text-gray-700 bg-white
               hover:bg-gray-50 focus:outline-none focus:ring-2
               focus:ring-offset-2 focus:ring-indigo-500"
@@ -354,7 +355,7 @@ class GuestsForm extends Component {
               cancel
             </button>
             <button
-              className="text-4xl btn btn-indigo"
+              className="flex-1 text-4xl text-center btn btn-indigo"
               onClick={this.createGuest}
             >
               create
