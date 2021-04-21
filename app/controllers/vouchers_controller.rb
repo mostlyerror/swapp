@@ -13,48 +13,51 @@ class VouchersController < ApplicationController
   end
 
   def create
-    client_params = voucher_params[:client]
-    @client = Client.find(client_params[:id])
-    @voucher = Voucher.new(
-      client: @client,
-      swap: @swap,
-      user: current_user
-    )
+    Voucher.transaction do
+      client_params = voucher_params[:client]
+      @client = Client.find(client_params[:id])
+      @voucher = Voucher.new(
+        client: @client,
+        swap: @swap,
+        user: current_user
+      )
 
-    if !@client.update(
-        phone_number: client_params[:phone_number],
-        email: client_params[:email],
-    )
-      return render :new
-    end
+      if !@client.update(
+          phone_number: client_params[:phone_number],
+          email: client_params[:email],
+      )
+        return render :new
+      end
 
-    short_intake_params = voucher_params[:short_intake]
-    @short_intake = ShortIntake.new(short_intake_params)
-    @short_intake.why_not_shelter = short_intake_params[:why_not_shelter].reject {|r| r == "0" }
-    @short_intake.client = @client
-    @short_intake.user = current_user
+      short_intake_params = voucher_params[:short_intake]
+      @short_intake = ShortIntake.new(short_intake_params)
+      @short_intake.why_not_shelter = short_intake_params[:why_not_shelter].reject {|r| r == "0" }
+      @short_intake.client = @client
+      @short_intake.user = current_user
 
-    if !@short_intake.save
-      return render :new
-    end
+      if !@short_intake.save
+        return render :new
+      end
 
-    @voucher.assign_attributes(
-      hotel_id: voucher_params[:hotel_id],
-      check_in: voucher_params[:check_in],
-      check_out: voucher_params[:check_out],
-      num_adults_in_household: voucher_params[:num_adults_in_household],
-      num_children_in_household: voucher_params[:num_children_in_household]
-    )
+      @voucher.assign_attributes(
+        hotel_id: voucher_params[:hotel_id],
+        check_in: voucher_params[:check_in],
+        check_out: voucher_params[:check_out],
+        num_adults_in_household: voucher_params[:num_adults_in_household],
+        num_children_in_household: voucher_params[:num_children_in_household],
+        guest_ids: voucher_params[:guest_ids]
+      )
 
-    @voucher.validate
-    # client has already received a voucher for the current swap period?
-    if @voucher.errors[:client_id].include? "has already been taken"
-      @existing_voucher = @swap.vouchers.find_by(client_id: @voucher.client_id)
-      return render :new
-    end
+      @voucher.validate
+      # client has already received a voucher for the current swap period?
+      if @voucher.errors[:client_id].include? "has already been taken"
+        @existing_voucher = @swap.vouchers.find_by(client_id: @voucher.client_id)
+        return render :new
+      end
 
-    if !@voucher.save
-      return render :new
+      if !@voucher.save
+        return render :new
+      end
     end
 
     redirect_to action: :created, id: @voucher.id
@@ -73,6 +76,8 @@ class VouchersController < ApplicationController
       :check_in, 
       :check_out, 
       :hotel_id, 
+      :guests,
+      guest_ids: [],
       client: [
         :id,
         :phone_number,
