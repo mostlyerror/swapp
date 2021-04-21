@@ -88,7 +88,7 @@ class GuestsForm extends Component {
           item.red_flag ? "text-gray-300 font-normal" : "font-semibold"
         } col-span-5`}
       >
-        {item.name}
+        {`${item.first_name} ${item.last_name}`}
       </div>
       <div
         className={`${
@@ -197,15 +197,16 @@ class GuestsForm extends Component {
                   key={idx}
                   className="grid grid-cols-11 space-evenly gap-4 pt-12"
                 >
+                  <input className="hidden" type="hidden" value={guest} />
                   <div className="col-span-5">{`${guest.first_name} ${guest.last_name}`}</div>
                   <div className="col-span-5 tabular-nums">
-                    {(item.date_of_birth !== NULL_DOB_PLACEHOLDER_VALUE &&
-                      item.date_of_birth) ||
+                    {(guest.date_of_birth !== NULL_DOB_PLACEHOLDER_VALUE &&
+                      guest.date_of_birth) ||
                       "--"}
                   </div>
                   <div
                     className="text-right"
-                    onClick={() => this.removeGuest(item)}
+                    onClick={() => this.removeGuest(guest)}
                   >
                     <button type="button">
                       <FaMinusCircle className="text-red-500" />
@@ -220,7 +221,7 @@ class GuestsForm extends Component {
         <Autocomplete
           value={this.state.val}
           items={this.state.clients}
-          getItemValue={(item) => item.id}
+          getItemValue={(item) => `${item.first_name} ${item.last_name}`}
           inputProps={{
             className: "border border-gray-350 rounded-lg mt-12 p-8 w-full",
             autoComplete: "false",
