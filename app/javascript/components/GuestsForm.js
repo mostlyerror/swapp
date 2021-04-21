@@ -107,7 +107,12 @@ class GuestsForm extends Component {
   };
 
   closeModal = () => {
-    this.setState({ showModal: false, newGuest: {} });
+    this.setState({
+      showModal: false,
+      newGuestFirstName: "",
+      newGuestLastName: "",
+      newGuestDateOfBirth: "",
+    });
   };
 
   createGuest = () => {
@@ -179,6 +184,7 @@ class GuestsForm extends Component {
         />
 
         <ReactModal
+          ariaHideApp={false}
           isOpen={this.state.showModal}
           onRequestClose={this.closeModal}
           transparent={true}
