@@ -15,6 +15,7 @@ module.exports = {
         "5.5xl": "3.5rem",
       },
       spacing: {
+        18: "4.5rem",
         28: "7rem",
       },
       outline: {

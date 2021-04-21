@@ -3,9 +3,17 @@ import Autocomplete from "react-autocomplete";
 import axios from "axios";
 import _ from "lodash";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
+import ReactModal from "react-modal";
 
 class GuestsForm extends Component {
-  state = { clients: [], selected: [], val: "" };
+  state = {
+    clients: [],
+    selected: [],
+    val: "",
+    newGuestFirstName: "",
+    newGuestLastName: "",
+    newGuestDateOfBirth: "",
+  };
 
   handleChange = (event, val) => {
     if (val === "" || val.length < 2) {
@@ -42,6 +50,23 @@ class GuestsForm extends Component {
     return state.name.toLowerCase().indexOf(val.toLowerCase()) !== -1;
   };
 
+  renderInput = (props) => {
+    return (
+      <div className="relative">
+        <input maxLength={24} {...props} />
+        {this.state.val.length > 2 && (
+          <button
+            type="button"
+            className="btn btn-indigo absolute top-18 right-6 text-4xl"
+            onClick={this.openModal}
+          >
+            create
+          </button>
+        )}
+      </div>
+    );
+  };
+
   renderMenu = (item) => <div className="dropdown">{item}</div>;
 
   renderItem = (item, isHighlighted) => (
@@ -76,6 +101,29 @@ class GuestsForm extends Component {
       </div>
     </div>
   );
+
+  openModal = () => {
+    this.setState({ showModal: true });
+  };
+
+  closeModal = () => {
+    this.setState({ showModal: false, newGuest: {} });
+  };
+
+  createGuest = () => {
+    this.setState((prevState) => {
+      const newGuest = {
+        name: `${this.state.newGuestFirstName} ${this.state.newGuestLastName}`,
+        first_name: this.state.newGuestFirstName,
+        last_name: this.state.newGuestLastName,
+        date_of_birth: this.state.newGuestDateOfBirth,
+      };
+
+      return { selected: [...prevState.selected, newGuest] };
+    });
+
+    this.closeModal();
+  };
 
   render() {
     return (
@@ -122,12 +170,99 @@ class GuestsForm extends Component {
           }}
           wrapperProps={{ className: "w-full" }}
           shouldItemRender={this.renderClientName}
+          renderInput={this.renderInput}
           renderMenu={this.renderMenu}
           renderItem={this.renderItem}
           onChange={this.handleChange}
           onSelect={this.handleSelect}
           isItemSelectable={this.isItemSelectable}
         />
+
+        <ReactModal
+          isOpen={this.state.showModal}
+          onRequestClose={this.closeModal}
+          transparent={true}
+          overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-75 z-20"
+          className="absolute inset-y-40 inset-x-12 border border-gray-300 bg-white opacity-100 overflow-auto rounded-lg py-20 px-12"
+          contentLabel="Create Guest Modal"
+        >
+          <h3 className="text-5xl font-bold">Create New Guest</h3>
+          <div className="mt-12 flex flex-col space-between gap-12">
+            <div>
+              <label className="block leading-snug text-4xl font-semibold">
+                First Name
+              </label>
+              <input
+                type="text"
+                maxLength={24}
+                className="w-full rounded-lg p-8 text-4xl"
+                value={this.state.newGuestFirstName}
+                onChange={(event) => {
+                  this.setState((prevState) => {
+                    return {
+                      ...prevState,
+                      newGuestFirstName: event.target.value,
+                    };
+                  });
+                }}
+              />
+            </div>
+            <div>
+              <label className="block leading-snug text-4xl font-semibold">
+                Last Name
+              </label>
+              <input
+                type="text"
+                maxLength={24}
+                className="w-full rounded-lg p-8 text-4xl"
+                value={this.state.newGuestLastName}
+                onChange={(event) => {
+                  this.setState((prevState) => {
+                    return {
+                      ...prevState,
+                      newGuestLastName: event.target.value,
+                    };
+                  });
+                }}
+              />
+            </div>
+            <div>
+              <label className="block leading-snug text-4xl font-semibold">
+                Date of Birth
+              </label>
+              <input
+                type="date"
+                className="w-full rounded-lg p-8 text-4xl"
+                value={this.state.newGuestDateOfBirth}
+                onChange={(event) => {
+                  this.setState((prevState) => {
+                    return {
+                      ...prevState,
+                      newGuestDateOfBirth: event.target.value,
+                    };
+                  });
+                }}
+              />
+            </div>
+          </div>
+          <div className="mt-16 flex justify-end items-center gap-6">
+            <button
+              className="text-4xl inline-flex items-center px-6 py-4 border border-gray-300
+              shadow-sm text-xs font-medium rounded text-gray-700 bg-white
+              hover:bg-gray-50 focus:outline-none focus:ring-2
+              focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={this.closeModal}
+            >
+              cancel
+            </button>
+            <button
+              className="text-4xl btn btn-indigo"
+              onClick={this.createGuest}
+            >
+              create
+            </button>
+          </div>
+        </ReactModal>
       </div>
     );
   }
