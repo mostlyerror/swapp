@@ -15,14 +15,19 @@ class GuestsForm extends Component {
     newGuestDateOfBirth: "",
   };
 
-  handleChange = (event, val) => {
-    if (val === "" || val.length < 2) {
-      return this.setState({ val: val });
-    }
-    const clientsURL = `/clients/search.json?q=${val}`;
+  fetchClients = _.debounce((term) => {
+    const clientsURL = `/clients/search.json?q=${term}`;
     axios.get(clientsURL).then((response) => {
-      this.setState({ clients: response.data, val: val });
+      this.setState({ clients: response.data });
     });
+  }, 300);
+
+  handleChange = (event, val) => {
+    this.setState({ val: val });
+    if (val === "" || val.length < 2) {
+      return;
+    }
+    this.fetchClients(val);
   };
 
   isItemSelectable = (item) => {
