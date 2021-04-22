@@ -104,7 +104,9 @@ class VouchersController < ApplicationController
   end
 
   def set_voucher_supply_for_hotel_dropdown
-    flagged_hotels = Client.find(voucher_params[:client][:id]).hotels.ids
+    # flagged_hotels = Client.find(voucher_params[:client][:id]).hotels.id
+    @client = Client.find(params[:client_id] || voucher_params[:client][:id])
+    flagged_hotels = @client.hotels.ids
     if @swap
       supply = RoomSupply.vouchers_remaining_today(@swap)
       @disabled = []
