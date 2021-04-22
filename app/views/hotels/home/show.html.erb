@@ -2,8 +2,8 @@
     <a href="/hotels" class="link pb-12"><< Vouchers</a>
     <h4 class="font-bold"><%= @client.name %></h4>
     <% if @client.hotels.any? %>
-        <% if @client.hotels.ids == current_user.hotels.ids || current_user.admin_user %>
-        <p class="text-red-500 text-2xl">Flagged <span class="italic text-xl">(last updated: <%= @flagged_stamps[-1].to_date %>)</span></p>
+        <% if @client.hotels.ids == current_user.hotels.ids || current_user.admin_user? %>
+        <p class="text-red-500 text-2xl">Flagged <span class="italic text-xl">(last updated: <%= @flagged_stamps[0].to_date %>)</span></p>
         <% end %>
     <% end %>
     <p class=""></p>
@@ -25,7 +25,7 @@
         <% end %>
             <%= form_for(@client, url: admin_edit_red_flag_path(@client), method: :put) do |form| %>
             <%= form.label "Select Hotel(s) where client is flagged", class: "p-1 text-xl" %>
-            <ul class="flex flex-1 flex-col p-3">
+            <ul class="flex flex-1 flex-col p-3 overflow-y-scroll" style="height: 10rem">
             <% @hotels.each do |hotel| %>
                 <li class="flex flex-1 items-center py-1">
                   <%= form.check_box :hotel_ids, { 
@@ -55,7 +55,7 @@
     </section>
     <section class="mt-16">
         <h4 class="font-bold">Past Incidents</h4>
-        <div class="px-2 mt-8 flex flex-wrap overflow-y-scroll" style="height: 630px">
+        <div class="px-2 mt-8 overflow-y-scroll" style="height: 630px">
         <% if @client.incident_reports.any? %>
             <% @client.incident_reports.order(created_at: :desc).each do |incident| %>
                 <% if incident.reporter == current_user %>
