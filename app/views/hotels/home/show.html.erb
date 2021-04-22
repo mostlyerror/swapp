@@ -1,5 +1,9 @@
 <div class="px-14 mt-12">
-    <a href="/hotels" class="link pb-12"><< Vouchers</a>
+    <% if current_user.admin_user? %>
+        <%= link_to "<< Back", client_path(@client), class: "link" %>
+    <% else %>
+        <%=link_to "<< Vouchers", root_path, class: "link" %>
+    <% end %>
     <h4 class="font-bold"><%= @client.name %></h4>
     <% if @client.hotels.any? %>
         <% if @client.hotels.ids == current_user.hotels.ids || current_user.admin_user? %>
