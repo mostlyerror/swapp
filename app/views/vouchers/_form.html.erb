@@ -184,7 +184,7 @@
         </li>
       </ul>
       <div id="guests-form-container" class="w-full hidden">
-        <%= react_component("GuestsForm", prior_guests: @client.prior_guests) %>
+        <%= react_component("GuestsForm", client: @client, prior_guests: @client.prior_guests) %>
       </div>
     </section>
   </div>

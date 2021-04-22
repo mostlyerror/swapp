@@ -21,7 +21,11 @@ class GuestsForm extends Component {
   fetchClients = _.debounce((term) => {
     const clientsURL = `/clients/search.json?q=${term}`;
     axios.get(clientsURL).then((response) => {
-      this.setState({ clients: response.data });
+      this.setState({
+        clients: response.data.filter((client, _idx) => {
+          return client.id !== this.props.client.id;
+        }),
+      });
     });
   }, 300);
 
