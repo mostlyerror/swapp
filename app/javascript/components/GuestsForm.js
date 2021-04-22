@@ -186,15 +186,19 @@ class GuestsForm extends Component {
   };
 
   addPriorGuests = () => {
-    const priorGuests = this.props.prior_guests.map((guest, _idx) => {
-      return _.pick(guest, [
-        "id",
-        "first_name",
-        "last_name",
-        "date_of_birth",
-        "red_flag",
-      ]);
-    });
+    const priorGuests = this.props.prior_guests
+      .map((guest, _idx) => {
+        return _.pick(guest, [
+          "id",
+          "first_name",
+          "last_name",
+          "date_of_birth",
+          "red_flag",
+        ]);
+      })
+      .filter((guest, _idx) => {
+        return !guest.red_flag;
+      });
     this.setState((prevState) => {
       return {
         selected: [...prevState.selected, ...priorGuests],
