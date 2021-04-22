@@ -1,11 +1,11 @@
 # swapp
 
-### Project Overview
+## Project Overview
 swapp is a web application that helps SWAP (Severe Weather Action Plan) caseworkers perform intake for people experiencing homelessness, so that they can find shelter during periods of inclement weather.
 
-### Setup Instructions
+## Setup Instructions
 
-## Environment Setup
+### Environment Setup
 First, install the following:
 
 1. [Ruby](https://www.ruby-lang.org/en/documentation/installation) - This project uses version `2.7.2`. You can use [rbenv](https://github.com/rbenv/rbenv) to easily manage your local ruby version: `rbenv install 2.7.2` 
@@ -13,25 +13,25 @@ First, install the following:
 1. [Node.JS and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#checking-your-version-of-npm-and-node-js)
 1. [postgres](https://www.postgresql.org/download/)
 
-## Set up the repo
+### Set up the repo
 1. Within your terminal, clone this repo to your local machine: `git clone git@github.com:mostlyswapp/swapp.git`
 1. `cd swapp`
 1. Install Ruby gems: `bundle install`
 
-## Install Tailwind CSS v2.0
+### Install Tailwind CSS v2.0
 1. Install some node packages to provide the best CSS compatibility possible. Run `npm install tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9`
 
-## Set up the database
+### Set up the database
 1. Run the following:
     - `rake db:create`
     - `rake db:migrate` - this runs all of the migrations listed in `db/migrate`
     - `rake db:seed` - this runs the seed script (`db/seeds.rb`), which loads the app's data
 
-## Run the app
+### Run the app
 1. Run `rails server` to start the app
 1. Navigate to `http://localhost:3000` to view 
 
-### How to contribute
+## How to contribute
 
 1. Make sure you have pulled down the latest version of `main`. Run `git pull`
 1. After you make your code changes, create and checkout a new branch, e.g. `git checkout -b update-swap-factory`
