@@ -25,7 +25,7 @@
         <% end %>
             <%= form_for(@client, url: admin_edit_red_flag_path(@client), method: :put) do |form| %>
             <%= form.label "Select Hotel(s) where client is flagged", class: "p-1 text-xl" %>
-            <ul class="flex flex-1 flex-col p-3 overflow-y-scroll" style="height: 10rem">
+            <ul class="flex flex-1 flex-col p-3 overflow-y-scroll" style="height: 12rem">
             <% @hotels.each do |hotel| %>
                 <li class="flex flex-1 items-center py-1">
                   <%= form.check_box :hotel_ids, { 
@@ -55,11 +55,11 @@
     </section>
     <section class="mt-16">
         <h4 class="font-bold">Past Incidents</h4>
-        <div class="px-2 mt-8 overflow-y-scroll" style="height: 630px">
-        <% if @client.incident_reports.any? %>
-            <% @client.incident_reports.order(created_at: :desc).each do |incident| %>
-                <% if incident.reporter == current_user %>
-               <div class="my-2 rounded shadow-xl border-top bg-gray-300 w-full">
+        <% if @incident_reports.empty? %>
+        <p class="text-2xl"><strong>No incident reports to show!</strong></p>
+        <% end %>
+        <% @incident_reports.each do |incident| %>
+            <div class="my-2 rounded shadow-xl border-top bg-gray-300 w-full">
                     <div class="px-4 py-2">
                         <p class="text-lg">Reported by: <span><%= incident.reporter.name %></span></p>
                         <p class="text-lg">Submission: <span><%= incident.created_at.to_date %></span></p>
@@ -71,25 +71,7 @@
                         </p>
                     </div>  
                 </div>
-                <% elsif current_user.admin_user? %>
-                <div class="my-2 rounded shadow-xl border-top bg-gray-300 w-full">
-                    <div class="px-4 py-2">
-                        <p class="text-lg">Reported by: <span><%= incident.reporter.name %></span></p>
-                        <p class="text-lg">Submitted: <span><%= incident.created_at.to_date %></span></p>
-                    </div>
-                    <div class="mt-2 px-4 py-2 bg-gray-100">
-                        <p class="font-black">Incident Date: <%= incident.occurred_at.to_date %></p>
-                        <p class="mt-2 tracking-wide leading-7">
-                            <%= incident.description %>
-                        </p>
-                    </div>  
-                </div>
-                <% end %>
-            <% end %>
-        <% else %>
-            <p class="text-2xl"><strong>No incident reports to show!</strong></p>
         <% end %>
-        </div>
     </section>
     <!-- comment form -->
     <section class="mt-14">
