@@ -46,7 +46,7 @@
     </section>
     <% end %>
     <section class="px-2 mt-16">
-        <p class="text-xl font-bold text-green-600">Approved Guests</p>
+        <h4 class="font-bold">Approved Guests</h4>
         <ul class="mt-4 tracking-wide text-lg">
             <li>Bruce Banner, 34</li>
             <li>Phil Mickelson, 45</li>
@@ -56,7 +56,7 @@
     <section class="mt-16">
         <h4 class="font-bold">Past Incidents</h4>
         <% if @incident_reports.empty? %>
-        <p class="text-2xl"><strong>No incident reports to show!</strong></p>
+            <p class="text-2xl m-4"><strong>No incident reports to show!</strong></p>
         <% end %>
         <% @incident_reports.each do |incident| %>
             <div class="my-2 rounded shadow-xl border-top bg-gray-300 w-full">
