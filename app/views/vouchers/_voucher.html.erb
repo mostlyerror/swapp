@@ -33,7 +33,7 @@
     <p class="mt-4">
       <strong>Guests</strong>
     </p>
-    <div class="mt-12">
+    <div class="mt-12 space-y-4">
       <% @voucher.guests.each do |guest| %>
         <p><%= link_to guest.name, client_path(guest), class: 'link' %></p>
       <% end %>
