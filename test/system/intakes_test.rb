@@ -8,7 +8,7 @@ class IntakesTest < ApplicationSystemTestCase
     sign_in user
   end
 
-  test "filling out intake form and seeing created voucher" do
+  test "filling out intake form and seeing voucher form" do
     swap = create(:swap, :tomorrow)
     hotel = create(:hotel)
     create(:availability, hotel: hotel, swap: swap, vacant: 1)
