@@ -83,6 +83,7 @@ class GuestsForm extends Component {
   renderItem = (item, isHighlighted) => (
     <div
       key={item.id}
+      id={`add_guest_${item.id}`}
       className={`item ${
         isHighlighted ? "selected-item" : ""
       } mt-16 grid grid-cols-11 space-evenly gap-4`}
@@ -272,6 +273,7 @@ class GuestsForm extends Component {
           items={this.state.clients}
           getItemValue={(item) => `${item.first_name} ${item.last_name}`}
           inputProps={{
+            id: "guest_autocomplete",
             className: "border border-gray-350 rounded-lg mt-12 p-8 w-full",
             autoComplete: "false",
             placeholder: "Search for a guest",
