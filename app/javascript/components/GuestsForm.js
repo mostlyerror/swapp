@@ -181,10 +181,44 @@ class GuestsForm extends Component {
       });
   };
 
+  addPriorGuests = () => {
+    const priorGuests = this.props.prior_guests.map((guest, _idx) => {
+      return _.pick(guest, [
+        "id",
+        "first_name",
+        "last_name",
+        "date_of_birth",
+        "red_flag",
+      ]);
+    });
+    this.setState((prevState) => {
+      return {
+        selected: [...prevState.selected, ...priorGuests],
+      };
+    });
+  };
+
   render() {
     return (
       <div>
         <div id="guests">
+          {this.state.selected.length === 0 && (
+            <div className="mt-8">
+              This client has had guests previously. You can add these guests
+              before searching.
+              <button
+                type="button"
+                onClick={this.addPriorGuests}
+                className="flex-1 text-4xl text-center px-6 py-4 border border-gray-300
+              shadow-sm text-xs font-medium rounded text-gray-700 bg-white
+              hover:bg-gray-50 focus:outline-none focus:ring-2
+              focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                add prior guests
+              </button>
+            </div>
+          )}
+
           {this.state.selected.length > 0 && (
             <div>
               <div className="grid grid-cols-11 space-evenly gap-4 pt-12">
