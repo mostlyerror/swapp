@@ -40,5 +40,5 @@ First, install the following:
 1. Commit the files that you staged, e.g. `git commit -m "update swap factory"`
 1. Push your changes, e.g. `git push origin update-swap-factory` 
 1. Open a pull request on github and assign a reviewer.
-1. Once the review has been completed and the PR is approved, you can merge the commit with "Stash and Merge."
-1. After merging, delete the branch.
+1. Once the review has been completed and the PR is approved, you can merge the commit with "Squash and Merge."
+1. After merging, you can delete the branch.
