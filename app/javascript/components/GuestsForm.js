@@ -206,23 +206,24 @@ class GuestsForm extends Component {
     return (
       <div>
         <div id="guests">
-          {this.state.selected.length === 0 && (
-            <div className="mt-8 flex flex-col items-center">
-              <p className="text-5xl">
-                This client has had guests previously. You can add these guests
-                before searching.
-              </p>
-              <button
-                type="button"
-                onClick={this.addPriorGuests}
-                className="text-5xl text-center font-semibold text-indigo-500 hover:bg-gray-50 
+          {this.state.selected.length === 0 &&
+            this.props.prior_guests.length > 0 && (
+              <div className="mt-8 flex flex-col items-center">
+                <p className="text-5xl">
+                  This client has had guests previously. You can add these
+                  guests before searching.
+                </p>
+                <button
+                  type="button"
+                  onClick={this.addPriorGuests}
+                  className="text-5xl text-center font-semibold text-indigo-500 hover:bg-gray-50 
                   w-3/5 mt-6 py-4 border border-indigo-500 shadow-sm rounded 
                   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                + add prior guests
-              </button>
-            </div>
-          )}
+                >
+                  + add prior guests
+                </button>
+              </div>
+            )}
 
           {this.state.selected.length > 0 && (
             <div>
