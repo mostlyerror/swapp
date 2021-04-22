@@ -8,6 +8,7 @@ FactoryBot.define do
     end
 
     trait :current do
+      aasm_state { "active" }
       start_date { Date.current.yesterday }
       end_date { Date.current.tomorrow }
       intake_start_date { self.start_date - 1 }
