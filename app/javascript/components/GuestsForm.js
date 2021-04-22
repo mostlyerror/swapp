@@ -207,7 +207,7 @@ class GuestsForm extends Component {
       <div>
         <div id="guests">
           {this.state.selected.length === 0 && (
-            <div className="mt-8 flex flex-col justify-center">
+            <div className="mt-8 flex flex-col items-center">
               <p className="text-5xl">
                 This client has had guests previously. You can add these guests
                 before searching.
@@ -215,8 +215,8 @@ class GuestsForm extends Component {
               <button
                 type="button"
                 onClick={this.addPriorGuests}
-                className="text-5xl text-center text-gray-700 hover:bg-gray-50 
-                  mt-6 py-4 border border-indigo-500 shadow-sm rounded 
+                className="text-5xl text-center font-semibold text-indigo-500 hover:bg-gray-50 
+                  w-3/5 mt-6 py-4 border border-indigo-500 shadow-sm rounded 
                   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 + add prior guests
