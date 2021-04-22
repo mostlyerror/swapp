@@ -15,7 +15,7 @@
             <strong class="text-red-500"><%= @client.first_name %> has been red flagged.</strong> They are not eligible to receive vouchers at the following hotel(s):
           </p>
           <% @flagged_hotels.each do |flagged_hotel| %>
-          <ul class="mt-5 py-2 pl-5 text-3xl border border-b-2 border-black w-1/2">
+          <ul class="mt-3 py-1 pl-6 text-2xl w-1/2">
               <li><%= flagged_hotel %></li>
           </ul>
           <% end %>
