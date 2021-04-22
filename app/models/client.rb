@@ -42,4 +42,8 @@ class Client < ApplicationRecord
   def name
     "#{first_name} #{last_name}"
   end
+
+  def prior_guests
+    vouchers.flat_map(&:guests).uniq
+  end
 end
