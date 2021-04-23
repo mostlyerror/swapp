@@ -14,7 +14,7 @@ First, install the following:
 1. [postgres](https://www.postgresql.org/download/)
 
 ### Set up the repo
-1. Within your terminal, clone this repo to your local machine: `git clone git@github.com:mostlyswapp/swapp.git`
+1. Within your terminal, clone this repo to your local machine: `git clone git@github.com:mostlyerror/swapp.git`
 1. `cd swapp`
 1. Install Ruby gems: `bundle install`
 
@@ -23,9 +23,9 @@ First, install the following:
 
 ### Set up the database
 1. Run the following:
-    - `rake db:create`
-    - `rake db:migrate` - this runs all of the migrations listed in `db/migrate`
-    - `rake db:seed` - this runs the seed script (`db/seeds.rb`), which loads the app's data
+    - `rails db:create`
+    - `rails db:migrate` - this runs all of the migrations listed in `db/migrate`
+    - `rails db:seed` - this runs the seed script (`db/seeds.rb`), which loads the app's seed data
 
 ### Run the app
 1. Run `rails server` to start the app
@@ -42,3 +42,6 @@ First, install the following:
 1. Open a pull request on github and assign a reviewer.
 1. Once the review has been completed and the PR is approved, you can merge the commit with "Squash and Merge."
 1. After merging, you can delete the branch.
+
+## Deployment Instructions
+TODO: Heroku setup, pipeline configuration, etc.
