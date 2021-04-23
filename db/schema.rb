@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_000739) do
+ActiveRecord::Schema.define(version: 2021_04_15_164454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2021_03_26_000739) do
     t.string "veteran_military_branch"
     t.string "veteran_separation_year"
     t.string "veteran_discharge_status"
+    t.boolean "red_flagged", default: false, null: false
   end
 
   create_table "hotels", force: :cascade do |t|
@@ -113,6 +114,15 @@ ActiveRecord::Schema.define(version: 2021_03_26_000739) do
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end
 
+  create_table "red_flags", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "hotel_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_red_flags_on_client_id"
+    t.index ["hotel_id"], name: "index_red_flags_on_hotel_id"
+  end
+
   create_table "short_intakes", force: :cascade do |t|
     t.string "where_did_you_sleep_last_night"
     t.string "what_city_did_you_sleep_in_last_night"
@@ -181,6 +191,8 @@ ActiveRecord::Schema.define(version: 2021_03_26_000739) do
   add_foreign_key "incident_reports", "users", column: "reporter_id"
   add_foreign_key "intakes", "clients"
   add_foreign_key "intakes", "users"
+  add_foreign_key "red_flags", "clients"
+  add_foreign_key "red_flags", "hotels"
   add_foreign_key "short_intakes", "clients"
   add_foreign_key "short_intakes", "users"
   add_foreign_key "vouchers", "clients"

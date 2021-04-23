@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     constraints(lambda { |req| req.env["warden"].user(:user).hotel_user? }) do
       get "/", to: "home#index", as: :home
     end
+    get "/guests/:id" => "home#show", as: :show_client
+    post "/guests/:id" => "incident_reports#create", as: :create_report
   end
 
   namespace :admin do
@@ -23,7 +25,10 @@ Rails.application.routes.draw do
       put "swaps/:id/extend" => "swaps#extend", as: :extend_swap
       put "swaps/:id/room_supply" => "swaps#update_room_supply", as: :update_room_supply
       get "/reports/swap" => "reports#swap", as: :swap_report
+      put "/guests/:id" => "red_flags#edit_red_flag", as: :edit_red_flag
     end
+    
+
   end
  
   root to: "landing#index"

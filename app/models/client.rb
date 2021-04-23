@@ -36,6 +36,9 @@ class Client < ApplicationRecord
   has_many :vouchers
   has_many :incident_reports
 
+  has_many :red_flags, class_name: 'RedFlag', table_name: :red_flags
+  has_many :hotels, through: :red_flags
+
   def name
     "#{first_name} #{last_name}"
   end
