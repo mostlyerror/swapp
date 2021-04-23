@@ -5,7 +5,7 @@ class MigrateFamilyMembersToClients < ActiveRecord::Migration[6.0]
     remove_column :short_intakes, :family_members, :jsonb
   end
 
-  def self.up
+  def self.down
     add_column :short_intakes , :family_members, :jsonb, default: {}, using: 'family_members::jsonb'
     execute "UPDATE short_intakes si SET family_members = (SELECT family_members FROM clients c where si.client_id = c.id);"
     remove_column :clients, :family_members, :jsonb
