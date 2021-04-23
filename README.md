@@ -32,7 +32,7 @@ First, install the following:
 
 ### Run the app
 1. Run `rails server` to start the app
-2. In a separate terminal, run webpacker: `./bin/webpack-dev-server`
+2. In a separate process, run `./bin/webpack-dev-server`
 3. Navigate to `http://localhost:3000` to view 
 
 ## How to contribute
