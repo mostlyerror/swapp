@@ -98,9 +98,12 @@ class VouchersController < ApplicationController
   end
 
   def set_voucher_supply_for_hotel_dropdown
+    @client = Client.find(params[:client_id] || voucher_params[:client][:id])
+    flagged_hotels = @client.hotels.ids
     if @swap
       supply = RoomSupply.vouchers_remaining_today(@swap)
       @disabled = []
+      flagged_hotels.map {|hotel| @disabled.push(hotel)}
       @hotels = Hotel.all.reduce({}) do |memo, hotel|
         name = "#{hotel.name} (#{supply[hotel.id]})"
         if supply[hotel.id].to_i <= 0

@@ -20,6 +20,8 @@ class ClientsController < ApplicationController
   def show
     @client = Client.find(params[:id])
     @existing_voucher = @swap&.vouchers&.find_by(client: @client)
+    @red_flagged = Client.where(id: @client).joins(:red_flags)
+    @flagged_hotels = @client.hotels.pluck(:name)
   end
 
   def create
