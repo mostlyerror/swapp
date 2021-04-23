@@ -313,18 +313,6 @@ class Intake < ApplicationRecord
     placeholder: "Adams"
   )
 
-  KING_SOOPERS_CARD = OpenStruct.new(
-    key: :king_soopers_card,
-    text: "King Soopers Card?",
-    choices: %w[ Yes No ]
-  )
-
-  BUS_PASS = OpenStruct.new(
-    key: :bus_pass,
-    text: "Bus Pass?",
-    choices: %w[ Yes No ]
-  )
-
   CHECK_IN = OpenStruct.new(
     key: :check_in,
     text: "Check In"
@@ -348,5 +336,17 @@ class Intake < ApplicationRecord
   EMAIL= OpenStruct.new(
     key: :email,
     text: "Email (optional)"
+  )
+
+  BUS_PASS = OpenStruct.new(
+    key: :bus_pass,
+    text: "Bus Pass?",
+    choices: %w[ Yes No ]
+  )
+
+  KING_SOOPERS_CARD = OpenStruct.new(
+    key: :king_soopers_card,
+    text: "King Soopers Card?",
+    choices: %w[ Yes No ]
   )
 end

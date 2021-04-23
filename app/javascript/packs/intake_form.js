@@ -166,3 +166,37 @@ document.querySelector("input[type=submit]").addEventListener("click", () => {
     form.submit();
   }
 });
+
+let familyMembers = 0;
+document.addEventListener(
+  "click",
+  (event) => {
+    if (event.target.matches("#add_family_member")) {
+      let container = document.getElementById("family_members");
+      let template = document.getElementById("template_family_member");
+      let clone = template.cloneNode(true);
+
+      familyMembers++;
+      clone.classList.remove("hidden");
+      clone.classList.add("block");
+      clone.id = `family_member_${familyMembers}`;
+
+      let select = clone.querySelectorAll("select").forEach((select) => {
+        select.id = select.id.replace("replace", familyMembers);
+        select.name = select.name.replace("replace", familyMembers);
+      });
+
+      clone.querySelectorAll("label").forEach((label) => {
+        label.name = label.htmlFor.replace("replace", familyMembers);
+      });
+
+      clone.querySelectorAll("input").forEach((input) => {
+        input.id = input.id.replace("replace", familyMembers);
+        input.name = input.name.replace("replace", familyMembers);
+      });
+
+      container.appendChild(clone);
+    }
+  },
+  false
+);
