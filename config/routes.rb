@@ -27,8 +27,6 @@ Rails.application.routes.draw do
       get "/reports/swap" => "reports#swap", as: :swap_report
       put "/guests/:id" => "red_flags#edit_red_flag", as: :edit_red_flag
     end
-    
-
   end
  
   root to: "landing#index"
