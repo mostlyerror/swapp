@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_012339) do
     t.string "veteran_military_branch"
     t.string "veteran_separation_year"
     t.string "veteran_discharge_status"
+    t.jsonb "family_members", default: {}
   end
 
   create_table "hotels", force: :cascade do |t|
@@ -125,7 +126,6 @@ ActiveRecord::Schema.define(version: 2021_04_23_012339) do
     t.bigint "client_id", null: false
     t.bigint "user_id", null: false
     t.boolean "household_composition_changed"
-    t.jsonb "family_members", default: {}
     t.index ["client_id"], name: "index_short_intakes_on_client_id"
     t.index ["user_id"], name: "index_short_intakes_on_user_id"
   end
