@@ -13,11 +13,14 @@ Rails.application.routes.draw do
   end
 
   namespace :hotels do
-    constraints(lambda { |req| req.env["warden"].user(:user)&.hotel_user? }) do
+    constraints(lambda { |req| 
+      user = req.env["warden"].user(:user)
+      user.hotel_user? || user.admin_user?
+    }) do
       get "/", to: "home#index", as: :home
+      get "/guests/:id" => "home#show", as: :show_client
+      post "/guests/:id" => "incident_reports#create", as: :create_report
     end
-    get "/guests/:id" => "home#show", as: :show_client
-    post "/guests/:id" => "incident_reports#create", as: :create_report
   end
 
   namespace :admin do
