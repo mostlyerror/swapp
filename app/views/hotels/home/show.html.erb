@@ -63,7 +63,7 @@
             <p class="text-2xl m-4"><strong>No incident reports to show!</strong></p>
         <% end %>
         <% @incident_reports.each do |incident| %>
-            <div class="my-2 rounded shadow-xl border-top bg-gray-300 w-full">
+            <div class="my-2 rounded border-top bg-gray-300 w-full">
                     <div class="px-4 py-2">
                         <p class="text-lg">Reported by: <span><%= incident.reporter.name %></span></p>
                         <p class="text-lg">Submission: <span><%= incident.created_at.to_date %></span></p>
