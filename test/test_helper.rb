@@ -4,6 +4,7 @@ require 'rails/test_help'
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
+
   FactoryBot.reload
 
   Faker::Config.locale = 'en-US'
