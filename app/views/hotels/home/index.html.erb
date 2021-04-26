@@ -14,7 +14,7 @@
         <tbody class="text-gray-700">
           <% @vouchers.each do |voucher| %>
             <tr>
-              <td class="w-1/4 text-left py-3 px-4"><%= voucher.number %></td>
+              <td class="w-1/4 text-left py-3 px-4"><%= link_to voucher %></td>
               <td class="w-1/3 text-left py-3 px-4"><%= link_to voucher.client.name, hotels_show_client_path(voucher.client.id), class: 'link' %></td>
               <td class="text-left py-3 px-4"><%= voucher.check_in.to_date.to_formatted_s(:short) %></td>
               <td class="text-left py-3 px-4"><%= voucher.check_out.to_date.to_formatted_s(:short) %></td>

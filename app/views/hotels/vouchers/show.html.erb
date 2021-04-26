@@ -1,0 +1,57 @@
+<main class="container mx-auto mt-12">
+  <!-- voucher details -->
+  <section>
+    <h4 class="font-bold tabular-nums">Voucher Details: #<%= @voucher.number %></h4>
+    <div class="flex flex-col md:flex-row mt-6 divide-y-8 md:divide-y-0 md:divide-x-8 divide-dashed divide-gray-300 border-4 border-gray-500">
+      <div class="flex flex-col md:w-2/3 text-2xl">
+        <div class="flex">
+          <div class="w-full flex flex-col p-6 gap-2">
+            <p class="text-gray-700 text-lg uppercase font-bold tracking-wide">Voucher #</p>
+            <p class="tabular-nums"><%= @voucher.number %></p>
+          </div>
+          <div class="w-full flex flex-col p-6 gap-2">
+            <p class="text-lg uppercase font-bold">Holder</p>
+            <p><%= @voucher.client.name %></p>
+          </div>
+        </div>
+        <div class="flex border-t-8 border-dashed border-gray-300">
+          <div class="w-full flex flex-col p-6 gap-2">
+            <p class="text-gray-700 text-lg uppercase font-bold tracking-wide">Check In</p>
+            <p class="tabular-nums"><%= humanize_date_short(@voucher.check_in) %></p>
+          </div>
+          <div class="w-full flex flex-col p-6 gap-2">
+            <p class="text-gray-700 text-lg uppercase font-bold tracking-wide">Check Out</p>
+            <p class="tabular-nums"><%= humanize_date_short(@voucher.check_out) %></p>
+          </div>
+        </div>
+        <div class="flex border-t-8 border-dashed border-gray-300">
+          <div class="w-full flex flex-col p-6 gap-2">
+            <p class="text-gray-700 text-lg uppercase font-bold tracking-wide">Issued By</p>
+            <p class="tabular-nums"><%= @voucher.user.name %></p>
+          </div>
+          <div class="w-full flex flex-col p-6 gap-2">
+            <p class="text-gray-700 text-lg uppercase font-bold tracking-wide">Issued On</p>
+            <p class="tabular-nums"><%= humanize_date_short(@voucher.created_at) %></p>
+          </div>
+        </div>
+      </div>
+      <!-- guests and notes -->
+      <div class="flex flex-col p-6 gap-6">
+        <div>
+          <p class="text-gray-700 text-lg uppercase font-bold tracking-wide">Approved Guests</p>
+          <ul class="text-left list-decimal list-inside space-y-2 text-xl pt-4">
+            <li>fiona tang</li>
+            <li>brandon johnson</li>
+            <li>Ben Poon</li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-gray-700 text-lg uppercase font-bold tracking-wide">Notes</p>
+          <p>this muhfucka has a dawg</p>
+        </div>
+      </div>
+      <!-- end guests and notes -->
+    </div>
+  </section>
+  <!-- end voucher details -->
+</main>
