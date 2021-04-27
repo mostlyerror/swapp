@@ -2,7 +2,7 @@
   <!-- voucher details -->
   <section>
     <h3 class="font-bold tabular-nums"><%= @voucher.number %> - <%= @voucher.client.name %></h3>
-    <div class="flex flex-col md:flex-row mt-4 divide-y-8 md:divide-y-0 md:divide-x-8 divide-dashed divide-gray-300 border-4 border-gray-500">
+    <div class="flex flex-col md:flex-row mt-4 divide-y-8 md:divide-y-0 md:divide-x-8 divide-dashed divide-gray-300 border-4 border-gray-500 rounded-lg">
       <div class="flex flex-col md:w-2/3 text-2xl">
         <div class="flex">
           <div class="w-full flex flex-col p-6 gap-2">
@@ -57,10 +57,7 @@
   <section>
     <div class="flex flex-col md:flex-row gap-4 lg:gap-8">
       <div class="flex-1">
-        <h4 class="font-bold tabular-nums">Incidents</h4>
-        <div class="flex flex-col border-4 border-gray-500 p-4 mt-4">
-          <%= render partial: 'incidents' %>
-        </div>
+        <%= render partial: 'incidents' %>
       </div>
       <div class="flex-1">
         <%= render partial: 'red_flags' %>
