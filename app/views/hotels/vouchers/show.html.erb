@@ -55,48 +55,16 @@
   </section>
   <!-- end voucher details -->
   <section>
-    <div class="flex flex-col md:flex-row">
+    <div class="flex flex-col md:flex-row gap-4 lg:gap-8">
       <div class="flex-1">
         <h4 class="font-bold tabular-nums">Incidents</h4>
         <div class="flex flex-col border-4 border-gray-500 p-4 mt-4">
-          <ul>
-            <% if @incidents.empty? %>
-              No incidents to show.
-            <% end %>
-            <% @incidents.each do |incident| %>
-              <li class="flex flex-col space-y-2">
-                <div class="flex items-center">
-                  <div>
-                    <img class="inline-block h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=VaLuJJpOV2&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                  </div>
-                  <div class="ml-3">
-                    <p class="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                      <%= incident.reporter.name %> (<%= incident.reporter.email %>)
-                    </p>
-                    <p class="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-                      <%= humanize_date(incident.occurred_at) %>
-                    </p>
-                  </div>
-                </div>
-                <div class="">
-                  <p><%= incident.description %></p>
-                </div>
-              </li>
-            <% end %>
-          </ul>
+          <%= render partial: 'incidents' %>
         </div>
       </div>
-      <!-- admin only update red flag section -->
-      <% if current_user.admin_user? %>
-        <div class="flex-1">
-          <h4 class="font-bold tabular-nums">Update Red Flags</h4>
-        </div>
-      <% else %>
-        <div class="flex-1">
-          <h4 class="font-bold tabular-nums">Red Flags</h4>
-        </div>
-      <% end %>
-      <!-- end admin only update red flag section -->
+      <div class="flex-1">
+        <%= render partial: 'red_flags' %>
+      </div>
     </div>
   </section>
 </main>
