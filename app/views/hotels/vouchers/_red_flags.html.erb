@@ -1,0 +1,11 @@
+      <% if current_user.admin_user? %>
+  <div class="flex-1">
+    <h4 class="font-bold tabular-nums">Update Red Flags</h4>
+    update red flags
+  </div>
+<% else %>
+  <div class="flex-1">
+    <h4 class="font-bold tabular-nums">Red Flags</h4>
+    when flagged, by whom?
+  </div>
+<% end %>
