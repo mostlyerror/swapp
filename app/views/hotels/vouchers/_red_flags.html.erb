@@ -1,11 +1,11 @@
-      <% if current_user.admin_user? %>
-  <div class="flex-1">
-    <h4 class="font-bold tabular-nums">Update Red Flags</h4>
+<% if current_user.admin_user? %>
+  <h4 class="font-bold tabular-nums">Update Red Flags</h4>
+  <div class="flex flex-col border-4 border-gray-500 p-4 mt-4 rounded-lg">
     update red flags
   </div>
-<% else %>
-  <div class="flex-1">
-    <h4 class="font-bold tabular-nums">Red Flags</h4>
-    when flagged, by whom?
+<% elsif current_user.hotel_user? %>
+  <h4 class="font-bold tabular-nums">Red Flag Status</h4>
+  <div class="flex flex-col border-4 border-gray-500 p-4 mt-4 rounded-lg">
+    red flag status
   </div>
 <% end %>
