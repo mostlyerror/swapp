@@ -1,4 +1,4 @@
-<main class="container mx-auto mt-12 space-y-8 px-4 md:p-0">
+<main class="container mx-auto mt-12 space-y-8 lg:space-y-16">
   <!-- voucher details -->
   <section>
     <h3 class="font-bold tabular-nums"><%= @voucher.number %> - <%= @voucher.client.name %></h3>
@@ -55,7 +55,7 @@
   </section>
   <!-- end voucher details -->
   <section>
-    <div class="flex flex-col md:flex-row gap-4 lg:gap-8">
+    <div class="flex flex-col lg:flex-row gap-8 lg:gap-16">
       <div class="flex-1">
         <%= render partial: 'incidents' %>
       </div>
