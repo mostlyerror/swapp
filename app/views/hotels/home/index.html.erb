@@ -6,12 +6,22 @@
       <div class="py-4 bg-gray-900 font-semibold text-xl text-white uppercase tracking-wide">Name</div>
       <div class="py-4 bg-gray-900 font-semibold text-xl text-white uppercase tracking-wide text-right">Check In</div>
       <div class="pr-4 py-4 bg-gray-900 font-semibold text-xl text-white uppercase tracking-wide text-right">Check Out</div>
+    </div>
+    <div class="grid grid-cols-4 group">
       <% @vouchers.each do |voucher| %>
-        <div class="pl-4 py-4 text-2xl"><%= voucher.number %></div>
-        <div class="py-4 text-2xl"><%= voucher.client.name %></div>
-        <div class="py-4 text-2xl text-right"><%= voucher.check_in.to_date.to_formatted_s(:short) %></div>
-        <div class="pr-4 py-4 text-2xl text-right"><%= voucher.check_out.to_date.to_formatted_s(:short) %></div>
-      </tr>
-    <% end %>
+        <%= link_to hotels_vouchers_path(voucher.id) do %>
+          <div class="group-hover:bg-gray-200 cursor-pointer pl-4 py-4 text-2xl"><%= voucher.number %></div>
+        <% end %>
+        <%= link_to hotels_vouchers_path(voucher.id) do %>
+          <div class="group-hover:bg-gray-200 cursor-pointer py-4 text-2xl"><%= voucher.client.name %></div>
+        <% end %>
+        <%= link_to hotels_vouchers_path(voucher.id) do %>
+          <div class="group-hover:bg-gray-200 cursor-pointer py-4 text-2xl text-right"><%= voucher.check_in.to_date.to_formatted_s(:short) %></div>
+        <% end %>
+        <%= link_to hotels_vouchers_path(voucher.id) do %>
+          <div class="group-hover:bg-gray-200 cursor-pointer pr-4 py-4 text-2xl text-right"><%= voucher.check_out.to_date.to_formatted_s(:short) %></div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
