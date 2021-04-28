@@ -1,10 +1,9 @@
-<!-- <header class="p-6 w-full flex items-center justify-between md:px-24"> -->
-<header class="container mx-auto flex justify-between items-center py-4">
-  <span class="font-semibold text-5xl md:text-2xl">
+<header class="container mx-auto flex justify-between items-center px-2 py-4 text-lg md:text-2xl">
+  <span class="font-semibold">
     <%= link_to'swapp', root_path %>
   </span>
   <% if user_signed_in? %>
-    <ul class="list-none flex space-x-3 justify-end text-3xl md:text-2xl">
+    <ul class="list-none flex space-x-3 justify-end">
       <span class="text-gray-500 tracking-tight"><%= current_user.email %></span>
       <% if current_user.admin_user? %>
         <%= link_to 'admin', admin_home_path, class: "link"  %>

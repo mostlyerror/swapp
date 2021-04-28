@@ -1,10 +1,38 @@
+<div class="flex items-center">
+  <h4 class="px-2 font-bold tracking-wide">Red Flags</h4>
+  <span class="uppercase text-lg text-white bg-red-700 font-semibold tracking-wide rounded-lg px-2">admin only</span>
+</div>
 <% if current_user.admin_user? %>
-  <h4 class="font-bold tabular-nums">Update Red Flags</h4>
   <div class="flex flex-col border-4 border-gray-500 p-4 mt-4 rounded-lg">
-    update red flags
+    <% flash.each do |type, msg| %>
+      <div class=<%= "#{type == :info && 'bg-green-300' || 'bg-red-300'} border-l-4 border-green-500 p-4" %> role="alert">
+        <%= msg %>
+      </div>
+    <% end %>
+    <%= form_for(@client, url: admin_edit_red_flag_path(@client), method: :put) do |form| %>
+      <div class="flex flex-col gap-4 text-xl">
+        <p class="">Select Hotel(s) where client is no longer eligible to stay.</p>
+        <p class="leading-snug"><span class="font-semibold">Warning:</span> checking these boxes will disallow the client from receiving a voucher at the selected hotel.</p>
+        <p class="leading-snug">Removing a red flag without hotel confirmation may also result in the client being sent to a hotel where they are unable to stay.</p>
+      </div>
+      <ul class="flex flex-1 flex-col p-2 gap-4" style="height: 12rem">
+        <% @hotels.each do |hotel| %>
+          <li class="flex items-center">
+            <%= form.check_box :hotel_ids, { 
+                multiple: true, 
+                checked: hotel.id.in?(@flag_hotel_ids),
+                class: "w-6 h-6"
+              }, hotel.id %>
+            <%= form.label hotel.name, class: "px-2 text-xl" %>
+          </li>
+        <% end %>
+      </ul>
+      <div class="flex flex-1 p-3">
+        <%= form.submit "Update Flags", class: "p-2 bg-blue-600 text-white hover:bg-blue-900 cursor-pointer" %>
+      </div>
+    <% end %>
   </div>
 <% elsif current_user.hotel_user? %>
-  <h4 class="font-bold tabular-nums">Red Flag Status</h4>
   <div class="flex flex-col border-4 border-gray-500 p-4 mt-4 rounded-lg">
     red flag status
   </div>
