@@ -19,6 +19,9 @@ module.exports = {
         18: "4.5rem",
         28: "7rem",
       },
+      flex: {
+        2: "2 2 0%",
+      },
       outline: {
         black: ["2px solid black", "2px"],
         gray: ["2px solid #d3d3d3", "2px"],
