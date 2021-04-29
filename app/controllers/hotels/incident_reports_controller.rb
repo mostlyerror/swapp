@@ -4,11 +4,13 @@ class Hotels::IncidentReportsController < Hotels::BaseController
         @incident_report.reporter_id = current_user.id
 
         if !@incident_report.save
-          puts 'poop'
-          # handle some errors tho...
+          return redirect_back(
+            error: "An error has occurred. Please try again.",
+            fallback_location: root_path
+          )
         end
 
-        redirect_to hotels_vouchers_path(params[:voucher_id])
+        redirect_back(info: "New report created.", fallback_location: root_path)
       end
 
   private
