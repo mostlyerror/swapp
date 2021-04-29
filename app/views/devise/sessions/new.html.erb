@@ -7,11 +7,10 @@
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <body class="min-h-screen bg-gray-100 overscroll-x-contain">
-  <div class="flex mx-auto justify-center mt-96 max-w-xs">
-
+  <div class="container mx-auto max-w-lg lg:max-w-xl mt-48">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <h1 class="text-9xl text-center font-bold">swapp.</h1>
-      <div class="flex flex-col space-y-16 mt-24 text-5xl text-gray-600">
+      <h1 class="lg:text-8xl text-center font-bold">swapp</h1>
+      <div class="flex flex-col gap-8 mt-32 text-2xl lg:text-3xl text-gray-500">
         <% if flash.alert %>
           <div id="error_explanation">
             <ul>
@@ -19,27 +18,27 @@
             </ul>
           </div>
         <% end %>
-        <div class="field">
+        <div>
           <%= f.label :email, class: "block leading-relaxed" %>
           <%= f.email_field :email, 
             autofocus: true, 
             autocomplete: "email",
-            class: "rounded-lg p-8 text-gray-700 text-6xl"
-          %>
-        </div>
-        <div class="field">
-          <%= f.label :password, class: "block leading-relaxed" %>
-          <%= f.password_field :password, 
-            autocomplete: "current-password",
-            class: "rounded-lg p-8 text-gray-700 text-6xl"
+            class: "w-full p-4 rounded-md text-gray-600 text-2xl lg:text-3xl"
           %>
         </div>
         <div>
-          <%= f.submit "Log in", class: "bg-indigo-500 text-white hover:bg-indigo-700 font-bold py-8 mt-10 w-full" %>
+          <%= f.label :password, class: "block leading-relaxed" %>
+          <%= f.password_field :password, 
+            autocomplete: "current-password",
+            class: "w-full p-4 rounded-md text-gray-600 text-2xl lg:text-3xl"
+          %>
+        </div>
+        <div>
+          <%= f.submit "Log in", class: "w-full mt-10 p-4 rounded-md bg-indigo-500 text-white hover:bg-indigo-700 font-bold tracking-wide" %>
           <% if devise_mapping.rememberable? %>
-            <div class="field text-center mt-8">
-              <%= f.check_box :remember_me, class: "m-2 h-10 w-10" %>
-              <%= f.label :remember_me, class: "text-5xl" %>
+            <div class="text-center mt-12">
+              <%= f.check_box :remember_me, class: "mr-2 h-6 w-6" %>
+              <%= f.label :remember_me, class: "text-xl lg:text-2xl" %>
             </div>
           <% end %>
         </div>
