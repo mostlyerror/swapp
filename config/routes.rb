@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
-  get 'messages/reply'
+  devise_for :users, controllers: {
+    sessions: 'sessions/sessions'
+  }
+
+  post 'messages/sms'
   resource :messages do
     collection do 
       post 'reply'
     end
   end
-  devise_for :users, controllers: {
-    sessions: 'sessions/sessions'
-  }
-
+  
   constraints(lambda { |req| req.env["warden"].user(:user).intake_user? }) do
     resources :clients
     resources :intakes
