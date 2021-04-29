@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_23_012339) do
+ActiveRecord::Schema.define(version: 2021_04_29_000059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_012339) do
     t.integer "num_adults_in_household"
     t.integer "num_children_in_household"
     t.integer "guest_ids", default: [], array: true
+    t.text "notes"
     t.index ["client_id", "swap_id"], name: "index_vouchers_on_client_id_and_swap_id"
     t.index ["client_id"], name: "index_vouchers_on_client_id"
     t.index ["hotel_id"], name: "index_vouchers_on_hotel_id"
