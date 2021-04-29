@@ -10,6 +10,13 @@ class Admin::RedFlagsController < Admin::BaseController
         {client_id: client_id, hotel_id: hotel_id}
       end
 
+      if RedFlag.create(red_flag_attrs)
+        return redirect_back(
+          info: "Flags updated successfully.",
+          fallback_location: root_path
+        )
+      end
+
       redirect_back(
         error: "An error has occurred. Please try again.",
         fallback_location: root_path
