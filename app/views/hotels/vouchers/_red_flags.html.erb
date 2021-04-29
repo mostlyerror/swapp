@@ -1,9 +1,11 @@
 <div class="flex items-center">
   <h4 class="px-2 font-bold tracking-wide">Red Flags</h4>
-  <span class="uppercase text-lg text-white bg-red-700 font-semibold tracking-wide rounded-lg px-2">admin only</span>
+  <% if current_user.admin_user? %>
+    <span class="uppercase text-white bg-red-700 font-semibold tracking-wide rounded-lg px-2">admin only</span>
+  <% end %>
 </div>
 <% if current_user.admin_user? %>
-  <div class="flex flex-col border-4 border-gray-500 p-4 mt-4 rounded-lg">
+  <div class="flex flex-col border-4 border-gray-500 p-4 mt-2 rounded-lg">
     <% flash.each do |type, msg| %>
       <div class=<%= "#{type == :info && 'bg-green-300' || 'bg-red-300'} border-l-4 border-green-500 p-4" %> role="alert">
         <%= msg %>
@@ -33,7 +35,11 @@
     <% end %>
   </div>
 <% elsif current_user.hotel_user? %>
-  <div class="flex flex-col border-4 border-gray-500 p-4 mt-4 rounded-lg">
-    red flag status
+  <div class="border border-gray-300 p-4 mt-2 rounded-lg text-xl">
+    <% if !@flagged_here %>
+      Client is not red flagged.  They are eligible to receive vouchers at this hotel.
+    <% else %>
+      Client has been red flagged.
+    <% end %>
   </div>
 <% end %>

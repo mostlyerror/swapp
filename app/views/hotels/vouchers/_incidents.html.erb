@@ -1,50 +1,55 @@
-<h4 class="px-2 font-bold tracking-wide">Incidents</h4>
-<div class="flex flex-col border-4 border-gray-500 p-4 mt-4 rounded-lg">
-  <!-- incident list -->
-  <ul class="border divide-y-2">
+<div class="space-y-2 text-xl lg:text-2xl">
+  <h4 class="px-2 font-bold tracking-wide">Incidents</h4>
+  <div class="flex flex-col border border-gray-300 px-4 py-2 mt-4 rounded-lg">
+    <!-- incident list -->
     <% if @incidents.empty? %>
-      No incidents to show.
-    <% end %>
-    <% @incidents.each do |incident| %>
-      <li class="flex flex-col space-y-2 p-5">
-        <div class="flex items-center">
-          <div>
-            <span class="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
-              <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            </span>
-          </div>
-          <div class="ml-3">
-            <p class="text-base font-medium text-gray-700 group-hover:text-gray-900">
-              <%= incident.reporter.name %> (<%= incident.reporter.email %>)
-            </p>
-            <p class="text-base font-medium text-gray-500 group-hover:text-gray-700">
-              Date Occurred: <%= humanize_date_with_year(incident.occurred_at) %>
-            </p>
-          </div>
-        </div>
-        <div class="text-xl">
-          <%= incident.description %>
-        </div>
-      </li>
-    <% end %>
-  </ul>
-  <!-- end incident list -->
-  <!-- new incident report form -->
-  <div>
-    <%= form_for(@incident_report, url: hotels_create_report_path(@client), method: :post) do |form| %>
-      <p class="mt-8 text-xl font-semibold">Report New Incident</p>
-      <div class="mt-2 grid grid-cols-5 gap-x-2 gap-y-3">
-        <%= hidden_field_tag 'voucher_id', @voucher.id %>
-        <%= hidden_field_tag 'incident_report[client_id]', @voucher.client.id %>
-        <%= form.label "Description", class: "font-semibold" %>
-        <%= form.text_area :description, placeholder: "Describe event here...", required: true, class: "col-span-4 w-full border border-gray-300" %>
-        <%= form.label "Date Occurred", class: "mt-2 font-semibold" %>
-        <%= form.date_field :occurred_at, required: true, class: "mt-2 col-span-2 border border-gray-300" %>
-        <%= form.submit "Submit Incident", class: "col-span-2 mt-2 p-2 bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer rounded-md" %>
-      </div>
+      No reported incidents.
+    <% else %>
+      <ul class="divide-y-2">
+        <% @incidents.each do |incident| %>
+          <li class="flex flex-col space-y-2 p-3">
+            <div class="flex items-center">
+              <div>
+                <span class="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+                  <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                </span>
+              </div>
+              <div class="ml-3">
+                <p class="text-base font-medium text-gray-700 group-hover:text-gray-900">
+                  <%= incident.reporter.name %> (<%= incident.reporter.email %>)
+                </p>
+                <p class="text-base font-medium text-gray-500 group-hover:text-gray-700">
+                  Date Occurred: <%= humanize_date_with_year(incident.occurred_at) %>
+                </p>
+              </div>
+            </div>
+            <div class="text-xl">
+              <%= incident.description %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
     <% end %>
   </div>
+  <!-- end incident list -->
+  <!-- new incident report form -->
+  <div class="flex flex-col border border-gray-300 p-4 rounded-lg text-lg">
+    <div>
+      <%= form_for(@incident_report, url: hotels_create_report_path(@client), method: :post) do |form| %>
+        <p class="text-xl font-semibold">Report New Incident</p>
+        <div class="mt-2 grid grid-cols-5 gap-x-2 gap-y-3">
+          <%= hidden_field_tag 'voucher_id', @voucher.id %>
+          <%= hidden_field_tag 'incident_report[client_id]', @voucher.client.id %>
+          <%= form.label "Description", class: "font-semibold" %>
+          <%= form.text_area :description, placeholder: "Describe event here...", required: true, class: "col-span-4 w-full border border-gray-300" %>
+          <%= form.label "Date Occurred", class: "mt-2 font-semibold" %>
+          <%= form.date_field :occurred_at, required: true, class: "mt-2 col-span-2 border border-gray-300" %>
+          <%= form.submit "Submit Incident", class: "col-span-2 mt-2 p-2 bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer rounded-md" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <!-- end new incident report form -->
 </div>
-<!-- end new incident report form -->
