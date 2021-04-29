@@ -50,7 +50,7 @@
       <!-- guests and notes -->
       <div class="flex flex-1 flex-col gap-8">
         <div>
-          <p class="px-2 py-1 bg-gray-100 text-gray-800 text-sm lg:text-base uppercase font-bold tracking-wide">Approved Guests</p>
+          <p class="px-2 py-1 bg-gray-100 text-gray-500 text-sm lg:text-base uppercase font-bold tracking-wide">Approved Guests</p>
           <% if @voucher.guests.empty? %>
             <p class="p-3 py-4 text-lg lg:text-xl">No guests.</p>
           <% end %>
@@ -61,7 +61,7 @@
           </ul>
         </div>
         <div>
-          <p class="px-3 py-1 bg-gray-100 text-gray-800 text-sm lg:text-base uppercase font-bold tracking-wide">Notes</p>
+          <p class="px-3 py-1 bg-gray-100 text-gray-500 text-sm lg:text-base uppercase font-bold tracking-wide">Notes</p>
           <p class="px-3 py-4 mt-2 text-lg md:text-xl leading-relaxed"><%= @voucher.notes %></p>
         </div>
       </div>
