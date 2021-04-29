@@ -8,12 +8,18 @@ module MessagesHelper
         case body
 
         when "SWAP"
-            return "You said SWAP"
+            hotels = Hotel.all.pluck(:id, :name)
+            vouchers_today = RoomSupply.vouchers_remaining_today(Swap.current)
+            vacancies = vouchers_today.each do |(hotel_id, vouchers)|
+               hotels[hotel_id] += vouchers
+            end
+
+            return "#{vacancies}"
         
         when "ACTIVATE"
             return "You messaged #{body}"
         else
-            return "Sorry, I didn't get that. The available commands are SWAP and ACTIVATE. Please try again."
+            return "Unknown command. The available commands are SWAP and ACTIVATE. Please try again."
     end
 end
 end
