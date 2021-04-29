@@ -5,7 +5,7 @@
   <% end %>
 </div>
 <% if current_user.admin_user? %>
-  <div class="flex flex-col gap-4 border border-gray-300 p-4 mt-2 rounded-lg">
+  <div class="flex flex-col gap-4 bg-white border border-gray-300 p-4 mt-2 rounded-lg shadow-sm">
     <% flash.each do |type, msg| %>
       <% if type == "info" %>
         <div class="flex items-center bg-green-100 text-lg text-green-900 p-4 rounded-lg" role="alert">
@@ -36,7 +36,7 @@
           </li>
         <% end %>
       </ul>
-      <%= form.submit "Update Flags", class: "mt-4 px-4 p-2 bg-indigo-600 hover:bg-indigo-700 text-lg text-white font-semibold tracking-wide cursor-pointer rounded" %>
+      <%= form.submit "Update Flags", class: "mt-4 px-4 md:px-6 lg:px-8 py-2 bg-indigo-600 hover:bg-indigo-700 text-lg text-white font-semibold tracking-wide cursor-pointer rounded" %>
     <% end %>
   </div>
 <% elsif current_user.hotel_user? %>
