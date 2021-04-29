@@ -1,37 +1,42 @@
 <div class="flex items-center">
   <h4 class="px-2 font-bold tracking-wide">Red Flags</h4>
   <% if current_user.admin_user? %>
-    <span class="uppercase text-white bg-red-700 font-semibold tracking-wide rounded-lg px-2">admin only</span>
+    <span class="uppercase text-red-900 bg-red-200 font-semibold tracking-wide rounded-lg px-2">admin only</span>
   <% end %>
 </div>
 <% if current_user.admin_user? %>
-  <div class="flex flex-col border-4 border-gray-500 p-4 mt-2 rounded-lg">
+  <div class="flex flex-col gap-4 border border-gray-300 p-4 mt-2 rounded-lg">
     <% flash.each do |type, msg| %>
-      <div class=<%= "#{type == :info && 'bg-green-300' || 'bg-red-300'} border-l-4 border-green-500 p-4" %> role="alert">
-        <%= msg %>
-      </div>
+      <% if type == "info" %>
+        <div class="flex items-center bg-green-100 text-lg text-green-900 p-4 rounded-lg" role="alert">
+          <svg class="h-6 w-6 mr-3 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <%= msg %>
+        </div>
+      <% else %>
+        <div class="bg-red-200 text-lg text-red-900 p-4" role="alert"><%= msg %></div>
+      <% end %>
     <% end %>
     <%= form_for(@client, url: admin_edit_red_flag_path(@client), method: :put) do |form| %>
-      <div class="flex flex-col gap-4 text-xl">
+      <div class="flex flex-col gap-4 text-xl text-gray-800">
         <p class="">Select Hotel(s) where client is no longer eligible to stay.</p>
         <p class="leading-snug"><span class="font-semibold">Warning:</span> checking these boxes will disallow the client from receiving a voucher at the selected hotel.</p>
         <p class="leading-snug">Removing a red flag without hotel confirmation may also result in the client being sent to a hotel where they are unable to stay.</p>
       </div>
-      <ul class="flex flex-1 flex-col p-2 gap-4" style="height: 12rem">
+      <ul class="flex flex-1 flex-col mt-4 p-2 gap-4">
         <% @hotels.each do |hotel| %>
           <li class="flex items-center">
             <%= form.check_box :hotel_ids, { 
                 multiple: true, 
                 checked: hotel.id.in?(@flag_hotel_ids),
-                class: "w-6 h-6"
+                class: "w-6 h-6 rounded-md text-indigo-500"
               }, hotel.id %>
             <%= form.label hotel.name, class: "px-2 text-xl" %>
           </li>
         <% end %>
       </ul>
-      <div class="flex flex-1 p-3">
-        <%= form.submit "Update Flags", class: "p-2 bg-blue-600 text-white hover:bg-blue-900 cursor-pointer" %>
-      </div>
+      <%= form.submit "Update Flags", class: "mt-4 px-4 p-2 bg-indigo-600 hover:bg-indigo-700 text-lg text-white font-semibold tracking-wide cursor-pointer rounded" %>
     <% end %>
   </div>
 <% elsif current_user.hotel_user? %>
