@@ -8,11 +8,12 @@ module MessagesHelper
         case body
 
         when "SWAP"
-            hotels = Hotel.all.pluck(:id, :name)
+            hotels = Hotel.all.pluck(:name)
             vouchers_today = RoomSupply.vouchers_remaining_today(Swap.current)
-            vacancies = vouchers_today.each do |(hotel_id, vouchers)|
-               hotels[hotel_id] += vouchers
+            vacancies = vouchers_today.map do |(hotel_id, vouchers)|
+                {name: hotels[hotel_id], vouchers: vouchers }
             end
+
 
             return "#{vacancies}"
         
