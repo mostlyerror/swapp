@@ -11,7 +11,8 @@ module MessagesHelper
             hotels = Hotel.all.pluck(:name)
             vouchers_today = RoomSupply.vouchers_remaining_today(Swap.current)
             vacancies = vouchers_today.map do |(hotel_id, vouchers)|
-                {name: hotels[hotel_id], vouchers: vouchers }
+                # {name: hotels[hotel_id], vouchers: vouchers }]
+                puts "HOTEL: #{hotels[hotel_id]}, VOUCHERS: #{vouchers}"
             end
 
 
