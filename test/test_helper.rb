@@ -1,13 +1,14 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
+require 'ffaker'
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
   FactoryBot.reload
 
-  Faker::Config.locale = 'en-US'
+  FFaker::Locale.code 'en-US'
 
   # load Hotel and Race data?
   # load "#{Rails.root}/db/seeds/base.rb"
