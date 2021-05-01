@@ -3,9 +3,20 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
 const navigation = [
-  { name: "Home", href: "/", current: false, adminOnly: false },
-  { name: "Admin", href: "/admin", current: false, adminOnly: true },
+  {
+    name: "Home",
+    href: "/",
+    current: location.pathname === "/",
+    adminOnly: false,
+  },
+  {
+    name: "Admin",
+    href: "/admin",
+    current: location.pathname === "/admin",
+    adminOnly: true,
+  },
 ];
+
 const userNavigation = [
   { name: "Sign out", href: "/users/sign_out", dataMethod: "delete" },
 ];
