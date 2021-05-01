@@ -2,47 +2,49 @@
   <title>Swapp</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
-<body class="min-h-screen bg-gray-100 overscroll-x-contain">
-  <div class="container mx-auto max-w-lg lg:max-w-xl mt-48">
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <h1 class="lg:text-8xl text-center font-bold">swapp</h1>
-      <div class="flex flex-col gap-8 mt-32 text-2xl lg:text-3xl text-gray-500">
-        <% if flash.alert %>
-          <div id="error_explanation">
-            <ul>
-              <li><%= flash.alert %></li>
-            </ul>
-          </div>
-        <% end %>
-        <div>
-          <%= f.label :email, class: "block leading-relaxed" %>
-          <%= f.email_field :email, 
-            autofocus: true, 
-            autocomplete: "email",
-            class: "w-full p-4 rounded-md text-gray-600 text-2xl lg:text-3xl"
-          %>
-        </div>
-        <div>
-          <%= f.label :password, class: "block leading-relaxed" %>
-          <%= f.password_field :password, 
-            autocomplete: "current-password",
-            class: "w-full p-4 rounded-md text-gray-600 text-2xl lg:text-3xl"
-          %>
-        </div>
-        <div>
-          <%= f.submit "Log in", class: "w-full mt-10 p-4 rounded-md bg-indigo-500 text-white hover:bg-indigo-700 font-bold tracking-wide" %>
-          <% if devise_mapping.rememberable? %>
-            <div class="text-center mt-12">
-              <%= f.check_box :remember_me, class: "mr-2 h-6 w-6" %>
-              <%= f.label :remember_me, class: "text-xl lg:text-2xl" %>
+<body class="bg-gray-100">
+  <div class="relative h-screen">
+    <div class="container mx-auto max-w-lg px-2 relative top-1/2 transform -translate-y-1/2">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <h1 class="text-4xl text-center font-bold">swapp</h1>
+        <div class="mt-4">
+          <% if flash.alert %>
+            <div id="error_explanation" class="mb-4">
+              <ul>
+                <li class="p-4 bg-red-100 text-red-600 rounded-md"><%= flash.alert %></li>
+              </ul>
             </div>
           <% end %>
+          <div>
+            <%= f.label :email, class: "block leading-relaxed text-lg text-gray-500" %>
+            <%= f.email_field :email, 
+            autofocus: true, 
+            autocomplete: "email",
+            class: "w-full p-4 rounded-md text-xl text-gray-600 border-gray-300"
+            %>
+          </div>
+          <div class="mt-4">
+            <%= f.label :password, class: "block leading-relaxed text-lg text-gray-500" %>
+            <%= f.password_field :password, 
+            autocomplete: "current-password",
+            class: "w-full p-4 rounded-md text-gray-600 text-xl border-gray-300"
+            %>
+          </div>
+          <div class="mt-8">
+            <%= f.submit "Log in", class: "w-full p-4 rounded-md bg-indigo-500 text-xl text-white hover:bg-indigo-700 font-bold tracking-wide" %>
+            <% if devise_mapping.rememberable? %>
+              <div class="mt-8 text-center">
+                <%= f.check_box :remember_me, class: "mr-2 h-6 w-6" %>
+                <%= f.label :remember_me, class: "text-lg" %>
+              </div>
+            <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-</body>
+      <% end %>
+    </div>
+  </body>

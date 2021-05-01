@@ -12,6 +12,7 @@ module.exports = {
         "gray-350": "rgb(107, 114, 128)",
       },
       fontSize: {
+        "3.5xl": "2rem",
         "4.5xl": "2.75rem",
         "5.5xl": "3.5rem",
       },
