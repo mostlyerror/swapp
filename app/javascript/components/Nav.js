@@ -26,6 +26,9 @@ function classNames(...classes) {
 }
 
 class Nav extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div className="bg-white">
