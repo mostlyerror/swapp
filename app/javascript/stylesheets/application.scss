@@ -6,19 +6,19 @@
 @import "tailwindcss/utilities";
 
 h1 {
-  @apply text-6xl;
-}
-h2 {
-  @apply text-5xl;
-}
-h3 {
   @apply text-4xl;
 }
-h4 {
+h2 {
   @apply text-3xl;
 }
-h5 {
+h3 {
   @apply text-2xl;
+}
+h4 {
+  @apply text-xl;
+}
+h5 {
+  @apply text-lg;
 }
 // fix ios element rounding
 input {

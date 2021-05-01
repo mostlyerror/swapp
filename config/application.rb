@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module Swapp
   class Application < Rails::Application
+    config.hosts << "bed8d9d66239.ngrok.io"
+
     config.time_zone = "Mountain Time (US & Canada)"
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0

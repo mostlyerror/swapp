@@ -1,14 +1,43 @@
-<header class="container mx-auto flex justify-between items-center max-w-6xl px-2 py-6">
-  <div class="text-2xl lg:text-3xl font-semibold">
-    <%= link_to'swapp', root_path %>
-  </div>
-  <% if user_signed_in? %>
-    <ul class="flex gap-3 text-xl lg:text-2xl">
-      <span class="text-gray-500"><%= current_user.email %></span>
-      <% if current_user.admin_user? %>
-        <%= link_to 'admin', admin_home_path, class: "link"  %>
-      <% end %>
-      <%= link_to 'logout', destroy_user_session_path, method: :delete, class: "link" %>
-    <% end %>
-  </ul>
+<header>
+  <nav class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex-shrink-0 flex items-center">
+          <div class="font-semibold text-center">
+            <%= link_to'swapp', root_path %>
+          </div>
+        </div>
+        <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+          <ul class="flex">
+            <span class="text-gray-500"><%= current_user.email %></span>
+            <% if current_user.admin_user? %>
+              <%= link_to 'admin', admin_home_path, class: "link"  %>
+            <% end %>
+            <%= link_to 'logout', destroy_user_session_path, method: :delete, class: "link" %>
+          </ul>
+        </div>
+        <div class="-mr-2 flex items-center sm:hidden">
+          <!-- Mobile menu button -->
+          <button type="button" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-controls="mobile-menu" aria-expanded="false">
+            <span class="sr-only">Open nav menu</span>
+            <!--
+                Heroicon name: outline/menu
+                Menu open: "hidden", Menu closed: "block"
+              -->
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <!--
+                Heroicon name: outline/x
+                Menu open: "block", Menu closed: "hidden"
+              -->
+            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
 </header>
+<%= react_component("Nav", user: @current_user) %>
