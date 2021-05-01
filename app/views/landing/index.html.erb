@@ -1,77 +1,71 @@
-<h3 class="px-2 mt-16 text-3xl">
-  Hello, <span class="text-gray-900"><strong><em><%= current_user.first_name %></em></strong><span>!
-    </h3>
-    <section class="px-2 mt-16">
-      <% if @swap.present? %>
-        <h3 class="text-3.5xl">SWAP is active.</h3>
-        <div class="text-xl text-indigo-900">
-          <p>Vouchers can be issued beginning <strong><%= humanize_date(@swap.intake_start_date) %></strong> through <strong><%= humanize_date(@swap.intake_end_date) %></strong></p>
-          <p>Voucher check-in is <strong><%= humanize_date(@swap.start_date) %></strong> and check-out is <strong><%= humanize_date(@swap.end_date) %></strong></p>
-        </div>
-        <div class="text-center text-gray-400 mt-8">
-          <i class="bi bi-search text-5xl text-black"></i>
-          <%= link_to 'Search for Clients', clients_path, class:"mt-6 p-3 text-5xl" %>
-        </div>
-      </section>
-    <% else %>
-      <section>
-        <% if @swap.nil? %>
-          <section id="notice--swap-inactive" class="notice bg-blue-300">
-            <h3 class="">There is currently no scheduled SWAP period.</h3>
-            <p class="text-blue-900">Vouchers may be issued up to 1 day before a new period is activated.</p>
-          </section>
-          <section class="mt-48 text-center font-bold">
-            <h3 class="px-2 leading-normal"><a href="mailto:nubia@almosthomeonline.org?cc=Ashley@almosthomeonline.org&subject=Next%20SWAP%20Activation", class="link">Contact</a> your program administrators for details on the next activation.</h3>
-          </section>
-        <% end %>
-      </section>
-    <% end %>
-  </section >
-  <div class="p-2 mt-10">
-    <% if @swap.present? %>
-      <h4 class="p2 font-bold text-gray-900">Vouchers Remaining:</h4>
-      <ul class="p-2 flex flex-1 flex-col space-y-6 border-2 border-gray-900 shadow-2xl divide-y-4 divide-gray-300 divide-dashed">
-        <% @vouchers_remaining_today.each do |(hotel_id, vouchers)| %>
-          <li class="flex flex-1 justify-between items-center p-1">
-            <p class="font-bold text-xl mt-4 pl-7"><%= @hotel_map[hotel_id] %></p>
-            <p class="text-red-900 text-xl mt-4 pr-10"><%= vouchers %></p>
-          </li>
-        <% end %>
-      </ul>
+<section class="mt-2 px-2 pb-6 bg-gray-50 border-b-2 border-gray-300">
+  <h4 class="px-4 mt-6 text-3xl text-gray-800 italic font-semibold">
+    Hello, <%= current_user.first_name %>!
+  </h4>
+  <%= render partial: 'shared/swap_notices' %>
+  <div class="flex flex-col items-center mt-6 px-6">
+    <p>Check to see whether your client has been served by SWAP before</p>
+    <%= link_to clients_path, class: "mt-4 inline-flex items-center px-3 py-2 
+    border border-transparent bg-indigo-600 hover:bg-indigo-700 
+    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+    text-white text-sm leading-4 font-medium 
+    rounded-md shadow-sm" do %>
+      <span class="">Go to Client Search</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg>
     <% end %>
   </div>
-  <div class="text-center tracking-wide">
-    <h1 class="m-2 p-3 font-bold">How it works:</h1>
-    <section class="flex flex-col items-center p-8 mb-32 text-6xl">
-      <div class="mb-24">
-        <i class="bi bi-search text-9xl"></i>
-        <p class="my-14 leading-normal">Search for the client</p>
-      </div>
-      <div class="mb-24">
-        <i class="bi bi-pencil-square text-9xl"></i>
-        <p class="my-10 px-7 leading-normal">Conduct questionnaire to learn more about their history</p>
-      </div>
-      <div>
-        <i class="bi bi-house-door text-9xl p-3"></i>
-        <p class="my-10 px-7 leading-normal">Submit the form and send the client to the hotel of their choice</p>
-      </div>
-    </section>
-    <hr>
-    <div class="flex flex-col justify-items items-center">
-      <div class="my-24">
-        <a href="https://www.codeforamerica.org/" target="_blank">
-          <img src="https://www.codeforamerica.org/resources/images/cfa-logo-color.png" alt="Code For America" width="500" height="500">
-        </a>
-      </div>
-      <div class="my-24">
-        <a href="https://www.adcogov.org/community-safety-well-being" target="_blank">
-          <img src="https://www.adcogov.org/sites/all/themes/adams/images/logo.png" alt="Adams County" width="500" height="500">
-        </a>
-      </div>
-      <div class="my-24">
-        <a href="https://www.almosthomeonline.org/" target="_blank">
-          <img src="https://static.wixstatic.com/media/d5c3cb_6e8da3e0f3424ecba9758fdb99f00ff7~mv2.png/v1/fill/w_879,h_192,al_c,lg_1,q_85/AlmostHome_Logo_Horizontal_01_Web.webp" alt="Almost Home" width="600" height="600">
-        </a>
-      </div>
+</section>
+<section>
+  <div class="max-w-md mx-auto px-8 py-12 flex flex-col space-y-16">
+    <h4 class="text-center font-bold tracking-wide">
+      How it works:
+    </h4>
+    <div class="flex flex-col">
+      <span class="text-6xl">
+        🔍
+      </span>
+      <p class="mt-2 text-2xl font-bold tracking-wide">
+        Search for your client.
+      </p>
+      <p class="mt-1 text-gray-800">
+        If your client has used SWAP before, they’ll show up in the search, and you can fast track to issue a voucher.
+      </p>
+    </div>
+    <div class="flex flex-col items-start">
+      <span class="text-6xl">
+        📋
+      </span>
+      <p class="mt-2 text-2xl font-bold tracking-wide">
+        Perform intake.
+      </p>
+      <p class="mt-1 text-gray-800">
+        Ask your client some demographic and situational questions.
+      </p>
+    </div>
+    <div class="flex flex-col items-start">
+      <span class="text-6xl">
+        🛏️
+      </span>
+      <p class="mt-2 text-2xl font-bold tracking-wide">
+        Issue a hotel voucher.
+      </p>
+      <p class="mt-1 text-gray-800">
+        Front desk staff will be automatically notified of your client's reservation.
+      </p>
     </div>
   </div>
+</section>
+<div class="flex flex-col md:flex-row items-center justify-around gap-y-16
+md:gap-4 py-16 border border-t-2 border-gray-200">
+  <a href="https://www.codeforamerica.org/" target="_blank">
+    <img src="https://www.codeforamerica.org/resources/images/cfa-logo-color.png" alt="Code For America">
+  </a>
+  <a href="https://www.adcogov.org/community-safety-well-being" target="_blank">
+    <img src="https://www.adcogov.org/sites/all/themes/adams/images/logo.png" alt="Adams County">
+  </a>
+  <a class="w-48" href="https://www.almosthomeonline.org/" target="_blank">
+    <img src="https://static.wixstatic.com/media/d5c3cb_6e8da3e0f3424ecba9758fdb99f00ff7~mv2.png/v1/fill/w_879,h_192,al_c,lg_1,q_85/AlmostHome_Logo_Horizontal_01_Web.webp" alt="Almost Home">
+  </a>
+</div>
