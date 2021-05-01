@@ -8,6 +8,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      screens: {
+        sm: "425px",
+      },
       borderColor: {
         "gray-350": "rgb(107, 114, 128)",
       },
