@@ -1,3 +1,5 @@
+require 'ffaker'
+
 FactoryBot.define do
   factory :client do
     first_name { FFaker::Name.first_name }

@@ -1,3 +1,5 @@
+require 'ffaker'
+
 FactoryBot.define do
   factory :hotel do
     name { "#{FFaker::Company.name} hotel" }
