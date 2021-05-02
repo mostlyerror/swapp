@@ -8,8 +8,10 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-gray-50 overscroll-x-hidden font-sans">
+  <body class="bg-gray-50 overscroll-x-hidden">
     <%= render partial: 'shared/test_environment' %>
     <%= render partial: 'layouts/header' %>
     <div class="min-h-screen">
