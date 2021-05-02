@@ -5,6 +5,10 @@
 /* Add any custom CSS here */
 @import "tailwindcss/utilities";
 
+body {
+  font-family: "Manrope", ui-sans-serif, sans-serif;
+}
+
 h1 {
   @apply text-4xl;
 }
@@ -71,10 +75,6 @@ input[type="search"] {
 
 .link-yellow {
   @apply text-yellow-400 underline;
-}
-
-.step-description {
-  @apply text-4xl leading-loose tracking-wide text-gray-500 font-semibold;
 }
 
 .help-text {
