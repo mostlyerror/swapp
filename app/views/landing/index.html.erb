@@ -1,64 +1,72 @@
-<section class="mt-2 px-2 pb-6 bg-gray-50 border-b-2 border-gray-300">
-  <h4 class="px-4 mt-6 text-3xl text-gray-800 italic font-semibold">
+<section class="mt-2 px-2 border-b-2 border-gray-300">
+  <h4 class="px-4 mt-6 sm:mt-8 md:mt-12 text-3xl sm:text-3.5xl md:text-4xl text-gray-800 italic font-semibold">
     Hello, <%= current_user.first_name %>!
   </h4>
-  <%= render partial: 'shared/swap_notices' %>
-  <div class="flex flex-col items-center mt-6 px-6">
-    <p>Check to see whether your client has been served by SWAP before</p>
+  <div class="mt-2">
+    <%= render partial: 'shared/swap_notices' %>
+  </div>
+  <div class="flex flex-col items-center py-8 px-6">
+    <p class="text-base md:text-lg">Check to see whether your client has been served by SWAP before</p>
     <%= link_to clients_path, class: "mt-4 inline-flex items-center px-3 py-2 
     border border-transparent bg-indigo-600 hover:bg-indigo-700 
     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-    text-white text-sm leading-4 font-medium 
+    text-white text-sm sm:text-base md:text-lg leading-4 font-medium 
     rounded-md shadow-sm" do %>
-      <span class="">Go to Client Search</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <span>Go to Client Search</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
       </svg>
     <% end %>
   </div>
 </section>
 <section>
-  <div class="max-w-md mx-auto px-8 py-12 flex flex-col space-y-16">
-    <h4 class="text-center font-bold tracking-wide">
+  <div class="max-w-md md:max-w-xl mx-auto px-8 py-12 flex flex-col space-y-16">
+    <h4 class="text-2xl md:text-3xl text-center font-bold tracking-wide">
       How it works:
     </h4>
-    <div class="flex flex-col">
-      <span class="text-6xl">
+    <div class="flex flex-col md:flex-row md:items-start">
+      <span class="text-6xl md:mt-3">
         🔍
       </span>
-      <p class="mt-2 text-2xl font-bold tracking-wide">
-        Search for your client.
-      </p>
-      <p class="mt-1 text-gray-800">
-        If your client has used SWAP before, they’ll show up in the search, and you can fast track to issue a voucher.
-      </p>
+      <div class="mt-2 md:ml-6">
+        <p class="text-2xl md:text-3xl font-bold tracking-wide">
+          Search for your client.
+        </p>
+        <p class="mt-1 md:mt-2 text-base md:text-lg text-gray-800">
+          If your client has used SWAP before, they’ll show up in the search, and you can fast track to issue a voucher.
+        </p>
+      </div>
     </div>
-    <div class="flex flex-col items-start">
-      <span class="text-6xl">
+    <div class="flex flex-col md:flex-row md:items-start">
+      <span class="text-6xl md:mt-3">
         📋
       </span>
-      <p class="mt-2 text-2xl font-bold tracking-wide">
-        Perform intake.
-      </p>
-      <p class="mt-1 text-gray-800">
-        Ask your client some demographic and situational questions.
-      </p>
+      <div class="mt-2 md:ml-6">
+        <p class="text-2xl md:text-3xl font-bold tracking-wide">
+          Perform intake.
+        </p>
+        <p class="mt-1 md:mt-2 text-base md:text-lg text-gray-800">
+          Ask your client some demographic and situational questions.
+        </p>
+      </div>
     </div>
-    <div class="flex flex-col items-start">
-      <span class="text-6xl">
+    <div class="flex flex-col md:flex-row md:items-start">
+      <span class="text-6xl md:mt-2">
         🛏️
       </span>
-      <p class="mt-2 text-2xl font-bold tracking-wide">
-        Issue a hotel voucher.
-      </p>
-      <p class="mt-1 text-gray-800">
-        Front desk staff will be automatically notified of your client's reservation.
-      </p>
+      <div class="mt-2 md:ml-6">
+        <p class="text-2xl md:text-3xl font-bold tracking-wide">
+          Issue a hotel voucher.
+        </p>
+        <p class="mt-1 md:mt-2 text-base md:text-lg text-gray-800">
+          Front desk staff will be automatically notified of your client's reservation.
+        </p>
+      </div>
     </div>
   </div>
 </section>
-<div class="flex flex-col md:flex-row items-center justify-around gap-y-16
-md:gap-4 py-16 border border-t-2 border-gray-200">
+<div class="flex flex-col md:flex-row items-center justify-around space-y-16
+md:space-y-0 md:space-x-4 md:px-8 py-16 border border-t-2 border-gray-200">
   <a href="https://www.codeforamerica.org/" target="_blank">
     <img src="https://www.codeforamerica.org/resources/images/cfa-logo-color.png" alt="Code For America">
   </a>
