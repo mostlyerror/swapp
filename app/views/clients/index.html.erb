@@ -1,48 +1,73 @@
-<section class="mt-2 px-2 pb-6 bg-gray-50 border-b-2 border-gray-300">
-  <p class="text-xs">1. Search for your client</p>
-  <h1 class="mt-24 text-9xl text-black font-bold">Client Search</h1>
+<section class="px-2 md:w-11/12 mx-auto">
+  <div class="mt-4">
+    <%= render partial: "shared/swap_notices" %>
+  </div>
+  <div class="mt-12 md:mt-16 md:px-4 md:w-10/12 mx-auto">
+    <h1 class="md:text-5xl text-gray-900 font-bold">Client Search</h1>
+    <div class="mt-6 md:mt-8">
+      <div class="md:text-xl text-gray-800">
+        <p>Names have different spellings, so use broad search terms, like “Jean” for “Jeanmarie” or “Jo” for “Joseph.”</p>
+      </div>
+      <form class="client_search" id="client_search" action="/clients" accept-charset="UTF-8" method="get">
+        <div class="flex mt-4">
+          <input id="search-input" class="flex-1 rounded-l border border-gray-300 md:text-xl md:p-4" name="q[first_name_or_last_name_cont]" id="q_first_name_or_last_name_cont" type="search" minlength="2" required placeholder="Search by first or last name" autofocus="autofocus">
+          <button id="search-btn" class="border border-gray-300 rounded-r flex items-center justify-center px-3 md:px-5">
+            <svg class="h-4 w-4 md:h-6 md:w-6 text-grey-dark" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </section>
-<section class="mt-16">
-  <%= render partial: 'shared/swap_notices' %>
-</section>
-<p class="px-6 pt-16 help-text">
-  Search for your client within SWAP.<br />
-  Use broad search terms: "Ben" instead of "Benjamin," or "Jo" instead of "Joseph."
-</p>
-<div class="mt-6 px-6">
-  <%= render partial: 'search_form' %>
-</div>
-<section class="mt-16">
+<section class="mt-16 md:w-11/12 md:mx-auto">
   <% if @searched %>
     <% if @clients.any? %>
-      <p class="mt-16 px-6 help-text">
+      <p class="text-base md:text-xl mt-12 md:mt-16 px-2 md:px-8">
         <strong><%= @clients.size %> results found for "<%= @searched_term
           %>"</strong>. Click on a row to view the client's program history and issue a hotel voucher.
       </p>
-      <section class="mt-8 shadow-lg">
-        <%= render partial: 'table' %>
+      <section class="mt-6 shadow-lg md:text-xl">
+        <div class="grid grid-cols-7 bg-white border border-gray-300">
+          <div class="col-span-3 pl-2 md:pl-4 py-2 md:py-3 font-semibold tracking-wide">Name</div>
+          <div class="col-span-3 py-2 md:py-3 font-bold tracking-wide">DOB</div>
+          <div class="py-2"></div>
+          <% @clients.each_with_index do |client, idx| %>
+            <div class="col-span-3 pl-2 md:pl-4 py-2 md:py-3 text-left <%= idx.even? && 'bg-gray-200' %>">
+              <%= link_to(client.name, client_path(client), class: 'link') %>
+            </div>
+            <div class="col-span-3 py-2 md:py-3 text-left tabular-nums <%= idx.even? && 'bg-gray-200' %>">
+              <%= formatted_date(client.date_of_birth) %>
+            </div>
+            <div class="pr-2 md:pr-4 py-2 md:py-3 text-center <%= idx.even? && 'bg-gray-200' %>">
+              <% if client.red_flags.any? %>
+                🚩
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       </section>
     <% else %>
-      <div class="help-text px-6">
+      <p class="text-base md:text-lg mt-12 md:mt-16 px-2 md:px-8">
         <strong>0 results found for "<%= @searched_term %>"</strong>
       </div>
     <% end %>
-    <section class="px-6 py-16">
-      <p class="help-text">
-        Still don't see your client? If they have previously participated, try searching by an alternate name.
+    <div class="mt-6 px-4 py-6 sm:py-8 md:py-12 md:px-0 md:w-11/12 md:mx-auto">
+      <p class="text-base md:text-xl">
+        Still don't see your client? If they have previously participated, try searching for an alternate name.
       </p>
-      <h2 class="mt-16 text-7xl text-center font-bold">
+      <div class="mt-4 sm:mt-6 md:mt-8 text-xl font-bold tracking-wide">
         <% if @swap.present? %>
           <% if @num_vouchers_remaining_today.zero? %>
-            Cannot perform intake.<br/>
-            No vouchers available.
+            <p class="sm:text-2xl md:text-3xl">Cannot perform intake. <span class="block md:inline">No vouchers available.</span></p>
           <% else %>
-            Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.
+            <p class="sm:text-center">Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.</p>
           <% end %>
         <% else %>
-          New client intake can only be performed when SWAP is activated.
+          <div class="mt-4 md:mt-6 text-xl md:text-2xl">
+            New client intake can only be performed during an active SWAP period.
+          </div>
         <% end %>
-      </h2>
-    </section>
+      </div>
+    </div>
   <% end %>
 </section>
