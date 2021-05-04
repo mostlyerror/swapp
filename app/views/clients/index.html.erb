@@ -31,6 +31,8 @@
           <div class="col-span-3 pl-2 md:pl-4 py-2 md:py-3 font-semibold tracking-wide">Name</div>
           <div class="col-span-3 py-2 md:py-3 font-bold tracking-wide">DOB</div>
           <div class="py-2"></div>
+        </div>
+        <div class="grid grid-cols-7 bg-white border border-gray-300 block overflow-y-scroll max-h-96">
           <% @clients.each_with_index do |client, idx| %>
             <div class="col-span-3 pl-2 md:pl-4 py-2 md:py-3 text-left <%= idx.even? && 'bg-gray-200' %>">
               <%= link_to(client.name, client_path(client), class: 'link') %>
@@ -45,29 +47,30 @@
             </div>
           <% end %>
         </div>
-      </section>
-    <% else %>
-      <p class="text-base md:text-lg mt-12 md:mt-16 px-2 md:px-8">
-        <strong>0 results found for "<%= @searched_term %>"</strong>
       </div>
-    <% end %>
-    <div class="mt-6 px-4 py-6 sm:py-8 md:py-12 md:px-0 md:w-11/12 md:mx-auto">
-      <p class="text-base md:text-xl">
-        Still don't see your client? If they have previously participated, try searching for an alternate name.
-      </p>
-      <div class="mt-4 sm:mt-6 md:mt-8 text-xl font-bold tracking-wide">
-        <% if @swap.present? %>
-          <% if @num_vouchers_remaining_today.zero? %>
-            <p class="sm:text-2xl md:text-3xl">Cannot perform intake. <span class="block md:inline">No vouchers available.</span></p>
-          <% else %>
-            <p class="sm:text-center">Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.</p>
-          <% end %>
-        <% else %>
-          <div class="mt-4 md:mt-6 text-xl md:text-2xl">
-            New client intake can only be performed during an active SWAP period.
-          </div>
-        <% end %>
-      </div>
+    </section>
+  <% else %>
+    <p class="text-base md:text-lg mt-12 md:mt-16 px-2 md:px-8">
+      <strong>0 results found for "<%= @searched_term %>"</strong>
     </div>
   <% end %>
+  <div class="mt-6 px-4 py-6 sm:py-8 md:py-12 md:px-0 md:w-10/12 md:mx-auto">
+    <p class="text-base md:text-xl">
+      Still don't see your client? If they have previously participated, try searching for an alternate name.
+    </p>
+    <div class="mt-4 sm:mt-6 md:mt-8 text-xl font-bold tracking-wide">
+      <% if @swap.present? %>
+        <% if @num_vouchers_remaining_today.zero? %>
+          <p class="sm:text-2xl md:text-3xl">Cannot perform intake. <span class="block md:inline">No vouchers available.</span></p>
+        <% else %>
+          <p class="sm:text-center">Proceed to <%= link_to 'intake', new_intake_path, class: 'link' %>.</p>
+        <% end %>
+      <% else %>
+        <div class="mt-4 md:mt-6 text-xl md:text-2xl">
+          New client intake can only be performed during an active SWAP period.
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
 </section>
