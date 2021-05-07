@@ -8,12 +8,11 @@ function classNames(...classes) {
 class IncomeSourceToggle extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
   }
 
   render() {
     return (
-      <Toggle question={this.props.question}>
+      <Toggle question={this.props.question} name={this.props.name}>
         <div
           id="income_source_container"
           className="bg-white rounded shadow mt-1 p-2"

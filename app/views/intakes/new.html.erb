@@ -123,7 +123,7 @@
           <% question = Intake::HOMELESSNESS_FIRST_TIME %>
           <%= react_component('Toggle', 
             question: question.to_h,
-            name: "intake[#{question.key}]",
+            name: "intake[homelessness_first_time]",
             checked: @intake.homelessness_first_time
           ) %>
         </div>
@@ -268,66 +268,16 @@
 
         <div>
           <% question = Intake::VETERAN %>
-          <%= client_attributes.label question.key, question.text, class: "block leading-tight font-semibold" %>
-          <ul class="py-4 pb-24 flex">
-            <% question.choices.each do |choice| %>
-              <li class="relative flex-1">
-                <%= client_attributes.radio_button question.key, choice == "Yes", 
-                  class: "absolute z-0 h-1 w-1",
-                  required: true,
-                  checked: @client.veteran == choice,
-                  tabindex: -1
-                %>
-              <%= client_attributes.label question.key, choice, 
-                id: "intake_client_attributes_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
-              </li>
-            <% end %>
-          </ul>
-          <div id="veteran_container" class="hidden p-8 space-y-16">
-            <div>
-              <% question = Intake::VETERAN_MILITARY_BRANCH %>
-              <ul class="flex flex-col space-y-6">
-                <%= client_attributes.label question.key, question.text, class: "block leading-tight font-semibold" %>
-                <% question.choices.each do |choice| %>
-                  <li class="items-center">
-                    <%= client_attributes.radio_button question.key, choice,
-                      class: "h-10 w-10",
-                      required: @client.veteran,
-                      checked: @client.veteran_military_branch == choice
-                    %>
-                  <%= client_attributes.label question.key, choice %>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-            <div>
-              <% question = Intake::VETERAN_SEPARATION_YEAR %>
-              <%= client_attributes.label question.key, question.text, class: "block leading-snug font-semibold" %>
-              <%= client_attributes.text_field question.key,
-                required: @client.veteran,
-                value: @client.veteran_separation_year,
-                class: "mt-6 w-full rounded-lg p-8 text-5xl"
-              %>
-            </div>
-            <div>
-              <% question = Intake::VETERAN_DISCHARGE_STATUS %>
-              <ul class="flex flex-col space-y-6">
-                <%= client_attributes.label question.key, question.text, class: "block leading-snug font-semibold" %>
-                <% question.choices.each do |choice| %>
-                  <li class="items-center">
-                    <%= client_attributes.radio_button question.key, choice,
-                      class: "h-10 w-10",
-                      required: @client.veteran,
-                      checked: @client.veteran_discharge_status == choice
-                    %>
-                  <%= client_attributes.label question.key, choice %>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
+          <%= react_component('VeteranToggle', 
+            question: question.to_h,
+            name: "intake[client_attributes][#{question.key}]",
+            checked: @client.veteran,
+            sub_questions: {
+              veteran_military_branch: Intake::VETERAN_MILITARY_BRANCH.to_h, 
+              veteran_separation_year: Intake::VETERAN_SEPARATION_YEAR.to_h,
+              veteran_discharge_status: Intake::VETERAN_DISCHARGE_STATUS.to_h
+            }
+          ) %>
         </div>
 
         <div>
