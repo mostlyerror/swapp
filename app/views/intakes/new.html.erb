@@ -5,8 +5,8 @@
   </div>
 </section>
 
+<%= form_with(model: @intake) do |form| %>
 <section class="px-2 text-lg sm:text-xl md:text-2xl text-gray-700">
-  <%= form_with(model: @intake) do |form| %>
     <% if @intake.errors.any? %>
       <div id="error_explanation" class="my-16 p-8 bg-red-400 font-bold">
         <p><%= pluralize(@intake.errors.count, "error") %> prohibited this intake from being saved:</p>
@@ -270,7 +270,7 @@
           <% question = Intake::VETERAN %>
           <%= react_component('VeteranToggle', 
             question: question.to_h,
-            name: "intake[client_attributes][#{question.key}]",
+          name: "intake[client_attributes][#{question.key}]",
             checked: @client.veteran,
             sub_questions: {
               veteran_military_branch: Intake::VETERAN_MILITARY_BRANCH.to_h, 
@@ -282,23 +282,11 @@
 
         <div>
           <% question = Intake::ACTIVE_DUTY %>
-          <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
-          <ul class="py-4 pb-32 flex">
-            <% question.choices.each do |choice| %>
-              <li class="relative flex-1">
-                <%= form.radio_button question.key, choice == "Yes", 
-                  class: "absolute z-0 h-1 w-1",
-                  required: true,
-                  checked: @intake.active_duty == choice,
-                  tabindex: -1
-                %>
-              <%= form.label question.key, choice, 
-                id: "intake_#{question.key}_#{choice.downcase}",
-                class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-              %>
-              </li>
-            <% end %>
-          </ul>
+          <%= react_component('Toggle',
+            question: question.to_h,
+            name: "intake[#{question.key}]",
+            checked: @intake.active_duty
+          ) %>
         </div>
 
         <div>
@@ -317,115 +305,53 @@
         </div>
       </div>
   </section>
-  <div class="bg-gray-200 p-8 leading-snug">
+  <div class="mt-8 bg-gray-200 p-8 leading-snug">
     For the following section, only select ‘yes’ when the condition is a long-term impairment.
   </div>
-  <section class="px-2 text-lg sm:text-xl md:text-2xl text-gray-700">
+  <section class="mt-8 space-y-4 px-2 text-lg sm:text-xl md:text-2xl text-gray-700">
     <div>
       <% question = Intake::CHRONIC_HEALTH_CONDITION %>
-      <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
-      <ul class="py-4 mb-32 flex">
-        <% question.choices.each do |choice| %>
-          <li class="relative flex-1">
-            <%= form.radio_button question.key, choice == "Yes", 
-              class: "absolute z-0 h-1 w-1",
-              required: true,
-              checked: @intake.chronic_health_condition == choice,
-              tabindex: -1
-            %>
-          <%= form.label question.key, choice, 
-            id: "intake_#{question.key}_#{choice.downcase}",
-            class: "mt-4 absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
-          </li>
-        <% end %>
-      </ul>
+      <%= react_component('Toggle',
+        question: question.to_h,
+        name: "intake[#{question.key}]",
+        checked: @intake.chronic_health_condition
+      ) %>
     </div>
 
     <div>
       <% question = Intake::MENTAL_HEALTH_DISABILITY %>
-      <%= form.label question.key, question.text, 
-        class: "block leading-tight font-semibold" %>
-      <ul class="py-4 mb-32 flex">
-        <% question.choices.each do |choice| %>
-          <li class="relative flex-1">
-            <%= form.radio_button question.key, choice == "Yes", 
-              class: "absolute z-0 h-1 w-1",
-              required: true,
-              checked: @intake.mental_health_disability == choice,
-              tabindex: -1
-            %>
-          <%= form.label question.key, choice, 
-            id: "intake_#{question.key}_#{choice.downcase}",
-            class: "mt-4 absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
-          </li>
-        <% end %>
-      </ul>
+      <%= react_component('Toggle',
+        question: question.to_h,
+        name: "intake[#{question.key}]",
+        checked: @intake.mental_health_disability
+      ) %>
     </div>
 
     <div>
       <% question = Intake::PHYSICAL_DISABILITY %>
-      <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
-      <ul class="py-4 mb-32 flex">
-        <% question.choices.each do |choice| %>
-          <li class="relative flex-1">
-            <%= form.radio_button question.key, choice == "Yes", 
-              class: "absolute z-0 h-1 w-1",
-              required: true,
-              checked: @intake.physical_disability == choice,
-              tabindex: -1
-            %>
-          <%= form.label question.key, choice, 
-            id: "intake_#{question.key}_#{choice.downcase}",
-            class: "mt-4 absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
-          </li>
-        <% end %>
-      </ul>
+      <%= react_component('Toggle',
+        question: question.to_h,
+        name: "intake[#{question.key}]",
+        checked: @intake.physical_disability
+      ) %>
     </div>
-
 
     <div>
       <% question = Intake::DEVELOPMENTAL_DISABILITY %>
-      <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
-      <ul class="py-4 mb-32 flex">
-        <% question.choices.each do |choice| %>
-          <li class="relative flex-1">
-            <%= form.radio_button question.key, choice == "Yes", 
-              class: "absolute z-0 h-1 w-1",
-              required: true,
-              checked: @intake.developmental_disability == choice,
-              tabindex: -1
-            %>
-          <%= form.label question.key, choice, 
-            id: "intake_#{question.key}_#{choice.downcase}",
-            class: "mt-4 absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
-          </li>
-        <% end %>
-      </ul>
+      <%= react_component('Toggle',
+        question: question.to_h,
+        name: "intake[#{question.key}]",
+        checked: @intake.developmental_disability
+      ) %>
     </div>
 
     <div>
       <% question = Intake::FLEEING_DOMESTIC_VIOLENCE %>
-      <%= form.label question.key, question.text, class: "block leading-tight font-semibold" %>
-      <ul class="py-4 mb-32 flex">
-        <% question.choices.each do |choice| %>
-          <li class="relative flex-1">
-            <%= form.radio_button question.key, choice == "Yes", 
-              class: "absolute z-0 h-1 w-1",
-              required: true,
-              checked: @intake.fleeing_domestic_violence == choice,
-              tabindex: -1
-            %>
-          <%= form.label question.key, choice, 
-            id: "intake_#{question.key}_#{choice.downcase}",
-            class: "mt-4 absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
-          </li>
-        <% end %>
-      </ul>
+      <%= react_component('Toggle',
+        question: question.to_h,
+        name: "intake[#{question.key}]",
+        checked: @intake.fleeing_domestic_violence
+      ) %>
     </div>
 
     <div class="text-center pb-24">
