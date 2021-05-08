@@ -8,7 +8,6 @@ function classNames(...classes) {
 class Toggle extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
   }
 
   state = {
@@ -38,8 +37,10 @@ class Toggle extends Component {
           )}
         >
           <input
-            readOnly
+            type="radio"
             className="hidden"
+            readOnly
+            checked={this.state.isEnabled}
             value={this.state.isEnabled}
             name={this.props.name}
           />
