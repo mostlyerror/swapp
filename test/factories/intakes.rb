@@ -1,5 +1,3 @@
-require 'ffaker'
-
 FactoryBot.define do
   factory :intake do
     is_first_time = [true, false].sample
