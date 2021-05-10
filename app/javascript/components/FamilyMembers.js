@@ -46,10 +46,11 @@ class FamilyMembers extends Component {
     });
   };
 
-  cancel = (event) => {
-    this.setState({
+  remove = (id) => {
+    this.setState((prevState) => ({
+      family: prevState.family.filter((f) => f.id !== id),
       currentFamilyMember: null,
-    });
+    }));
   };
 
   save = (event) => {
@@ -85,7 +86,7 @@ class FamilyMembers extends Component {
           <FamilyMemberForm
             familyMember={this.state.currentFamilyMember}
             handleChange={this.handleChange}
-            cancel={this.cancel}
+            remove={this.remove}
             save={this.save}
           />
         )}
