@@ -349,4 +349,11 @@ class Intake < ApplicationRecord
     text: "King Soopers Card?",
     choices: %w[ Yes No ]
   )
+
+  # currently this is used in the family member intake form only
+  DISABLING_CONDITION = OpenStruct.new(
+    key: :disabling_condition,
+    text: "Disabling Condition?",
+    choices: %w[ Yes No ]
+  )
 end

@@ -19,6 +19,18 @@ class Toggle extends Component {
     this.setState((prevState) => ({ isEnabled: !prevState.isEnabled }));
   };
 
+  handleChange = (enabled) => {
+    this.setEnabled(enabled);
+    if (this.props.onChange) {
+      this.props.onChange({
+        target: {
+          name: this.props.name,
+          value: enabled,
+        },
+      });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -30,7 +42,7 @@ class Toggle extends Component {
         </label>
         <Switch
           checked={this.state.isEnabled}
-          onChange={this.setEnabled}
+          onChange={(a, b) => this.handleChange(a, b)}
           className={classNames(
             this.state.isEnabled ? "bg-indigo-600" : "bg-gray-200",
             "mt-2 relative inline-flex flex-shrink-0 h-10 w-full border border-transparent rounded cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-indigo-500"
