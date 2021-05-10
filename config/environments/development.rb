@@ -39,6 +39,15 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.smtp_settings = {
+    :user_name => Rails.application.credentials.sendgrid[:username], # This is the string literal 'apikey', NOT the ID of your API key
+    :password => Rails.application.credentials.sendgrid[:password], # This is the secret sendgrid API key which was issued during API key creation
+    :domain => 'heroku.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

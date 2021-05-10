@@ -59,6 +59,8 @@ class VouchersController < ApplicationController
       return render :new
     end
 
+    VoucherNotifierMailer.send_digital_voucher(@client).deliver
+
     if !@voucher.save
       return render :new
     end
