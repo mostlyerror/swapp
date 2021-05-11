@@ -10,42 +10,55 @@ const FamilyMember = (props) => {
   return (
     <div className="flex items-center justify-between p-2 grid grid-cols-10">
       <input
+        readOnly
         className="hidden"
         name={inputName(f.id, "first_name")}
         value={f.first_name}
       />
       <input
+        readOnly
         className="hidden"
         name={inputName(f.id, "last_name")}
         value={f.last_name}
       />
       <input
+        readOnly
         className="hidden"
         name={inputName(f.id, "relationship")}
         value={f.relationship}
       />
       <input
+        readOnly
         className="hidden"
         name={inputName(f.id, "date_of_birth")}
         value={f.date_of_birth}
       />
       <input
+        readOnly
         className="hidden"
         name={inputName(f.id, "gender")}
         value={f.gender}
       />
-      <input className="hidden" name={inputName(f.id, "race")} value={f.race} />
       <input
+        readOnly
+        className="hidden"
+        name={inputName(f.id, "race")}
+        value={f.race}
+      />
+      <input
+        readOnly
         className="hidden"
         name={inputName(f.id, "ethnicity")}
         value={f.ethnicity}
       />
       <input
+        readOnly
         className="hidden"
         name={inputName(f.id, "veteran")}
         value={f.veteran}
       />
       <input
+        readOnly
         className="hidden"
         name={inputName(f.id, "disabling_condition")}
         value={f.disabling_condition}
