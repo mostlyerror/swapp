@@ -4,6 +4,7 @@ import { HiOutlineSaveAs } from "react-icons/hi";
 
 class FamilyMemberForm extends Component {
   render() {
+    let f = this.props.familyMember;
     return (
       <div className="flex flex-col text-sm bg-white rounded-md shadow">
         <div className="p-2 sm:p-3 space-y-3 sm:space-y-4">
@@ -19,7 +20,7 @@ class FamilyMemberForm extends Component {
               name={this.props.first_name.key}
               className="w-full text-sm border border-gray-200 rounded-sm"
               onChange={this.props.handleChange}
-              value={this.props.familyMember.first_name}
+              value={f.first_name}
               autoFocus
             />
           </div>
@@ -35,7 +36,7 @@ class FamilyMemberForm extends Component {
               name={this.props.last_name.key}
               className="w-full text-sm border border-gray-200 rounded-sm"
               onChange={this.props.handleChange}
-              value={this.props.familyMember.last_name}
+              value={f.last_name}
             />
           </div>
           <div>
@@ -50,7 +51,7 @@ class FamilyMemberForm extends Component {
               name={this.props.relationship.key}
               className="w-full text-sm border border-gray-200 rounded-sm"
               onChange={this.props.handleChange}
-              value={this.props.familyMember.relationship}
+              value={f.relationship}
             />
           </div>
           <div>
@@ -65,7 +66,7 @@ class FamilyMemberForm extends Component {
               name={this.props.date_of_birth.key}
               className="w-full text-sm border border-gray-200 rounded-sm"
               onChange={this.props.handleChange}
-              value={this.props.familyMember.date_of_birth}
+              value={f.date_of_birth}
             />
           </div>
           <div>
@@ -79,7 +80,7 @@ class FamilyMemberForm extends Component {
               className="w-full text-sm border border-gray-200 rounded-sm"
               name={this.props.gender.key}
               onChange={this.props.handleChange}
-              value={this.props.familyMember.gender}
+              value={f.gender}
             >
               <option></option>
               {this.props.gender.choices.map((choice, idx) => (
@@ -94,17 +95,20 @@ class FamilyMemberForm extends Component {
             >
               {this.props.race.text}
             </label>
-            <select
-              className="w-full text-sm border border-gray-200 rounded-sm"
-              name={this.props.race.key}
-              onChange={this.props.handleChange}
-              value={this.props.familyMember.race}
-            >
-              <option></option>
-              {this.props.race.choices.map((choice, idx) => (
-                <option key={idx}>{choice}</option>
-              ))}
-            </select>
+            {this.props.race.choices.map((choice, idx) => (
+              <div key={idx}>
+                <input
+                  multiple
+                  type="checkbox"
+                  name={this.props.race.key}
+                  value={choice}
+                  checked={f.race.includes(choice)}
+                  id={choice}
+                  onChange={this.props.handleChange}
+                />
+                <label htmlFor={choice}>{choice}</label>
+              </div>
+            ))}
           </div>
           <div className="mt-2 p-1 space-y-4 text-sm">
             <div className="flex items-center justify-between">
@@ -118,6 +122,7 @@ class FamilyMemberForm extends Component {
                     name={this.props.ethnicity.key}
                     onChange={this.props.handleChange}
                     value={true}
+                    checked={f.ethnicity === "true"}
                   />
                   <label className="ml-1">Yes</label>
                 </span>
@@ -127,6 +132,7 @@ class FamilyMemberForm extends Component {
                     name={this.props.ethnicity.key}
                     onChange={this.props.handleChange}
                     value={false}
+                    checked={f.ethnicity === "false"}
                   />
                   <label className="ml-1">No</label>
                 </span>
@@ -143,6 +149,7 @@ class FamilyMemberForm extends Component {
                     name={this.props.veteran.key}
                     onChange={this.props.handleChange}
                     value={true}
+                    checked={f.veteran === "true"}
                   />
                   <label className="ml-1">Yes</label>
                 </span>
@@ -152,6 +159,7 @@ class FamilyMemberForm extends Component {
                     name={this.props.veteran.key}
                     onChange={this.props.handleChange}
                     value={false}
+                    checked={f.veteran === "false"}
                   />
                   <label className="ml-1">No</label>
                 </span>
@@ -168,6 +176,7 @@ class FamilyMemberForm extends Component {
                     name={this.props.disabling_condition.key}
                     onChange={this.props.handleChange}
                     value={true}
+                    checked={f.disabling_condition === "true"}
                   />
                   <label className="ml-1">Yes</label>
                 </span>
@@ -177,6 +186,7 @@ class FamilyMemberForm extends Component {
                     name={this.props.disabling_condition.key}
                     onChange={this.props.handleChange}
                     value={false}
+                    checked={f.disabling_condition === "false"}
                   />
                   <label className="ml-1">No</label>
                 </span>

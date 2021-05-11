@@ -9,6 +9,7 @@ const createFamilyMember = (id) => {
     last_name: "",
     relationship: "",
     date_of_birth: "",
+    race: "",
     ethnicity: "",
     veteran: "",
     disabling_condition: "",
@@ -34,15 +35,26 @@ class FamilyMembers extends Component {
   handleChange = (event) => {
     this.setState((prevState) => {
       let f = prevState.currentFamilyMember;
+      if (event.target.name == "race") {
+        let races = new Set(f.race.split(","));
+
+        event.target.checked
+          ? races.add(event.target.value)
+          : races.delete(event.target.value);
+
+        f.race = Array.from(races)
+          .filter((e) => String(e).trim())
+          .sort()
+          .join(",");
+        return { currentFamilyMember: f };
+      }
+
       f[event.target.name] = event.target.value;
-      return {
-        currentFamilyMember: f,
-      };
+      return { currentFamilyMember: f };
     });
   };
 
   handleEdit = (id) => {
-    console.log(`editing fam:${id}`);
     this.setState({
       currentFamilyMember: this.state.family.find((f) => f.id === id),
     });
