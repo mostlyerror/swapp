@@ -1,4 +1,8 @@
 Rails.application.configure do
+  ENV["STAGING"] == "true" ?
+    config.hosts << "swapp-staging-1.herokuapp.com" :
+    config.hosts << "swapp-1.herokuapp.com"
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
