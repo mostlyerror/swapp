@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { BsTrash } from "react-icons/bs";
 import { HiOutlineSaveAs } from "react-icons/hi";
 
-const inputName = (id, fieldName) =>
-  `short_intake[family_members][${id}][${fieldName}]`;
-
 class FamilyMemberForm extends Component {
   render() {
     return (
@@ -74,6 +71,25 @@ class FamilyMemberForm extends Component {
           <div>
             <label
               className="block text-xs sm:text-sm"
+              htmlFor={this.props.gender.key}
+            >
+              {this.props.gender.text}
+            </label>
+            <select
+              className="w-full text-sm border border-gray-200 rounded-sm"
+              name={this.props.gender.key}
+              onChange={this.props.handleChange}
+              value={this.props.familyMember.gender}
+            >
+              <option></option>
+              {this.props.gender.choices.map((choice, idx) => (
+                <option key={idx}>{choice}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label
+              className="block text-xs sm:text-sm"
               htmlFor={this.props.race.key}
             >
               {this.props.race.text}
@@ -84,6 +100,7 @@ class FamilyMemberForm extends Component {
               onChange={this.props.handleChange}
               value={this.props.familyMember.race}
             >
+              <option></option>
               {this.props.race.choices.map((choice, idx) => (
                 <option key={idx}>{choice}</option>
               ))}
