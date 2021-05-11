@@ -11,7 +11,7 @@ class Voucher < ApplicationRecord
   # num_adults_in_household
   # num_children_in_household
 
-  after_create :save_number
+  after_create :save_number, :digital_voucher
 
   LOW_SUPPLY_THRESHOLD = 10
 
@@ -33,6 +33,16 @@ class Voucher < ApplicationRecord
 
     self.check_out = self.check_out + nights
     save!
+  end
+
+  def digital_voucher
+    client = Twilio::REST::Client.new
+    
+    client.messages.create(
+        from: Rails.application.credentials.twilio_number,
+        to: Voucher.last.client.phone_number,
+        body: "Hello"
+      )
   end
 
   private 

@@ -58,15 +58,17 @@ class VouchersController < ApplicationController
       @existing_voucher = @swap.vouchers.find_by(client_id: @voucher.client_id)
       return render :new
     end
-
+    
     if !@voucher.save
       return render :new
     end
+
 
     redirect_to action: :created, id: @voucher.id
   end
 
   def created
+    
   end
 
   def show
