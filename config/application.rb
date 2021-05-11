@@ -8,7 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Swapp
   class Application < Rails::Application
-    config.hosts << '36fda4748b98.ngrok.io'
+    ENV["STAGING"] == "true" ?
+      config.hosts << "swapp-staging-1.herokuapp.com" :
+      config.hosts << "swapp-1.herokuapp.com"
 
     config.time_zone = "Mountain Time (US & Canada)"
     # Initialize configuration defaults for originally generated Rails version.
