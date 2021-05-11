@@ -1,8 +1,9 @@
 class VoucherNotifierMailer < ApplicationMailer
-    # default :from 'any_from_address@example.com'
+    default from: 'example@example.com'
 
     def send_digital_voucher
-        mail( :to => 'vagarioustoast@gmail.com',
-        :subject => 'Welcome')
-        end
+
+        # @client = client
+        mail(to: 'vagarioustoast@gmail.com', subject: 'Hello')
+    end
 end
