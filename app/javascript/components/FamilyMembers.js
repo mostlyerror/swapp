@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import { MdClose } from "react-icons/md";
-import { FiEdit3 } from "react-icons/fi";
-
 import FamilyMemberForm from "./FamilyMemberForm";
 import FamilyMember from "./FamilyMember";
 
 const createFamilyMember = (id) => {
   return {
     id: id,
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
+    relationship: "",
+    date_of_birth: "",
+    ethnicity: "",
+    veteran: "",
+    disabling_condition: "",
   };
 };
 
@@ -46,9 +48,11 @@ class FamilyMembers extends Component {
     });
   };
 
-  remove = (id) => {
+  remove = () => {
     this.setState((prevState) => ({
-      family: prevState.family.filter((f) => f.id !== id),
+      family: prevState.family.filter(
+        (f) => f.id !== this.state.currentFamilyMember.id
+      ),
       currentFamilyMember: null,
     }));
   };
@@ -72,18 +76,23 @@ class FamilyMembers extends Component {
 
   render() {
     return (
-      <div className="text-sm">
-        <p>Family Members</p>
-        <ul>
+      <div className="text-sm space-y-3">
+        <p className="text-lg text-center sm:text-left font-semibold tracking-wide">
+          Family Members
+        </p>
+        <ul className="mt-2 bg-white rounded shadow">
           {this.state.family.map((f, idx) => (
-            <li className="bg-white rounded shadow" key={f.id}>
-              <FamilyMember familyMember={f} onEdit={this.handleEdit} />
-            </li>
+            <FamilyMember
+              key={f.id}
+              familyMember={f}
+              onEdit={this.handleEdit}
+            />
           ))}
         </ul>
 
         {this.state.currentFamilyMember && (
           <FamilyMemberForm
+            {...this.props.sub_questions}
             familyMember={this.state.currentFamilyMember}
             handleChange={this.handleChange}
             remove={this.remove}
@@ -91,9 +100,18 @@ class FamilyMembers extends Component {
           />
         )}
 
-        <button type="button" className="" onClick={this.addNewFamilyMember}>
-          + add family member
-        </button>
+        {!this.state.currentFamilyMember && (
+          <div className="text-center">
+            <button
+              type="button"
+              className="px-2 py-1 bg-white hover:bg-gray-50 rounded shadow border border-indigo-600
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={this.addNewFamilyMember}
+            >
+              + add family member
+            </button>
+          </div>
+        )}
       </div>
     );
   }
