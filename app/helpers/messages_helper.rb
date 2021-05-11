@@ -17,7 +17,7 @@ module MessagesHelper
                 return "Today's Availability (#{Date.current}):\n\n#{vacancies.join()}" 
 
             else
-                return "Thank you for contacting the Swap hotline. The available command is SWAP. Please try again or call (720) 523-6646."
+                return "Thank you for contacting the Swap hotline. The only available command is SWAP.\n\nPlease try again or call (720) 523-6646."
             end
         else
             return "Swap is not currently active. Please check your activation email for details or call (720) 523-6646."
