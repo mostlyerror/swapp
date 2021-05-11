@@ -350,6 +350,11 @@ class Intake < ApplicationRecord
     choices: %w[ Yes No ]
   )
 
+  RELATIONSHIP = OpenStruct.new(
+    key: :relationship,
+    text: "Relationship"
+  )
+
   # currently this is used in the family member intake form only
   DISABLING_CONDITION = OpenStruct.new(
     key: :disabling_condition,
