@@ -76,4 +76,5 @@ gem "pg_search", "~> 2.3"
 
 gem "react-rails", "~> 2.6"
 
-gem "sendgrid-ruby", "~> 6.4"
+
+gem "sendgrid-actionmailer", "~> 3.2"
