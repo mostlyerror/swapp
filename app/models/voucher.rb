@@ -36,8 +36,8 @@ class Voucher < ApplicationRecord
   end
   # Sends digital voucher for newly created voucher instance
   def digital_voucher 
-    account_sid = ""
-    auth_token = ""
+    account_sid = ENV["TWILIO_SID"]
+    auth_token = ENV["TWILIO_TOKEN"]
     client = Twilio::REST::Client.new(account_sid, auth_token)
     client.messages.create(
         from: Rails.application.credentials.twilio_number,

@@ -72,3 +72,5 @@ gem "aasm", "~> 5.1"
 gem "amazing_print", "~> 1.3"
 
 gem 'twilio-ruby'
+
+gem "figaro"
