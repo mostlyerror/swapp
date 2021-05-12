@@ -116,7 +116,11 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+<<<<<<< HEAD
     listen (3.5.1)
+=======
+    listen (3.5.0)
+>>>>>>> emails
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.9.1)
@@ -124,6 +128,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
+<<<<<<< HEAD
     marcel (1.0.1)
     method_source (1.0.0)
     mini_mime (1.1.0)
@@ -140,6 +145,21 @@ GEM
       activerecord (>= 5.2)
       activesupport (>= 5.2)
     phonelib (0.6.48)
+=======
+    marcel (1.0.0)
+    method_source (1.0.0)
+    mini_mime (1.0.3)
+    mini_portile2 (2.5.0)
+    minitest (5.14.4)
+    msgpack (1.4.2)
+    nio4r (2.5.7)
+    nokogiri (1.11.2)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
+    orm_adapter (0.5.0)
+    pg (1.2.3)
+    phonelib (0.6.49)
+>>>>>>> emails
     public_suffix (4.0.6)
     puma (4.3.7)
       nio4r (~> 2.0)
@@ -189,6 +209,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    ruby_http_client (3.5.2)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -203,6 +224,8 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    sendgrid-ruby (6.4.0)
+      ruby_http_client (~> 3.4)
     smarter_csv (1.2.8)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
@@ -264,11 +287,12 @@ DEPENDENCIES
   pg_search (~> 2.3)
   phonelib (~> 0.6.48)
   puma (~> 4.1)
-  rails (~> 6.0.3, >= 6.0.3.5)
+  rails (~> 6.0.3, >= 6.0.3.6)
   ransack!
   react-rails (~> 2.6)
   sass-rails (>= 6)
   selenium-webdriver
+  sendgrid-ruby (~> 6.4)
   smarter_csv (~> 1.2)
   spring
   spring-watcher-listen (~> 2.0.0)

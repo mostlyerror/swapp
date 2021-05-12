@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.5'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -75,3 +75,5 @@ gem "amazing_print", "~> 1.3"
 gem "pg_search", "~> 2.3"
 
 gem "react-rails", "~> 2.6"
+
+gem "sendgrid-ruby", "~> 6.4"
