@@ -43,8 +43,8 @@ class Voucher < ApplicationRecord
 
     client = Twilio::REST::Client.new(account_sid, auth_token)
     client.messages.create(
-        from: Rails.application.credentials.twilio_number,
-        to: ENV['TWILIO_NUMBER'],
+        from: ENV['TWILIO_NUMBER'],
+        to: Voucher.last.client.phone_number,
         body: digi_voucher
       )
   end
