@@ -50,12 +50,12 @@
       <%= short_intake_form.label question.key, question.text,
         class: "block leading-snug font-semibold"
       %>
-      <%= short_intake_form.text_field question.key,
-        size: 23, 
-        value: @short_intake&.what_city_did_you_sleep_in_last_night,
-        required: true,
-        class: "mt-4 w-full rounded-lg p-8 text-6xl"
-      %>
+    <%= short_intake_form.text_field question.key,
+      size: 23, 
+      value: @short_intake&.what_city_did_you_sleep_in_last_night,
+      required: true,
+      class: "mt-4 w-full rounded-lg p-8 text-6xl"
+    %>
     </div>
 
     <div class="mt-16 text-gray-700">
@@ -73,7 +73,7 @@
             reason, 
             nil
           %>
-        <%= short_intake_form.label "#{question.key}_#{to_htmlfor(reason)}", reason %>
+        <%= short_intake_form.label question.key, reason %>
           </li>
         <% end %>
         <li class="flex flex-1 items-center relative">
@@ -102,10 +102,55 @@
       </ul>
     </div>
 
+    <div class="mt-16 w-full text-gray-700">
+      <% if !@previous_short_intakes.present? %>
+        <p class="block leading-tight font-semibold">
+          Has your household composition changed?
+        </p>
+        <div class="p-4 flex">
+          <label class="household_composition_changed_yes">
+            Yes
+            <input type="radio" 
+              class="w-8 h-8 mr-8 household_composition_changed_yes"
+              name="household_composition_changed"
+              required=true
+              value="Yes">
+          </label>
+          <label class="household_composition_changed_no">
+            No
+            <input type="radio" 
+              class="w-8 h-8 household_composition_changed_no"
+              name="household_composition_changed"
+              required=true
+              value="No">
+          </label>
+        </div>
+        <div id="family_members_container" class="hidden">
+          <div id="family_members" class="mt-16"></div>
+          <button type="button" id="add_family_member" class="btn btn-outline block rounded-lg text-center">
+            + Add Family Member
+          </button>
+        </div>
+      <% else %>
+        <div id="family_members_container">
+          <h3 class="text-6xl leading-6 font-medium text-gray-900">
+            Family Members
+          </h3>
+          <p class="mt-8 text-5xl text-gray-500">
+          If client has family currently with them, please add them below.
+          </p>
+          <div id="family_members" class="mt-16"></div>
+          <button type="button" id="add_family_member" class="btn btn-outline block rounded-lg text-center">
+            + Add Family Member
+          </button>
+        </div>
+      <% end %>
+    </div>
+
   </div>
 
   <div class="mt-16 bg-white border-8 border-black text-5xl">
-    <section class="p-12 border-b-8 border-gray-400 border-dashed">
+    <section class="p-16 border-b-8 border-gray-400 border-dashed">
       <div class="flex flex-1 justify-between">
         <strong>Voucher #</strong>
         <p>TBD</p>
@@ -115,7 +160,7 @@
         <p><%= @client.name %></p>
       </div>
     </section>
-    <section class="p-12 border-b-8 border-gray-400 border-dashed flex flex-1 space-x-16">
+    <section class="p-16 border-b-8 border-gray-400 border-dashed flex flex-1 space-x-16">
       <div class="w-full">
         <strong>Check In</strong>
         <%= form.date_field :check_in, 
@@ -138,7 +183,7 @@
       </div>
     </section>
 
-    <section class="p-12 border-b-8 border-gray-400 border-dashed">
+    <section class="p-16">
       <div class="field w-full">
         <%= form.label "hotel_id", "Hotel (vouchers remaining)", class: "font-bold block leading-relaxed" %>
         <%= form.select "hotel_id", 
@@ -147,48 +192,6 @@
           class: "mt-4 w-full rounded-lg p-8 text-6xl",
           required: true 
         %>
-      </div>
-    </section>
-
-    <section class="p-12 space-y-4">
-      <div>
-        <h3 class="font-bold text-5xl">Guests</h3>
-        <p class="mt-2 text-4.5xl text-gray-500 leading-tight">
-          Clients are allowed to bring up to XX guests. As a best practice,
-          try to avoid adding more than 2 guests per voucher holder - because
-          it makes our clients getting banned more likely.
-        </p>
-      </div>
-      <ul class="py-4 pb-20 flex">
-        <li class="relative flex-1">
-          <% choice = "Yes" %>
-          <%= form.radio_button :guests, true,
-            class: "absolute z-0 h-1 w-1",
-            required: true,
-            checked: nil,
-            tabindex: -1
-          %>
-          <%= form.label :guests, choice, 
-            id: "voucher_guests_#{choice.downcase}",
-            class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
-        </li>
-        <li class="relative flex-1">
-          <% choice = "No" %>
-          <%= form.radio_button :guests, false,
-            class: "absolute z-0 h-1 w-1",
-            required: true,
-            checked: nil,
-            tabindex: -1
-          %>
-          <%= form.label :guests, choice, 
-            id: "voucher_guests_#{choice.downcase}",
-            class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
-        </li>
-      </ul>
-      <div id="guests-form-container" class="w-full hidden">
-        <%= react_component("GuestsForm", client: @client, prior_guests: @client.prior_guests) %>
       </div>
     </section>
   </div>
@@ -224,6 +227,7 @@
         min: 0, step: 1, 
         class: "mt-4 rounded-lg w-full p-8 text-6xl", 
         value: @voucher.num_adults_in_household,
+        required: true,
         placeholder: question.placeholder 
       %>
     </div>
@@ -236,6 +240,7 @@
         min: 0, step: 1, 
         class: "mt-4 rounded-lg w-full p-8 text-6xl", 
         value: @voucher.num_children_in_household,
+        required: true,
         placeholder: question.placeholder 
       %>
     </div>
@@ -246,9 +251,8 @@
         class: "block leading-snug font-semibold" %>
       <div class="p-4">
         <% question.choices.each do |choice| %>
-          <%= short_intake_form.label "#{question.key}_#{to_htmlfor(choice)}", choice %>
+          <%= short_intake_form.label question.key, choice %>
           <%= short_intake_form.radio_button question.key, choice == "Yes", 
-            id: "voucher_short_intake_#{question.key}_#{to_htmlfor(choice)}",
             class: "h-10 w-10 mr-8",
             checked: @short_intake.bus_pass == choice,
             required: true
@@ -263,9 +267,8 @@
         class: "block leading-snug font-semibold" %>
       <div class="p-4">
         <% question.choices.each do |choice| %>
-          <%= short_intake_form.label "#{question.key}_#{to_htmlfor(choice)}", choice %>
+          <%= short_intake_form.label question.key, choice %>
           <%= short_intake_form.radio_button question.key, choice == "Yes", 
-            id: "voucher_short_intake_#{question.key}_#{to_htmlfor(choice)}",
             class: "h-10 w-10 mr-8",
             checked: @short_intake.king_soopers_card == choice,
             required: true
@@ -274,11 +277,106 @@
       </div>
     </div>
   </div>
-<% end %> <!-- end short intake form -->
+<% end %> <!-- end short_intake_form -->
 
 <div class="actions p-12">
   <%= form.submit "Create", class: "w-full btn btn-blue h-32 text-6xl" %>
 </div>
 <% end %> <!-- end voucher form -->
+
+<div id="template_family_member" class="hidden space-y-4 text-5xl my-12">
+  <input 
+  placeholder="Name"
+  name="short_intake[family_members][replace][name]"
+  class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+
+  <input
+  placeholder="Relationship"
+  name="short_intake[family_members][replace][relationship]"
+  class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+
+  <div class="p-4 flex flex-1 justify-between items-center text-gray-700">
+    <label for="short_intake[family_members][replace][date_of_birth]">
+      Date of birth
+    </label>
+    <input type="date" 
+    name="short_intake[family_members][replace][date_of_birth]" 
+    class="text-5xl rounded-lg text-gray-400 focus:ring-indigo-500 focus:border-indigo-500">
+  </div>
+
+  <select class="text-5xl w-full rounded-lg p-3" name="short_intake[family_members][replace][gender]">
+    <% Client::GENDER.each do |gender| %>
+      <option value="<%= gender %>"><%= gender %></option>
+    <% end %>
+  </select>
+
+  <ul class="flex flex-1 flex-col w-full p-3 space-y-4 text-gray-700">
+    <% Client::RACE.each do |race| %>
+      <li class="flex flex-1 items-baseline">
+        <label class="" for="short_intake[family_members][replace][race][]">
+          <input 
+          class="w-11 h-11 text-indigo-600"
+          type="checkbox"
+          value="<%= race %>"
+          name="short_intake[family_members][replace][race][]"
+          >
+          <%= race %>
+        </label>
+      </li>
+    <% end %>
+  </ul>
+
+  <div >
+    <select class="text-5xl w-full rounded-lg p-3" name="short_intake[family_members][replace][ethnicity]">
+      <% Client::ETHNICITY.each do |ethnicity| %>
+        <option value="<%= ethnicity %>"><%= ethnicity %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="text-gray-700 flex items-center justify-between">
+    <label for="short_intake[family_members][replace][veteran][]">
+      Veteran?
+    </label>
+    <div class="inline">
+      <label for="short_intake[family_members][replace][veteran][]">
+        Yes
+        <input type="radio" 
+               class="w-8 h-8"
+               name="short_intake[family_members][replace][veteran][]"
+               value="Yes">
+      </label>
+      <label for="short_intake[family_members][replace][veteran][]">
+        No
+        <input type="radio" 
+               class="w-8 h-8"
+               name="short_intake[family_members][replace][veteran][]"
+               value="No">
+      </label>
+    </div>
+  </div>
+
+  <div class="text-gray-700 flex items-center justify-between">
+    <label for="short_intake[family_members][replace][disabling_condition][]">
+      Disabling Condition?
+    </label>
+    <div class="inline">
+      <label for="short_intake[family_members][replace][disabling_condition][]">
+        Yes
+        <input type="radio" 
+               class="w-8 h-8"
+               name="short_intake[family_members][replace][disabling_condition][]"
+               value="Yes">
+      </label>
+      <label for="short_intake[family_members][replace][disabling_condition][]">
+        No
+        <input type="radio" 
+               class="w-8 h-8"
+               name="short_intake[family_members][replace][disabling_condition][]"
+               value="No">
+      </label>
+    </div>
+  </div>
+</div>
 
 <%= javascript_pack_tag "voucher_form" %>

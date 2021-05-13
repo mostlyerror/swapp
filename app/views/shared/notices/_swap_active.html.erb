@@ -2,41 +2,45 @@
   <%= render partial: 'shared/notices/intake_ended' %>
 <% else %>
   <% if @swap.present? %>
-    <div class="bg-indigo-100 border-2 border-indigo-300 divide-y-2 divide-indigo-300 rounded-md">
-      <section id="notice--swap-active" class="p-4 text-center">
-        <h5 class="font-semibold">SWAP is active</h5>
-        <div class="text-base md:text-xl text-indigo-900">
-          <p class="mt-3 leading-relaxed">Vouchers can be issued from<br/>
-            <strong><%= humanize_date_short(@swap.intake_start_date) %></strong> through <strong><%= humanize_date_short(@swap.intake_end_date) %></strong></p>
-          <p class="mt-3 leading-relaxed">Voucher check-in is <strong><%= humanize_date_short(@swap.start_date) %></strong></p>
-          <p class="leading-relaxed">Voucher check-out is <strong><%= humanize_date_short(@swap.end_date) %></strong></p>
+    <section id="notice--swap-active" class="notice bg-indigo-300">
+      <div class="bg-indigo-300">
+        <h3>SWAP is active.</h3>
+        <div class="text-indigo-900">
+          <p>Vouchers can be issued beginning <strong><%= humanize_date(@swap.intake_start_date) %></strong> through <strong><%= humanize_date(@swap.intake_end_date) %></strong></p>
+          <p>Voucher check-in is <strong><%= humanize_date(@swap.start_date) %></strong> and check-out is <strong><%= humanize_date(@swap.end_date) %></strong></p>
         </div>
-      </section>
-      <!-- voucher supply table -->
-      <div class="text-sm sm:text-lg md:text-xl" x-data="{ open: false }">
-        <div class="px-6 py-3 flex justify-between items-center">
-          <p class="font-semibold tabular-nums"><%= @num_vouchers_remaining_today %> vouchers left today</p>
-          <p class="underline text-indigo-900" @click="open = true" x-show="!open">+ view per hotel</p>
-          <p class="underline text-indigo-900" @click="open = false" x-show="open">- hide per hotel</p>
-        </div>
-        <ul class="px-6 py-4 flex flex-1 flex-col gap-1 border-t-2 border-indigo-300" x-show="open" @click.away="open = false">
-          <% @vouchers_remaining_today.each do |(hotel_id, vouchers)| %>
-            <li class="flex flex-1 justify-between items-center">
-              <p class="tabular-nums font-semibold"><%= vouchers %></p>
-              <p class=""><%= @hotel_map[hotel_id] %>
-                <% if Hotel.find(hotel_id).pet_friendly %>
-                  <span class="text-xs bg-yellow-200 px-1 py-1 rounded-md">dogs ok</span>
-                <% end %>
-              </p>
-            </li>
+        <% if SwapIntake.today_is_first_intake_day?(@swap) %>
+        <% elsif SwapIntake.today_is_last_intake_day?(@swap) %>
+          <p class="text-indigo-900">
+            <strong>Today is the last day to issue vouchers for the current SWAP period</strong>. However, administrators may extend voucher stays as well as the intake period.
+          </p>
+        <% end %>
+    </section>
+
+    <!-- voucher supply table -->
+    <div class="text-5xl" x-data="{ open: false }">
+      <p class="flex flex-1 justify-between font-bold p-6 text-white bg-indigo-900">
+      <span><%= @num_vouchers_remaining_today %> vouchers remaining today</span>
+      <span class="underline text-indigo-200" @click="open = true" x-show="!open">+ expand</span>
+      <span class="underline text-indigo-200" @click="open = false" x-show="open">- collapse</span>
+      </p>
+      <ul class="p-6 flex flex-1 flex-col space-y-6 bg-white border-2 border-gray-400" x-show="open" @click.away="open = false">
+        <% @vouchers_remaining_today.each do |(hotel_id, vouchers)| %>
+          <li class="flex flex-1 justify-between items-center">
+            <p class=""><%= @hotel_map[hotel_id] %>
+          <% if Hotel.find(hotel_id).pet_friendly %>
+            <span class="bg-yellow-100 text-4xl py-1 px-2">dogs ok</span>
           <% end %>
-        </ul>
-      </div>
+            </p>
+            <p class="tabular-nums font-semibold"><%= vouchers %></p>
+          </li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
-  <% if @num_vouchers_remaining_today&.zero? %>
-    <section id="notice--no-vouchers" class="p-4 bg-yellow-200 border-2 border-yellow-400 rounded-md">
-      <h5 class="text-center font-bold">Currently, there are no vouchers available to dispense.</h5>
-    </section>
-  <% end %>
+    <% if @num_vouchers_remaining_today&.zero? %> 
+      <section id="notice--no-vouchers" class="notice bg-yellow-300">
+        <h3>Currently, there are no available vouchers to dispense.</h3>
+      </section>
+    <% end %>
 <% end %>

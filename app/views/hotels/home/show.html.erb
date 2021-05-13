@@ -6,12 +6,15 @@
     <%= link_to "<< Vouchers", root_path, class: "link" %>
   <% end %>
   <!-- end back links -->
+
   <h4 class="font-bold"><%= @client.name %></h4>
   <% if @client.hotels.any? %>
     <% if @client.hotels.ids == current_user.hotels.ids || current_user.admin_user? %>
       <p class="text-red-500 text-2xl">Flagged <span class="italic text-xl">(last updated: <%= @flagged_stamps[0].to_date %>)</span></p>
     <% end %>
   <% end %>
+  <p class=""></p>
+
   <!-- admin only -->
   <% if current_user.admin_user? %>
     <section class="border border-red-500 mt-16 shadow-xl w-96 mx-auto">
@@ -24,6 +27,7 @@
             <div class="bg-red-300 border-l-4 border-red-500 p-4" role="alert"><%= msg %></div>
           <% end %>
         <% end %>
+
         <%= form_for(@client, url: admin_edit_red_flag_path(@client), method: :put) do |form| %>
           <%= form.label "Select Hotel(s) where client is flagged", class: "p-1 text-xl" %>
           <ul class="flex flex-1 flex-col p-3 overflow-y-scroll" style="height: 12rem">
@@ -40,6 +44,7 @@
               </li>
             <% end %>
           </ul>
+
           <div class="flex flex-1 p-3">
             <%= form.submit "Update Flags", class: "p-2 bg-blue-600 text-white hover:bg-blue-900 cursor-pointer" %>
           </div>
@@ -48,6 +53,7 @@
     </section>
   <% end %>
   <!-- end admin only -->
+
   <!-- guests -->
   <section class="mt-16">
     <h4 class="font-bold">Approved Guests</h4>
@@ -58,12 +64,14 @@
     </ul>
   </section>
   <!-- end guest -->
+
   <!-- incident history -->
   <section class="mt-16">
     <h4 class="font-bold">Past Incidents</h4>
     <% if @incident_reports.empty? %>
       <p class="text-2xl m-4"><strong>No incident reports to show!</strong></p>
     <% end %>
+
     <% @incident_reports.each do |incident| %>
       <div class="my-2 rounded border-top bg-gray-300 w-full">
         <div class="px-4 py-2">
@@ -73,14 +81,15 @@
         <div class="mt-2 px-4 py-2 bg-gray-100">
           <p class="font-black">Incident Date: <%= incident.occurred_at.to_date %></p>
           <p class="mt-2 tracking-wide leading-7"><%= incident.description %></p>
-        </div>
+        </div>  
       </div>
     <% end %>
   </section>
   <!-- end incident history-->
+
   <!-- new incident report form -->
-  <section class="mt-16">
-    <h5 class="font-bold">New Incident Report</h5>
+  <section class="mt-14">
+    <h4 class="font-bold">New Incident Report</h4>
     <div class="py-6">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -90,10 +99,12 @@
                 <%= form.label "Incident Date", class: "p-1 text-xl block strong"%>
                 <%= form.date_field :occurred_at, required: true, class: "w-1/3 mt-2" %>
               </div>
+
               <div>
                 <%= form.label :description, class: "p-1 text-xl block" %>
                 <%= form.text_area :description, placeholder: "Describe event here...", required: true, class: "w-full h-64 mt-2" %>
               </div>
+
               <div class="flex p-1">
                 <%= form.submit "Submit Report", class: "p-2 bg-blue-600 text-white hover:bg-blue-900 cursor-pointer" %>
               </div>

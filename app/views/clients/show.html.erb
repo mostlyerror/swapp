@@ -1,14 +1,12 @@
-<section class="mt-4 px-2 md:w-11/12 mx-auto">
-  <%= render partial: 'shared/swap_notices' %>
-  <div class="mt-4">
-    <h1 class="md:text-5xl text-gray-900 font-bold"><%= @client.name %></h1>
-    <div class="mt-6 p-1 text-sm smd:text-lg bg-white rounded shadow">
-      <%= react_component 'ClientEditForm', client: @client %>
-    </div>
-  </div>
+<section class="px-6 mt-16">
+  <h1 class="mt-24 text-9xl text-black font-bold"><%= @client.name %></h1>
+  <section class="mt-12">
+    <p class="text-6xl"><strong>Date of birth:</strong> <%= formatted_date(@client.date_of_birth) %></p>
+    <p class="text-6xl leading-loose"><strong>Gender:</strong> <%= @client.gender %></p>
+  </section>
 </section>
-
 <section class="text-5xl mt-16">
+  <%= render partial: 'shared/swap_notices' %>
   <div class="flex flex-1 flex-col font-bold space-y-16 ">
     <div class="w-full">
       <% if @red_flagged.any? %>

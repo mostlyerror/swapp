@@ -19,7 +19,7 @@
       <p class="mt-8"><%= humanize_date_short(@voucher.check_out) %></p>
     </div>
   </section>
-  <section class="p-16 border-b-8 border-gray-400 border-dashed">
+  <section class="p-16">
     <p class="mt-4">
       <strong><%= @voucher.hotel.name %></strong>
     </p>
@@ -27,19 +27,6 @@
       <p><%= @voucher.hotel.street_address %></p>
       <p><%= @voucher.hotel.address_second %></p>
       <p class="leading-loose"><%= @voucher.hotel.phone %></p>
-    </div>
-  </section>
-  <section class="p-16">
-    <p class="mt-4">
-      <strong>Guests</strong>
-      <p class="mt-2 text-5xl text-gray-500">
-        yo, don't bring anyone that isn't on here
-      </p>
-    </p>
-    <div class="mt-12 space-y-4">
-      <% @voucher.guests.each do |guest| %>
-        <p><%= link_to guest.name, client_path(guest), class: 'link' %></p>
-      <% end %>
     </div>
   </section>
 </div>

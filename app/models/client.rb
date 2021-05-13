@@ -1,7 +1,4 @@
 class Client < ApplicationRecord
-  include PgSearch::Model
-  pg_search_scope :that_sounds_like, against: [:first_name, :last_name], using: :dmetaphone
-
   GENDER = [
     "Female",
     "Male",
@@ -27,7 +24,7 @@ class Client < ApplicationRecord
 
   auto_strip_attributes :first_name, :last_name, :race, :phone_number, :email
 
-  validates_presence_of :first_name, :last_name, :date_of_birth
+  validates_presence_of :first_name, :last_name, :date_of_birth 
   validates :gender, inclusion: { in: Client::GENDER, allow_nil: true }
   validates :ethnicity, inclusion: { in: Client::ETHNICITY, allow_nil: true }
   # validate :accepted_race_values
@@ -44,9 +41,5 @@ class Client < ApplicationRecord
 
   def name
     "#{first_name} #{last_name}"
-  end
-
-  def prior_guests
-    vouchers.flat_map(&:guests).uniq
   end
 end

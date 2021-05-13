@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.6'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.5'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -14,7 +14,7 @@ gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-# gem 'turbolinks', '~> 5'
+gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -32,8 +32,11 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "factory_bot_rails", "~> 6.1"
+<<<<<<< HEAD
   gem "timecop", "~> 0.9.4"
   gem "dotenv-rails"
+=======
+>>>>>>> parent of 5491dea (sms-response << hotel-vouchers)
 end
 
 group :development do
@@ -74,9 +77,13 @@ gem "amazing_print", "~> 1.3"
 
 gem 'twilio-ruby'
 
+<<<<<<< HEAD
 gem "pg_search", "~> 2.3"
 
 gem "react-rails", "~> 2.6"
 
 gem "sendgrid-actionmailer", "~> 3.2"
 
+=======
+gem "figaro"
+>>>>>>> parent of 5491dea (sms-response << hotel-vouchers)

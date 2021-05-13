@@ -35,10 +35,6 @@ class Voucher < ApplicationRecord
     save!
   end
 
-  def guests
-    Client.where(id: self.guest_ids)
-  end
-
   private 
     def save_number
       self.number = "%.7d" % id
