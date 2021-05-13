@@ -11,7 +11,7 @@ class Voucher < ApplicationRecord
   # num_adults_in_household
   # num_children_in_household
 
-  after_create :save_number, :digital_voucher
+  after_create :save_number
 
   LOW_SUPPLY_THRESHOLD = 10
 
@@ -33,20 +33,6 @@ class Voucher < ApplicationRecord
 
     self.check_out = self.check_out + nights
     save!
-  end
-  # Sends digital voucher for newly created voucher instance
-  def digital_voucher 
-    account_sid = ENV['TWILIO_SID']
-    auth_token = ENV['TWILIO_TOKEN']
-
-    digi_voucher = "hello"
-
-    client = Twilio::REST::Client.new(account_sid, auth_token)
-    client.messages.create(
-        from: ENV['TWILIO_NUMBER'],
-        to: Voucher.last.client.phone_number,
-        body: digi_voucher
-      )
   end
 
   def guests
