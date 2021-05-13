@@ -33,6 +33,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "factory_bot_rails", "~> 6.1"
   gem "timecop", "~> 0.9.4"
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -78,5 +79,5 @@ gem "pg_search", "~> 2.3"
 
 gem "react-rails", "~> 2.6"
 
-
 gem "sendgrid-actionmailer", "~> 3.2"
+
