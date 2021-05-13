@@ -32,11 +32,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "factory_bot_rails", "~> 6.1"
-<<<<<<< HEAD
-  gem "timecop", "~> 0.9.4"
   gem "dotenv-rails"
-=======
->>>>>>> parent of 5491dea (sms-response << hotel-vouchers)
 end
 
 group :development do
@@ -77,13 +73,3 @@ gem "amazing_print", "~> 1.3"
 
 gem 'twilio-ruby'
 
-<<<<<<< HEAD
-gem "pg_search", "~> 2.3"
-
-gem "react-rails", "~> 2.6"
-
-gem "sendgrid-actionmailer", "~> 3.2"
-
-=======
-gem "figaro"
->>>>>>> parent of 5491dea (sms-response << hotel-vouchers)

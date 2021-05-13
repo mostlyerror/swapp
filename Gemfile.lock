@@ -190,10 +190,6 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     ruby2_keywords (0.0.4)
-<<<<<<< HEAD
-    ruby_http_client (3.5.2)
-=======
->>>>>>> parent of 5491dea (sms-response << hotel-vouchers)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -223,13 +219,9 @@ GEM
     thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
-<<<<<<< HEAD
-    timecop (0.9.4)
-=======
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
->>>>>>> parent of 5491dea (sms-response << hotel-vouchers)
     twilio-ruby (5.53.0)
       faraday (>= 0.9, < 2.0)
       jwt (>= 1.5, <= 2.5)
@@ -259,10 +251,6 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
-<<<<<<< HEAD
-  x76_64-linux
-=======
->>>>>>> parent of 5491dea (sms-response << hotel-vouchers)
   x86_64-darwin-19
   x86_64-darwin-20
   x86_64-linux
@@ -290,11 +278,7 @@ DEPENDENCIES
   smarter_csv (~> 1.2)
   spring
   spring-watcher-listen (~> 2.0.0)
-<<<<<<< HEAD
-  timecop (~> 0.9.4)
-=======
   turbolinks (~> 5)
->>>>>>> parent of 5491dea (sms-response << hotel-vouchers)
   twilio-ruby
   tzinfo-data
   web-console (>= 3.3.0)
