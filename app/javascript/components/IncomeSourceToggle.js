@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Toggle from "./Toggle";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { classNames } from "./utils";
 
 class IncomeSourceToggle extends Component {
   constructor(props) {
