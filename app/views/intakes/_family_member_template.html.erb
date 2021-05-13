@@ -1,0 +1,107 @@
+<div id="template_family_member" class="hidden space-y-8 text-5xl my-12">
+  <input name="intake[client_attributes][family_members][replace][first_name]"
+    id="family_members_replace_first_name"
+    placeholder="First Name"
+    class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+
+  <input name="intake[client_attributes][family_members][replace][last_name]"
+    id="family_members_replace_last_name"
+    placeholder="Last Name"
+    class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+
+  <input name="intake[client_attributes][family_members][replace][relationship]"
+    id="family_members_replace_relationship"
+    placeholder="Relationship"
+    class="p-4 w-full rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+
+  <div class="p-4 flex flex-1 justify-between items-center text-gray-700">
+    <label for="client_attributes[family_members][replace][date_of_birth]">
+      Date of birth
+    </label>
+    <input name="intake[client_attributes][family_members][replace][date_of_birth]" 
+      id="family_members_replace_date_of_birth"
+      type="date" 
+      class="text-5xl rounded-lg text-gray-400 focus:ring-indigo-500 focus:border-indigo-500">
+  </div>
+
+  <select name="intake[client_attributes][family_members][replace][gender]"
+    id="family_members_replace_gender"
+    class="text-5xl w-full rounded-lg p-3">
+    <% Client::GENDER.each do |gender| %>
+      <option value="<%= gender %>"><%= gender %></option>
+    <% end %>
+  </select>
+
+  <ul class="flex flex-1 flex-col w-full p-3 space-y-6 text-gray-700">
+    <% Client::RACE.each do |race| %>
+      <li class="flex flex-1 items-baseline">
+        <label class="" for="client_attributes[family_members][replace][race][]">
+          <input name="intake[client_attributes][family_members][replace][race][]"
+            id="family_members_replace_race"
+            type="checkbox"
+            value="<%= race %>"
+            class="w-11 h-11 text-indigo-600">
+          <%= race %>
+        </label>
+      </li>
+    <% end %>
+  </ul>
+
+  <div >
+    <select name="intake[client_attributes][family_members][replace][ethnicity]"
+      id="family_members_replace_ethnicity"
+      class="text-5xl w-full rounded-lg p-3">
+      <% Client::ETHNICITY.each do |ethnicity| %>
+        <option value="<%= ethnicity %>"><%= ethnicity %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="text-gray-700 flex items-center justify-between">
+    <label for="intake[client_attributes][family_members][replace][veteran]">
+      Veteran?
+    </label>
+    <div class="inline">
+      <label for="intake[client_attributes][family_members][replace][veteran]">
+        Yes
+        <input name="intake[client_attributes][family_members][replace][veteran]"
+          id="family_members_replace_veteran_yes"
+          type="radio" 
+          value="true"
+          class="w-8 h-8">
+      </label>
+      <label for="intake[client_attributes][family_members][replace][veteran]">
+        No
+        <input name="intake[client_attributes][family_members][replace][veteran]"
+          id="family_members_replace_veteran_no"
+          type="radio" 
+          value="false"
+          class="w-8 h-8">
+      </label>
+    </div>
+  </div>
+
+  <div class="text-gray-700 flex items-center justify-between">
+    <label for="intake[client_attributes][family_members][replace][disabling_condition]">
+      Disabling Condition?
+    </label>
+    <div class="inline">
+      <label for="intake[client_attributes][family_members][replace][disabling_condition]">
+        Yes
+        <input name="intake[client_attributes][family_members][replace][disabling_condition]"
+          id="family_members_replace_disabling_condition_yes"
+          type="radio" 
+          value="true"
+          class="w-8 h-8">
+      </label>
+      <label for="intake[client_attributes][family_members][replace][disabling_condition]">
+        No
+        <input name="intake[client_attributes][family_members][replace][disabling_condition]"
+          id="family_members_replace_disabling_condition_no"
+          type="radio" 
+          value="false"
+          class="w-8 h-8">
+      </label>
+    </div>
+  </div>
+</div>
