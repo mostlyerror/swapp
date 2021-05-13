@@ -1,0 +1,64 @@
+<div class="bg-white rounded shadow">
+  <div class="p-2 grid grid-cols-1 gap-4 items-center">
+    <div>
+      <span class="block leading-snug font-semibold">
+        First Name
+      </span>
+      <span>
+        <%= @client.first_name %>
+      </span>
+    </div>
+    <div>
+      <span class="block leading-snug font-semibold">
+        Last Name
+      </span>
+      <span>
+        <%= @client.last_name %>
+      </span>
+    </div>
+    <div>
+      <span class="block leading-snug font-semibold">
+        Date of Birth 
+      </span>
+      <span>
+        <%= @client.date_of_birth %>
+      </span>
+    </div>
+    <div>
+      <span class="block leading-snug font-semibold">
+        Gender Identity
+      </span>
+      <span>
+        <%= @client.gender %>
+      </span>
+    </div>
+    <div>
+      <span class="block leading-snug font-semibold">
+        Race
+      </span>
+      <span>
+        <%= @client.race.join(", ") %>
+      </span>
+    </div>
+    <div>
+      <span class="block leading-snug font-semibold">
+        Ethnicity
+      </span>
+      <span>
+        <%= @client.ethnicity %>
+      </span>
+    </div>
+  </div>
+  <div class="flex flex-1 items-center justify-center p-2 bg-gray-50 border-t border-gray-200">
+    <div class="flex items-center space-x-2">
+      <%= link_to(client_path(@client, editing: true), {
+          class: "flex items-center space-x-2 px-4 py-1 bg-white focus:outline-none
+          focus:ring-2 focus:ring-offset-2 text-gray-700 focus:ring-indigo-500
+          hover:bg-gray-50 rounded shadow border border-indigo-600"
+      }) do %>
+        <FiEdit />
+        <span>Edit Client Details</span>
+      <% end %>
+    </div>
+  </div>
+</div>

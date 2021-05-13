@@ -1,9 +1,13 @@
 <section class="mt-4 px-2 md:w-11/12 mx-auto">
   <%= render partial: 'shared/swap_notices' %>
-  <div class="mt-4">
+  <div class="mt-6">
     <h1 class="md:text-5xl text-gray-900 font-bold"><%= @client.name %></h1>
-    <div class="mt-6 p-1 text-sm smd:text-lg bg-white rounded shadow">
-      <%= react_component 'ClientEditForm', client: @client %>
+    <div class="mt-4">
+      <% if @editing %>
+        <%= render partial: 'client_details_form', client: @client %>
+      <% else %>
+        <%= render partial: 'client_details', client: @client %>
+      <% end %>
     </div>
   </div>
 </section>

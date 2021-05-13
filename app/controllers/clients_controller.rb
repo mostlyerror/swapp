@@ -19,9 +19,28 @@ class ClientsController < ApplicationController
 
   def show
     @client = Client.find(params[:id])
+    @editing = params[:editing]
     @existing_voucher = @swap&.vouchers&.find_by(client: @client)
     @red_flagged = Client.where(id: @client).joins(:red_flags)
     @flagged_hotels = @client.hotels.pluck(:name)
+  end
+
+  def update
+    @client = Client.find(params[:id])
+    client_params = params.require(:client).permit!
+
+    if client_params['date_of_birth'].blank?
+      client_params['date_of_birth'] = '1600-01-01'
+    end
+
+    client_params.merge!(
+      race: client_params[:race].reject {|r| r == "0" }.sort,
+    )
+
+    if @client.update(client_params)
+      return redirect_to @client
+    end
+    render :show
   end
 
   def create
