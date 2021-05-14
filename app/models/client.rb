@@ -40,7 +40,7 @@ class Client < ApplicationRecord
   has_many :incident_reports
 
   has_many :red_flags, class_name: 'RedFlag', table_name: :red_flags
-  has_many :hotels, through: :red_flags
+  has_many :flagged_hotels, through: :red_flags, source: :hotel
 
   def name
     "#{first_name} #{last_name}"
@@ -48,5 +48,13 @@ class Client < ApplicationRecord
 
   def prior_guests
     vouchers.flat_map(&:guests).uniq
+  end
+
+  def partial_ban?
+    !banned && flagged_hotels.any?
+  end
+
+  def no_flags?
+    !banned && flagged_hotels.empty?
   end
 end
