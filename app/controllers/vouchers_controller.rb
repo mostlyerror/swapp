@@ -73,8 +73,10 @@ class VouchersController < ApplicationController
   def send_voucher
     # EMAIL
     if params[:commit] == 'E-mail'
+      @voucher = Voucher.find(params[:id])
+      email = @voucher.client.email
       
-      SendGrid::Email.new()
+      VoucherMailer.voucher(email)
 
     # TEXT/SMS
     elsif params[:commit] == 'Text/SMS'

@@ -73,3 +73,4 @@ gem "amazing_print", "~> 1.3"
 
 gem 'twilio-ruby'
 
+gem "sendgrid-actionmailer"

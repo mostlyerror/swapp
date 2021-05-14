@@ -190,6 +190,7 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     ruby2_keywords (0.0.4)
+    ruby_http_client (3.5.2)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
@@ -204,6 +205,11 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    sendgrid-actionmailer (3.2.0)
+      mail (~> 2.7)
+      sendgrid-ruby (~> 6.4)
+    sendgrid-ruby (6.4.0)
+      ruby_http_client (~> 3.4)
     smarter_csv (1.2.8)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
@@ -275,6 +281,7 @@ DEPENDENCIES
   ransack!
   sass-rails (>= 6)
   selenium-webdriver
+  sendgrid-actionmailer
   smarter_csv (~> 1.2)
   spring
   spring-watcher-listen (~> 2.0.0)
