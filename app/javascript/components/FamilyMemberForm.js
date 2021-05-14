@@ -95,20 +95,27 @@ class FamilyMemberForm extends Component {
             >
               {this.props.race.text}
             </label>
-            {this.props.race.choices.map((choice, idx) => (
-              <div key={idx}>
-                <input
-                  multiple
-                  type="checkbox"
-                  name={this.props.race.key}
-                  value={choice}
-                  checked={f.race.includes(choice)}
-                  id={choice}
-                  onChange={this.props.handleChange}
-                />
-                <label htmlFor={choice}>{choice}</label>
-              </div>
-            ))}
+            <ul className="p-1">
+              {this.props.race.choices.map((choice, idx) => (
+                <li key={idx}>
+                  <input
+                    multiple
+                    className="w-4 h-4 rounded text-sm text-indigo-600
+                  border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+                  focus:ring-offset-0 focus:ring-3"
+                    type="checkbox"
+                    name={this.props.race.key}
+                    value={choice}
+                    checked={f.race.includes(choice)}
+                    id={choice}
+                    onChange={this.props.handleChange}
+                  />
+                  <label className="ml-2" htmlFor={choice}>
+                    {choice}
+                  </label>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="mt-2 p-1 space-y-4 text-sm">
             <div className="flex items-center justify-between">
