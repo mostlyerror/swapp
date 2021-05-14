@@ -1,55 +1,55 @@
 <%= form_with(model: @client) do |form| %>
-  <div class="p-2 grid grid-cols-1 gap-4 items-center bg-white rounded-top">
+  <div class="p-2 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-center md:items-start bg-white rounded-top">
     <div>
       <% question = Intake::FIRST_NAME %>
-      <%= form.label question.key, question.text, class: "text-sm sm:text-base block leading-snug font-semibold" %>
+      <%= form.label question.key, question.text, class: "text-sm sm:text-base md:text-xl block leading-snug font-semibold" %>
       <%= form.text_field question.key,
         size: 23, 
         value: @client.first_name,
         required: true,
-        class: "text-base xm:text-lg p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
+        class: "text-base sm:text-lg md:text-xl p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
       %>
     </div>
 
     <div>
       <% question = Intake::LAST_NAME %>
-      <%= form.label question.key, question.text, class: "text-sm sm:text-base block leading-snug font-semibold" %>
+      <%= form.label question.key, question.text, class: "text-sm sm:text-base md:text-xl block leading-snug font-semibold" %>
       <%= form.text_field question.key,
         size: 23, 
         value: @client.last_name,
         required: true,
-        class: "text-base xm:text-lg p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
+        class: "text-base sm:text-lg md:text-xl p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
       %>
     </div>
 
     <div>
       <% question = Intake::DATE_OF_BIRTH %>
-      <%= form.label question.key, question.text, class: "text-sm sm:text-base block leading-snug font-semibold" %>
+      <%= form.label question.key, question.text, class: "text-sm sm:text-base md:text-xl block leading-snug font-semibold" %>
       <%= form.date_field question.key,
         value: @client.date_of_birth,
         required: true,
-        class: "text-base xm:text-lg p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
+        class: "text-base sm:text-lg md:text-xl p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
       %>
     </div>
 
     <div>
       <% question = Intake::GENDER %>
-      <%= form.label question.key, question.text, class: "text-sm sm:text-base block leading-snug font-semibold" %>
+      <%= form.label question.key, question.text, class: "text-sm sm:text-base md:text-xl block leading-snug font-semibold" %>
       <%= form.select question.key,
         options_for_select(question.choices, @client.gender),
         {},
         required: true,
-        class: "text-base xm:text-lg p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
+        class: "text-base sm:text-lg md:text-xl p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
     %>
     </div>
 
     <div>
       <% question = Intake::RACE %>
-      <%= form.label question.key, question.text, class: "text-sm sm:text-base block leading-snug font-semibold" %>
-      <div class="mt-2 p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
+      <%= form.label question.key, question.text, class: "text-sm sm:text-base md:text-xl block leading-snug font-semibold" %>
+      <div class="mt-2 p-2 md:p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
         <ul class="flex flex-col w-full space-y-2">
           <% question.choices.each do |race| %>
-            <li class="p-1 flex items-center">
+            <li class="p-1 md:p-2 flex items-center">
               <%= form.check_box question.key, { 
                   multiple: true, 
                   checked: race.in?(@client.race || []),
@@ -59,7 +59,7 @@
                 },
                 race
               %>
-              <%= form.label "#{question.key}_#{to_htmlfor(race)}", race, class: "ml-4 text-base" %>
+              <%= form.label "#{question.key}_#{to_htmlfor(race)}", race, class: "ml-4 text-base md:text-lg" %>
             </li>
           <% end %>
         </ul>
@@ -68,37 +68,37 @@
 
     <div>
       <% question = Intake::ETHNICITY %>
-      <%= form.label question.key, question.text, class: "text-sm sm:text-base block leading-snug font-semibold" %>
+      <%= form.label question.key, question.text, class: "text-sm sm:text-base md:text-xl block leading-snug font-semibold" %>
       <%= form.select question.key,
         options_for_select(question.choices, @client.ethnicity),
         {},
         required: true,
-        class: "text-base xm:text-lg p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
+        class: "text-base sm:text-lg md:text-xl p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
       %>
     </div>
   </div>
 </div>
-<div class="flex items-center justify-center space-x-2 p-2 bg-gray-50 rounded-b shadow border-t border-gray-200">
+<div class="flex items-center justify-center md:justify-end space-x-2 md:space-x-6 p-2 md:p-6 bg-gray-50 rounded-b shadow border-t border-gray-200">
   <div class="flex items-center space-x-2">
     <%= link_to(client_path(@client), {
-        class: "flex items-center space-x-2 px-4 py-1 bg-white focus:outline-none
+        class: "flex items-center space-x-2 md:space-x-4 px-4 md:px-6 py-1 md:py-2 bg-white focus:outline-none
         focus:ring-2 focus:ring-offset-2 text-gray-700 focus:ring-indigo-500
         hover:bg-gray-50 rounded shadow border border-indigo-600"
     }) do %>
-      <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM8 14.5c-3.59 0-6.5-2.91-6.5-6.5s2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5z"></path><path d="M10.5 4l-2.5 2.5-2.5-2.5-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 2.5-2.5 2.5 2.5 1.5-1.5-2.5-2.5 2.5-2.5z"></path></svg>
-      <span class="text-sm">Cancel</span>
+      <svg class="w-3 h-3 md:w-5 md:h-5" stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 16 16"  xmlns="http://www.w3.org/2000/svg"><path d="M8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM8 14.5c-3.59 0-6.5-2.91-6.5-6.5s2.91-6.5 6.5-6.5 6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5z"></path><path d="M10.5 4l-2.5 2.5-2.5-2.5-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 2.5-2.5 2.5 2.5 1.5-1.5-2.5-2.5 2.5-2.5z"></path></svg>
+      <span class="text-sm md:text-xl">Cancel</span>
     <% end %>
   </div>
   <div class="flex items-center space-x-2">
     <button 
       type="submit"
-      class="flex items-center space-x-2 px-4 py-1
+      class="flex items-center space-x-2 md:space-x-4 px-4 md:px-6 py-1 md:py-2
       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 
       bg-indigo-600 hover:bg-indigo-700 border-indigo-500 text-white
       rounded shadow border"
     >
-      <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
-      <span class="text-sm">Save Changes</span>
+      <svg class="w-4 h-4 md:w-8 md:h-8" stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+      <span class="text-sm md:text-xl">Save Changes</span>
     </button>
   </div>
 <% end %>

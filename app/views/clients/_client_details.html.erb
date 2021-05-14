@@ -1,59 +1,59 @@
 <div class="rounded-lg bg-white shadow">
-  <div class="p-2 grid grid-cols-1 gap-4 items-center">
+  <div class="p-2 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-center">
     <div>
-      <span class="text-sm sm:text-base block leading-snug font-semibold">
+      <span class="text-sm sm:text-base md:text-2xl block leading-snug font-semibold">
         First Name
       </span>
-      <span class="text-base sm:text-lg">
+      <span class="text-base sm:text-lg md:text-2xl">
         <%= @client.first_name %>
       </span>
     </div>
     <div>
-      <span class="text-sm sm:text-base block leading-snug font-semibold">
+      <span class="text-sm sm:text-base md:text-2xl block leading-snug font-semibold">
         Last Name
       </span>
-      <span class="text-base sm:text-lg">
+      <span class="text-base sm:text-lg md:text-2xl">
         <%= @client.last_name %>
       </span>
     </div>
     <div>
-      <span class="text-sm sm:text-base block leading-snug font-semibold">
+      <span class="text-sm sm:text-base md:text-2xl block leading-snug font-semibold">
         Date of Birth 
       </span>
-      <span class="text-base sm:text-lg">
+      <span class="text-base sm:text-lg md:text-2xl">
         <%= @client.date_of_birth %>
       </span>
     </div>
     <div>
-      <span class="text-sm sm:text-base block leading-snug font-semibold">
+      <span class="text-sm sm:text-base md:text-2xl block leading-snug font-semibold">
         Gender Identity
       </span>
-      <span class="text-base sm:text-lg">
+      <span class="text-base sm:text-lg md:text-2xl">
         <%= @client.gender %>
       </span>
     </div>
     <div>
-      <span class="text-sm sm:text-base block leading-snug font-semibold">
+      <span class="text-sm sm:text-base md:text-2xl block leading-snug font-semibold">
         Race
       </span>
-      <span class="text-base sm:text-lg">
+      <span class="text-base sm:text-lg md:text-2xl">
         <%= @client.race.join(", ") %>
       </span>
     </div>
     <div>
-      <span class="text-sm sm:text-base block leading-snug font-semibold">
+      <span class="text-sm sm:text-base md:text-2xl block leading-snug font-semibold">
         Ethnicity
       </span>
-      <span class="text-base sm:text-lg">
+      <span class="text-base sm:text-lg md:text-2xl">
         <%= @client.ethnicity %>
       </span>
     </div>
   </div>
   <% if current_user.admin_user? %>
     <div class="flex flex-1 items-center justify-center bg-gray-50 border-t border-gray-200">
-      <div class="flex items-center space-x-2 p-2">
+      <div class="flex items-center space-x-2 p-2 md:p-6">
         <%= link_to(client_path(@client, editing: true), {
-            class: "flex items-center space-x-2 px-4 py-1 bg-white focus:outline-none
+            class: "flex items-center space-x-2 px-4 md:px-6 py-1 md:py-2 bg-white focus:outline-none
             focus:ring-2 focus:ring-offset-2 text-gray-700 focus:ring-indigo-500
             hover:bg-gray-50 rounded shadow border border-indigo-600"
         }) do %>
@@ -62,7 +62,7 @@
           width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 0
           0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5
           2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-          <span class="text-sm">Edit Client Details</span>
+          <span class="text-sm md:text-xl">Edit Client Details</span>
         <% end %>
       </div>
     </div>
