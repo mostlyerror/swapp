@@ -68,8 +68,21 @@ class VouchersController < ApplicationController
   end
 
   def created
-    
   end
+
+  def send_sms
+      account_sid = ENV['TWILIO_SID']
+      auth_token = ENV['TWILIO_TOKEN']
+      digi_voucher = "hello"
+
+      client = Twilio::REST::Client.new(account_sid, auth_token)
+      client.messages.create(
+          from: ENV['TWILIO_NUMBER'],
+          to: @voucher.client.phone_number,
+          body: digi_voucher
+        )
+  end
+
 
   def show
   end
