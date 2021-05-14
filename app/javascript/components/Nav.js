@@ -39,7 +39,10 @@ class Nav extends Component {
                 <div className="flex justify-between h-16">
                   <div className="flex">
                     <div className="flex-shrink-0 flex items-center">
-                      <a className="font-bold" href="/">
+                      <a
+                        className="font-bold text-sm sm:text-base md:text-lg"
+                        href="/"
+                      >
                         swapp
                       </a>
                     </div>
@@ -57,7 +60,7 @@ class Nav extends Component {
                                 item.current
                                   ? "border-indigo-500 text-gray-900"
                                   : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
-                                "inline-flex items-center px-1 pt-1 border-b-2 text-sm md:text-base font-medium"
+                                "inline-flex items-center px-1 pt-1 border-b-2 text-sm sm:text-base md:text-lg font-medium"
                               )}
                               aria-current={item.current ? "page" : undefined}
                             >
