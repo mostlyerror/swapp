@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :intakes
     resources :vouchers
     get "vouchers/:id/created" => "vouchers#created", as: :voucher_created
-    post "voucher/:id/send_sms" => "vouchers#send_sms", as: :send_sms
+    post "voucher/:id/send_voucher" => "vouchers#send_voucher", as: :send_voucher
     resources :swaps
   end
 
