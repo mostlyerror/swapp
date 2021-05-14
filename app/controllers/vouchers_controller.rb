@@ -71,17 +71,24 @@ class VouchersController < ApplicationController
   end
 
   def send_voucher
+    # EMAIL
     if params[:commit] == 'E-mail'
-      puts "Email was sent"
+      
+      SendGrid::Email.new()
 
+    # TEXT/SMS
     elsif params[:commit] == 'Text/SMS'
+      # CLIENT VOUCHER
       @voucher = Voucher.find(params[:id])
+
+      # CREDS
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_TOKEN']
+
+      # MESSAGE BODY
       digi_voucher = "Thanks, #{@voucher.client.name}! Your voucher for #{@voucher.hotel.name} is confirmed!\n\nVoucher #: #{@voucher.number}\n\n#{@voucher.hotel.name} is expecting you from #{@voucher.check_in} to #{@voucher.check_out}.\n\nAddress:\n\n#{@voucher.hotel.street_address}\n#{@voucher.hotel.address_second}\n#{@voucher.hotel.phone}"
-
-
-
+      
+      # API CALL
       client = Twilio::REST::Client.new(account_sid, auth_token)
       client.messages.create(
         from: ENV['TWILIO_NUMBER'],
