@@ -21,11 +21,6 @@ class ClientsController < ApplicationController
     @client = Client.find(params[:id])
     @editing = params[:editing]
     @existing_voucher = @swap&.vouchers&.find_by(client: @client)
-
-    # @red_flagged = Client.where(id: @client).joins(:red_flags)
-    # @red_flags = RedFlag.where(client: @client)
-    # ap @red_flags
-    # @flagged_hotels = @client.hotels.pluck(:name)
   end
 
   def update

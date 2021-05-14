@@ -29,6 +29,7 @@
   </div>
 
   <div class="mt-8 px-2">
+    <% if @swap.intake_active? %>
     <% if @client.partial_ban? %>
       <div class="text-base">
         <p><%= @client.first_name %> isn't eligible to receive vouchers at the following hotels:</p>
@@ -40,8 +41,8 @@
       </div>
 
       <div class="mt-8 text-center">
-        <%= button_to new_voucher_path(client_id: @client.id), { method: :get, params: { client_id: @client.id },
-          class: 'bg-indigo-600 hover:bg-indigo-700 text-white text-center px-4 py-1 rounded-lg shadow' } do %>
+        <%= button_to new_voucher_path(client_id: @client.id), { method: :get, params: { client_id: @client.id }, 
+            class: button_class(!@swap.intake_active?) } do %>
           <span class="text-base leading-tight font-semibold tracking-wide">Create Voucher</span>
           <span class="text-lg font-semibold">
             <svg class="inline" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em"
@@ -49,34 +50,45 @@
               <path fill-rule="evenodd"
                 d="M10.146 4.646a.5.5 0 01.708 0l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708-.708L12.793 8l-2.647-2.646a.5.5 0 010-.708z"
                 clip-rule="evenodd"></path>
-              <path fill-rule="evenodd" d="M2 8a.5.5 0 01.5-.5H13a.5.5 0 010 1H2.5A.5.5 0 012 8z" clip-rule="evenodd">
-              </path>
-            </svg>
-          </span>
-          <p class="mb-1 text-xs">above sites will <span class="italic">not</span> be available!</p>
-        <% end %>
-      </div>
-    <% end %>
-
-    <% if @client.no_flags? %>
-      <div class="mt-8 text-center">
-        <%= button_to new_voucher_path(client_id: @client.id), { 
-          method: :get, 
-          params: { client_id: @client.id }, 
-          class: 'bg-indigo-600 hover:bg-indigo-700 text-white text-center px-4 py-1 rounded-lg shadow' 
-        } do %>
-            <span class="text-lg leading-tight font-semibold tracking-wide">Create Voucher</span>
-            <span class="text-lg font-semibold">
-              <svg class="inline" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em"
-                width="1em" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10.146 4.646a.5.5 0 01.708 0l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708-.708L12.793 8l-2.647-2.646a.5.5 0 010-.708z"
-                  clip-rule="evenodd"></path>
                 <path fill-rule="evenodd" d="M2 8a.5.5 0 01.5-.5H13a.5.5 0 010 1H2.5A.5.5 0 012 8z" clip-rule="evenodd">
                 </path>
               </svg>
             </span>
+            <p class="mb-1 text-xs">above sites will <span class="italic">not</span> be available!</p>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if @client.no_flags? %>
+        <div class="mt-8 text-center">
+          <%= button_to new_voucher_path(client_id: @client.id), { method: :get, params: { client_id: @client.id }, 
+              class: button_class(!@swap.intake_active?) } do %>
+              <span class="text-lg leading-tight font-semibold tracking-wide">Create Voucher</span>
+              <span class="text-lg font-semibold">
+                <svg class="inline" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em"
+                  width="1em" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M10.146 4.646a.5.5 0 01.708 0l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708-.708L12.793 8l-2.647-2.646a.5.5 0 010-.708z"
+                    clip-rule="evenodd"></path>
+                  <path fill-rule="evenodd" d="M2 8a.5.5 0 01.5-.5H13a.5.5 0 010 1H2.5A.5.5 0 012 8z" clip-rule="evenodd">
+                  </path>
+                </svg>
+              </span>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="mt-8 text-center">
+        <%= button_tag nil, class: button_class(!@swap.intake_active?), disabled: true do %>
+          <span class="text-lg leading-tight font-semibold tracking-wide">Create Voucher</span>
+          <svg class="inline mb-1" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zM4 12c0-4.4 3.6-8 8-8 1.8 0 3.5.6 4.9 1.7L5.7 16.9C4.6 15.5 4 13.8 4 12zm8 8c-1.8 0-3.5-.6-4.9-1.7L18.3 7.1C19.4 8.5 20 10.2 20 12c0 4.4-3.6 8-8 8z">
+            </path>
+          </svg>
         <% end %>
+        <p class="mt-2 text-sm">Vouchers can only be issued during the SWAP intake period.</p>
       </div>
     <% end %>
   </div>
