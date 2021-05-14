@@ -12,7 +12,7 @@
   <% end %>
 
   <% if @client.no_flags? %>
-    <p><%= @client.first_name %> is eligible to receive vouchers at any participating SWAP hotel.</p>
+    <p class="mt-2 text-sm"><%= @client.first_name %> is eligible to receive vouchers at any participating SWAP hotel.</p>
   <% end %>
 
   <div class="mt-4">
@@ -30,7 +30,7 @@
 
   <div class="mt-8 px-2">
     <% if @client.partial_ban? %>
-      <div>
+      <div class="text-base">
         <p><%= @client.first_name %> isn't eligible to receive vouchers at the following hotels:</p>
         <ul class="p-1">
           <% @client.flagged_hotels.each do |hotel| %>
@@ -40,29 +40,31 @@
       </div>
 
       <div class="mt-8 text-center">
-        <%= link_to(new_voucher_path(client_id: @client.id)) do %>
-          <%= button_tag class: "inline-block px-6 pt-1 pb-2 text-white text-center bg-indigo-600 rounded-lg" do %>
-            <span class="text-lg leading-tight font-semibold tracking-wide">Create Voucher</span>
-            <span class="text-lg font-semibold">
-              <svg class="inline" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em"
-                width="1em" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10.146 4.646a.5.5 0 01.708 0l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708-.708L12.793 8l-2.647-2.646a.5.5 0 010-.708z"
-                  clip-rule="evenodd"></path>
-                <path fill-rule="evenodd" d="M2 8a.5.5 0 01.5-.5H13a.5.5 0 010 1H2.5A.5.5 0 012 8z" clip-rule="evenodd">
-                </path>
-              </svg>
-            </span>
-            <p class="text-xs">above sites will <span class="italic">not</span> be available!</p>
-          <% end %>
+        <%= button_to new_voucher_path(client_id: @client.id), { method: :get, params: { client_id: @client.id },
+          class: 'bg-indigo-600 hover:bg-indigo-700 text-white text-center px-4 py-1 rounded-lg shadow' } do %>
+          <span class="text-base leading-tight font-semibold tracking-wide">Create Voucher</span>
+          <span class="text-lg font-semibold">
+            <svg class="inline" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em"
+              width="1em" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M10.146 4.646a.5.5 0 01.708 0l3 3a.5.5 0 010 .708l-3 3a.5.5 0 01-.708-.708L12.793 8l-2.647-2.646a.5.5 0 010-.708z"
+                clip-rule="evenodd"></path>
+              <path fill-rule="evenodd" d="M2 8a.5.5 0 01.5-.5H13a.5.5 0 010 1H2.5A.5.5 0 012 8z" clip-rule="evenodd">
+              </path>
+            </svg>
+          </span>
+          <p class="mb-1 text-xs">above sites will <span class="italic">not</span> be available!</p>
         <% end %>
       </div>
     <% end %>
 
     <% if @client.no_flags? %>
       <div class="mt-8 text-center">
-        <%= link_to(new_voucher_path(client_id: @client.id)) do %>
-          <%= button_tag class: "inline-block px-6 pt-1 pb-2 text-white text-center bg-indigo-600 rounded-lg" do %>
+        <%= button_to new_voucher_path(client_id: @client.id), { 
+          method: :get, 
+          params: { client_id: @client.id }, 
+          class: 'bg-indigo-600 hover:bg-indigo-700 text-white text-center px-4 py-1 rounded-lg shadow' 
+        } do %>
             <span class="text-lg leading-tight font-semibold tracking-wide">Create Voucher</span>
             <span class="text-lg font-semibold">
               <svg class="inline" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em"
@@ -74,7 +76,6 @@
                 </path>
               </svg>
             </span>
-          <% end %>
         <% end %>
       </div>
     <% end %>
