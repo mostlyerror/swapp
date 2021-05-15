@@ -27,8 +27,7 @@
           <% end %>
         </div>
         <div class="mt-2 sm:mt-3 md:mt-4 flex items-center gap-2">
-          <%= short_intake_form.radio_button question.key,
-            "other_radio",
+          <%= short_intake_form.radio_button question.key, "other_radio",
             id: "#{question.key}_other_radio",
             class: "h-5 md:h-6 w-5 md:w-6 text-indigo-600"
           %> 
@@ -39,67 +38,64 @@
             value: @short_intake&.where_did_you_sleep_last_night&.starts_with?("Other:") && @short_intake&.where_did_you_sleep_last_night,
             name: "",
             id: "#{question.key}_other_text_field",
-            class: "w-full p-1 flex-1 focus:ring-indigo-500 focus:border-indigo-500 text-base sm:text-lg md:text-xl border-gray-300 rounded"
+            class: "w-full p-1 md:p-2 flex-1 focus:ring-indigo-500 focus:border-indigo-500 text-base sm:text-lg md:text-xl border-gray-300 rounded"
           %>
         </div>
       </div>
     </div>
 
-    <div class="">
+    <div>
       <% question = Intake::CITY_LAST_NIGHT %>
-      <%= short_intake_form.label question.key, question.text,
-        class: "block leading-snug font-semibold"
-      %>
-      <%= short_intake_form.text_field question.key,
-        size: 23, 
-        value: @short_intake&.what_city_did_you_sleep_in_last_night,
-        required: true,
-        class: "w-full rounded-lg"
-      %>
+      <%= short_intake_form.label question.key, question.text, class: "block leading-tight font-semibold text-base sm:text-lg md:text-xl" %>
+      <div class="mt-2 sm:mt-3 md:mt-4">
+        <%= short_intake_form.text_field question.key,
+          size: 23, 
+          value: @short_intake&.what_city_did_you_sleep_in_last_night,
+          required: true,
+          class: "w-full p-2 md:p-2 text-base sm:text-lg md:text-xl border border-gray-300 rounded"
+        %>
+      </div>
     </div>
 
-    <div class="text-gray-700">
+    <div>
       <% question = Intake::WHY_NOT_SHELTER %>
-      <%= short_intake_form.label question.key, question.text, 
-        class: "block leading-tight font-semibold" %>
-      <ul class="flex flex-1 flex-col w-full">
-        <% question.choices.each do |reason| %>
-          <li class="flex flex-1 items-baseline">
-            <%= short_intake_form.check_box question.key, 
-              {
-              multiple: true,
-              class: "w-11 h-11 text-indigo-600"
-            },
-            reason, 
-            nil
-          %>
-        <%= short_intake_form.label "#{question.key}_#{to_htmlfor(reason)}", reason %>
-          </li>
-        <% end %>
-        <li class="flex flex-1 items-center relative">
-          <div class="absolute inset-y-0 flex items-center pointer-events-none">
-            <span class="text-gray-500">
-              Other:
-            </span>
-          </div>
+      <%= short_intake_form.label question.key, question.text, class: "block leading-tight font-semibold text-base sm:text-lg md:text-xl" %>
+      <div class="mt-2 sm:mt-3 md:mt-4 p-2 sm:p-3 md:p-4 bg-white rounded shadow">
+        <div class="grid grid-cols-1 md:grid-cols-2 space-y-2 sm:space-y-3 md:space-y-4">
+          <% question.choices.each do |reason| %>
+            <div class="flex items-center gap-2 md:gap-3">
+              <%= short_intake_form.check_box question.key, { 
+                  multiple: true, 
+                  class: "h-4 w-4 md:h-5 md:w-5 text-indigo-600 rounded border border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
+                },
+                reason, 
+                nil
+              %>
+              <%= short_intake_form.label "#{question.key}_#{to_htmlfor(reason)}", reason, class: "text-base sm:text-lg md:text-xl" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="mt-2 sm:mt-3 md:mt-4 flex items-center gap-2">
           <% other_checked = @short_intake.why_not_shelter&.find {|r| r.starts_with?("Other:") } %>
           <%= short_intake_form.check_box question.key, 
             {
-            multiple: true, 
-            id: "why_not_shelter_other_checkbox",
-            checked: other_checked,
-            value: other_checked && @short_intake.why_not_shelter,
-            class: "w-11 h-11 text-indigo-600"
-          },
-          "other_checkbox"
-        %>
-      <input type="text" 
-             value="<%= other_checked %>"
-             id="<%= "#{question.key}_other_text_field" %>"
-             class="w-full focus:ring-indigo-500 focus:border-indigo-500 block border-gray-300 rounded-lg">
-        </li>
-      </ul>
-    </div>
+              multiple: true, 
+              id: "why_not_shelter_other_checkbox",
+              checked: other_checked,
+              value: other_checked && @short_intake.why_not_shelter,
+              class: "h-4 w-4 md:h-5 md:w-5 text-indigo-600 rounded border border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
+            },
+            "other_checkbox"
+          %>
+          <label for="why_not_shelter_other_checkbox" class="text-base sm:text-lg md:text-xl">
+            Other:
+          </label>
+          <input type="text" 
+            value="<%= other_checked %>"
+            id="<%= "#{question.key}_other_text_field" %>"
+            class="w-full p-1 md:p-2 flex-1 focus:ring-indigo-500 focus:border-indigo-500 text-base sm:text-lg md:text-xl border-gray-300 rounded">
+        </div>
+      </div>
     </div>
   </div>
 
