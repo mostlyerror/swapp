@@ -1,4 +1,4 @@
-<%= form_with(model: @intake) do |form| %>
+<%= form_with(model: @intake, local: true) do |form| %>
   <% if @intake.errors.any? %>
     <div id="error_explanation" class="my-16 p-8 text-6xl bg-red-400 font-bold">
       <p><%= pluralize(@intake.errors.count, "error") %> prohibited this intake from being saved:</p>
