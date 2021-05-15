@@ -5,4 +5,8 @@ module IntakesHelper
     .parameterize
     .underscore
   end
+
+  def to_radio_htmlfor(key, choice)
+    [key, choice].map {|i| i.to_s.parameterize.underscore }.join("_")
+  end
 end

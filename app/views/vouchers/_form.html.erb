@@ -1,51 +1,51 @@
 <%= form_with(model: @voucher, local: true) do |form| %>
+
+<div class="mt-4 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
   <% if @voucher.errors.any? %>
     <% @voucher.errors.full_messages.each do |message| %>
-      <li class="text-6xl"><%= message %></li>
+      <li class=""><%= message %></li>
     <% end %>
   <% end %>
+</div>
 
-  <div class="mt-16 text-6xl">
-    <div >
-      <%= form.fields_for :short_intake, @short_intake do |short_intake_form| %>
-        <% question = Intake::SLEEP_LAST_NIGHT %>
-        <%= short_intake_form.label question.key, question.text,
-          class: "block leading-tight font-semibold"  %>
-        <ul class="flex flex-1 flex-col space-y-12 p-12 text-6xl">
+<div class="mt-8 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto space-y-4 sm:space-y-6 md:space-y-8">
+  <%= form.fields_for :short_intake, @short_intake do |short_intake_form| %>
+    <div>
+      <% question = Intake::SLEEP_LAST_NIGHT %>
+      <%= short_intake_form.label question.key, question.text, class: "block leading-tight font-semibold text-base sm:text-lg md:text-xl" %>
+      <div class="mt-2 sm:mt-3 md:mt-4 p-2 sm:p-3 md:p-4 bg-white rounded shadow">
+        <div class="grid grid-cols-1 md:grid-cols-2 space-y-2 sm:space-y-3 md:space-y-4">
           <% question.choices.each do |choice| %>
-            <li>
-              <label>
-                <%= choice %>
-                <%= short_intake_form.radio_button question.key, choice,
-                  class: "h-10 w-10 mr-8",
-                  checked: @short_intake.where_did_you_sleep_last_night,
-                  required: true
-                %>
-              </label>
-            </li>
-          <% end %>
-          <li class="flex flex-1 items-center relative">
-            <div class="absolute inset-y-0 left-8 flex items-center pointer-events-none">
-              <span class="text-gray-500 text-5xl">
-                Other:
-              </span>
+            <div class="flex items-center gap-2 md:gap-3">
+              <%= short_intake_form.radio_button question.key, choice,
+                class: "h-5 md:h-6 w-5 md:w-6 text-indigo-600",
+                checked: @short_intake.where_did_you_sleep_last_night,
+                required: true
+              %>
+              <%= short_intake_form.label to_radio_htmlfor(question.key, choice), choice, class: "text-base sm:text-lg md:text-xl" %>
             </div>
-            <%= short_intake_form.text_field question.key,
-              value: @short_intake&.where_did_you_sleep_last_night&.starts_with?("Other:") && @short_intake&.where_did_you_sleep_last_night,
-              name: "",
-              id: "#{question.key}_other_text_field",
-              class: "flex-1 focus:ring-indigo-500 focus:border-indigo-500 block mr-6 pl-48 py-6 border-gray-300 rounded-lg text-5xl"
-            %>
-            <%= short_intake_form.radio_button question.key,
-              "other_radio",
-              id: "#{question.key}_other_radio",
-              class: "h-10 w-10 text-indigo-600"
-            %>
-          </li>
-        </ul>
+          <% end %>
+        </div>
+        <div class="mt-2 sm:mt-3 md:mt-4 flex items-center gap-2">
+          <%= short_intake_form.radio_button question.key,
+            "other_radio",
+            id: "#{question.key}_other_radio",
+            class: "h-5 md:h-6 w-5 md:w-6 text-indigo-600"
+          %> 
+          <label for="where_did_you_sleep_last_night_other_radio" class="text-base sm:text-lg md:text-xl">
+            Other:
+          </label>
+          <%= short_intake_form.text_field question.key,
+            value: @short_intake&.where_did_you_sleep_last_night&.starts_with?("Other:") && @short_intake&.where_did_you_sleep_last_night,
+            name: "",
+            id: "#{question.key}_other_text_field",
+            class: "w-full p-1 flex-1 focus:ring-indigo-500 focus:border-indigo-500 text-base sm:text-lg md:text-xl border-gray-300 rounded"
+          %>
+        </div>
+      </div>
     </div>
 
-    <div class="mt-16 text-gray-700">
+    <div class="">
       <% question = Intake::CITY_LAST_NIGHT %>
       <%= short_intake_form.label question.key, question.text,
         class: "block leading-snug font-semibold"
@@ -54,17 +54,17 @@
         size: 23, 
         value: @short_intake&.what_city_did_you_sleep_in_last_night,
         required: true,
-        class: "mt-4 w-full rounded-lg p-8 text-6xl"
+        class: "w-full rounded-lg"
       %>
     </div>
 
-    <div class="mt-16 text-gray-700">
+    <div class="text-gray-700">
       <% question = Intake::WHY_NOT_SHELTER %>
       <%= short_intake_form.label question.key, question.text, 
         class: "block leading-tight font-semibold" %>
-      <ul class="flex flex-1 flex-col w-full space-y-12 p-12 text-6xl">
+      <ul class="flex flex-1 flex-col w-full">
         <% question.choices.each do |reason| %>
-          <li class="flex flex-1 space-x-10 items-baseline">
+          <li class="flex flex-1 items-baseline">
             <%= short_intake_form.check_box question.key, 
               {
               multiple: true,
@@ -77,8 +77,8 @@
           </li>
         <% end %>
         <li class="flex flex-1 items-center relative">
-          <div class="absolute inset-y-0 left-28 flex items-center pointer-events-none">
-            <span class="text-gray-500 text-5xl">
+          <div class="absolute inset-y-0 flex items-center pointer-events-none">
+            <span class="text-gray-500">
               Other:
             </span>
           </div>
@@ -89,77 +89,76 @@
             id: "why_not_shelter_other_checkbox",
             checked: other_checked,
             value: other_checked && @short_intake.why_not_shelter,
-            class: "w-11 h-11 mr-10 text-indigo-600"
+            class: "w-11 h-11 text-indigo-600"
           },
           "other_checkbox"
         %>
       <input type="text" 
              value="<%= other_checked %>"
              id="<%= "#{question.key}_other_text_field" %>"
-             class="w-full focus:ring-indigo-500 focus:border-indigo-500 block
-             pl-44 py-6 border-gray-300 rounded-lg text-5xl">
+             class="w-full focus:ring-indigo-500 focus:border-indigo-500 block border-gray-300 rounded-lg">
         </li>
       </ul>
     </div>
-
+    </div>
   </div>
 
-  <div class="mt-16 bg-white border-8 border-black text-5xl">
-    <section class="p-12 border-b-8 border-gray-400 border-dashed">
+  <div class="bg-white border border-black">
+    <section class="border-b border-gray-400 border-dashed">
       <div class="flex flex-1 justify-between">
         <strong>Voucher #</strong>
         <p>TBD</p>
       </div>
-      <div class="mt-12 flex flex-1 justify-between">
+      <div class="flex flex-1 justify-between">
         <strong>Holder</strong>
         <p><%= @client.name %></p>
       </div>
     </section>
-    <section class="p-12 border-b-8 border-gray-400 border-dashed flex flex-1 space-x-16">
-      <div class="w-full">
+    <section class="border-b border-gray-400 border-dashed flex flex-1">
+      <div>
         <strong>Check In</strong>
         <%= form.date_field :check_in, 
           value: [@swap.start_date, Date.current].max, 
           min: [@swap.start_date, Date.current].max,
           max: @swap.end_date - 1,
           required: true,
-          class: "mt-8 w-full bg-white rounded-lg p-2 text-5xl" %>
+          class: "w-full bg-white rounded-lg" %>
       </div>
 
-      <div class="w-full">
+      <div>
         <strong>Check Out</strong>
         <%= form.date_field :check_out, 
           value: @swap.end_date,
           min: [@swap.end_date, Date.current].min,
           max: @swap.end_date,
           required: true,
-          class: "mt-8 w-full bg-white rounded-lg p-2 text-5xl" %>
+          class: "w-full bg-white rounded-lg" %>
           </p>
       </div>
     </section>
 
-    <section class="p-12 border-b-8 border-gray-400 border-dashed">
-      <div class="field w-full">
+    <section class="border-b border-gray-400 border-dashed">
+      <div>
         <%= form.label "hotel_id", "Hotel (vouchers remaining)", class: "font-bold block leading-relaxed" %>
         <%= form.select "hotel_id", 
           options_for_select(@hotels, disabled: @disabled),
           {include_blank: true},
-          class: "mt-4 w-full rounded-lg p-8 text-6xl",
+          class: "w-full rounded-lg",
           required: true 
         %>
       </div>
     </section>
 
-    <section class="p-12 space-y-4">
+    <section class="">
       <div>
-        <h3 class="font-bold text-5xl">Guests</h3>
-        <p class="mt-2 text-4.5xl text-gray-500 leading-tight">
+        <h3 class="font-bold">Guests</h3>
+        <p class="text-gray-500 leading-tight">
           Clients are allowed to bring up to XX guests. As a best practice,
           try to avoid adding more than 2 guests per voucher holder - because
           it makes our clients getting banned more likely.
         </p>
       </div>
-      <ul class="py-4 pb-20 flex">
+      <ul class="flex">
         <li class="relative flex-1">
           <% choice = "Yes" %>
           <%= form.radio_button :guests, true,
@@ -196,60 +195,60 @@
   <%= form.fields_for :client, @client do |client_form| %>
     <%= client_form.hidden_field :id, value: @client.id %>
 
-    <div class="p-12 text-6xl">
-      <div class="field w-full">
+    <div class="">
+      <div>
         <%= client_form.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
         <%= client_form.telephone_field :phone_number, 
-          class: "w-full rounded-lg p-8 text-6xl" %>
+          class: "w-full rounded-lg" %>
       </div>
 
       <div class="mt-12 field w-full">
         <%= client_form.label :email, "Email (optional)", class: "block leading-relaxed"  %>
         <%= client_form.email_field :email, 
-          class: "w-full rounded-lg p-8 text-6xl" %>
+          class: "w-full rounded-lg" %>
       </div>
     </div>
   <% end %> <!-- end client_form -->
 
-  <div class="mt-16 text-6xl">
-    <h3 class="text-center leading-6 font-medium text-gray-500 uppercase tracking-wide">
+  <div class="">
+    <h3 class="text-center font-medium text-gray-500 uppercase tracking-wide">
       INTERNAL USE BELOW
     </h3>
 
-    <div class="mt-16 w-full text-gray-700">
+    <div>
       <% question = Intake::NUM_ADULTS_HOUSEHOLD %>
       <%= form.label question.key, question.text,
         class: "block leading-relaxed font-semibold" %>
       <%= form.number_field question.key, 
         min: 0, step: 1, 
-        class: "mt-4 rounded-lg w-full p-8 text-6xl", 
+        class: "mt-4 rounded-lg w-full", 
         value: @voucher.num_adults_in_household,
         placeholder: question.placeholder 
       %>
     </div>
 
-    <div class="mt-16 w-full text-gray-700">
+    <div>
       <% question = Intake::NUM_CHILDREN_HOUSEHOLD %>
       <%= form.label question.key, question.text,
         class: "block leading-relaxed font-semibold" %>
       <%= form.number_field question.key, 
         min: 0, step: 1, 
-        class: "mt-4 rounded-lg w-full p-8 text-6xl", 
+        class: "rounded-lg w-full", 
         value: @voucher.num_children_in_household,
         placeholder: question.placeholder 
       %>
     </div>
 
-    <div class="mt-16 text-gray-700">
+    <div>
       <% question = Intake::BUS_PASS %>
       <%= short_intake_form.label question.key, question.text,
         class: "block leading-snug font-semibold" %>
-      <div class="p-4">
+      <div class="">
         <% question.choices.each do |choice| %>
           <%= short_intake_form.label "#{question.key}_#{to_htmlfor(choice)}", choice %>
           <%= short_intake_form.radio_button question.key, choice == "Yes", 
             id: "voucher_short_intake_#{question.key}_#{to_htmlfor(choice)}",
-            class: "h-10 w-10 mr-8",
+            class: "h-10 w-10",
             checked: @short_intake.bus_pass == choice,
             required: true
           %>
@@ -257,16 +256,16 @@
       </div>
     </div>
 
-    <div class="mt-16 text-gray-700">
+    <div>
       <% question = Intake::KING_SOOPERS_CARD %>
       <%= short_intake_form.label question.key, question.text,
         class: "block leading-snug font-semibold" %>
-      <div class="p-4">
+      <div class="">
         <% question.choices.each do |choice| %>
           <%= short_intake_form.label "#{question.key}_#{to_htmlfor(choice)}", choice %>
           <%= short_intake_form.radio_button question.key, choice == "Yes", 
             id: "voucher_short_intake_#{question.key}_#{to_htmlfor(choice)}",
-            class: "h-10 w-10 mr-8",
+            class: "h-10 w-10",
             checked: @short_intake.king_soopers_card == choice,
             required: true
           %>
@@ -276,8 +275,8 @@
   </div>
 <% end %> <!-- end short intake form -->
 
-<div class="actions p-12">
-  <%= form.submit "Create", class: "w-full btn btn-blue h-32 text-6xl" %>
+<div class="">
+  <%= form.submit "Create", class: "w-full btn btn-blue" %>
 </div>
 <% end %> <!-- end voucher form -->
 

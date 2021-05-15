@@ -7,7 +7,7 @@
   <h2 class="md:text-5xl text-gray-900 font-bold">New Client Intake</h2>
 </div>
 
-<div class="px-2 md:px-12 text-gray-700">
+<div class="mt-4 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
   <% if @intake.errors.any? %>
   <div id="error_explanation" class="my-16 p-8 bg-red-400 font-bold">
     <p><%= pluralize(@intake.errors.count, "error") %> prohibited this intake from being saved:</p>
