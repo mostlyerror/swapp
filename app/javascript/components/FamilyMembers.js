@@ -89,15 +89,17 @@ class FamilyMembers extends Component {
   render() {
     return (
       <div className="text-sm space-y-3">
-        <ul className="mt-2 bg-white rounded shadow">
-          {this.state.family.map((f, idx) => (
-            <FamilyMember
-              key={f.id}
-              familyMember={f}
-              onEdit={this.handleEdit}
-            />
-          ))}
-        </ul>
+        {this.state.family.length > 0 && (
+          <ul className="p-2 bg-white rounded shadow">
+            {this.state.family.map((f, idx) => (
+              <FamilyMember
+                key={f.id}
+                familyMember={f}
+                onEdit={this.handleEdit}
+              />
+            ))}
+          </ul>
+        )}
 
         {this.state.currentFamilyMember && (
           <FamilyMemberForm

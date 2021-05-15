@@ -6,7 +6,12 @@ class FamilyMemberForm extends Component {
   render() {
     let f = this.props.familyMember;
     return (
-      <div className="flex flex-col text-base sm:text-lg md:text-xl bg-white rounded-md shadow">
+      <div className="flex flex-col bg-white rounded shadow">
+        <div class="p-2">
+          <h2 className="font-bold text-base sm:text-lg md:text-xl">
+            New Family Member
+          </h2>
+        </div>
         <div className="p-2 sm:p-3 space-y-3 sm:space-y-4">
           <div>
             <label
@@ -95,12 +100,12 @@ class FamilyMemberForm extends Component {
             >
               {this.props.race.text}
             </label>
-            <ul className="p-1">
+            <ul className="p-1 space-y-1 sm:space-y-2 md:space-y-3">
               {this.props.race.choices.map((choice, idx) => (
                 <li key={idx}>
                   <input
                     multiple
-                    className="w-4 h-4 rounded text-sm text-indigo-600
+                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded text-indigo-600
                   border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
                   focus:ring-offset-0 focus:ring-3"
                     type="checkbox"
@@ -110,23 +115,26 @@ class FamilyMemberForm extends Component {
                     id={choice}
                     onChange={this.props.handleChange}
                   />
-                  <label className="ml-2" htmlFor={choice}>
+                  <label
+                    className="ml-2 sm:ml-3 md:ml-4 text-base sm:text-lg md:text-xl"
+                    htmlFor={choice}
+                  >
                     {choice}
                   </label>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="mt-2 p-1 space-y-4 text-sm">
+          <div className="mt-2 p-1 space-y-4">
             <div className="flex items-center justify-between">
               <label
-                clasName="text-base sm:text-lg md:text-xl"
+                className="text-base sm:text-lg md:text-xl"
                 htmlFor={this.props.ethnicity.key}
               >
                 {this.props.ethnicity.text}
               </label>
               <div className="flex items-center space-x-8">
-                <span>
+                <span className="inline-flex items-center">
                   <input
                     type="radio"
                     name={this.props.ethnicity.key}
@@ -134,9 +142,11 @@ class FamilyMemberForm extends Component {
                     value={true}
                     checked={f.ethnicity === "true"}
                   />
-                  <label className="ml-1">Yes</label>
+                  <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
+                    Yes
+                  </label>
                 </span>
-                <span>
+                <span className="inline-flex items-center">
                   <input
                     type="radio"
                     name={this.props.ethnicity.key}
@@ -144,16 +154,21 @@ class FamilyMemberForm extends Component {
                     value={false}
                     checked={f.ethnicity === "false"}
                   />
-                  <label className="ml-1">No</label>
+                  <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
+                    No
+                  </label>
                 </span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <label htmlFor={this.props.veteran.key}>
+              <label
+                className="text-base sm:text-lg md:text-xl"
+                htmlFor={this.props.veteran.key}
+              >
                 {this.props.veteran.text}
               </label>
               <div className="flex items-center space-x-8">
-                <span>
+                <span className="inline-flex items-center">
                   <input
                     type="radio"
                     name={this.props.veteran.key}
@@ -161,9 +176,11 @@ class FamilyMemberForm extends Component {
                     value={true}
                     checked={f.veteran === "true"}
                   />
-                  <label className="ml-1">Yes</label>
+                  <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
+                    Yes
+                  </label>
                 </span>
-                <span>
+                <span className="inline-flex items-center">
                   <input
                     type="radio"
                     name={this.props.veteran.key}
@@ -171,16 +188,21 @@ class FamilyMemberForm extends Component {
                     value={false}
                     checked={f.veteran === "false"}
                   />
-                  <label className="ml-1">No</label>
+                  <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
+                    No
+                  </label>
                 </span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <label htmlFor={this.props.disabling_condition.key}>
+              <label
+                className="text-base sm:text-lg md:text-xl"
+                htmlFor={this.props.disabling_condition.key}
+              >
                 {this.props.disabling_condition.text}
               </label>
               <div className="flex items-center space-x-8">
-                <span>
+                <span className="inline-flex items-center">
                   <input
                     type="radio"
                     name={this.props.disabling_condition.key}
@@ -188,9 +210,11 @@ class FamilyMemberForm extends Component {
                     value={true}
                     checked={f.disabling_condition === "true"}
                   />
-                  <label className="ml-1">Yes</label>
+                  <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
+                    Yes
+                  </label>
                 </span>
-                <span>
+                <span className="inline-flex items-center">
                   <input
                     type="radio"
                     name={this.props.disabling_condition.key}
@@ -198,22 +222,24 @@ class FamilyMemberForm extends Component {
                     value={false}
                     checked={f.disabling_condition === "false"}
                   />
-                  <label className="ml-1">No</label>
+                  <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
+                    No
+                  </label>
                 </span>
               </div>
             </div>
           </div>
         </div>
-        <div className="mt-3 p-4 flex items-center justify-center bg-gray-50 border-t border-gray-200 text-sm">
+        <div className="mt-3 p-4 flex items-center justify-center bg-gray-50 border-t border-gray-200">
           <button
             type="button"
             className="flex items-center space-x-2 px-2 sm:px-4 py-1 sm:py-2 border border-gray-400 rounded shadow"
             onClick={this.props.remove}
           >
             <span className="text-red-500">
-              <BsTrash className="w-3 h-3" />
+              <BsTrash className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
             </span>
-            <span>Delete</span>
+            <span className="text-sm sm:text-base md:text-lg">Delete</span>
           </button>
           <button
             type="button"
@@ -221,9 +247,11 @@ class FamilyMemberForm extends Component {
             onClick={this.props.save}
           >
             <span className="text-white">
-              <HiOutlineSaveAs className="w-4 h-4" />
+              <HiOutlineSaveAs className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
             </span>
-            <span>Save Family Member</span>
+            <span className="text-sm sm:text-base md:text-lg">
+              Save Family Member
+            </span>
           </button>
         </div>
       </div>

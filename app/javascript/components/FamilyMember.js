@@ -8,7 +8,7 @@ const inputName = (id, fieldName) =>
 const FamilyMember = (props) => {
   let f = props.familyMember;
   return (
-    <div className="flex items-center justify-between p-2 grid grid-cols-10">
+    <div className="flex items-center justify-between p-2 grid grid-cols-10 text-sm sm:text-base md:text-lg">
       <input
         readOnly
         className="hidden"
