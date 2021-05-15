@@ -6,11 +6,11 @@ class FamilyMemberForm extends Component {
   render() {
     let f = this.props.familyMember;
     return (
-      <div className="flex flex-col text-sm bg-white rounded-md shadow">
+      <div className="flex flex-col text-base sm:text-lg md:text-xl bg-white rounded-md shadow">
         <div className="p-2 sm:p-3 space-y-3 sm:space-y-4">
           <div>
             <label
-              className="block text-xs sm:text-sm"
+              className="block text-base sm:text-lg md:text-xl"
               htmlFor={this.props.first_name.key}
             >
               {this.props.first_name.text}
@@ -18,7 +18,7 @@ class FamilyMemberForm extends Component {
             <input
               type="text"
               name={this.props.first_name.key}
-              className="w-full text-sm border border-gray-200 rounded-sm"
+              className="w-full text-base sm:text-lg md:text-xl border border-gray-200 rounded-sm"
               onChange={this.props.handleChange}
               value={f.first_name}
               autoFocus
@@ -26,7 +26,7 @@ class FamilyMemberForm extends Component {
           </div>
           <div>
             <label
-              className="block text-xs sm:text-sm"
+              className="block text-base sm:text-lg md:text-xl"
               htmlFor={this.props.last_name.key}
             >
               {this.props.last_name.text}
@@ -34,14 +34,14 @@ class FamilyMemberForm extends Component {
             <input
               type="text"
               name={this.props.last_name.key}
-              className="w-full text-sm border border-gray-200 rounded-sm"
+              className="w-full text-base sm:text-lg md:text-xl border border-gray-200 rounded-sm"
               onChange={this.props.handleChange}
               value={f.last_name}
             />
           </div>
           <div>
             <label
-              className="block text-xs sm:text-sm"
+              className="block text-base sm:text-lg md:text-xl"
               htmlFor={this.props.relationship.key}
             >
               {this.props.relationship.text}
@@ -49,14 +49,14 @@ class FamilyMemberForm extends Component {
             <input
               type="text"
               name={this.props.relationship.key}
-              className="w-full text-sm border border-gray-200 rounded-sm"
+              className="w-full text-base sm:text-lg md:text-xl border border-gray-200 rounded-sm"
               onChange={this.props.handleChange}
               value={f.relationship}
             />
           </div>
           <div>
             <label
-              className="block text-xs sm:text-sm"
+              className="block text-base sm:text-lg md:text-xl"
               htmlFor={this.props.date_of_birth.key}
             >
               {this.props.date_of_birth.text}
@@ -64,20 +64,20 @@ class FamilyMemberForm extends Component {
             <input
               type="date"
               name={this.props.date_of_birth.key}
-              className="w-full text-sm border border-gray-200 rounded-sm"
+              className="w-full text-base sm:text-lg md:text-xl border border-gray-200 rounded-sm"
               onChange={this.props.handleChange}
               value={f.date_of_birth}
             />
           </div>
           <div>
             <label
-              className="block text-xs sm:text-sm"
+              className="block text-base sm:text-lg md:text-xl"
               htmlFor={this.props.gender.key}
             >
               {this.props.gender.text}
             </label>
             <select
-              className="w-full text-sm border border-gray-200 rounded-sm"
+              className="w-full text-base sm:text-lg md:text-xl border border-gray-200 rounded-sm"
               name={this.props.gender.key}
               onChange={this.props.handleChange}
               value={f.gender}
@@ -90,7 +90,7 @@ class FamilyMemberForm extends Component {
           </div>
           <div>
             <label
-              className="block text-xs sm:text-sm"
+              className="block text-base sm:text-lg md:text-xl"
               htmlFor={this.props.race.key}
             >
               {this.props.race.text}
@@ -119,7 +119,10 @@ class FamilyMemberForm extends Component {
           </div>
           <div className="mt-2 p-1 space-y-4 text-sm">
             <div className="flex items-center justify-between">
-              <label htmlFor={this.props.ethnicity.key}>
+              <label
+                clasName="text-base sm:text-lg md:text-xl"
+                htmlFor={this.props.ethnicity.key}
+              >
                 {this.props.ethnicity.text}
               </label>
               <div className="flex items-center space-x-8">

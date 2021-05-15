@@ -109,7 +109,7 @@ class Nav extends Component {
                                         active ? "bg-gray-100" : "",
                                         "block px-4 py-2 text-sm md:text-base text-gray-700"
                                       )}
-                                      data-method={item.dataMethod}
+                                      data-method={"delete"}
                                     >
                                       {item.name}
                                     </a>
@@ -181,6 +181,7 @@ class Nav extends Component {
                         key={item.name}
                         href={item.href}
                         className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100"
+                        data-method={item.dataMethod}
                       >
                         {item.name}
                       </a>

@@ -89,9 +89,6 @@ class FamilyMembers extends Component {
   render() {
     return (
       <div className="text-sm space-y-3">
-        <p className="text-lg text-center sm:text-left font-semibold tracking-wide">
-          Family Members
-        </p>
         <ul className="mt-2 bg-white rounded shadow">
           {this.state.family.map((f, idx) => (
             <FamilyMember
@@ -117,7 +114,9 @@ class FamilyMembers extends Component {
             <button
               type="button"
               className="px-2 py-1 bg-white hover:bg-gray-50 rounded shadow border border-indigo-600
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+              text-base sm:text-lg
+              "
               onClick={this.addNewFamilyMember}
             >
               + add family member
