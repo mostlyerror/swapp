@@ -361,4 +361,10 @@ class Intake < ApplicationRecord
     text: "Disabling Condition?",
     choices: %w[ Yes No ]
   )
+
+  GUESTS = OpenStruct.new(
+    key: :guests,
+    text: "Are you bringing guests?",
+    choices: %w[ Yes No ]
+  )
 end
