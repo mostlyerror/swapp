@@ -113,7 +113,7 @@
           min: [@swap.start_date, Date.current].max,
           max: @swap.end_date - 1,
           required: true,
-          class: "w-full bg-white rounded text-base sm:text-lg md:text-xl" %>
+          class: "w-full bg-white rounded text-base sm:text-lg md:text-xl border border-gray-300" %>
       </div>
 
       <div class="w-full">
@@ -123,7 +123,7 @@
           min: [@swap.end_date, Date.current].min,
           max: @swap.end_date,
           required: true,
-          class: "w-full bg-white rounded text-base sm:text-lg md:text-xl" %>
+          class: "w-full bg-white rounded text-base sm:text-lg md:text-xl border border-gray-300" %>
       </div>
     </div>
 
@@ -141,7 +141,7 @@
           options_for_select(@hotels, disabled: @disabled),
           {include_blank: true},
           required: true ,
-          class: "w-full bg-white rounded text-base sm:text-lg md:text-xl" %>
+          class: "w-full bg-white rounded text-base sm:text-lg md:text-xl border border-gray-300" %>
       </div>
     </div>
 
@@ -176,12 +176,12 @@
           <div class="flex flex-col md:flex-row gap-4">
             <div class="w-full">
               <%= client_form.label :phone_number, "Phone Number (optional)", class: "font-semibold block leading-relaxed"  %>
-              <%= client_form.telephone_field :phone_number, class: "w-full bg-white rounded text-base sm:text-lg md:text-xl" %>
+              <%= client_form.telephone_field :phone_number, class: "w-full bg-white rounded text-base sm:text-lg md:text-xl border border-gray-300" %>
             </div>
 
             <div class="w-full">
               <%= client_form.label :email, "Email (optional)", class: "font-semibold block leading-relaxed"  %>
-              <%= client_form.email_field :email, class: "w-full bg-white rounded text-base sm:text-lg md:text-xl" %>
+              <%= client_form.email_field :email, class: "w-full bg-white rounded text-base sm:text-lg md:text-xl border border-gray-300" %>
             </div>
           </div>
         <% end %>
@@ -197,6 +197,7 @@
       INTERNAL USE BELOW
     </h3>
 
+    <!--
     <div>
       <% question = Intake::NUM_ADULTS_HOUSEHOLD %>
       <%= form.label question.key, question.text,
@@ -220,7 +221,9 @@
         placeholder: question.placeholder 
       %>
     </div>
+    -->
 
+    
     <div>
       <% question = Intake::BUS_PASS %>
       <%= short_intake_form.label question.key, question.text,

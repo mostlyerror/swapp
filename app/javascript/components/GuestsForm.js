@@ -69,8 +69,7 @@ class GuestsForm extends Component {
         <input
           maxLength={24}
           {...props}
-          className="w-full p-2 text-base sm:text-lg md:text-xl
-          border border-gray-700 rounded"
+          className="w-full p-2 text-base sm:text-lg md:text-xl border border-gray-300 rounded"
           placeholder="search for a guest"
         />
         <Transition
