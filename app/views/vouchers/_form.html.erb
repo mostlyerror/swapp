@@ -106,7 +106,7 @@
 
       <div class="mt-4 flex flex-col md:flex-row gap-4">
         <div class="w-full">
-          <label class="font-semibold text-base sm:text-lg md:text-xl">Check Out</label>
+          <label class="font-semibold text-base sm:text-lg md:text-xl">Check In</label>
           <%= form.date_field :check_in, 
             value: [@swap.start_date, Date.current].max, 
             min: [@swap.start_date, Date.current].max,
@@ -212,6 +212,6 @@
   <% end %> <!-- end short intake form -->
 
   <div class="my-8 md:my-12 flex justify-center">
-    <%= form.submit "Create Voucher", class: "px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-base sm:text-lg md:text-xl text-white font-semibold rounded" %>
+    <%= form.submit "Create Voucher", class: "px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-lg sm:text-xl md:text-3xl text-white font-semibold rounded" %>
   </div>
 <% end %> <!-- end voucher form -->
