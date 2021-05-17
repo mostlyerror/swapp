@@ -313,23 +313,23 @@ class GuestsForm extends Component {
           onClose={this.cancelModal}
           className="fixed z-10 inset-0 overflow-y-auto"
         >
-          <div className="p-2 flex items-center justify-center min-h-screen">
+          <div className="p-2 sm:p-1 flex items-center justify-center min-h-screen">
             <Dialog.Overlay className="fixed inset-0 bg-black opacity-40" />
 
-            <div className="p-2 z-10 bg-white rounded max-w-xs mx-auto">
-              <Dialog.Title className="text-lg font-bold">
+            <div className="p-2 sm:p-4 md:p-6 z-10 bg-white rounded max-w-lg mx-auto">
+              <Dialog.Title className="text-lg sm:text-xl md:text-2xl font-bold">
                 Create New Guest
               </Dialog.Title>
-              <Dialog.Description className="text-base text-gray-700">
+              <Dialog.Description className="text-base sm:text-lg md:text-xl text-gray-700">
                 Something something record new client details for future...
               </Dialog.Description>
 
               {this.state.errors.length > 0 && (
-                <div className="my-2 rounded-lg bg-red-50 p-2">
-                  <div className="flex justify-center">
+                <div className="my-2 sm:my-4 md:my-6 rounded-lg bg-red-50 p-2">
+                  <div className="flex">
                     <div className="flex-shrink-0">
                       <svg
-                        className="h-5 w-5 text-red-400"
+                        className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8 text-red-400"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
@@ -342,12 +342,12 @@ class GuestsForm extends Component {
                         />
                       </svg>
                     </div>
-                    <div className="ml-2">
-                      <h3 className="text-sm font-medium text-red-800">
+                    <div className="ml-2 sm:ml-3 md:ml-4">
+                      <h3 className="text-sm sm:text-base md:text-lg font-medium text-red-800">
                         There were errors with your submission
                       </h3>
-                      <div className="mt-2 text-sm text-red-700">
-                        <ul className="list-disc space-y-1">
+                      <div className="mt-2 ml-2 sm:ml-3 md:ml-4 text-sm sm:text-base md:text-lg text-red-700">
+                        <ul className="list-disc space-y-1 md:space-y-2">
                           {this.state.errors.map((error, idx) => {
                             console.log(error);
                             return <li className="">{error}</li>;
@@ -359,15 +359,15 @@ class GuestsForm extends Component {
                 </div>
               )}
 
-              <div className="mt-2 flex flex-col space-between gap-2">
+              <div className="mt-2 sm:mt-4 md:mt-6 flex flex-col space-between gap-2 sm:gap-4 md:gap-6">
                 <div>
-                  <label className="block leading-snug text-base font-semibold">
+                  <label className="block leading-snug text-base sm:text-lg md:text-xl font-semibold">
                     First Name
                   </label>
                   <input
                     type="text"
                     maxLength={24}
-                    className="w-full rounded p-2 text-base border border-gray-300"
+                    className="w-full rounded p-2 sm:p-3 md:p-4 text-base sm:text-lg md:text-xl border border-gray-300"
                     value={this.state.newGuestFirstName}
                     onChange={(event) => {
                       this.setState((prevState) => {
@@ -380,13 +380,13 @@ class GuestsForm extends Component {
                   />
                 </div>
                 <div>
-                  <label className="block leading-snug text-base font-semibold">
+                  <label className="block leading-snug text-base sm:text-lg md:text-xl font-semibold">
                     Last Name
                   </label>
                   <input
                     type="text"
                     maxLength={24}
-                    className="w-full rounded p-2 text-base border border-gray-300"
+                    className="w-full rounded p-2 sm:p-3 md:p-4 text-base sm:text-lg md:text-xl border border-gray-300"
                     value={this.state.newGuestLastName}
                     onChange={(event) => {
                       this.setState((prevState) => {
@@ -399,12 +399,12 @@ class GuestsForm extends Component {
                   />
                 </div>
                 <div>
-                  <label className="block leading-snug text-base font-semibold">
+                  <label className="block leading-snug text-base sm:text-lg md:text-xl font-semibold">
                     Date of Birth
                   </label>
                   <input
                     type="date"
-                    className="w-full rounded p-2 text-base border border-gray-300"
+                    className="w-full rounded p-2 sm:p-3 md:p-4 text-base sm:text-lg md:text-xl border border-gray-300"
                     value={this.state.newGuestDateOfBirth}
                     onChange={(event) => {
                       this.setState((prevState) => {
@@ -417,25 +417,25 @@ class GuestsForm extends Component {
                   />
                 </div>
               </div>
-              <div className="mt-4 flex items-center gap-2">
+              <div className="mt-4 sm:mt-6 md:mt-8 flex items-center gap-2 sm:gap-3 md:gap-4">
                 <button
                   className="flex-1 text-base text-center px-4 py-2 border
-                  border-gray-300 shadow-sm text-xs font-medium rounded
+                  border-gray-300 shadow-sm text-xs sm:text-base md:text-lg font-medium rounded
                   text-gray-700 bg-white hover:bg-gray-50 focus:outline-none
                   focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   onClick={this.cancelModal}
                 >
-                  cancel
+                  Cancel
                 </button>
 
                 <button
                   className="flex-1 text-base text-center px-4 py-2 border
-                  border-gray-300 shadow-sm text-xs font-medium rounded
+                  border-gray-300 shadow-sm text-xs sm:text-base md:text-lg font-medium rounded
                   text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
                   focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   onClick={this.createGuest}
                 >
-                  create
+                  Create
                 </button>
               </div>
             </div>
