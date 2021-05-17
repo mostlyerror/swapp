@@ -187,75 +187,27 @@
         <% end %>
       </div>
     </div>
-
   </div>
 
-
+  <div class="mt-8 py-4 bg-gray-200 text-center text-base">
+    INTERNAL USE BELOW
   </div>
-  <div class="">
-    <h3 class="text-center font-medium text-gray-500 uppercase tracking-wide">
-      INTERNAL USE BELOW
-    </h3>
 
-    <!--
-    <div>
-      <% question = Intake::NUM_ADULTS_HOUSEHOLD %>
-      <%= form.label question.key, question.text,
-        class: "block leading-relaxed font-semibold" %>
-      <%= form.number_field question.key, 
-        min: 0, step: 1, 
-        class: "mt-4 rounded-lg w-full", 
-        value: @voucher.num_adults_in_household,
-        placeholder: question.placeholder 
-      %>
-    </div>
-
-    <div>
-      <% question = Intake::NUM_CHILDREN_HOUSEHOLD %>
-      <%= form.label question.key, question.text,
-        class: "block leading-relaxed font-semibold" %>
-      <%= form.number_field question.key, 
-        min: 0, step: 1, 
-        class: "rounded-lg w-full", 
-        value: @voucher.num_children_in_household,
-        placeholder: question.placeholder 
-      %>
-    </div>
-    -->
-
-    
+  <div class="mt-8 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
     <div>
       <% question = Intake::BUS_PASS %>
-      <%= short_intake_form.label question.key, question.text,
-        class: "block leading-snug font-semibold" %>
-      <div class="">
-        <% question.choices.each do |choice| %>
-          <%= short_intake_form.label "#{question.key}_#{to_htmlfor(choice)}", choice %>
-          <%= short_intake_form.radio_button question.key, choice == "Yes", 
-            id: "voucher_short_intake_#{question.key}_#{to_htmlfor(choice)}",
-            class: "h-10 w-10",
-            checked: @short_intake.bus_pass == choice,
-            required: true
-          %>
-      <% end %>
-      </div>
+      <%= react_component('Toggle', 
+        question: question.to_h,
+        name: "voucher[short_intake][bus_pass]"
+      ) %>
     </div>
 
     <div>
       <% question = Intake::KING_SOOPERS_CARD %>
-      <%= short_intake_form.label question.key, question.text,
-        class: "block leading-snug font-semibold" %>
-      <div class="">
-        <% question.choices.each do |choice| %>
-          <%= short_intake_form.label "#{question.key}_#{to_htmlfor(choice)}", choice %>
-          <%= short_intake_form.radio_button question.key, choice == "Yes", 
-            id: "voucher_short_intake_#{question.key}_#{to_htmlfor(choice)}",
-            class: "h-10 w-10",
-            checked: @short_intake.king_soopers_card == choice,
-            required: true
-          %>
-      <% end %>
-      </div>
+      <%= react_component('Toggle', 
+        question: question.to_h,
+        name: "voucher[short_intake][king_soopers_card]"
+      ) %>
     </div>
   </div>
 <% end %> <!-- end short intake form -->
