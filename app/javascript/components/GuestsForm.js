@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import Autocomplete from "react-autocomplete";
 import axios from "axios";
 import _ from "lodash";
@@ -16,6 +17,7 @@ class GuestsForm extends Component {
     newGuestLastName: "",
     newGuestDateOfBirth: "",
     errors: [],
+    showModal: false,
   };
 
   fetchClients = _.debounce((term) => {
@@ -64,16 +66,32 @@ class GuestsForm extends Component {
   renderInput = (props) => {
     return (
       <div className="relative">
-        <input maxLength={24} {...props} />
-        {this.state.val.length > 2 && (
+        <input
+          maxLength={24}
+          {...props}
+          className="w-full p-2 text-base sm:text-lg md:text-xl
+          border border-gray-700 rounded"
+          placeholder="search for a guest"
+        />
+        <Transition
+          appear={true}
+          show={this.state.val.length > 2}
+          enter="transition-opacity duration-200"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-150"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
           <button
             type="button"
-            className="btn btn-indigo absolute top-18 right-6 text-4xl"
+            className="px-3 py-1 bg-indigo-600 absolute inset-y-1 right-1
+            text-white text-base sm:text-lg md:text-xl rounded"
             onClick={this.openModal}
           >
             create
           </button>
-        )}
+        </Transition>
       </div>
     );
   };
@@ -86,7 +104,7 @@ class GuestsForm extends Component {
       id={`add_guest_${item.id}`}
       className={`item ${
         isHighlighted ? "selected-item" : ""
-      } mt-16 grid grid-cols-11 space-evenly gap-4`}
+      } mt-4 grid grid-cols-11 space-evenly gap-4`}
     >
       <div
         className={`${
@@ -181,7 +199,7 @@ class GuestsForm extends Component {
       })
       .catch((err) => {
         this.setState({
-          errors: [err.response.data],
+          errors: err.response.data,
         });
       });
   };
@@ -213,35 +231,38 @@ class GuestsForm extends Component {
         <div id="guests">
           {this.state.selected.length === 0 &&
             this.props.prior_guests.length > 0 && (
-              <div className="mt-8 flex flex-col items-center">
-                <p className="text-5xl">
-                  This client has had guests previously. You can add these
-                  guests before searching.
+              <div className="mt-4 sm:mt-6 md:mt-8">
+                <p className="text-base sm:text-lg md:text-xl leading-loose">
+                  <span className="inline md:block md:text-center">
+                    {this.props.client.first_name} has had guests previously.
+                  </span>
+                  <span className="block md:text-center">
+                    <button
+                      type="button"
+                      onClick={this.addPriorGuests}
+                      class="px-2 py-1 bg-white hover:bg-gray-50 rounded shadow
+                      border border-indigo-600 focus:outline-none focus:ring-2
+                      focus:ring-offset-2 focus:ring-indigo-500 text-base sm:text-lg md:text-xl
+                      transition-transform ease-in-out duration-1000 transform translate-x-full
+                      "
+                    >
+                      add prior guests
+                    </button>{" "}
+                    before searching.
+                  </span>
                 </p>
-                <button
-                  type="button"
-                  onClick={this.addPriorGuests}
-                  className="text-5xl text-center font-semibold text-indigo-500 hover:bg-gray-50 
-                  w-3/5 mt-6 py-4 border border-indigo-500 shadow-sm rounded 
-                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  + add prior guests
-                </button>
               </div>
             )}
 
           {this.state.selected.length > 0 && (
-            <div>
-              <div className="grid grid-cols-11 space-evenly gap-4 pt-12">
+            <div className="my-4 sm:my-6 md:my-8">
+              <div className="grid grid-cols-11 space-evenly gap-4">
                 <div className="col-span-5 font-semibold">Name</div>
                 <div className="col-span-5 font-semibold">DOB</div>
-                <div key="guests-list" className="text-right"></div>
+                <div className="text-right"></div>
               </div>
               {this.state.selected.map((guest, idx) => (
-                <div
-                  key={idx}
-                  className="grid grid-cols-11 space-evenly gap-4 pt-12"
-                >
+                <div key={idx} className="grid grid-cols-11 space-evenly gap-4">
                   <input
                     className="hidden"
                     type="hidden"
@@ -274,7 +295,7 @@ class GuestsForm extends Component {
           getItemValue={(item) => `${item.first_name} ${item.last_name}`}
           inputProps={{
             id: "guest_autocomplete",
-            className: "border border-gray-350 rounded-lg mt-12 p-8 w-full",
+            className: "mt-6 p-1 w-full border border-gray-300 rounded",
             autoComplete: "false",
             placeholder: "Search for a guest",
           }}
@@ -288,127 +309,139 @@ class GuestsForm extends Component {
           isItemSelectable={this.isItemSelectable}
         />
 
-        <ReactModal
-          ariaHideApp={false}
-          isOpen={this.state.showModal}
-          onRequestClose={this.closeModal}
-          transparent={true}
-          overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-75 z-20"
-          className="absolute inset-y-1/4 sm:inset-y-1/8 inset-x-8 border border-gray-300 bg-white opacity-100 overflow-auto rounded-lg py-20 px-12"
-          contentLabel="Create Guest Modal"
+        <Dialog
+          open={this.state.showModal}
+          onClose={this.cancelModal}
+          className="fixed z-10 inset-0 overflow-y-auto"
         >
-          <h3 className="text-5xl font-bold">Create New Guest</h3>
+          <div className="p-2 flex items-center justify-center min-h-screen">
+            <Dialog.Overlay className="fixed inset-0 bg-black opacity-40" />
 
-          {this.state.errors.length > 0 && (
-            <div className="mt-12 rounded-lg bg-red-50 p-4">
-              <div className="flex justify-center">
-                <div className="flex-shrink-0">
-                  <svg
-                    className="h-10 w-10 text-red-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    ariaHidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <div className="ml-3">
-                  <h3 className="text-4xl font-medium text-red-800">
-                    There were errors with your submission
-                  </h3>
-                  <div className="mt-2 text-4xl text-red-700">
-                    <ul className="list-disc pl-5 space-y-1">
-                      {this.state.errors.map((error, idx) => {
-                        return <li>{error}</li>;
-                      })}
-                    </ul>
+            <div className="p-2 z-10 bg-white rounded max-w-xs mx-auto">
+              <Dialog.Title className="text-lg font-bold">
+                Create New Guest
+              </Dialog.Title>
+              <Dialog.Description className="text-base text-gray-700">
+                Something something record new client details for future...
+              </Dialog.Description>
+
+              {this.state.errors.length > 0 && (
+                <div className="my-2 rounded-lg bg-red-50 p-2">
+                  <div className="flex justify-center">
+                    <div className="flex-shrink-0">
+                      <svg
+                        className="h-5 w-5 text-red-400"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        ariaHidden="true"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <div className="ml-2">
+                      <h3 className="text-sm font-medium text-red-800">
+                        There were errors with your submission
+                      </h3>
+                      <div className="mt-2 text-sm text-red-700">
+                        <ul className="list-disc space-y-1">
+                          {this.state.errors.map((error, idx) => {
+                            console.log(error);
+                            return <li className="">{error}</li>;
+                          })}
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              )}
+
+              <div className="mt-2 flex flex-col space-between gap-2">
+                <div>
+                  <label className="block leading-snug text-base font-semibold">
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={24}
+                    className="w-full rounded p-2 text-base border border-gray-300"
+                    value={this.state.newGuestFirstName}
+                    onChange={(event) => {
+                      this.setState((prevState) => {
+                        return {
+                          ...prevState,
+                          newGuestFirstName: event.target.value,
+                        };
+                      });
+                    }}
+                  />
+                </div>
+                <div>
+                  <label className="block leading-snug text-base font-semibold">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={24}
+                    className="w-full rounded p-2 text-base border border-gray-300"
+                    value={this.state.newGuestLastName}
+                    onChange={(event) => {
+                      this.setState((prevState) => {
+                        return {
+                          ...prevState,
+                          newGuestLastName: event.target.value,
+                        };
+                      });
+                    }}
+                  />
+                </div>
+                <div>
+                  <label className="block leading-snug text-base font-semibold">
+                    Date of Birth
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full rounded p-2 text-base border border-gray-300"
+                    value={this.state.newGuestDateOfBirth}
+                    onChange={(event) => {
+                      this.setState((prevState) => {
+                        return {
+                          ...prevState,
+                          newGuestDateOfBirth: event.target.value,
+                        };
+                      });
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="mt-4 flex items-center gap-2">
+                <button
+                  className="flex-1 text-base text-center px-4 py-2 border
+                  border-gray-300 shadow-sm text-xs font-medium rounded
+                  text-gray-700 bg-white hover:bg-gray-50 focus:outline-none
+                  focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  onClick={this.cancelModal}
+                >
+                  cancel
+                </button>
+
+                <button
+                  className="flex-1 text-base text-center px-4 py-2 border
+                  border-gray-300 shadow-sm text-xs font-medium rounded
+                  text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none
+                  focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  onClick={this.createGuest}
+                >
+                  create
+                </button>
               </div>
             </div>
-          )}
-
-          <div className="mt-12 flex flex-col space-between gap-12">
-            <div>
-              <label className="block leading-snug text-4xl font-semibold">
-                First Name
-              </label>
-              <input
-                type="text"
-                maxLength={24}
-                className="w-full rounded-lg p-8 text-4xl"
-                value={this.state.newGuestFirstName}
-                onChange={(event) => {
-                  this.setState((prevState) => {
-                    return {
-                      ...prevState,
-                      newGuestFirstName: event.target.value,
-                    };
-                  });
-                }}
-              />
-            </div>
-            <div>
-              <label className="block leading-snug text-4xl font-semibold">
-                Last Name
-              </label>
-              <input
-                type="text"
-                maxLength={24}
-                className="w-full rounded-lg p-8 text-4xl"
-                value={this.state.newGuestLastName}
-                onChange={(event) => {
-                  this.setState((prevState) => {
-                    return {
-                      ...prevState,
-                      newGuestLastName: event.target.value,
-                    };
-                  });
-                }}
-              />
-            </div>
-            <div>
-              <label className="block leading-snug text-4xl font-semibold">
-                Date of Birth
-              </label>
-              <input
-                type="date"
-                className="w-full rounded-lg p-8 text-4xl"
-                value={this.state.newGuestDateOfBirth}
-                onChange={(event) => {
-                  this.setState((prevState) => {
-                    return {
-                      ...prevState,
-                      newGuestDateOfBirth: event.target.value,
-                    };
-                  });
-                }}
-              />
-            </div>
           </div>
-          <div className="mt-16 flex items-center gap-6">
-            <button
-              className="flex-1 text-4xl text-center px-6 py-4 border border-gray-300
-              shadow-sm text-xs font-medium rounded text-gray-700 bg-white
-              hover:bg-gray-50 focus:outline-none focus:ring-2
-              focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={this.cancelModal}
-            >
-              cancel
-            </button>
-            <button
-              className="flex-1 text-4xl text-center btn btn-indigo"
-              onClick={this.createGuest}
-            >
-              create
-            </button>
-          </div>
-        </ReactModal>
+        </Dialog>
       </div>
     );
   }

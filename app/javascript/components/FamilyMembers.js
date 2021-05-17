@@ -117,7 +117,7 @@ class FamilyMembers extends Component {
               type="button"
               className="px-2 py-1 bg-white hover:bg-gray-50 rounded shadow border border-indigo-600
               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-              text-base sm:text-lg
+              text-base sm:text-lg md:text-xl
               "
               onClick={this.addNewFamilyMember}
             >

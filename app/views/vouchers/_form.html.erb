@@ -99,113 +99,99 @@
     </div>
   </div>
 
-  <div class="bg-white border border-black">
-    <section class="border-b border-gray-400 border-dashed">
-      <div class="flex flex-1 justify-between">
-        <strong>Voucher #</strong>
-        <p>TBD</p>
-      </div>
-      <div class="flex flex-1 justify-between">
-        <strong>Holder</strong>
-        <p><%= @client.name %></p>
-      </div>
-    </section>
-    <section class="border-b border-gray-400 border-dashed flex flex-1">
-      <div>
-        <strong>Check In</strong>
+  <div class="mt-8 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
+    <div class="px-2 sm:px-4 md:px-0">
+      <p class="text-base sm:text-lg md:text-xl font-semibold">Change check in / check out dates?</p>
+      <p class="text-base sm:text-lg text-gray-700">Select later check-in or earlier check-out, if the client wishes.</p>
+    </div>
+
+    <div class="mt-4 flex flex-col md:flex-row gap-4">
+      <div class="w-full">
+        <label class="font-semibold text-base sm:text-lg md:text-xl">Check Out</label>
         <%= form.date_field :check_in, 
           value: [@swap.start_date, Date.current].max, 
           min: [@swap.start_date, Date.current].max,
           max: @swap.end_date - 1,
           required: true,
-          class: "w-full bg-white rounded-lg" %>
+          class: "w-full bg-white rounded text-base sm:text-lg md:text-xl" %>
       </div>
 
-      <div>
-        <strong>Check Out</strong>
+      <div class="w-full">
+        <label class="font-semibold text-base sm:text-lg md:text-xl">Check Out</label>
         <%= form.date_field :check_out, 
           value: @swap.end_date,
           min: [@swap.end_date, Date.current].min,
           max: @swap.end_date,
           required: true,
-          class: "w-full bg-white rounded-lg" %>
-          </p>
+          class: "w-full bg-white rounded text-base sm:text-lg md:text-xl" %>
       </div>
-    </section>
+    </div>
 
-    <section class="border-b border-gray-400 border-dashed">
-      <div>
-        <%= form.label "hotel_id", "Hotel (vouchers remaining)", class: "font-bold block leading-relaxed" %>
+    <div class="mt-8">
+      <div class="px-2 sm:px-4 md:px-0">
+        <p class="text-base sm:text-lg md:text-xl font-semibold">Choose hotel</p>
+        <p class="text-base sm:text-lg text-gray-700">
+          Select the hotel the client wishes to stay at. Hotels may not be selectable if they are not participating for this activation, have run out of vouchers, or the client is ineligible to stay.
+        </p>
+      </div>
+
+      <div class="mt-4">
+        <%= form.label "hotel_id", "Hotel (number of vouchers left)", class: "font-semibold block leading-relaxed" %>
         <%= form.select "hotel_id", 
           options_for_select(@hotels, disabled: @disabled),
           {include_blank: true},
-          class: "w-full rounded-lg",
-          required: true 
-        %>
-      </div>
-    </section>
-
-    <section class="">
-      <div>
-        <h3 class="font-bold">Guests</h3>
-        <p class="text-gray-500 leading-tight">
-          Clients are allowed to bring up to XX guests. As a best practice,
-          try to avoid adding more than 2 guests per voucher holder - because
-          it makes our clients getting banned more likely.
-        </p>
-      </div>
-      <ul class="flex">
-        <li class="relative flex-1">
-          <% choice = "Yes" %>
-          <%= form.radio_button :guests, true,
-            class: "absolute z-0 h-1 w-1",
-            required: true,
-            checked: nil,
-            tabindex: -1
-          %>
-          <%= form.label :guests, choice, 
-            id: "voucher_guests_#{choice.downcase}",
-            class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
-        </li>
-        <li class="relative flex-1">
-          <% choice = "No" %>
-          <%= form.radio_button :guests, false,
-            class: "absolute z-0 h-1 w-1",
-            required: true,
-            checked: nil,
-            tabindex: -1
-          %>
-          <%= form.label :guests, choice, 
-            id: "voucher_guests_#{choice.downcase}",
-            class: "absolute z-10 w-full block bg-gray-50 btn btn-outline text-center"
-          %>
-        </li>
-      </ul>
-      <div id="guests-form-container" class="w-full hidden">
-        <%= react_component("GuestsForm", client: @client, prior_guests: @client.prior_guests) %>
-      </div>
-    </section>
-  </div>
-
-  <%= form.fields_for :client, @client do |client_form| %>
-    <%= client_form.hidden_field :id, value: @client.id %>
-
-    <div class="">
-      <div>
-        <%= client_form.label :phone_number, "Phone Number (optional)", class: "block leading-relaxed"  %>
-        <%= client_form.telephone_field :phone_number, 
-          class: "w-full rounded-lg" %>
-      </div>
-
-      <div class="mt-12 field w-full">
-        <%= client_form.label :email, "Email (optional)", class: "block leading-relaxed"  %>
-        <%= client_form.email_field :email, 
-          class: "w-full rounded-lg" %>
+          required: true ,
+          class: "w-full bg-white rounded text-base sm:text-lg md:text-xl" %>
       </div>
     </div>
-  <% end %> <!-- end client_form -->
 
+    <!-- guestshere -->
+    <div class="mt-8">
+      <div class="px-2 sm:px-4 md:px-0">
+        <p class="text-base sm:text-lg md:text-xl font-semibold">Guests</p>
+        <p class="text-base sm:text-lg text-gray-700">
+          Clients are allowed to bring up to a maximum of X guests. Try to avoid
+          adding more than 2 guests per voucher.
+        </p>
+      </div>
+      <div id="guests-form-container" class="mt-2 w-full">
+        <%= react_component("GuestsForm", client: @client, prior_guests: @client.prior_guests) %>
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <div class="px-2 sm:px-4 md:px-0">
+        <p class="text-base sm:text-lg md:text-xl font-semibold">Collect contact info</p>
+        <p class="text-base sm:text-lg text-gray-700">
+          Your client can receive voucher details via text/sms or email if they desire.
+        </p>
+        <p class="text-base sm:text-lg text-gray-700">
+          If pre-filled, verify with the client that these are correct.
+        </p>
+      </div>
+      <div class="mt-4">
+        <%= form.fields_for :client, @client do |client_form| %>
+          <%= client_form.hidden_field :id, value: @client.id %>
+
+          <div class="flex flex-col md:flex-row gap-4">
+            <div class="w-full">
+              <%= client_form.label :phone_number, "Phone Number (optional)", class: "font-semibold block leading-relaxed"  %>
+              <%= client_form.telephone_field :phone_number, class: "w-full bg-white rounded text-base sm:text-lg md:text-xl" %>
+            </div>
+
+            <div class="w-full">
+              <%= client_form.label :email, "Email (optional)", class: "font-semibold block leading-relaxed"  %>
+              <%= client_form.email_field :email, class: "w-full bg-white rounded text-base sm:text-lg md:text-xl" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+
+  </div>
   <div class="">
     <h3 class="text-center font-medium text-gray-500 uppercase tracking-wide">
       INTERNAL USE BELOW

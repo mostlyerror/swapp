@@ -12,7 +12,11 @@ class ClientsController < ApplicationController
       .where("first_name ILIKE ? or last_name ILIKE ?", "%#{q}%", "%#{q}%").limit(8)
     @results = clients.map do |c| 
       attrs = c.slice(:id, :first_name, :last_name, :name, :date_of_birth)
-      attrs.merge(red_flag: c.incident_reports.any?)
+      attrs.merge(
+        banned: c.banned, 
+        red_flag: c.incident_reports.any?,
+        flagged_hotels: c.flagged_hotels.pluck(:id, :name)
+      )
     end
     render json: @results
   end
