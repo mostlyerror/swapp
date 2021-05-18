@@ -76,48 +76,48 @@
       </div>
 
       <div class="space-y-4">
-        <div class="row-span-3">
+        <div class="row-span-4">
           <% question = Intake::RACE %>
           <%= client_attributes.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-         <div class="p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
-          <ul class="flex flex-col w-full space-y-2">
-            <% question.choices.each do |race| %>
-              <li class="p-1 md:p-2 flex items-center">
-                <%= client_attributes.check_box question.key, { 
-                  multiple: true, 
-                  checked: race.in?(@client.race || []),
-                  class: "w-5 h-5 rounded text-sm md:text-base text-indigo-600 border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
-                  },
-                  race
-                %>
-                <%= client_attributes.label "#{question.key}_#{to_htmlfor(race)}", race, class: "ml-4 text-base md:text-lg" %>
-              </li>
-            <% end %>
-          </ul>
+          <div class="p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <ul class="flex flex-col w-full space-y-2">
+              <% question.choices.each do |race| %>
+                <li class="p-1 md:p-2 flex items-start">
+                  <%= client_attributes.check_box question.key, { 
+                    multiple: true, 
+                    checked: race.in?(@client.race || []),
+                    class: "mt-2 w-5 h-5 rounded text-sm md:text-base text-indigo-600 border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
+                    },
+                    race
+                  %>
+                  <%= client_attributes.label "#{question.key}_#{to_htmlfor(race)}", race, class: "ml-4 text-base md:text-lg" %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <% question = Intake::ETHNICITY %>
-        <%= client_attributes.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-        <%= client_attributes.select question.key,
-          options_for_select(question.choices, @client.ethnicity),
-          {},
-          required: true,
-          class: "p-2 block w-full text-base sm:text-lg md:text-xl
-          border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-          focus:ring-offset-0 focus:ring-3 rounded-md"
-        %>
+        <div>
+          <% question = Intake::ETHNICITY %>
+          <%= client_attributes.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
+          <%= client_attributes.select question.key,
+            options_for_select(question.choices, @client.ethnicity),
+            {},
+            required: true,
+            class: "p-2 block w-full text-base sm:text-lg md:text-xl
+            border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+            focus:ring-offset-0 focus:ring-3 rounded-md"
+          %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="mt-8 bg-gray-200 p-3 sm:p-5 leading-snug text-base sm:text-lg md:text-center">
+<div class="mt-8 md:mt-16 bg-gray-200 p-3 sm:p-5 md:p-8 leading-snug text-base sm:text-lg md:text-xl md:text-center">
   The following section only pertains to the client's family members/household.
 </div>
 
-<div class="mt-8 px-2 md:px-12 space-y-4 md:space-y-8 text-gray-700">
+<div class="mt-8 md:mt-16 px-2 md:px-12 space-y-4 md:space-y-8 text-gray-700">
   <div>
     <%= react_component('FamilyMembers', sub_questions: {
       first_name: Intake::FIRST_NAME.to_h,
@@ -131,7 +131,9 @@
       disabling_condition: Intake::DISABLING_CONDITION.to_h
     }) %>
   </div>
+</div>
 
+<div class="mt-8 md:mt-16 px-2 md:px-12 space-y-4 md:space-y-8 text-gray-700">
   <div>
     <% question = Intake::HOMELESSNESS_FIRST_TIME %>
     <%= react_component('Toggle', 
@@ -318,11 +320,11 @@
   </div>
 </div>
 
-<div class="mt-8 bg-gray-200 p-3 sm:p-5 leading-snug md:text-center">
+<div class="mt-8 md:mt-16 bg-gray-200 p-3 sm:p-5 md:p-12 leading-snug text-base sm:text-lg md:text-xl md:text-center">
   For the following section, only select ‘yes’ when the condition is a long-term impairment.
 </div>
 
-<div class="mt-8 px-2 md:px-12 space-y-4 md:space-y-8 text-gray-700">
+<div class="mt-8 md:mt-16 px-2 md:px-12 space-y-4 md:space-y-8 text-gray-700">
   <div>
     <% question = Intake::CHRONIC_HEALTH_CONDITION %>
     <%= react_component('Toggle',
@@ -377,6 +379,7 @@
           rounded-lg shadow-sm cursor-pointer" 
     />
   </div>
+</div>
 </div>
   <% end %>
 <% end %>
