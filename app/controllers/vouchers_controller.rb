@@ -76,7 +76,7 @@ class VouchersController < ApplicationController
       @voucher = Voucher.find(params[:id])
       email = @voucher.client.email
       
-      VoucherMailer.voucher(email)
+      VoucherMailer.voucher(email).deliver_now
 
     # TEXT/SMS
     elsif params[:commit] == 'Text/SMS'
