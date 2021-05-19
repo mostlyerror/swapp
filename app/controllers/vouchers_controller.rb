@@ -71,18 +71,15 @@ class VouchersController < ApplicationController
   end
 
   def send_voucher
+    # CLIENT VOUCHER
+    @voucher = Voucher.find(params[:id])
+
     # EMAIL
-    if params[:commit] == 'E-mail'
-      @voucher = Voucher.find(params[:id])  
-      
+    if params[:commit] == 'E-mail'      
       VoucherMailer.with(voucher: @voucher).voucher_email.deliver_now
-     
 
     # TEXT/SMS
     elsif params[:commit] == 'Text/SMS'
-      # CLIENT VOUCHER
-      @voucher = Voucher.find(params[:id])
-
       # CREDS
       account_sid = ENV['TWILIO_SID']
       auth_token = ENV['TWILIO_TOKEN']
