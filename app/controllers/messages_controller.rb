@@ -3,11 +3,9 @@ class MessagesController < ApplicationController
   skip_before_action :authenticate_user!, :only => "sms"
 
   def sms
-    body = helpers.parse_sms(params)
-    response = Twilio::TwiML::MessagingResponse.new do |r|
-      r.message body: body
-    end
-    render xml: response.to_s
+    body = params[:Body]&.strip&.upcase
+    from = params[:From]
+    render xml: HotlineResponse.new(body, from).response
   end
 end
  

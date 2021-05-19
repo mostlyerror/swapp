@@ -71,31 +71,14 @@ class VouchersController < ApplicationController
   end
 
   def send_voucher
-    # CLIENT VOUCHER
-    @voucher = Voucher.find(params[:id])
+    voucher = Voucher.find(params[:id])
 
-    # EMAIL
     if params[:commit] == 'E-mail'      
-      VoucherMailer.with(voucher: @voucher).voucher_email.deliver_now
-
-    # TEXT/SMS
+      VoucherMailer.with(voucher: voucher).voucher_email.deliver_now
     elsif params[:commit] == 'Text/SMS'
-      # CREDS
-      account_sid = ENV['TWILIO_SID']
-      auth_token = ENV['TWILIO_TOKEN']
-
-      # MESSAGE BODY
-      digi_voucher = "Thanks, #{@voucher.client.name}! Your voucher for #{@voucher.hotel.name} is confirmed!\n\nVoucher #: #{@voucher.number}\n\n#{@voucher.hotel.name} is expecting you from #{@voucher.check_in} to #{@voucher.check_out}.\n\nAddress:\n\n#{@voucher.hotel.street_address}\n#{@voucher.hotel.address_second}\n#{@voucher.hotel.phone}"
-      
-      # API CALL
-      client = Twilio::REST::Client.new(account_sid, auth_token)
-      client.messages.create(
-        from: ENV['TWILIO_NUMBER'],
-        to: @voucher.client.phone_number,
-        body: digi_voucher
-      )
-      end
-end
+      VoucherTexter.send_sms(voucher, ENV['TWILIO_SID'], ENV['TWILIO_TOKEN'])
+    end
+  end
 
 
   def show
