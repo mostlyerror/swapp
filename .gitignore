@@ -41,4 +41,4 @@ yarn-debug.log*
 /config/application.yml
 
 # Ignore environment vars
-.env
+.env.env
