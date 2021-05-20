@@ -8,7 +8,7 @@ FactoryBot.define do
     email { FFaker::Internet.email }
     phone_number { '5555555555' }
     race { [Client::RACE.sample] }
-
+    family_members { {} }
     veteran { false }
     trait :veteran do
       veteran { true }

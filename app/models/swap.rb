@@ -50,6 +50,10 @@ class Swap < ApplicationRecord
     [(end_date -  Date.current.to_date).to_i, 0].max
   end
 
+  def intake_active?
+    Date.current.in? intake_period
+  end
+
   def intake_ended?
     nights_remaining <= 0
   end

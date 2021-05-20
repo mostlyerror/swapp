@@ -8,7 +8,7 @@ class IntakesTest < ApplicationSystemTestCase
     sign_in user
   end
 
-  test "filling out intake form and seeing created voucher" do
+  test "filling out intake form and seeing voucher form" do
     swap = create(:swap, :tomorrow)
     hotel = create(:hotel)
     create(:availability, hotel: hotel, swap: swap, vacant: 1)
@@ -23,8 +23,22 @@ class IntakesTest < ApplicationSystemTestCase
     fill_in(Intake::LAST_NAME.text, with: client.last_name)
     fill_in(Intake::DATE_OF_BIRTH.text, with: client.date_of_birth)
     select(client.gender, from: Intake::GENDER.text)
-    client.race.each { |r| check(r) }
+    client.race.each { |r| check(r, allow_label_click: true) }
     select(client.ethnicity, from: Intake::ETHNICITY.text)
+
+    click_on("add_family_member")
+    within("#family_member_1") do
+      fill_in("family_members_1_first_name", with: Faker::Name.first_name)
+      fill_in("family_members_1_last_name", with: Faker::Name.last_name)
+      fill_in("family_members_1_relationship", with: Faker::Relationship.familial)
+      fill_in("family_members_1_date_of_birth", with: Faker::Date.birthday)
+      check(Client::RACE.sample)
+      select(Client::GENDER.sample, from: "family_members_1_gender")
+      select(Client::ETHNICITY.sample, from: "family_members_1_ethnicity")
+      choose("family_members_1_veteran_#{rand(2) == 1 ? "yes" : "no"}")
+      choose("family_members_1_disabling_condition_#{rand(2) == 1 ? "yes" : "no"}")
+    end
+
     toggle("intake", Intake::HOMELESSNESS_FIRST_TIME.key, intake.homelessness_first_time)
     fill_in(Intake::HOMELESSNESS_DATE_BEGAN.text, with: intake.homelessness_date_began)
     choose(intake.homelessness_how_long_this_time)
@@ -32,7 +46,7 @@ class IntakesTest < ApplicationSystemTestCase
     select(intake.homelessness_total_last_three_years, from: Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS.text)
     select(intake.health_insurance, from: Intake::HEALTH_INSURANCE.text)
     select(intake.are_you_working, from: Intake::ARE_YOU_WORKING.text)
-    intake.non_cash_benefits.each { |b| check b }
+    intake.non_cash_benefits.each { |b| check(b, allow_label_click: true) }
 
     toggle("intake", Intake::INCOME_SOURCE.key, intake.income_source_any)
     if intake.income_source_any
@@ -64,7 +78,7 @@ class IntakesTest < ApplicationSystemTestCase
     new_intake = new_client.intakes.last
 
     # email and phone number collected in voucher form, not intake form
-    ignore_attrs = %w( id user_id client_id email phone_number created_at updated_at )
+    ignore_attrs = %w( id user_id client_id email phone_number family_members created_at updated_at )
     assert_equal client.attributes.except(*ignore_attrs), new_client.attributes.except(*ignore_attrs)
     assert_equal intake.attributes.except(*ignore_attrs), new_intake.attributes.except(*ignore_attrs)
   end

@@ -5,19 +5,25 @@
 /* Add any custom CSS here */
 @import "tailwindcss/utilities";
 
-h1 {
-  @apply text-7xl;
-}
-h2 {
-  @apply text-6xl;
-}
-h3 {
-  @apply text-5xl;
-}
-h4 {
-  @apply text-4xl;
+body {
+  font-family: "Manrope", ui-sans-serif, sans-serif;
 }
 
+h1 {
+  @apply text-4xl;
+}
+h2 {
+  @apply text-3.5xl;
+}
+h3 {
+  @apply text-3xl;
+}
+h4 {
+  @apply text-2xl;
+}
+h5 {
+  @apply text-xl;
+}
 // fix ios element rounding
 input {
   border-radius: 0;
@@ -33,6 +39,22 @@ input[type="search"] {
 
 .btn-outline {
   @apply outline-black;
+}
+
+.btn-indigo {
+  @apply bg-indigo-500 text-white;
+}
+
+.btn-indigo:hover {
+  @apply bg-indigo-700;
+}
+
+.btn-red {
+  @apply bg-red-500 text-white;
+}
+
+.btn-red:hover {
+  @apply bg-red-700;
 }
 
 .btn-blue {
@@ -55,37 +77,8 @@ input[type="search"] {
   @apply text-yellow-400 underline;
 }
 
-.step-description {
-  @apply text-4xl leading-loose tracking-wide text-gray-500 font-semibold;
-}
-
 .help-text {
   @apply text-5xl text-gray-800 leading-tight;
-}
-
-.notice {
-  @apply p-6;
-  h3 {
-    @apply font-bold text-6xl;
-  }
-  p {
-    @apply mt-6 text-5xl;
-  }
-  a {
-    @apply font-semibold text-blue-600 underline;
-  }
-}
-
-.hazard-tape {
-  padding: 1.5rem;
-
-  background: repeating-linear-gradient(
-    -45deg,
-    #f2a417,
-    #f2a417 15px,
-    #141617 15px,
-    #141617 30px
-  );
 }
 
 ::-webkit-scrollbar {
