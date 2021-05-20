@@ -57,4 +57,12 @@ class Client < ApplicationRecord
   def no_flags?
     !banned && flagged_hotels.empty?
   end
+
+  def current_voucher
+    vouchers.where(swap: Swap.current).last
+  end
+
+  def has_received_voucher_this_swap_period?
+    !current_voucher.nil?
+  end
 end

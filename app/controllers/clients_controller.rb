@@ -23,8 +23,8 @@ class ClientsController < ApplicationController
 
   def show
     @client = Client.find(params[:id])
+    @existing_voucher = @client.current_voucher
     @editing = params[:editing]
-    @existing_voucher = @swap&.vouchers&.find_by(client: @client)
   end
 
   def update

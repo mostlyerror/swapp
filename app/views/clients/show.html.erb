@@ -2,17 +2,24 @@
   <%= render partial: 'shared/swap_notices' %>
 </section>
 
-<section class="mt-8 md:mt-12 pb-8 md:pb-16 px-2 md:px-0 md:w-11/12 mx-auto text-base">
-  <h1 class="md:text-5xl text-gray-900 font-bold"><%= @client.name %></h1>
+<section class="mt-8 md:mt-12 pb-8 md:pb-16 px-2 md:px-0 md:w-11/12 mx-auto text-base sm:text-lg md:text-xl">
+  <p class="text-xl sm:text-3xl md:text-5xl text-gray-900 font-bold"><%= @client.name %></h1>
 
   <% if @client.banned %>
-    <p class="mt-2 md:mt-4 text-sm md:text-lg">
+    <p class="mt-2 md:mt-4 text-base sm:text-lg md:text-xl">
       <span class="font-semibold text-red-500"><%= @client.first_name %> has been red-flagged program-wide.</span> They are not eligible to receive SWAP hotel vouchers.
     </p>
   <% end %>
 
   <% if @client.no_flags? %>
-    <p class="mt-2 md:mt-4 text-sm md:text-lg"><%= @client.first_name %> is eligible to receive vouchers at any participating SWAP hotel.</p>
+    <p class="mt-2 md:mt-4 text-base sm:text-lg md:text-xl"><%= @client.first_name %> is eligible to receive vouchers at any participating SWAP hotel.</p>
+  <% end %>
+
+  <% if @client.has_received_voucher_this_swap_period? %>
+    <p class="mt-2 md:mt-4 text-base sm:text-l md:text-xl">
+      <%= @client.first_name %> has already received a voucher for the SWAP period!
+      <%= link_to 'Click here to view it.', @existing_voucher, class: "inline md:block text-base sm:text-lg md:text-xl underline text-indigo-600" %>
+    </p>
   <% end %>
 
   <div class="mt-4 md:mt-8">
@@ -26,7 +33,7 @@
   <div class="mt-8 md:mt-12 text-center text-base md:text-xl">
     <p>
       This isn't the right <%= @client.name %>.
-      <span class="block md:inline">Take me back to <%= link_to 'client search' , clients_path, class: 'font-semibold tracking-wide underline' %>.</span>
+      <span class="block md:inline">Take me back to <%= link_to 'client search' , clients_path, class: 'underline text-indigo-600' %>.</span>
     </p>
   </div>
 
