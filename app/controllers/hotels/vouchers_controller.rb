@@ -6,7 +6,7 @@ class Hotels::VouchersController < Hotels::BaseController
 
     @client = @voucher.client
     @hotels = Hotel.all
-    @flag_hotel_ids = @client.hotels.pluck(:id)
-    @flagged_here = @voucher.hotel.id.in?(@flag_hotel_ids)
+
+    @flagged_here = @voucher.hotel.in?(@client.flagged_hotels)
   end
 end
