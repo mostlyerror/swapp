@@ -20,7 +20,7 @@ class HotlineResponse
         end
 
         if @body == "SWAP"
-          return "Today's Availability (#{todays_availability}}" 
+          return "Today's Availability (#{todays_availability}" 
         end
 
         "Thank you for contacting the Swap hotline. The only available command is SWAP.\n\nPlease try again or call #{HOTLINE_PHONE_NUMBER}."
@@ -33,6 +33,7 @@ class HotlineResponse
             "#{hotels[hotel_id]} - #{vouchers}\n"
         end
 
-        "#{Date.current}):\n\n#{vacancies.join()"
+        "#{Date.current}):\n\n#{vacancies.join()}"
+
     end
 end
