@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="px-6 mt-12">
   <p class="step-description">Issue hotel voucher </p>
   <h1 class="mt-24 text-9xl text-black font-bold">Create a voucher. 🎫</h1>
@@ -13,6 +14,25 @@
   <%= render partial: 'shared/notices/existing_voucher' %>
 <% else %> 
   <section class="px-6 mt-16 pb-24">
+=======
+
+<div class="mt-4 px-2 md:w-11/12 mx-auto">
+  <%= render partial: 'shared/swap_notices' %>
+</div>
+
+<div class="mt-4 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
+  <h2 class="md:text-5xl text-gray-900 font-bold">Create Voucher</h2>
+</div>
+
+<% if @existing_voucher.present? %>
+  <div class="notice bg-green-400">
+    <h3>
+      <%= @client.first_name %> was already issued a <%= link_to 'voucher', @existing_voucher %> for the most recent SWAP period!
+    </h3>
+  </div>
+<% else %> 
+  <section class="">
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
     <% if SwapIntake.can_issue_voucher_today?(@swap) %>
       <%= render partial: 'form' %>
     <% else %>

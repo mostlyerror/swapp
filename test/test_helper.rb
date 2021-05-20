@@ -7,7 +7,11 @@ class ActiveSupport::TestCase
 
   FactoryBot.reload
 
+<<<<<<< HEAD
   Faker::Config.locale = 'en-US'
+=======
+  FFaker::Locale.code 'en-US'
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
 
   # load Hotel and Race data?
   # load "#{Rails.root}/db/seeds/base.rb"

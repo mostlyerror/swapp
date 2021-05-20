@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="bg-white border-8 border-black shadow-2xl text-6xl">
   <section class="p-16 border-b-8 border-gray-400 border-dashed">
     <div class="flex flex-1 justify-between">
@@ -29,4 +30,56 @@
       <p class="leading-loose"><%= @voucher.hotel.phone %></p>
     </div>
   </section>
+=======
+<div class="border-t-2 border-yellow-400 bg-white shadow-xl rounded md:rounded-lg">
+  <div class="p-4 sm:p-6 md:p-12 space-y-4 md:space-y-8 text-xl sm:text-2xl md:text-3xl">
+    <div>
+      <div class="flex flex-1 justify-between">
+        <strong>Voucher #</strong>
+        <p><%= @voucher.number %></p>
+      </div>
+    </div>
+    <div>
+      <div class="flex flex-1 justify-between">
+        <strong>Holder</strong>
+        <p><%= link_to @voucher.client.name, client_path(@voucher.client), class: 'underline text-indigo-600' %></p>
+      </div>
+    </div>
+    <div class="flex justify-between">
+      <div class="flex-1 w-full">
+        <strong>Check In</strong>
+        <p><%= humanize_date_short(@voucher.check_in) %></p>
+      </div>
+      <div class="flex-1 w-full">
+        <strong>Check Out</strong>
+        <p><%= humanize_date_short(@voucher.check_out) %></p>
+      </div>
+    </div>
+    <div>
+      <p>
+        <strong><%= @voucher.hotel.name %></strong>
+      </p>
+      <div class="">
+        <p><%= @voucher.hotel.street_address %></p>
+        <p><%= @voucher.hotel.address_second %></p>
+        <p><%= @voucher.hotel.phone %></p>
+      </div>
+    </div>
+    <div>
+      <p>
+        <strong>Guests</strong>
+        <% if @voucher.guests.empty? %>
+          <p>
+            No guests recorded for this voucher.
+          </p>
+        <% end %>
+      </p>
+      <div class="">
+        <% @voucher.guests.each do |guest| %>
+          <p><%= link_to guest.name, client_path(guest), class: 'underline text-indigo-600' %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
 </div>

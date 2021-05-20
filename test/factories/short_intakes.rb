@@ -7,7 +7,10 @@ FactoryBot.define do
     why_not_shelter { Intake::WHY_NOT_SHELTER.choices.sample }
     bus_pass { [true, false].sample }
     king_soopers_card { [true, false].sample }
+<<<<<<< HEAD
     family_members { "{}" }
+=======
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
     household_composition_changed { false }
   end
 end

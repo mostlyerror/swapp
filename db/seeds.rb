@@ -137,7 +137,12 @@ ActiveRecord::Base.transaction do |t|
     whole_together = "#{first_part + last_part}2021".downcase
     passwords = {
       password: whole_together,
+<<<<<<< HEAD
       password_confirmation: whole_together
+=======
+      password_confirmation: whole_together,
+      intake_user: true
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
     }
     User.create! keys.zip(data).to_h.merge(passwords)
   end

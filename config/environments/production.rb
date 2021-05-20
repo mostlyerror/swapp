@@ -1,4 +1,8 @@
 Rails.application.configure do
+  ENV["STAGING"] == "true" ?
+    config.hosts << "swapp-staging-1.herokuapp.com" :
+    config.hosts << "swapp-1.herokuapp.com"
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -59,6 +63,15 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "swapp_production"
+<<<<<<< HEAD
+=======
+
+  config.action_mailer.delivery_method = :sendgrid_actionmailer
+  config.action_mailer.sendgrid_actionmailer_settings = {
+    api_key: ENV['SENDGRID_API_KEY'],
+    raise_delivery_errors: true
+  }
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
 
   config.action_mailer.perform_caching = false
 

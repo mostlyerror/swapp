@@ -1,6 +1,10 @@
 class Hotels::HomeController < Hotels::BaseController
   def index
     @vouchers = Voucher
+<<<<<<< HEAD
+=======
+      .includes(client: [:flagged_hotels])
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
       .where(hotel: current_user.hotel)
       .order(created_at: :desc)
       .limit(60)

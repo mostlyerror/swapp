@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <section class="px-6 mt-12">
   <p class="step-description">3. Dispense voucher with instructions</p>
   <h1 class="mt-24 text-9xl text-black font-bold">Hotel voucher created! 🎉</h1>
@@ -7,16 +8,40 @@
     the hotel front desk.
   </p>
   <p class="mt-6 help-text">
+=======
+<section class="px-2 md:px-6 md:w-11/12 mx-auto mt-8 md:mt-12">
+  <h1 class="text-2xl sm:text-3xl md:text-4xl text-gray-900 font-bold">Hotel voucher created! 🎉</h1>
+  <p class="mt-4 text-base sm:text-lg md:text-xl text-gray-800">
+    This is a digital record of a hotel voucher. <strong>This does NOT replace a physical voucher!</strong> ONLY the paper voucher will be accepted by the hotel front desk.
+  </p>
+  <p class="mt-4 text-base sm:text-lg md:text-xl text-gray-800">
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
     Write down the voucher details on your physical voucher slip. It may also
     help to copy the below voucher details and text/email them to the client,
     if possible.
   </p>
 </section>
 
+<<<<<<< HEAD
 <section class="mt-24">
   <%= render @voucher %>
 </section>
 
 <section class="py-24 px-6">
   <h2 class="text-7xl text-center  font-bold">Help another <%= link_to 'client', clients_path, class: 'link' %>.</h1>
+=======
+<section class="px-3 sm:px-6 md:px-16 md:w-11/12 mx-auto mt-8 md:mt-12">
+  <%= render @voucher %>
+</section>
+
+<section class="px-2 sm:px-4 md:px-8 md:w-11/12 mx-auto my-8 sm:my-12 md:my-20">
+  <%= link_to clients_path, class: 'text-lg sm:text-xl md:text-2xl' do %>
+    <p class="text-base sm:text-lg md:text-2xl text-center leading-relaxed">
+      Ready to help another client?
+    </p>
+    <p class="sm:mt-2 md:mt-4 text-base sm:text-lg md:text-2xl text-center underline text-indigo-600">
+      Go to client search.
+    </p>
+  <% end %>
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
 </section>

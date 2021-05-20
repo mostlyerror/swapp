@@ -3,7 +3,11 @@ FactoryBot.define do
     is_first_time = [true, false].sample
     homelessness_first_time { is_first_time }
     have_you_ever_experienced_homelessness_before { !is_first_time }
+<<<<<<< HEAD
     homelessness_date_began { Faker::Date.backward(days: rand(10 * 360)) }
+=======
+    homelessness_date_began { FFaker::Time.between(10.years.ago, 1.years.ago).strftime('%Y') }
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
     homelessness_how_long_this_time { Intake::HOMELESSNESS_HOW_LONG_THIS_TIME.choices.sample }
     homelessness_episodes_last_three_years { Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS.choices.sample }
     homelessness_total_last_three_years { Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS.choices.sample }
