@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // attaching event handlers for yes/no toggles
 const questionKeys = [
   "intake_income_source_any",
@@ -160,6 +161,8 @@ incomeSourceInputs.forEach((input) => {
   );
 });
 
+=======
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
 document.querySelector("input[type=submit]").addEventListener("click", () => {
   let form = document.querySelector("form");
   if (form.reportValidity()) {

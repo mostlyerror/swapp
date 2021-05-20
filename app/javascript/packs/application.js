@@ -3,11 +3,16 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+<<<<<<< HEAD
 require("@rails/ujs").start();
 require("turbolinks").start();
 require("@rails/activestorage").start();
 require("channels");
 
+=======
+require("@rails/activestorage").start();
+require("channels");
+>>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
 require("alpinejs");
 import "stylesheets/application.scss";
 
@@ -17,3 +22,8 @@ import "stylesheets/application.scss";
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+// Support component names relative to this directory:
+var componentRequireContext = require.context("components", true);
+var ReactRailsUJS = require("react_ujs");
+ReactRailsUJS.useContext(componentRequireContext);
+require("@rails/ujs").start();
