@@ -28,10 +28,10 @@ class IntakesTest < ApplicationSystemTestCase
 
     click_on("add_family_member")
     within("#family_member_1") do
-      fill_in("family_members_1_first_name", with: Faker::Name.first_name)
-      fill_in("family_members_1_last_name", with: Faker::Name.last_name)
-      fill_in("family_members_1_relationship", with: Faker::Relationship.familial)
-      fill_in("family_members_1_date_of_birth", with: Faker::Date.birthday)
+      fill_in("family_members_1_first_name", with: FFaker::Name.first_name)
+      fill_in("family_members_1_last_name", with: FFaker::Name.last_name)
+      fill_in("family_members_1_relationship", with: FFaker::Relationship.familial)
+      fill_in("family_members_1_date_of_birth", with: FFaker::Date.birthday)
       check(Client::RACE.sample)
       select(Client::GENDER.sample, from: "family_members_1_gender")
       select(Client::ETHNICITY.sample, from: "family_members_1_ethnicity")
