@@ -6,13 +6,6 @@ class ClientsController < ApplicationController
     @clients = @q.result(distinct: true)
   end
 
-<<<<<<< HEAD
-  def show
-    @client = Client.find(params[:id])
-    @existing_voucher = @swap&.vouchers&.find_by(client: @client)
-    @red_flagged = Client.where(id: @client).joins(:red_flags)
-    @flagged_hotels = @client.hotels.pluck(:name)
-=======
   def search
     q = params[:q].downcase
     clients = Client.includes(:incident_reports)
@@ -64,6 +57,5 @@ class ClientsController < ApplicationController
     end
 
     render json: client.errors.full_messages, status: :unprocessable_entity
->>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
   end
 end

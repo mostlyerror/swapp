@@ -17,12 +17,8 @@ class IntakesController < ApplicationController
     client_params = intake_params[:client_attributes]
     @client = Client.new(client_params.merge(
       race: client_params[:race].reject {|r| r == "0" },
-<<<<<<< HEAD
-      veteran_separation_year: client_params[:veteran_separation_year].presence
-=======
       veteran_separation_year: client_params[:veteran_separation_year].presence,
       family_members: params.dig(:intake, :client_attributes, :family_members)&.permit!&.to_h || {},
->>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
     ))
 
     @intake.client = @client
@@ -82,16 +78,7 @@ class IntakesController < ApplicationController
         :veteran,
         :veteran_military_branch,
         :veteran_separation_year,
-<<<<<<< HEAD
-        :veteran_discharge_status
-      ],
-      voucher: [
-        :check_in,
-        :check_out,
-        :hotel_id
-=======
         :veteran_discharge_status,
->>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
       ]
     )
   end

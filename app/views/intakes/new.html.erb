@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-<div class="px-6 mt-16">
-  <p class="step-description">2. Collect new client info</p>
-  <h1 class="mt-24 text-9xl text-black font-bold">Intake 💬</h1>
-  <p class="mt-6 help-text">
-    Collect basic client information along with context about their housing
-    situation. Once submitted, you can issue a voucher.
-  </p>
-</div>
-<section class="mt-16">
-  <%= render partial: 'shared/swap_notices' %>
-</section >
-<% if SwapIntake.can_issue_voucher_today?(@swap) %>
-  <section>
-    <%= render partial: 'form' %>
-  </section>
-<% end %>
-=======
 <%= form_with(model: @intake, local: true) do |form| %>
 <div class="mt-4 px-2 md:w-11/12 mx-auto">
   <%= render partial: 'shared/swap_notices' %>
@@ -403,4 +385,3 @@
 <% end %>
 
 <%= javascript_pack_tag "intake_form" %>
->>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e

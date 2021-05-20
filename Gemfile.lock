@@ -110,8 +110,8 @@ GEM
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
-      railties (>= 5.0.0)
       i18n (>= 1.6, < 2)
+      railties (>= 5.0.0)
     faraday (1.4.1)
       faraday-excon (~> 1.1)
       faraday-net_http (~> 1.0)
@@ -244,14 +244,11 @@ GEM
     thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
+    timecop (0.9.4)
     twilio-ruby (5.53.0)
       faraday (>= 0.9, < 2.0)
       jwt (>= 1.5, <= 2.5)
       nokogiri (>= 1.6, < 2.0)
-    timecop (0.9.4)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     warden (1.2.9)
@@ -278,6 +275,7 @@ GEM
 
 PLATFORMS
   x76_64-linux
+  x86_64-darwin-19
   x86_64-darwin-20
   x86_64-linux
 
@@ -303,16 +301,12 @@ DEPENDENCIES
   react-rails (~> 2.6)
   sass-rails (>= 6)
   selenium-webdriver
-  smarter_csv (~> 1.2)
-  spring
-  spring-watcher-listen (~> 2.0.0)
-  turbolinks (~> 5)
-  twilio-ruby
   sendgrid-actionmailer (~> 3.2)
   smarter_csv (~> 1.2)
   spring
   spring-watcher-listen (~> 2.0.0)
   timecop (~> 0.9.4)
+  twilio-ruby
   tzinfo-data
   web-console (>= 3.3.0)
   webdrivers

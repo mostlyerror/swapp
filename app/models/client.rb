@@ -40,17 +40,11 @@ class Client < ApplicationRecord
   has_many :incident_reports
 
   has_many :red_flags, class_name: 'RedFlag', table_name: :red_flags
-<<<<<<< HEAD
-  has_many :hotels, through: :red_flags
-=======
   has_many :flagged_hotels, through: :red_flags, source: :hotel
->>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
 
   def name
     "#{first_name} #{last_name}"
   end
-<<<<<<< HEAD
-=======
 
   def prior_guests
     vouchers.flat_map(&:guests).uniq
@@ -71,5 +65,4 @@ class Client < ApplicationRecord
   def has_received_voucher_this_swap_period?
     !current_voucher.nil?
   end
->>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
 end

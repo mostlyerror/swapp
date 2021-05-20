@@ -32,12 +32,9 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "factory_bot_rails", "~> 6.1"
-<<<<<<< HEAD
   gem "dotenv-rails"
-=======
   gem "timecop", "~> 0.9.4"
   gem "ffaker", "~> 2.18"
->>>>>>> main
 end
 
 group :development do

@@ -43,12 +43,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_121859) do
     t.string "veteran_military_branch"
     t.string "veteran_separation_year"
     t.string "veteran_discharge_status"
-<<<<<<< HEAD
-    t.boolean "red_flagged", default: false, null: false
-=======
     t.jsonb "family_members", default: {}
     t.boolean "banned", default: false
->>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
   end
 
   create_table "hotels", force: :cascade do |t|
@@ -139,10 +135,6 @@ ActiveRecord::Schema.define(version: 2021_05_14_121859) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "client_id", null: false
     t.bigint "user_id", null: false
-<<<<<<< HEAD
-    t.jsonb "family_members", default: {}
-=======
->>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
     t.boolean "household_composition_changed"
     t.index ["client_id"], name: "index_short_intakes_on_client_id"
     t.index ["user_id"], name: "index_short_intakes_on_user_id"
@@ -187,11 +179,8 @@ ActiveRecord::Schema.define(version: 2021_05_14_121859) do
     t.bigint "swap_id"
     t.integer "num_adults_in_household"
     t.integer "num_children_in_household"
-<<<<<<< HEAD
-=======
     t.integer "guest_ids", default: [], array: true
     t.text "notes"
->>>>>>> 81f1f12cb6be2f93e4bdb0be295d2865f63f0c8e
     t.index ["client_id", "swap_id"], name: "index_vouchers_on_client_id_and_swap_id"
     t.index ["client_id"], name: "index_vouchers_on_client_id"
     t.index ["hotel_id"], name: "index_vouchers_on_hotel_id"
