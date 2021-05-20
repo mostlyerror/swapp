@@ -33,6 +33,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "factory_bot_rails", "~> 6.1"
   gem "timecop", "~> 0.9.4"
+  gem "ffaker", "~> 2.18"
 end
 
 group :development do
@@ -57,7 +58,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "devise", "~> 4.7"
 
-gem "faker", "~> 2.16"
 
 gem 'ransack', github: 'activerecord-hackery/ransack'
 
