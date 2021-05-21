@@ -5,7 +5,7 @@
 <section class="mt-8 md:mt-12 pb-8 md:pb-16 px-2 md:px-0 md:w-11/12 mx-auto text-base sm:text-lg md:text-xl">
   <p class="text-xl sm:text-3xl md:text-5xl text-gray-900 font-bold"><%= @client.name %></h1>
 
-  <% if @client.banned %>
+  <% if @client.banned? %>
     <p class="mt-2 md:mt-4 text-base sm:text-lg md:text-xl">
       <span class="font-semibold text-red-500"><%= @client.first_name %> has been red-flagged program-wide.</span> They are not eligible to receive SWAP hotel vouchers.
     </p>
@@ -82,6 +82,23 @@
               </svg>
             </span>
           <% end %>
+        </div>
+      <% end %>
+
+      <% if @client.banned? %>
+        <div class="mt-8 md:mt-16 text-center">
+          <%= button_tag nil, class: button_class(@client.banned?), disabled: true do %>
+            <span class="text-lg md:text-3xl leading-tight font-semibold tracking-wide">Create Voucher</span>
+            <svg class="inline pb-1 md:pb-2 w-5 h-5 md:w-8 md:h-8" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zM4 12c0-4.4 3.6-8 8-8 1.8 0 3.5.6 4.9 1.7L5.7 16.9C4.6 15.5 4 13.8 4 12zm8 8c-1.8 0-3.5-.6-4.9-1.7L18.3 7.1C19.4 8.5 20 10.2 20 12c0 4.4-3.6 8-8 8z">
+              </path>
+            </svg>
+          <% end %>
+          <p class="px-4 md:px-8 mt-6 md:mt-8 text-base md:text-xl">
+            Client ineligible to receive vouchers at this time.
+          </p>
         </div>
       <% end %>
 
