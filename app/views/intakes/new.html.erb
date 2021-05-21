@@ -9,7 +9,7 @@
 
 <div class="mt-4 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
   <% if @intake.errors.any? %>
-  <div id="error_explanation" class="my-16 p-8 bg-red-400 font-bold">
+  <div id="error_explanation" class="my-4 md:my-12 p-8 bg-red-400 font-bold">
     <p><%= pluralize(@intake.errors.count, "error") %> prohibited this intake from being saved:</p>
     <ul class="mt-8">
       <% @intake.errors.full_messages.each do |message| %>
@@ -18,7 +18,7 @@
     </ul>
   </div>
   <% end %>
- 
+
   <!-- <div class="mt-8 flex flex-col md:flex-row gap-4"> --> 
   <div class="mt-8 grid grid-cols-1 md:grid-cols-2 md:grid-flow-col gap-4">
     <%= form.fields_for :client, @client do |client_attributes|%>

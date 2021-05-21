@@ -2,8 +2,13 @@ class IntakesController < ApplicationController
   before_action :hydrate_form, only: %i[ new create ]
 
   def new
+    if params[:client_id].present?
+      @client = Client.find(params[:client_id])
+    else
+      @client = Client.new
+    end
+
     @intake = Intake.new
-    @client = Client.new
     @voucher = Voucher.new
   end
 
