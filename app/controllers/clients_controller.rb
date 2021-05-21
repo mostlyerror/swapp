@@ -45,13 +45,16 @@ class ClientsController < ApplicationController
     render :show
   end
 
+  # POST /clients
+  # guests form sends xhr request to this endpoint
+  # new clients are normally created in conjunction with intakes in intakes#create
   def create
     client_params = params.require('client').permit(:first_name, :last_name, :date_of_birth)
     if client_params['date_of_birth'].blank?
       client_params['date_of_birth'] = '1600-01-01'
     end
 
-    client = Client.new(client_params)
+    client = Client.new(client_params.merge(force_intake: true))
     if client.save
       return render json: client, status: :ok
     end

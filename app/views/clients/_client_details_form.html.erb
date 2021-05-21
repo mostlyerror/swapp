@@ -7,7 +7,6 @@
         <%= form.text_field question.key,
           size: 23, 
           value: @client.first_name,
-          required: true,
           class: "text-base sm:text-lg md:text-xl p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
         %>
       </div>
@@ -18,7 +17,6 @@
         <%= form.text_field question.key,
           size: 23, 
           value: @client.last_name,
-          required: true,
           class: "text-base sm:text-lg md:text-xl p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
         %>
       </div>
@@ -28,7 +26,6 @@
         <%= form.label question.key, question.text, class: "text-sm sm:text-base md:text-xl block leading-snug font-semibold" %>
         <%= form.date_field question.key,
           value: @client.date_of_birth,
-          required: true,
           class: "text-base sm:text-lg md:text-xl p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
         %>
       </div>
@@ -39,7 +36,6 @@
         <%= form.select question.key,
           options_for_select(question.choices, @client.gender),
           {},
-          required: true,
           class: "text-base sm:text-lg md:text-xl p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
       %>
       </div>
@@ -75,7 +71,6 @@
         <%= form.select question.key,
           options_for_select(question.choices, @client.ethnicity),
           {},
-          required: true,
           class: "text-base sm:text-lg md:text-xl p-2 w-full text-sm border border-gray-100 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
         %>
       </div>

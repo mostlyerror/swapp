@@ -7,7 +7,7 @@ FactoryBot.define do
     check_in { self.swap.start_date }
     check_out { self.swap.end_date }
     notes {
-      [true, false].sample && Faker::Quote.most_interesting_man_in_the_world || nil
+      [true, false].sample && FFaker::HipsterIpsum.words(20) || nil
     }
 
     after(:create) do |voucher|

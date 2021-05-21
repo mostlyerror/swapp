@@ -1,14 +1,20 @@
-<section class="px-6 mt-12">
-  <p class="mt-16 help-text">
-    This is a digital record of a hotel voucher. <strong>This does NOT replace
-      a physical voucher!</strong> ONLY the paper voucher will be accepted by
-    the hotel front desk.
+<div class="px-2 md:px-6 md:w-11/12 mx-auto mt-8 md:mt-12">
+  <p class="mt-4 text-base sm:text-lg md:text-xl text-gray-800">
+    This is a digital record of a hotel voucher. <strong>This does NOT replace a physical voucher!</strong> ONLY the paper voucher will be accepted by the hotel front desk.
   </p>
-</section>
-<section class="mt-24">
+</div>
+
+<div class="px-3 sm:px-6 md:px-16 md:w-11/12 mx-auto mt-8 md:mt-12">
   <%= render @voucher %>
-</section>
-<ul class="px-12 mt-16 flex flex-t justify-between">
-  <li><%= link_to 'Back', :back, class: 'link text-6xl font-bold tracking-wide' %></li>
-  <li><%= link_to 'Search', clients_path, class: 'link text-6xl font-bold tracking-wide' %></li>
+</div>
+
+<div class="py-4 sm:py-6 md:py-8 md:w-11/12 mx-auto flex justify-between max-w-xs">
+  <div class="p-4">
+    <%= link_to 'Back', :back, 
+    class: 'text-xl sm:text-2xl md:text-3xl underline font-bold text-indigo-600' %>
+  </div>
+  <div class="p-4">
+    <%= link_to 'Search', clients_path, 
+    class: 'text-xl sm:text-2xl md:text-3xl underline font-bold text-indigo-600' %>
+  </div>
 </ul>
