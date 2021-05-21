@@ -20,10 +20,10 @@
     <div class="space-x-4 text-center">
       <%= form_for(@voucher, url: send_voucher_path(@voucher.id), method: :post) do |form| %>
         <div class="inline-block p-6">
-          <%= form.submit "E-mail", class: "p-2 bg-blue-600 text-2xl text-white hover:bg-blue-900 cursor-pointer" %>
+          <%= form.submit "E-mail", class: "p-2 bg-blue-600 text-lg sm:text-xl md:text-2xl text-white hover:bg-blue-900 cursor-pointer" %>
         </div>
         <div class="inline-block p-6">
-          <%= form.submit "Text/SMS", class: "p-2 bg-blue-600 text-2xl text-white hover:bg-blue-900 cursor-pointer" %>
+          <%= form.submit "Text/SMS", class: "p-2 bg-blue-600 text-lg sm:text-xl md:text-2xl text-white hover:bg-blue-900 cursor-pointer" %>
         </div>
       <% end %>
     </div>
