@@ -16,7 +16,7 @@
   <% end %>
 
   <% if @client.has_received_voucher_this_swap_period? %>
-    <p class="mt-2 md:mt-4 text-base sm:text-l md:text-xl">
+    <p class="mt-2 md:mt-4 text-base sm:text-l md:text-xl md:te">
       <%= @client.first_name %> has already received a voucher for the SWAP period!
       <%= link_to 'Click here to view it.', @existing_voucher, class: "inline md:block text-base sm:text-lg md:text-xl underline text-indigo-600" %>
     </p>
