@@ -13,21 +13,32 @@ class IntakesController < ApplicationController
   end
 
   def create
+    client_params = intake_params[:client_attributes]
+
+    if client_params[:id]
+      @client = Client.find(client_params[:id])
+    else
+      @client = Client.new
+    end
+
+    @client.assign_attributes(client_params.merge(
+      race: client_params[:race].reject {|r| r == "0" },
+      veteran_separation_year: client_params[:veteran_separation_year].presence,
+      family_members: params.dig(:intake, :client_attributes, :family_members)&.permit!&.to_h || {},
+      force_intake: false
+    ))
+
     @intake = Intake.new(intake_params.except(:voucher).merge(
+      user_id: current_user.id,
+      client_id: @client.id,
       have_you_ever_experienced_homelessness_before:
         !ActiveRecord::Type::Boolean.new.cast(intake_params[:homelessness_first_time]),
       non_cash_benefits: intake_params[:non_cash_benefits].reject {|r| r == "0" }
     ))
 
-    client_params = intake_params[:client_attributes]
-    @client = Client.new(client_params.merge(
-      race: client_params[:race].reject {|r| r == "0" },
-      veteran_separation_year: client_params[:veteran_separation_year].presence,
-      family_members: params.dig(:intake, :client_attributes, :family_members)&.permit!&.to_h || {},
-    ))
-
-    @intake.client = @client
-    @intake.user = current_user
+    if !@client.save
+      return render :new
+    end
 
     if !@intake.save
       return render :new
@@ -72,6 +83,7 @@ class IntakesController < ApplicationController
       :income_source_general_assistance,
       {non_cash_benefits: []},
       client_attributes: [
+        :id,
         :first_name, 
         :last_name, 
         :date_of_birth, 
