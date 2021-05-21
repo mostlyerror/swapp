@@ -3,12 +3,20 @@ Rails.application.routes.draw do
     sessions: 'sessions/sessions'
   }
 
+  post 'messages/sms'
+  resource :messages do
+    collection do 
+      post 'reply'
+    end
+  end
+
   constraints(lambda { |req| req.env["warden"].user(:user)&.intake_user? }) do
     get "clients/search" => "clients#search", as: :clients_search
     resources :clients
     resources :intakes
     resources :vouchers
     get "vouchers/:id/created" => "vouchers#created", as: :voucher_created
+    post "voucher/:id/send_voucher" => "vouchers#send_voucher", as: :send_voucher
     resources :swaps
   end
 

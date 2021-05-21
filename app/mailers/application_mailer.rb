@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'bpoon@codeforamerica.org'
+  default from: 'bjohnson@codeforamerica.org'
   layout 'mailer'
 end

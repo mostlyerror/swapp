@@ -36,3 +36,7 @@ yarn-debug.log*
 .yarn-integrity
 *.swp
 .irb_history
+
+
+# Ignore environment vars
+.env

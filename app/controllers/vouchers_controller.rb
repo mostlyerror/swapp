@@ -60,11 +60,23 @@ class VouchersController < ApplicationController
       end
     end
 
+
     redirect_to action: :created, id: @voucher.id
   end
 
   def created
   end
+
+  def send_voucher
+    voucher = Voucher.find(params[:id])
+
+    if params[:commit] == 'E-mail'      
+      VoucherMailer.with(voucher: voucher).voucher_email.deliver_now
+    elsif params[:commit] == 'Text/SMS'
+      VoucherTexter.send_sms(voucher, ENV['TWILIO_SID'], ENV['TWILIO_TOKEN'])
+    end
+  end
+
 
   def show
   end

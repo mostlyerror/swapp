@@ -32,6 +32,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "factory_bot_rails", "~> 6.1"
+  gem "dotenv-rails"
   gem "timecop", "~> 0.9.4"
   gem "ffaker", "~> 2.18"
 end
@@ -61,7 +62,6 @@ gem "devise", "~> 4.7"
 
 gem 'ransack', github: 'activerecord-hackery/ransack'
 
-
 gem "smarter_csv", "~> 1.2"
 
 gem "phonelib", "~> 0.6.48"
@@ -71,6 +71,8 @@ gem "auto_strip_attributes", "~> 2.6"
 gem "aasm", "~> 5.1"
 
 gem "amazing_print", "~> 1.3"
+
+gem 'twilio-ruby'
 
 gem "pg_search", "~> 2.3"
 
