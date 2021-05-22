@@ -4,6 +4,7 @@ class Intake < ApplicationRecord
   belongs_to :user
 
   auto_strip_attributes :homelessness_first_time,
+      :household_tanf,
       :homelessness_episodes_last_three_years,
       :armed_forces,
       :active_duty,
@@ -66,6 +67,12 @@ class Intake < ApplicationRecord
   HOMELESSNESS_FIRST_TIME = OpenStruct.new(
     key: :homelessness_first_time,
     text: "Is this the first time you have been homeless?", 
+    choices: %w[ Yes No ]
+  )
+
+  HOUSEHOLD_TANF = OpenStruct.new(
+    key: :household_tanf,
+    text: "Does anyone in your household receive TANF benefits?", 
     choices: %w[ Yes No ]
   )
 
