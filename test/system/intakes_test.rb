@@ -16,8 +16,6 @@ class IntakesTest < ApplicationSystemTestCase
     intake = build_stubbed(:intake, client: client)
 
     visit new_intake_path
-    assert_text /intake/i
-    assert_text /1 vouchers remaining today/i
 
     fill_in(Intake::FIRST_NAME.text, with: client.first_name)
     fill_in(Intake::LAST_NAME.text, with: client.last_name)
@@ -26,17 +24,18 @@ class IntakesTest < ApplicationSystemTestCase
     client.race.each { |r| check(r, allow_label_click: true) }
     select(client.ethnicity, from: Intake::ETHNICITY.text)
 
-    click_on("add_family_member")
-    within("#family_member_1") do
-      fill_in("family_members_1_first_name", with: FFaker::Name.first_name)
-      fill_in("family_members_1_last_name", with: FFaker::Name.last_name)
-      fill_in("family_members_1_relationship", with: FFaker::Relationship.familial)
-      fill_in("family_members_1_date_of_birth", with: FFaker::Date.birthday)
+    click_on("+ add family member")
+    within("#family-member-form") do
+      fill_in("first_name", with: FFaker::Name.first_name)
+      fill_in("last_name", with: FFaker::Name.last_name)
+      fill_in("relationship", with: random_relationship)
+      fill_in("date_of_birth", with: FFaker::Time.date)
       check(Client::RACE.sample)
-      select(Client::GENDER.sample, from: "family_members_1_gender")
-      select(Client::ETHNICITY.sample, from: "family_members_1_ethnicity")
-      choose("family_members_1_veteran_#{rand(2) == 1 ? "yes" : "no"}")
-      choose("family_members_1_disabling_condition_#{rand(2) == 1 ? "yes" : "no"}")
+      select(Client::GENDER.sample, from: "family-member-form-gender")
+      choose("family-member-form-ethnicity-#{%w(yes no).sample}")
+      choose("family-member-form-veteran-#{%w(yes no).sample}")
+      choose("family-member-form-disabling-condition-#{%w(yes no).sample}")
+      click_on("Save Family Member")
     end
 
     toggle("intake", Intake::HOMELESSNESS_FIRST_TIME.key, intake.homelessness_first_time)
@@ -87,5 +86,9 @@ class IntakesTest < ApplicationSystemTestCase
     id = "#{form_prefix}_#{key}_#{bool && 'yes' || 'no'}"
     find(id: id).click
     block.call if block_given?
+  end
+
+  def random_relationship
+    %w(spouse wife husband mom dad mother father parent uncle aunt grandfather grandmother brother sister cousin nephew niece).sample
   end
 end
