@@ -19,12 +19,25 @@
     <h1 class="text-3xl font-bold text-center">Send Digital Voucher</h1>
     <div class="space-x-4 text-center">
       <%= form_for(@voucher, url: send_voucher_path(@voucher.id), method: :post) do |form| %>
+        <% if @voucher.client.email == nil %>
+           <div class="inline-block p-6">
+            <%= form.submit "E-mail", class: button_class(@voucher.client.email == nil), disabled: true %>
+           </div>
+        <% else %>
+          <div class="inline-block p-6">
+            <%= form.submit "E-mail", class: "bg-indigo-600 hover:bg-indigo-700 text-white text-center px-4 md:px-8 py-1 md:py-2 rounded-lg shadow" %>
+          </div>
+        <% end %>
+        <% if @voucher.client.phone_number == nil %>
         <div class="inline-block p-6">
-          <%= form.submit "E-mail", class: "p-2 bg-blue-600 text-lg sm:text-xl md:text-2xl text-white hover:bg-blue-900 cursor-pointer" %>
+          <%= form.submit "Text/SMS", class: button_class(@voucher.client.phone_number == nil), disabled: true %>
         </div>
+        <% else %>
         <div class="inline-block p-6">
-          <%= form.submit "Text/SMS", class: "p-2 bg-blue-600 text-lg sm:text-xl md:text-2xl text-white hover:bg-blue-900 cursor-pointer" %>
-        </div>
+          <%= form.submit "Text/SMS", class: "bg-indigo-600 hover:bg-indigo-700 text-white text-center px-4 md:px-8 py-1 md:py-2 rounded-lg shadow" %>
+        </div> 
+        <% end %>
+      </div> 
       <% end %>
     </div>
   </div>
