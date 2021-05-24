@@ -33,7 +33,7 @@ class Toggle extends Component {
 
   render() {
     return (
-      <div>
+      <div id={this.props.question.key}>
         <div className="flex flex-col md:flex-row md:items-start md:justify-between">
           <label
             htmlFor={`${this.state.namePrefix}[${this.props.question.key}]`}

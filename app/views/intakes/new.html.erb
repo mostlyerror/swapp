@@ -149,7 +149,7 @@
     <% question = Intake::HOMELESSNESS_FIRST_TIME %>
     <%= react_component('Toggle', 
       question: question.to_h,
-      name: "intake[homelessness_first_time]",
+      id: "homelessness_first_time",
       checked: @intake.homelessness_first_time
     ) %>
   </div>
@@ -219,7 +219,7 @@
 
   <div>
     <% question = Intake::LAST_PERMANENT_RESIDENCE_COUNTY %>
-    <%= client_attributes.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
+    <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
     <%= form.text_field question.key,
         value: @intake.last_permanent_residence_county,
         placeholder: question.placeholder,
