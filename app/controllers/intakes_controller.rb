@@ -16,7 +16,7 @@ class IntakesController < ApplicationController
     client_params = intake_params[:client_attributes]
 
     if client_params[:client_id]
-      @client = Client.find(client_params[:id])
+      @client = Client.find(client_params[:client_id])
     else
       @client = Client.new
     end
@@ -55,6 +55,7 @@ class IntakesController < ApplicationController
       :homelessness_date_began,
       :homelessness_episodes_last_three_years,
       :where_did_you_sleep_last_night, 
+      :household_tanf,
       {why_not_shelter: []},
       :armed_forces,
       :active_duty, 
