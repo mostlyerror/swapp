@@ -15,7 +15,7 @@ class IntakesController < ApplicationController
   def create
     client_params = intake_params[:client_attributes]
 
-    if client_params[:id]
+    if client_params[:client_id]
       @client = Client.find(client_params[:id])
     else
       @client = Client.new
