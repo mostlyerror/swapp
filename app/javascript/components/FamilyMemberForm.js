@@ -6,7 +6,7 @@ class FamilyMemberForm extends Component {
   render() {
     let f = this.props.familyMember;
     return (
-      <div className="flex flex-col bg-white rounded shadow">
+      <div id="family-member-form" className="flex flex-col bg-white rounded shadow">
         <div class="p-2">
           <h2 className="font-bold text-base sm:text-lg md:text-xl">
             New Family Member
@@ -82,6 +82,7 @@ class FamilyMemberForm extends Component {
               {this.props.gender.text}
             </label>
             <select
+              id="family-member-form-gender"
               className="w-full text-base sm:text-lg md:text-xl border border-gray-200 rounded-sm"
               name={this.props.gender.key}
               onChange={this.props.handleChange}
@@ -136,6 +137,7 @@ class FamilyMemberForm extends Component {
               <div className="flex items-center space-x-8">
                 <span className="inline-flex items-center">
                   <input
+                    id="family-member-form-ethnicity-yes"
                     type="radio"
                     name={this.props.ethnicity.key}
                     onChange={this.props.handleChange}
@@ -148,6 +150,7 @@ class FamilyMemberForm extends Component {
                 </span>
                 <span className="inline-flex items-center">
                   <input
+                    id="family-member-form-ethnicity-no"
                     type="radio"
                     name={this.props.ethnicity.key}
                     onChange={this.props.handleChange}
@@ -170,6 +173,7 @@ class FamilyMemberForm extends Component {
               <div className="flex items-center space-x-8">
                 <span className="inline-flex items-center">
                   <input
+                    id="family-member-form-veteran-yes"
                     type="radio"
                     name={this.props.veteran.key}
                     onChange={this.props.handleChange}
@@ -182,6 +186,7 @@ class FamilyMemberForm extends Component {
                 </span>
                 <span className="inline-flex items-center">
                   <input
+                    id="family-member-form-veteran-no"
                     type="radio"
                     name={this.props.veteran.key}
                     onChange={this.props.handleChange}
@@ -204,6 +209,7 @@ class FamilyMemberForm extends Component {
               <div className="flex items-center space-x-8">
                 <span className="inline-flex items-center">
                   <input
+                    id="family-member-form-disabling-condition-yes"
                     type="radio"
                     name={this.props.disabling_condition.key}
                     onChange={this.props.handleChange}
@@ -216,6 +222,7 @@ class FamilyMemberForm extends Component {
                 </span>
                 <span className="inline-flex items-center">
                   <input
+                    id="family-member-form-disabling-condition-no"
                     type="radio"
                     name={this.props.disabling_condition.key}
                     onChange={this.props.handleChange}
