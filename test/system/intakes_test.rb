@@ -12,7 +12,7 @@ class IntakesTest < ApplicationSystemTestCase
     swap = create(:swap, :tomorrow)
     hotel = create(:hotel)
     create(:availability, hotel: hotel, swap: swap, vacant: 1)
-    client = build_stubbed(:client)
+    client = build_stubbed(:client, :veteran)
     intake = build_stubbed(:intake, client: client)
 
     visit new_intake_path
@@ -40,7 +40,11 @@ class IntakesTest < ApplicationSystemTestCase
 
     toggle(Intake::HOUSEHOLD_TANF.key, intake.household_tanf)
     fill_in(Intake::HOMELESSNESS_DATE_BEGAN.text, with: intake.homelessness_date_began)
-    toggle(Intake::HOMELESSNESS_FIRST_TIME.key, intake.homelessness_first_time)
+
+    if !intake.have_you_ever_experienced_homelessness_before
+      toggle(Intake::HOMELESSNESS_FIRST_TIME.key, true)
+    end
+    
     choose(intake.homelessness_how_long_this_time)
     select(intake.homelessness_episodes_last_three_years, from: Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS.text)
     select(intake.homelessness_total_last_three_years, from: Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS.text)
@@ -54,12 +58,13 @@ class IntakesTest < ApplicationSystemTestCase
       Intake::INCOME_SOURCE.sub_choices.keys.each { |s| fill_in s, with: intake.public_send(s) }
     end
 
-    toggle(Intake::VETERAN.key, client.veteran)
     if client.veteran
+      toggle(Intake::VETERAN.key, client.veteran)
       choose(client.veteran_military_branch)
       fill_in Intake::VETERAN_SEPARATION_YEAR.text, with: client.veteran_separation_year
       choose(client.veteran_discharge_status)
     end
+
     toggle(Intake::ACTIVE_DUTY.key, intake.active_duty)
     select intake.substance_misuse, from: Intake::SUBSTANCE_MISUSE.text
     toggle(Intake::CHRONIC_HEALTH_CONDITION.key, intake.chronic_health_condition)
@@ -74,7 +79,7 @@ class IntakesTest < ApplicationSystemTestCase
 
     new_client = Client.last
     assert new_client.intakes.size == 1
-    new_intake = new_client.intakes.last.reload
+    new_intake = new_client.intakes.last
 
     # email and phone number collected in voucher form, not intake form
     ignore_attrs = %w( id user_id client_id email phone_number family_members created_at updated_at )

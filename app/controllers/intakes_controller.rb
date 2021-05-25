@@ -22,7 +22,7 @@ class IntakesController < ApplicationController
     end
 
     @client.assign_attributes(client_params.merge(
-      race: client_params[:race].reject {|r| r == "0" },
+      veteran: !!client_params[:veteran],
       veteran_separation_year: client_params[:veteran_separation_year].presence,
       family_members: params.dig(:intake, :client_attributes, :family_members)&.permit!&.to_h || {},
       force_intake: false
@@ -31,9 +31,16 @@ class IntakesController < ApplicationController
     @intake = Intake.new(intake_params.except(:voucher).merge(
       user_id: current_user.id,
       client_id: @client.id,
-      have_you_ever_experienced_homelessness_before:
-        !ActiveRecord::Type::Boolean.new.cast(intake_params[:homelessness_first_time]),
-      non_cash_benefits: intake_params[:non_cash_benefits].reject {|r| r == "0" }
+      household_tanf: !!intake_params[:household_tanf],
+      have_you_ever_experienced_homelessness_before: !intake_params[:homelessness_first_time],
+      non_cash_benefits: intake_params[:non_cash_benefits].reject {|r| r == "0" },
+      income_source_any: !!intake_params[:income_source_any],
+      active_duty: !!intake_params[:active_duty],
+      chronic_health_condition: !!intake_params[:chronic_health_condition],
+      mental_health_disability: !!intake_params[:mental_health_disability],
+      physical_disability: !!intake_params[:physical_disability],
+      developmental_disability: !!intake_params[:developmental_disability],
+      fleeing_domestic_violence: !!intake_params[:fleeing_domestic_violence]
     ))
 
     if !@client.save

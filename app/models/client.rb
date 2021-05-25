@@ -38,9 +38,13 @@ class Client < ApplicationRecord
   has_many :short_intakes
   has_many :vouchers
   has_many :incident_reports
-
   has_many :red_flags, class_name: 'RedFlag', table_name: :red_flags
   has_many :flagged_hotels, through: :red_flags, source: :hotel
+
+  # Callbacks
+  before_save do
+    self.race = self.race.reject {|r| r == "0"}
+  end
 
   def name
     "#{first_name} #{last_name}"

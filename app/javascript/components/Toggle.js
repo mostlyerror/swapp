@@ -54,7 +54,6 @@ class Toggle extends Component {
               className="hidden"
               readOnly
               checked={this.state.isEnabled}
-              value={this.state.isEnabled}
               name={this.props.name}
             />
             <span className="sr-only">{`toggle for question: ${this.props.question.text}`}</span>
