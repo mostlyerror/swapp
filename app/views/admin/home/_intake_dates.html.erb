@@ -1,0 +1,16 @@
+<section>
+<%= form_with(model: @voucher, local: true) do |form| %>
+  <div class="mt-4 flex flex-col md:flex-row gap-4">
+        <div class="form-control date">
+          <label class="font-semibold text-base sm:text-lg md:text-xl">Form</label>
+          <%= form.date_field :intake_dates, 
+              value: @swap.end_date,
+              min: [@swap.end_date, Date.current].min,
+              max: @swap.end_date,
+              multidate: true,
+              required: true,
+              class: "w-full bg-white rounded text-base sm:text-lg md:text-xl border border-gray-300" %>
+          </div>
+    </div>
+    <% end %>
+</section>
