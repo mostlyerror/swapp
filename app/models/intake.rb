@@ -89,7 +89,8 @@ class Intake < ApplicationRecord
       "2 to 6 nights",
       "1 week or more but less than 1 month",
       "1 month or more but less than 90 days",
-      "90 days or more but less than 1 year"
+      "90 days or more but less than 1 year",
+      "more than 1 year"
     ]
   )
 
