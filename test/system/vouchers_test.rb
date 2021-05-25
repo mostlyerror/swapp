@@ -17,14 +17,13 @@ class VouchersTest < ApplicationSystemTestCase
     guest = create(:client)
 
     visit new_voucher_path(client_id: client.id)
-    assert_text /create a voucher/i
-    assert_text /1 vouchers remaining today/i
+    assert_text /create voucher/i
+    assert_text /1 voucher/i
 
     choose(Intake::SLEEP_LAST_NIGHT.choices.sample)
     fill_in(Intake::CITY_LAST_NIGHT.text, with: "thornton")
-    select("#{hotel.name} (1)", from: "Hotel (vouchers remaining)")
+    select("#{hotel.name} (1)", from: "Hotel (number of vouchers left)")
     check("voucher_short_intake_why_not_shelter_no_room")
-    toggle("voucher", "guests", true)
 
     # guest section is empty
     assert_no_text guest.first_name
@@ -47,8 +46,8 @@ class VouchersTest < ApplicationSystemTestCase
 
     fill_in Intake::PHONE_NUMBER.text, with: client.phone_number
     fill_in Intake::EMAIL.text, with: client.email
-    find("#voucher_short_intake_bus_pass_yes").click
-    find("#voucher_short_intake_king_soopers_card_yes").click
+    toggle(Intake::BUS_PASS.key, true)
+    toggle(Intake::KING_SOOPERS_CARD.key, true)
 
     click_on "Create"
 
@@ -59,9 +58,9 @@ class VouchersTest < ApplicationSystemTestCase
     assert_text guest.name
   end
 
-  def toggle(form_prefix, key, bool, &block)
-    id = "#{form_prefix}_#{key}_#{bool && 'yes' || 'no'}"
-    find(id: id).click
-    block.call if block_given?
+  def toggle(key, val)
+    within("##{key}") do
+      val && click_on("No")
+    end
   end
 end

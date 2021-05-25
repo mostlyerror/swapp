@@ -321,7 +321,6 @@ class GuestsForm extends Component {
                 Create New Guest
               </Dialog.Title>
               <Dialog.Description className="text-base sm:text-lg md:text-xl text-gray-700">
-                Something something record new client details for future...
               </Dialog.Description>
 
               {this.state.errors.length > 0 && (
