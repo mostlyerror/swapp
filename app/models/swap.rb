@@ -31,7 +31,7 @@ class Swap < ApplicationRecord
   end
 
   def intake_period
-    intake_dates.first..intake_dates.last
+    intake_start_date..intake_end_date
   end
 
   def stay_period
@@ -51,7 +51,7 @@ class Swap < ApplicationRecord
   end
 
   def intake_active?
-    Date.current.in? intake_dates
+    Date.current.in? intake_period
   end
 
   def intake_ended?
