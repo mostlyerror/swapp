@@ -13,13 +13,14 @@
         </div>
       </section>
       <!-- voucher supply table -->
-      <div class="text-sm sm:text-lg md:text-xl" x-data="{ open: false }">
+      <div class="text-sm sm:text-lg md:text-xl" >
         <div class="px-6 py-3 flex justify-between items-center">
           <p class="font-semibold tabular-nums"><%= @num_vouchers_remaining_today %> vouchers left today</p>
-          <p class="underline text-indigo-900" @click="open = true" x-show="!open">+ view per hotel</p>
-          <p class="underline text-indigo-900" @click="open = false" x-show="open">- hide per hotel</p>
+          <p class="underline text-indigo-900" >+ view per hotel</p>
+          <p class="underline text-indigo-900" >- hide per hotel</p>
         </div>
-        <ul class="px-6 py-4 flex flex-1 flex-col gap-1 border-t-2 border-indigo-300" x-show="open" @click.away="open = false">
+        <% if current_user.show_swap_panel %>
+        <ul class="px-6 py-4 flex flex-1 flex-col gap-1 border-t-2 border-indigo-300" >
           <% @vouchers_remaining_today.each do |(hotel_id, vouchers)| %>
             <li class="flex flex-1 justify-between items-center">
               <p class="tabular-nums font-semibold"><%= vouchers %></p>
@@ -31,6 +32,7 @@
             </li>
           <% end %>
         </ul>
+        <% end %>
       </div>
     </div>
   <% end %>
