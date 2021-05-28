@@ -3,7 +3,9 @@ class ApplicationController < ActionController::Base
   before_action :set_swap_current
 
   def set_swap_current
-    @hotel_map = Hotel.all.pluck(:id, :name).to_h
+    @hotel_map = Hotel.all.reduce({}) do |map, hotel|
+      map.merge(Hash[hotel.id, hotel])
+    end
 
     if @swap = Swap.current
       @vouchers_remaining_today = RoomSupply.vouchers_remaining_today(@swap)
