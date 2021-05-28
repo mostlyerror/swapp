@@ -15,6 +15,7 @@
       <!-- voucher supply table -->
       <%= react_component('SwapPanel', 
         isOpen: current_user.show_swap_panel,
+        current_user: current_user,
         hotel_map: @hotel_map, 
         num_vouchers_remaining_today: @num_vouchers_remaining_today,
         vouchers_remaining_today: @vouchers_remaining_today

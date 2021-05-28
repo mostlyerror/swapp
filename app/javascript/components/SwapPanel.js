@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 const VoucherSupplyItem = (props) => (
   <li className="flex flex-1 justify-between items-center">
@@ -36,14 +37,16 @@ const VoucherSupply = (props) => {
 }
 
 class SwapPanel extends React.Component {
-  state = { isOpen: this.props.isOpen }
+  state = { isOpen: this.props.current_user.show_swap_panel }
 
   handleToggle = (event) => {
-    this.setState((prevState) => {
-      return {
-        isOpen: !prevState.isOpen
-      };
-    });
+    const userId = this.props.current_user.id
+    const userSettingsURL = `/users/${userId}/settings`
+
+    axios.put(userSettingsURL, { show_swap_panel: !this.state.isOpen })
+         .then(res => console.log(res))
+
+    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
   }
 
   render() {
@@ -52,7 +55,7 @@ class SwapPanel extends React.Component {
       <div className="text-sm sm:text-lg md:text-xl" >
         <div className="px-6 py-3 flex justify-between items-center">
           <p className="font-semibold tabular-nums">
-            { this.props.num_vouchers_remaining_today }
+            { this.props.num_vouchers_remaining_today } vouchers left today
           </p>
           <button onClick={this.handleToggle} type="button" className="underline text-indigo-900">
             { this.state.isOpen ? "+ view per hotel" : "- hide per hotel" }
