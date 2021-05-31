@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     sessions: 'sessions/sessions'
   }
 
+  put "users/:id/settings" => "settings#update"
+
   post 'messages/sms'
   resource :messages do
     collection do 

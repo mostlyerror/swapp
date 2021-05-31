@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_22_002031) do
+ActiveRecord::Schema.define(version: 2021_05_27_230709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(version: 2021_05_22_002031) do
     t.string "aasm_state"
     t.date "intake_start_date"
     t.date "intake_end_date"
+    t.date "intake_dates", default: [], array: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -165,6 +166,7 @@ ActiveRecord::Schema.define(version: 2021_05_22_002031) do
     t.string "last_name", default: "", null: false
     t.boolean "hotel_user", default: false, null: false
     t.boolean "intake_user", default: false, null: false
+    t.boolean "show_swap_panel", default: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

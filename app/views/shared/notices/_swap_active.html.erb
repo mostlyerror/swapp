@@ -13,25 +13,13 @@
         </div>
       </section>
       <!-- voucher supply table -->
-      <div class="text-sm sm:text-lg md:text-xl" x-data="{ open: false }">
-        <div class="px-6 py-3 flex justify-between items-center">
-          <p class="font-semibold tabular-nums"><%= @num_vouchers_remaining_today %> vouchers left today</p>
-          <p class="underline text-indigo-900" @click="open = true" x-show="!open">+ view per hotel</p>
-          <p class="underline text-indigo-900" @click="open = false" x-show="open">- hide per hotel</p>
-        </div>
-        <ul class="px-6 py-4 flex flex-1 flex-col gap-1 border-t-2 border-indigo-300" x-show="open" @click.away="open = false">
-          <% @vouchers_remaining_today.each do |(hotel_id, vouchers)| %>
-            <li class="flex flex-1 justify-between items-center">
-              <p class="tabular-nums font-semibold"><%= vouchers %></p>
-              <p class=""><%= @hotel_map[hotel_id] %>
-                <% if Hotel.find(hotel_id).pet_friendly %>
-                  <span class="text-xs bg-yellow-200 px-1 py-1 rounded-md">dogs ok</span>
-                <% end %>
-              </p>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+      <%= react_component('SwapPanel', 
+        isOpen: current_user.show_swap_panel,
+        current_user: current_user,
+        hotel_map: @hotel_map, 
+        num_vouchers_remaining_today: @num_vouchers_remaining_today,
+        vouchers_remaining_today: @vouchers_remaining_today
+      ) %>
     </div>
   <% end %>
   <% if @num_vouchers_remaining_today&.zero? %>
