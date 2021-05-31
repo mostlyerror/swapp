@@ -58,7 +58,7 @@ class SwapPanel extends React.Component {
             { this.props.num_vouchers_remaining_today } vouchers left today
           </p>
           <button onClick={this.handleToggle} type="button" className="underline text-indigo-900">
-            { this.state.isOpen ? "+ view per hotel" : "- hide per hotel" }
+            { this.state.isOpen ? "- hide per hotel" : "+ view per hotel" }
           </button>
         </div>
         { this.state.isOpen && <VoucherSupply {...this.props} /> }
