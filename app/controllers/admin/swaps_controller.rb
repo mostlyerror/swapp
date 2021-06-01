@@ -1,4 +1,6 @@
 class Admin::SwapsController < Admin::BaseController
+  add_flash_types :info, :error
+
   def extend
     swap = Swap.find(params[:id])
     if swap.extend!(params['days'])
@@ -27,5 +29,24 @@ class Admin::SwapsController < Admin::BaseController
     end
 
     return redirect_to admin_home_path
+  end
+
+  def edit_intake_dates
+    swap = Swap.current
+    Swap.transaction do 
+      intake_dates = params[:intake_dates].sort()
+     
+      if swap.update(intake_dates: intake_dates)
+        return redirect_back(
+          info: "Dates successfully saved.",
+          fallback_location: root_path
+        )
+      end
+
+      redirect_back(
+        error: "An error has occurred. Please try again.",
+        fallback_location: root_path
+      )
+    end
   end
 end

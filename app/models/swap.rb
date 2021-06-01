@@ -5,6 +5,7 @@ class Swap < ApplicationRecord
   validate :order_of_dates
   validate :overlapping_events
   validate :at_least_one_night
+  validate :intake_start_more_than_seven
 
   has_many :vouchers
   has_many :availabilities
@@ -101,6 +102,12 @@ class Swap < ApplicationRecord
         .reject { |sw| sw == self }
       if overlapping.present?
         errors.add(:overlapping, "can't overlap other swap period: #{overlapping.first}")
+      end
+    end
+
+    def intake_start_more_than_seven
+      if intake_dates.first == start_date + 8
+        return errors.add(:base, "First intake date cannot be more than 7 days from the start of the swap period")
       end
     end
 end
