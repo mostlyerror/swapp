@@ -13,4 +13,7 @@ class Admin::HomeController < Admin::BaseController
       @supply = RoomSupply.by_hotel(@swap)
     end
   end
+
+  def awesome
+  end
 end
