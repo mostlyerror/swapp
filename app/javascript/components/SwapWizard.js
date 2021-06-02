@@ -1,4 +1,5 @@
 import React from 'react'
+import { Transition } from '@headlessui/react'
 
 class SwapWizard extends React.Component {
   constructor(props) {
@@ -39,9 +40,6 @@ class SwapWizard extends React.Component {
     })
   }
 
-/*
-* the functions for our button
-*/
 previousButton() {
   let currentStep = this.state.currentStep;
   if(currentStep !==1){
@@ -77,28 +75,99 @@ nextButton(){
       <p>Step {this.state.currentStep} </p> 
 
       <form onSubmit={this.handleSubmit}>
-        <Step1 
-          currentStep={this.state.currentStep} 
-          handleChange={this.handleChange}
-          stayDates={this.state.stayDates}
-        />
-        <Step2 
-          currentStep={this.state.currentStep} 
-          handleChange={this.handleChange}
-          intakeDates={this.state.intakeDates}
-        />
-        <Step3 
-          currentStep={this.state.currentStep} 
-          handleChange={this.handleChange}
-        />
-        <Step4
-          currentStep={this.state.currentStep} 
-          handleChange={this.handleChange}
-        />
-        <Step5
-          currentStep={this.state.currentStep} 
-          handleChange={this.handleChange}
-        />
+        {this.state.currentStep === 1 && (
+          <Transition
+            appear={true}
+            show={true}
+            enter="transition-opacity duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Step1 
+              currentStep={this.state.currentStep} 
+              handleChange={this.handleChange}
+              stayDates={this.state.stayDates}
+            />
+          </Transition>
+        )}
+
+        {this.state.currentStep === 2 && (
+          <Transition
+            appear={true}
+            show={true}
+            enter="transition-opacity duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Step2 
+              currentStep={this.state.currentStep} 
+              handleChange={this.handleChange}
+              intakeDates={this.state.intakeDates}
+            />
+          </Transition>
+
+        )}
+
+        {this.state.currentStep === 3 && (
+          <Transition
+            appear={true}
+            show={true}
+            enter="transition-opacity duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Step3 
+              currentStep={this.state.currentStep} 
+              handleChange={this.handleChange}
+            />
+          </Transition>
+        )}
+
+        {this.state.currentStep === 4 && (
+          <Transition
+            appear={true}
+            show={true}
+            enter="transition-opacity duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Step4 
+              currentStep={this.state.currentStep} 
+              handleChange={this.handleChange}
+            />
+          </Transition>
+        )}
+
+        {this.state.currentStep === 4 && (
+          <Transition
+            appear={true}
+            show={true}
+            enter="transition-opacity duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Step5
+              currentStep={this.state.currentStep} 
+              handleChange={this.handleChange}
+            />
+          </Transition>
+        )}
+
         {this.previousButton()}
         {this.nextButton()}
       </form>
