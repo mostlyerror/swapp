@@ -6,6 +6,7 @@ class Swap < ApplicationRecord
   validate :overlapping_events
   validate :at_least_one_night
   validate :intake_dates_within_period
+  validate :no_intake_on_last_night
 
   has_many :vouchers
   has_many :availabilities
@@ -32,7 +33,7 @@ class Swap < ApplicationRecord
   end
 
   def intake_period
-    intake_start_date..intake_end_date
+    intake_dates
   end
 
   def stay_period
@@ -52,7 +53,7 @@ class Swap < ApplicationRecord
   end
 
   def intake_active?
-    Date.current.in? intake_period
+    Date.current.in? intake_dates
   end
 
   def intake_ended?
@@ -108,6 +109,12 @@ class Swap < ApplicationRecord
     def intake_dates_within_period
       if intake_dates.first < start_date - 1
         return errors.add(:base, "First intake date cannot be more than one day before the start of the swap period")
+      end
+    end
+
+    def no_intake_on_last_night
+      if intake_period.include? end_date
+        return errors.add(:base, "Cannot perform intake on last day of swap period")
       end
     end
 end
