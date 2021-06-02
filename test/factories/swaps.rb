@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :swap do
     aasm_state { "active" }
     start_date { Date.current }
-    end_date { Date.current - 1 }
+    end_date { Date.current + 2 }
     intake_start_date { self.intake_dates.first }
     intake_end_date { self.end_date - 1 }
     intake_dates { [Date.current, Date.current + 1] }
