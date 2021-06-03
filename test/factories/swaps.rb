@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :swap do
-    aasm_state { "active" }
     start_date { Date.current }
     end_date { Date.current + 2 }
     intake_start_date { self.intake_dates.first }
@@ -19,7 +18,6 @@ FactoryBot.define do
     end
 
     trait :current do
-      aasm_state { "active" }
       start_date { Date.current.yesterday }
       end_date { Date.current.tomorrow }
       intake_start_date { self.start_date - 1 }
@@ -27,7 +25,6 @@ FactoryBot.define do
     end
 
     trait :tomorrow do
-      aasm_state { "active" }
       start_date { Date.current + 1 }
       end_date { Date.current + 3 }
       intake_start_date { self.start_date - 1 }
