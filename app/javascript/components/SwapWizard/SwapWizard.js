@@ -1,11 +1,11 @@
 import React from 'react'
-import { Transition } from '@headlessui/react'
+import _ from 'lodash'
+import { SwapWizardTransition } from './SwapWizardTransition'
 import { Step1 } from './Step1'
 import { Step2 } from './Step2'
 import { Step3 } from './Step3'
 import { Step4 } from './Step4'
 import { Step5 } from './Step5'
-import _ from 'lodash'
 
 class SwapWizard extends React.Component {
   constructor(props) {
@@ -47,7 +47,6 @@ class SwapWizard extends React.Component {
     alert('blah')
     // actually communicate with the server here
   }
-
   render() {
     return (
       <div>
@@ -56,34 +55,16 @@ class SwapWizard extends React.Component {
 
         <form onSubmit={this.handleSubmit}>
           {this.state.currentStep === 1 && (
-            <Transition
-              appear={true}
-              show={true}
-              enter="transition-opacity duration-500"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity duration-500"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
+            <SwapWizardTransition>
               <Step1
                 advance={this.advance}
                 currentStep={this.state.currentStep}
               />
-            </Transition>
+            </SwapWizardTransition>
           )}
 
           {this.state.currentStep === 2 && (
-            <Transition
-              appear={true}
-              show={true}
-              enter="transition-opacity duration-500"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity duration-500"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
+            <SwapWizardTransition>
               <Step2
                 back={this.back}
                 advance={this.advance}
@@ -91,20 +72,11 @@ class SwapWizard extends React.Component {
                 onStayDatesChange={this.handleStayDatesChange}
                 validateStayDates={this.validateStayDates}
               />
-            </Transition>
+            </SwapWizardTransition>
           )}
 
           {this.state.currentStep === 3 && (
-            <Transition
-              appear={true}
-              show={true}
-              enter="transition-opacity duration-500"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity duration-500"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
+            <SwapWizardTransition>
               <Step3
                 back={this.back}
                 advance={this.advance}
@@ -112,45 +84,27 @@ class SwapWizard extends React.Component {
                 onIntakeDatesChange={this.handleIntakeDatesChange}
                 validateIntakeDates={this.validateIntakeDates}
               />
-            </Transition>
+            </SwapWizardTransition>
           )}
 
           {this.state.currentStep === 4 && (
-            <Transition
-              appear={true}
-              show={true}
-              enter="transition-opacity duration-500"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity duration-500"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
+            <SwapWizardTransition>
               <Step4
                 back={this.back}
                 advance={this.advance}
                 currentStep={this.state.currentStep}
               />
-            </Transition>
+            </SwapWizardTransition>
           )}
 
           {this.state.currentStep === 5 && (
-            <Transition
-              appear={true}
-              show={true}
-              enter="transition-opacity duration-500"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity duration-500"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
+            <SwapWizardTransition>
               <Step5
                 back={this.back}
                 createSwapPeriod={this.createSwapPeriod}
                 currentStep={this.state.currentStep}
               />
-            </Transition>
+            </SwapWizardTransition>
           )}
         </form>
       </div>
