@@ -1,5 +1,10 @@
 import React from 'react'
 import { Transition } from '@headlessui/react'
+import { Step1 } from './Step1'
+import { Step2 } from './Step2'
+import { Step3 } from './Step3'
+import { Step4 } from './Step4'
+import { Step5 } from './Step5'
 
 class SwapWizard extends React.Component {
   constructor(props) {
@@ -179,82 +184,6 @@ class SwapWizard extends React.Component {
       </React.Fragment>
     )
   }
-}
-
-function Step1(props) {
-  if (props.currentStep !== 1) {
-    return null
-  }
-  return (
-    <>
-      <img src="https://i.imgur.com/NNJS2hi.png"></img>
-    </>
-  )
-}
-
-function Step2(props) {
-  if (props.currentStep !== 2) {
-    return null
-  }
-  return (
-    <>
-      <label htmlFor="">What are the hotel stay dates?</label>
-      <input
-        className=""
-        id="stayDates"
-        name="stayDates"
-        type="text"
-        value={props.stayDates}
-        onChange={props.handleChange}
-      />
-    </>
-  )
-}
-
-function Step3(props) {
-  if (props.currentStep !== 3) {
-    return null
-  }
-  return (
-    <>
-      <label htmlFor="">What days will intake be performed?</label>
-      <input
-        className=""
-        id="intakeDates"
-        name="intakeDates"
-        type="text"
-        value={props.intakeDates}
-        onChange={props.handleChange}
-      />
-    </>
-  )
-}
-
-function Step4(props) {
-  if (props.currentStep !== 4) {
-    return null
-  }
-  return (
-    <>
-      <h2>On each Intake Day, you can set the voucher supply for that day:</h2>
-      <img src="https://media.giphy.com/media/HIYW8sTRTHt1m/giphy.gif" />
-    </>
-  )
-}
-
-function Step5(props) {
-  if (props.currentStep !== 5) {
-    return null
-  }
-  return (
-    <>
-      <h2>A New SWAP Period will be created:</h2>
-      <div>Check In May 20</div>
-      <div>Check Out May 22</div>
-      <div>Intake Dates May 19 May 20 May 21</div>
-      <button className="btn btn-success btn-block">Looks good, do it!</button>
-    </>
-  )
 }
 
 export default SwapWizard
