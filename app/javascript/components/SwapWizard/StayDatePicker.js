@@ -7,6 +7,7 @@ export default class StayDatePicker extends React.Component {
   static defaultProps = {
     numberOfMonths: 2,
     showOutsideDays: true,
+    canChangeMonth: false,
   }
 
   constructor(props) {
@@ -54,6 +55,7 @@ export default class StayDatePicker extends React.Component {
           className="Selectable"
           numberOfMonths={this.props.numberOfMonths}
           showOutsideDays={this.props.showOutsideDays}
+          canChangeMonth={this.props.canChangeMonth}
           selectedDays={[from, { from, to }]}
           modifiers={modifiers}
           onDayClick={this.handleDayClick}
