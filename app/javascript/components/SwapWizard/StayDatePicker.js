@@ -6,8 +6,9 @@ import './StayDatePicker.css'
 export default class StayDatePicker extends React.Component {
   static defaultProps = {
     numberOfMonths: 2,
-    showOutsideDays: true,
     canChangeMonth: false,
+    showOutsideDays: true,
+    enableOutsideDaysClick: false,
   }
 
   constructor(props) {

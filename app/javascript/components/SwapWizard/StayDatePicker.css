@@ -4,8 +4,12 @@
   color: black;
 }
 
-.Selectable .DayPicker-Day--start,
-.Selectable .DayPicker-Day--end {
+.Selectable .DayPicker-Day--start:not(.DayPicker-Day--outside) {
+  background-color: hotpink !important;
+  color: black !important;
+}
+
+.Selectable .DayPicker-Day--end:not(.DayPicker-Day--outside) {
   background-color: hotpink !important;
   color: black !important;
 }
