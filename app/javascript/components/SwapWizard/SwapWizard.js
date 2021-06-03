@@ -81,12 +81,12 @@ class SwapWizard extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         <h1>Create SWAP Period️</h1>
         <p>Step {this.state.currentStep} </p>
 
         <form onSubmit={this.handleSubmit}>
-          {/* {this.state.currentStep === 1 && (
+          {this.state.currentStep === 1 && (
             <Transition
               appear={true}
               show={true}
@@ -103,9 +103,9 @@ class SwapWizard extends React.Component {
                 stayDates={this.state.stayDates}
               />
             </Transition>
-          )} */}
+          )}
 
-          {this.state.currentStep === 1 && (
+          {this.state.currentStep === 2 && (
             <Transition
               appear={true}
               show={true}
@@ -181,7 +181,7 @@ class SwapWizard extends React.Component {
           {this.previousButton()}
           {this.nextButton()}
         </form>
-      </React.Fragment>
+      </div>
     )
   }
 }
