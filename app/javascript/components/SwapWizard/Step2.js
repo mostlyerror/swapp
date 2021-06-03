@@ -4,18 +4,13 @@ import Button from './Button'
 import ButtonOutline from './ButtonOutline'
 
 // set stay dates
-export function Step2(props) {
-  const validate = (event) => {
-    // check that the stay dates are set and valid?
-    props.advance()
-  }
-
+export const Step2 = (props) => {
   return (
     <>
       <label htmlFor="">What are the hotel stay dates?</label>
-      <StayDatePicker />
+      <StayDatePicker onStayDatesChange={props.onStayDatesChange} />
       <ButtonOutline onClick={props.back}>Back</ButtonOutline>
-      <Button onClick={validate}>Next: Set Intake Dates</Button>
+      <Button onClick={props.validateStayDates}>Next: Set Intake Dates</Button>
     </>
   )
 }

@@ -28,10 +28,12 @@ export default class StayDatePicker extends React.Component {
   handleDayClick(day) {
     const range = DateUtils.addDayToRange(day, this.state)
     this.setState(range)
+    this.props.onStayDatesChange(range)
   }
 
   handleResetClick() {
     this.setState(this.getInitialState())
+    this.props.onStayDatesChange(this.getInitialState())
   }
 
   render() {

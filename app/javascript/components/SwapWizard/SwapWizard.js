@@ -12,8 +12,7 @@ class SwapWizard extends React.Component {
     super(props)
     this.state = {
       currentStep: 1,
-      stayDateStart: '',
-      stayDateEnd: '',
+      stayDates: {},
       intakeDates: [],
     }
   }
@@ -30,19 +29,23 @@ class SwapWizard extends React.Component {
     }))
   }
 
-  handleChange = (event) => {
-    const { name, value } = event.target
-    this.setState({
-      [name]: value,
-    })
+  handleStayDatesChange = (stayDates) => this.setState({ stayDates })
+
+  validateStayDates = (event) => {
+    console.log('validateStayDates()')
+    this.advance()
   }
 
+  handleIntakeDatesChange = (intakeDates) => this.setState({ intakeDates })
+
+  validateIntakeDates = (event) => {
+    console.log('validateIntakeDates()')
+    this.advance()
+  }
   handleSubmit = (event) => {
     event.preventDefault()
-    const { stayDates, intakeDates } = this.state
-    alert(
-      `Your registration detail: \n stayDates: ${stayDates} \n intakeDates: ${intakeDates} `
-    )
+    alert('blah')
+    // actually communicate with the server here
   }
 
   render() {
@@ -66,8 +69,6 @@ class SwapWizard extends React.Component {
               <Step1
                 advance={this.advance}
                 currentStep={this.state.currentStep}
-                handleChange={this.handleChange}
-                stayDates={this.state.stayDates}
               />
             </Transition>
           )}
@@ -87,8 +88,8 @@ class SwapWizard extends React.Component {
                 back={this.back}
                 advance={this.advance}
                 currentStep={this.state.currentStep}
-                handleChange={this.handleChange}
-                intakeDates={this.state.intakeDates}
+                onStayDatesChange={this.handleStayDatesChange}
+                validateStayDates={this.validateStayDates}
               />
             </Transition>
           )}
@@ -108,7 +109,8 @@ class SwapWizard extends React.Component {
                 back={this.back}
                 advance={this.advance}
                 currentStep={this.state.currentStep}
-                handleChange={this.handleChange}
+                onIntakeDatesChange={this.handleIntakeDatesChange}
+                validateIntakeDates={this.validateIntakeDates}
               />
             </Transition>
           )}
@@ -128,7 +130,6 @@ class SwapWizard extends React.Component {
                 back={this.back}
                 advance={this.advance}
                 currentStep={this.state.currentStep}
-                handleChange={this.handleChange}
               />
             </Transition>
           )}
@@ -148,7 +149,6 @@ class SwapWizard extends React.Component {
                 back={this.back}
                 createSwapPeriod={this.createSwapPeriod}
                 currentStep={this.state.currentStep}
-                handleChange={this.handleChange}
               />
             </Transition>
           )}
