@@ -1,9 +1,6 @@
 import React from 'react'
 
 export function Step2(props) {
-  if (props.currentStep !== 2) {
-    return null
-  }
   return (
     <>
       <label htmlFor="">What are the hotel stay dates?</label>

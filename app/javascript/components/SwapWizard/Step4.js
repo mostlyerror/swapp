@@ -1,9 +1,6 @@
 import React from 'react'
 
 export function Step4(props) {
-  if (props.currentStep !== 4) {
-    return null
-  }
   return (
     <>
       <h2>On each Intake Day, you can set the voucher supply for that day:</h2>

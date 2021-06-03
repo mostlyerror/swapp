@@ -1,9 +1,6 @@
 import React from 'react'
 
 export function Step5(props) {
-  if (props.currentStep !== 5) {
-    return null
-  }
   return (
     <>
       <h2>A New SWAP Period will be created:</h2>
