@@ -36,17 +36,25 @@ class SwapWizard extends React.Component {
     this.advance()
   }
 
-  handleIntakeDatesChange = (intakeDates) => this.setState({ intakeDates })
+  handleIntakeDatesChange = (intakeDates) => {
+    console.log('handleIntakeDatesChange()')
+    console.log(intakeDates)
+    this.setState({ intakeDates })
+  }
 
   validateIntakeDates = (event) => {
     console.log('validateIntakeDates()')
+    // sort dates array
+    // then validate against the swap dates
     this.advance()
   }
+
   handleSubmit = (event) => {
     event.preventDefault()
     alert('blah')
     // actually communicate with the server here
   }
+
   render() {
     return (
       <div>
@@ -99,11 +107,7 @@ class SwapWizard extends React.Component {
 
           {this.state.currentStep === 5 && (
             <SwapWizardTransition>
-              <Step5
-                back={this.back}
-                createSwapPeriod={this.createSwapPeriod}
-                currentStep={this.state.currentStep}
-              />
+              <Step5 back={this.back} currentStep={this.state.currentStep} />
             </SwapWizardTransition>
           )}
         </form>

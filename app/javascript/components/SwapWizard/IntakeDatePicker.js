@@ -26,6 +26,8 @@ export default class IntakeDatePicker extends React.Component {
   }
 
   handleDayClick(day, { selected }) {
+    console.log('day', day)
+    console.log('selected', selected)
     const selectedDays = this.state.selectedDays.concat()
     if (selected) {
       const selectedIndex = selectedDays.findIndex((selectedDay) =>
@@ -36,10 +38,12 @@ export default class IntakeDatePicker extends React.Component {
       selectedDays.push(day)
     }
     this.setState({ selectedDays })
+    this.props.onIntakeDatesChange(selectedDays)
   }
 
   handleResetClick() {
     this.setState(this.getInitialState())
+    this.props.onIntakeDatesChange(this.getInitialState())
   }
 
   render() {
