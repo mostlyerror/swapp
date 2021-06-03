@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     constraints(lambda { |req| req.env["warden"].user(:user)&.admin_user? }) do
       get "/awesome" => "home#awesome"
       get "/" => "home#index", as: :home
+      post "swaps" => "swaps#create"
       put "swaps/:id/extend" => "swaps#extend", as: :extend_swap
       put "swaps/:id/room_supply" => "swaps#update_room_supply", as: :update_room_supply
       get "/reports/swap" => "reports#swap", as: :swap_report

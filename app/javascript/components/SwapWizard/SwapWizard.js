@@ -1,5 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
+import axios from 'axios'
 import { SwapWizardTransition } from './SwapWizardTransition'
 import { Step1 } from './Step1'
 import { Step2 } from './Step2'
@@ -37,8 +38,6 @@ class SwapWizard extends React.Component {
   }
 
   handleIntakeDatesChange = (intakeDates) => {
-    console.log('handleIntakeDatesChange()')
-    console.log(intakeDates)
     this.setState({ intakeDates })
   }
 
@@ -51,8 +50,12 @@ class SwapWizard extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    alert('blah')
-    // actually communicate with the server here
+    alert(JSON.stringify(this.state))
+    const createAdminSwapPeriodURL = `/admin/swaps`
+
+    axios
+      .post(createAdminSwapPeriodURL, this.state)
+      .then((res) => console.log(res))
   }
 
   render() {

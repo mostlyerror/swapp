@@ -1,4 +1,23 @@
 class Admin::SwapsController < Admin::BaseController
+  skip_before_action :verify_authenticity_token
+
+  def create
+    stay_start = params['stayDates']['from']
+    stay_end = params['stayDates']['to']
+    intake_dates = params['intakeDates'].map(&:to_date)
+
+    swap = Swap.new(
+      start_date: stay_start,
+      end_date: stay_end,
+      # intake_dates: intake_dates # TODO: pull in changes from intake dates branch so this can work
+      # created_by: current_user   # created by?
+    )
+
+    if swap.save
+      return render json: swap, status: :created
+    end
+  end
+
   def extend
     swap = Swap.find(params[:id])
     if swap.extend!(params['days'])
