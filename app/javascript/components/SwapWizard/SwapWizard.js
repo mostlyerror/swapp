@@ -5,15 +5,29 @@ import { Step2 } from './Step2'
 import { Step3 } from './Step3'
 import { Step4 } from './Step4'
 import { Step5 } from './Step5'
+import _ from 'lodash'
 
 class SwapWizard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       currentStep: 1,
-      stayDates: '',
-      intakedates: '',
+      stayDateStart: '',
+      stayDateEnd: '',
+      intakeDates: [],
     }
+  }
+
+  back = (event) => {
+    this.setState((prevState) => ({
+      currentStep: _.max([prevState.currentStep - 1, 1]),
+    }))
+  }
+
+  advance = (event) => {
+    this.setState((prevState) => ({
+      currentStep: _.min([prevState.currentStep + 1, 5]),
+    }))
   }
 
   handleChange = (event) => {
@@ -29,54 +43,6 @@ class SwapWizard extends React.Component {
     alert(
       `Your registration detail: \n stayDates: ${stayDates} \n intakeDates: ${intakeDates} `
     )
-  }
-
-  _next = () => {
-    let currentStep = this.state.currentStep
-    currentStep = currentStep >= 4 ? 5 : currentStep + 1
-    this.setState({
-      currentStep: currentStep,
-    })
-  }
-
-  _prev = () => {
-    let currentStep = this.state.currentStep
-    currentStep = currentStep <= 1 ? 1 : currentStep - 1
-    this.setState({
-      currentStep: currentStep,
-    })
-  }
-
-  previousButton() {
-    let currentStep = this.state.currentStep
-    if (currentStep !== 1) {
-      return (
-        <button
-          className="btn btn-secondary"
-          type="button"
-          onClick={this._prev}
-        >
-          Previous
-        </button>
-      )
-    }
-    return null
-  }
-
-  nextButton() {
-    let currentStep = this.state.currentStep
-    if (currentStep < 5) {
-      return (
-        <button
-          className="btn btn-primary float-right"
-          type="button"
-          onClick={this._next}
-        >
-          Next
-        </button>
-      )
-    }
-    return null
   }
 
   render() {
@@ -98,6 +64,7 @@ class SwapWizard extends React.Component {
               leaveTo="opacity-0"
             >
               <Step1
+                advance={this.advance}
                 currentStep={this.state.currentStep}
                 handleChange={this.handleChange}
                 stayDates={this.state.stayDates}
@@ -117,6 +84,8 @@ class SwapWizard extends React.Component {
               leaveTo="opacity-0"
             >
               <Step2
+                back={this.back}
+                advance={this.advance}
                 currentStep={this.state.currentStep}
                 handleChange={this.handleChange}
                 intakeDates={this.state.intakeDates}
@@ -136,6 +105,8 @@ class SwapWizard extends React.Component {
               leaveTo="opacity-0"
             >
               <Step3
+                back={this.back}
+                advance={this.advance}
                 currentStep={this.state.currentStep}
                 handleChange={this.handleChange}
               />
@@ -154,6 +125,8 @@ class SwapWizard extends React.Component {
               leaveTo="opacity-0"
             >
               <Step4
+                back={this.back}
+                advance={this.advance}
                 currentStep={this.state.currentStep}
                 handleChange={this.handleChange}
               />
@@ -172,14 +145,13 @@ class SwapWizard extends React.Component {
               leaveTo="opacity-0"
             >
               <Step5
+                back={this.back}
+                createSwapPeriod={this.createSwapPeriod}
                 currentStep={this.state.currentStep}
                 handleChange={this.handleChange}
               />
             </Transition>
           )}
-
-          {this.previousButton()}
-          {this.nextButton()}
         </form>
       </div>
     )
