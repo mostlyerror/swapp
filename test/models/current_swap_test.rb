@@ -47,4 +47,9 @@ class CurrentSwapTest < ActiveSupport::TestCase
     past = create(:swap, :past)
     assert_equal Swap.current, present
   end
+
+  test "::intake dates within period" do
+    swap = create(:swap)
+    swap.intake_dates = [Date.current - 3, Date.current + 5]
+  end
 end

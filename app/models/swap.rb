@@ -110,6 +110,12 @@ class Swap < ApplicationRecord
       if intake_dates.first < start_date - 1
         return errors.add(:base, "First intake date cannot be more than one day before the start of the swap period")
       end
+
+      intake_dates.map do |date|
+        if date > end_date
+          return errors.add(:base, "#{date} is outside of the swap period")
+        end
+      end
     end
 
     def no_intake_on_last_night
