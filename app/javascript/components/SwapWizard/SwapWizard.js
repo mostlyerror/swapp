@@ -160,7 +160,7 @@ class SwapWizard extends React.Component {
             </Transition>
           )}
 
-          {this.state.currentStep === 4 && (
+          {this.state.currentStep === 5 && (
             <Transition
               appear={true}
               show={true}
