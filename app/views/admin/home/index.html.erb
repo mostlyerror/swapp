@@ -1,8 +1,8 @@
-<div class="bg-gray-100  text-6xl">
-  <section class="mt-16">
+<div class="bg-gray-100">
+  <section class="">
     <%= render partial: 'shared/swap_notices' %>
   </section>
-  <section class="mt-16">
+  <section class="">
     <% if @swap %>
       <%= render partial: 'current_swap_activation' %>
       <%= render partial: 'todays_voucher_supply' %>
@@ -10,7 +10,7 @@
       <%= render partial: 'activate_swap' %>
     <% end %>
   </section>
-  <section class="mt-16">
+  <section class="">
     <%= render partial: 'vouchers_issued' %>
   </section>
 </div>

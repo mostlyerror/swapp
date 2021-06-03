@@ -181,9 +181,9 @@ function Step1(props) {
     return null
   } 
   return (
-    <div className="">
+    <>
       <img src="https://i.imgur.com/NNJS2hi.png"></img>
-    </div>
+    </>
   )
 }
 
@@ -192,7 +192,7 @@ function Step2(props) {
     return null
   } 
   return(
-    <div className="">
+    <>
       <label htmlFor="">What are the hotel stay dates?</label>
       <input
         className=""
@@ -202,7 +202,7 @@ function Step2(props) {
         value={props.stayDates}
         onChange={props.handleChange}
         />
-    </div>
+    </>
   );
 }
 
@@ -211,7 +211,7 @@ function Step3(props) {
     return null
   } 
   return(
-    <div className="">
+    <>
       <label htmlFor="">What days will intake be performed?</label>
       <input
         className=""
@@ -221,7 +221,7 @@ function Step3(props) {
         value={props.intakeDates}
         onChange={props.handleChange}
         />
-    </div>
+    </>
   );
 }
 
@@ -230,15 +230,12 @@ function Step4(props) {
     return null
   } 
   return(
-    <React.Fragment>
-    <div className="">
+    <>
       <h2>
         On each Intake Day, you can set the voucher supply for that day:
       </h2>
       <img src="https://media.giphy.com/media/HIYW8sTRTHt1m/giphy.gif" />
-    </div>
-    {/* <button className="btn btn-success btn-block">Sign up</button> */}
-    </React.Fragment>
+    </>
   );
 }
 
