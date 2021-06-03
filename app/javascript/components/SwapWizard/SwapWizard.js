@@ -86,7 +86,7 @@ class SwapWizard extends React.Component {
         <p>Step {this.state.currentStep} </p>
 
         <form onSubmit={this.handleSubmit}>
-          {this.state.currentStep === 1 && (
+          {/* {this.state.currentStep === 1 && (
             <Transition
               appear={true}
               show={true}
@@ -103,9 +103,9 @@ class SwapWizard extends React.Component {
                 stayDates={this.state.stayDates}
               />
             </Transition>
-          )}
+          )} */}
 
-          {this.state.currentStep === 2 && (
+          {this.state.currentStep === 1 && (
             <Transition
               appear={true}
               show={true}

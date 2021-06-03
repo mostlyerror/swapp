@@ -1,0 +1,25 @@
+.Selectable
+  .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+  background-color: hotpink;
+  color: black;
+}
+
+.Selectable .DayPicker-Day--start,
+.Selectable .DayPicker-Day--end {
+  background-color: hotpink !important;
+  color: black !important;
+}
+
+.Selectable .DayPicker-Day {
+  border-radius: 0 !important;
+}
+
+.Selectable .DayPicker-Day--start {
+  border-top-left-radius: 50% !important;
+  border-bottom-left-radius: 50% !important;
+}
+
+.Selectable .DayPicker-Day--end {
+  border-top-right-radius: 50% !important;
+  border-bottom-right-radius: 50% !important;
+}

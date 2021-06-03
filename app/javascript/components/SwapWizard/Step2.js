@@ -1,16 +1,14 @@
 import React from 'react'
+import StayDatePicker from './StayDatePicker'
 
 export function Step2(props) {
   return (
     <>
       <label htmlFor="">What are the hotel stay dates?</label>
-      <input
-        className=""
-        id="stayDates"
-        name="stayDates"
-        type="text"
-        value={props.stayDates}
-        onChange={props.handleChange}
+      <StayDatePicker
+        numberOfMonths={2}
+        showOutsideDays
+        canChangeMonth={false}
       />
     </>
   )
