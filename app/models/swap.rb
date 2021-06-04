@@ -11,21 +11,8 @@ class Swap < ApplicationRecord
   has_many :vouchers
   has_many :availabilities
 
-  # aasm do
-  #   state :inactive, initial: true
-  #   state :active
-
-  #   event :activate do
-  #     transitions from: :inactive, to: :active
-  #   end
-
-  #   event :deactivate do
-  #     transitions from: :active, to: :inactive
-  #   end
-  # end
-
   def self.current
-    where("? >= start_date AND ? <= end_date", Date.current, Date.current).first
+    where("LEAST(start_date, intake_dates[1]) <= ? AND end_date >= ?", Date.current, Date.current).first
   end
 
   def swap
