@@ -20,8 +20,8 @@ export default class StayDatePicker extends React.Component {
 
   getInitialState() {
     return {
-      from: undefined,
-      to: undefined,
+      from: this.props.from,
+      to: this.props.to,
     }
   }
 
@@ -32,8 +32,9 @@ export default class StayDatePicker extends React.Component {
   }
 
   handleResetClick() {
-    this.setState(this.getInitialState())
-    this.props.onStayDatesChange(this.getInitialState())
+    const stayDates = { from: undefined, to: undefined }
+    this.setState(stayDates)
+    this.props.onStayDatesChange(stayDates)
   }
 
   render() {
@@ -42,8 +43,8 @@ export default class StayDatePicker extends React.Component {
     return (
       <div className="RangeExample">
         <p>
-          {!from && !to && 'Please select the first day.'}
-          {from && !to && 'Please select the last day.'}
+          {!from && !to && 'When is check-in?'}
+          {from && !to && 'When is check-out?'}
           {from &&
             to &&
             `Selected from ${from.toLocaleDateString()} to
