@@ -25,7 +25,7 @@ class Swap < ApplicationRecord
   # end
 
   def self.current
-    where("start_date <= ? AND ? <= end_date", Date.current, Date.current)
+    where("? >= start_date AND ? <= end_date", Date.current, Date.current).first
   end
 
   def swap
