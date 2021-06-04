@@ -14,7 +14,9 @@ class SwapWizard extends React.Component {
     this.state = {
       currentStep: 1,
       stayDates: {},
+      stayDatesValid: false,
       intakeDates: [],
+      intakeDatesValid: false,
     }
   }
 
@@ -30,22 +32,21 @@ class SwapWizard extends React.Component {
     }))
   }
 
-  handleStayDatesChange = (stayDates) => this.setState({ stayDates })
+  handleStayDatesChange = (stayDates) => {
+    this.setState({ stayDates })
 
-  validateStayDates = (event) => {
-    console.log('validateStayDates()')
-    this.advance()
+    const values = Object.values(stayDates)
+
+    if (_.indexOf(values, undefined) === -1) {
+      this.setState({ stayDatesValid: true })
+    } else {
+      this.setState({ stayDatesValid: false })
+    }
   }
 
   handleIntakeDatesChange = (intakeDates) => {
     this.setState({ intakeDates })
-  }
-
-  validateIntakeDates = (event) => {
-    console.log('validateIntakeDates()')
-    // sort dates array
-    // then validate against the swap dates
-    this.advance()
+    console.log(intakeDates)
   }
 
   handleSubmit = (event) => {
@@ -60,10 +61,7 @@ class SwapWizard extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Create SWAP Period️</h1>
-        <p>Step {this.state.currentStep} </p>
-
+      <div className="bg-indigo-50 rounded-md p-12">
         <form onSubmit={this.handleSubmit}>
           {this.state.currentStep === 1 && (
             <SwapWizardTransition>
@@ -81,7 +79,9 @@ class SwapWizard extends React.Component {
                 advance={this.advance}
                 currentStep={this.state.currentStep}
                 onStayDatesChange={this.handleStayDatesChange}
-                validateStayDates={this.validateStayDates}
+                canAdvance={this.state.stayDatesValid}
+                from={this.state.stayDates.from}
+                to={this.state.stayDates.to}
               />
             </SwapWizardTransition>
           )}
@@ -93,7 +93,8 @@ class SwapWizard extends React.Component {
                 advance={this.advance}
                 currentStep={this.state.currentStep}
                 onIntakeDatesChange={this.handleIntakeDatesChange}
-                validateIntakeDates={this.validateIntakeDates}
+                canAdvance={this.state.intakeDatesValid}
+                intakeDates={this.state.intakeDates}
               />
             </SwapWizardTransition>
           )}
