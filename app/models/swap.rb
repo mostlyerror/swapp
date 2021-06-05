@@ -7,6 +7,7 @@ class Swap < ApplicationRecord
   validate :at_least_one_night
   validate :intake_dates_within_period
   validate :no_intake_on_last_night
+  validate :no_unsorted_intake_dates
 
   has_many :vouchers
   has_many :availabilities
@@ -103,5 +104,11 @@ class Swap < ApplicationRecord
       if intake_period.include? end_date
         return errors.add(:base, "Cannot perform intake on last day of swap period")
       end
+    end
+
+    def no_unsorted_intake_dates
+      if intake_dates.sort != intake_dates
+        return errors.add(:intake_dates, "Intake dates are unsorted")
+      end 
     end
 end
