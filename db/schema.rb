@@ -150,7 +150,6 @@ ActiveRecord::Schema.define(version: 2021_05_27_230709) do
     t.string "aasm_state"
     t.date "intake_start_date"
     t.date "intake_end_date"
-    t.date "intake_dates", default: [], array: true
   end
 
   create_table "users", force: :cascade do |t|

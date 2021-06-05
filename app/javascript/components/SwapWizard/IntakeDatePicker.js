@@ -1,7 +1,8 @@
 import React from 'react'
 import DayPicker, { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
-import './IntakeDatePicker.css'
+import './IntakeDatePicker.scss'
+import { getDaysArray } from '../utils'
 
 export default class IntakeDatePicker extends React.Component {
   static defaultProps = {
@@ -18,16 +19,19 @@ export default class IntakeDatePicker extends React.Component {
   }
 
   getInitialState() {
+    const { from, to } = this.props.stayDates
+    // const fromTo = { from, to }
+    const highlighted = {
+      highlighted: getDaysArray(from, to),
+    }
+
     return {
-      from: undefined,
-      to: undefined,
+      modifiers: highlighted,
       selectedDays: [],
     }
   }
 
   handleDayClick(day, { selected }) {
-    console.log('day', day)
-    console.log('selected', selected)
     const selectedDays = this.state.selectedDays.concat()
     if (selected) {
       const selectedIndex = selectedDays.findIndex((selectedDay) =>
@@ -47,30 +51,15 @@ export default class IntakeDatePicker extends React.Component {
   }
 
   render() {
-    const { from, to } = this.state
-    const modifiers = { start: from, end: to }
     return (
       <div className="RangeExample">
-        <p>
-          {!from && !to && 'Please select the first day.'}
-          {from && !to && 'Please select the last day.'}
-          {from &&
-            to &&
-            `Selected from ${from.toLocaleDateString()} to
-                ${to.toLocaleDateString()}`}{' '}
-          {from && to && (
-            <button className="link" onClick={this.handleResetClick}>
-              Reset
-            </button>
-          )}
-        </p>
         <DayPicker
           className="Selectable"
           numberOfMonths={this.props.numberOfMonths}
           showOutsideDays={this.props.showOutsideDays}
           canChangeMonth={this.props.canChangeMonth}
           selectedDays={this.state.selectedDays}
-          modifiers={modifiers}
+          modifiers={this.state.modifiers}
           onDayClick={this.handleDayClick}
         />
       </div>

@@ -6,11 +6,26 @@ import ButtonOutline from './ButtonOutline'
 // set intake dates
 export const Step3 = (props) => {
   return (
-    <>
-      <label htmlFor="">What days will intake be performed?</label>
-      <IntakeDatePicker onIntakeDatesChange={props.onIntakeDatesChange} />
-      <ButtonOutline onClick={props.back}>Back: Set Stay Dates</ButtonOutline>
-      <Button onClick={props.validateIntakeDates}>Next: Availability</Button>
-    </>
+    <div className="">
+      <div className="">
+        <h3 className="font-semibold tracking-wide">Set Intake Days</h3>
+        <p className="mt-4">
+          On each <span className="font-semibold italic">intake day</span>,
+          intake users will be able to issue vouchers to clients. Intake often
+          begins one day prior to the actual check-in, and may continue until
+          the day before the check-out.
+        </p>
+      </div>
+      <IntakeDatePicker
+        stayDates={props.stayDates}
+        onIntakeDatesChange={props.onIntakeDatesChange}
+      />
+      <div className="flex justify-between">
+        <ButtonOutline onClick={props.back}>Back: Set Stay Dates</ButtonOutline>
+        {props.canAdvance && (
+          <Button onClick={props.advance}>Next: Availability</Button>
+        )}
+      </div>
+    </div>
   )
 }

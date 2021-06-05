@@ -1,0 +1,19 @@
+.DayPicker-Day--highlighted {
+  background-color: lightpink;
+  color: black;
+
+  .DayPicker-Day--start {
+    border-top-left-radius: 50% !important;
+    border-bottom-left-radius: 50% !important;
+  }
+
+  .DayPicker-Day--end {
+    border-top-right-radius: 50% !important;
+    border-bottom-right-radius: 50% !important;
+  }
+}
+
+.DayPicker-Day--selected {
+  background-color: hotpink;
+  color: black;
+}
