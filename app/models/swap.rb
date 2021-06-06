@@ -112,7 +112,7 @@ class Swap < ApplicationRecord
       end
 
       intake_dates.map do |date|
-        if date > end_date
+        if date < start_date || date > end_date
           return errors.add(:base, "#{date} is outside of the swap period")
         end
       end
