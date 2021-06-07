@@ -1,29 +1,18 @@
 class Swap < ApplicationRecord
-  include AASM 
+  # include AASM 
 
   validates_presence_of :start_date, :end_date
   validate :order_of_dates
   validate :overlapping_events
   validate :at_least_one_night
+  validate :intake_dates_within_period
+  validate :no_intake_on_last_night
 
   has_many :vouchers
   has_many :availabilities
 
-  aasm do
-    state :inactive, initial: true
-    state :active
-
-    event :activate do
-      transitions from: :inactive, to: :active
-    end
-
-    event :deactivate do
-      transitions from: :active, to: :inactive
-    end
-  end
-
   def self.current
-    where(aasm_state: "active").first
+    where("LEAST(start_date, intake_dates[1]) <= ? AND end_date >= ?", Date.current, Date.current).first
   end
 
   def swap
@@ -31,7 +20,7 @@ class Swap < ApplicationRecord
   end
 
   def intake_period
-    intake_start_date..intake_end_date
+    intake_dates
   end
 
   def stay_period
@@ -51,7 +40,7 @@ class Swap < ApplicationRecord
   end
 
   def intake_active?
-    Date.current.in? intake_period
+    Date.current.in? intake_dates
   end
 
   def intake_ended?
@@ -101,6 +90,18 @@ class Swap < ApplicationRecord
         .reject { |sw| sw == self }
       if overlapping.present?
         errors.add(:overlapping, "can't overlap other swap period: #{overlapping.first}")
+      end
+    end
+
+    def intake_dates_within_period
+      if intake_dates.first < start_date - 1
+        return errors.add(:base, "First intake date cannot be more than one day before the start of the swap period")
+      end
+    end
+
+    def no_intake_on_last_night
+      if intake_period.include? end_date
+        return errors.add(:base, "Cannot perform intake on last day of swap period")
       end
     end
 end
