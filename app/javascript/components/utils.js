@@ -1,8 +1,8 @@
-function classNames(...classes) {
+export function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-function getDaysArray(start, end) {
+export function getDaysArray(start, end) {
   for (
     var arr = [], dt = new Date(start);
     dt <= end;
@@ -12,5 +12,3 @@ function getDaysArray(start, end) {
   }
   return arr
 }
-
-export { classNames, getDaysArray }

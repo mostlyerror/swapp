@@ -3,6 +3,7 @@ import DayPicker, { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import './IntakeDatePicker.css'
 import { getDaysArray } from '../utils'
+import dayjs from 'dayjs'
 
 export default class IntakeDatePicker extends React.Component {
   static defaultProps = {
@@ -14,13 +15,28 @@ export default class IntakeDatePicker extends React.Component {
   constructor(props) {
     super(props)
     this.handleDayClick = this.handleDayClick.bind(this)
-    this.handleDayMouseEnter = this.handleDayMouseEnter.bind(this)
     this.state = this.getInitialState()
   }
 
   getInitialState() {
     const { from, to } = this.props.stayDates
     const stayDays = getDaysArray(from, to)
+
+    const firstCalendarDay = new Date(dayjs().startOf('month'))
+    const lastCalendarDay = new Date(
+      dayjs()
+        .month(new Date().getMonth() + (this.props.numberOfMonths - 1))
+        .endOf('month')
+    )
+    const allCalendarDays = getDaysArray(firstCalendarDay, lastCalendarDay)
+    const possibleIntakeDays = allCalendarDays.filter((date, idx) => {
+      return (
+        !DateUtils.isPastDay(date) &&
+        DateUtils.isDayBefore(date, stayDays[stayDays.length - 1])
+      )
+    })
+
+    const disabledDays = _.difference(allCalendarDays, possibleIntakeDays)
 
     const modifiers = {
       highlighted: getDaysArray(from, to),
@@ -31,10 +47,19 @@ export default class IntakeDatePicker extends React.Component {
     return {
       modifiers,
       selectedDays: [],
+      disabledDays,
     }
   }
 
   handleDayClick(day, { selected }) {
+    if (DateUtils.isPastDay(day)) {
+      return false
+    }
+
+    if (!DateUtils.isDayBefore(day, this.props.stayDates.to)) {
+      return false
+    }
+
     const selectedDays = this.state.selectedDays.concat()
     if (selected) {
       const selectedIndex = selectedDays.findIndex((selectedDay) =>
@@ -46,11 +71,6 @@ export default class IntakeDatePicker extends React.Component {
     }
     this.setState({ selectedDays })
     this.props.onIntakeDatesChange(selectedDays)
-  }
-
-  // this doesn't happen on tablet view...?
-  handleDayMouseEnter(day, modifiers, event) {
-    console.log('handleDayMouseEnter')
   }
 
   render() {
@@ -65,6 +85,7 @@ export default class IntakeDatePicker extends React.Component {
           modifiers={this.state.modifiers}
           onDayClick={this.handleDayClick}
           onDayMouseEnter={this.handleDayMouseEnter}
+          disabledDays={this.state.disabledDays}
         />
       </div>
     )
