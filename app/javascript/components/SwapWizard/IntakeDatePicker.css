@@ -1,0 +1,30 @@
+.IntakeDayPicker .DayPicker-Day--highlighted {
+  background-color: lightpink;
+  border-radius: 0 !important;
+}
+
+.IntakeDayPicker .DayPicker-Day--highlighted:hover {
+  background-color: lightpink !important;
+}
+
+.IntakeDayPicker .DayPicker-Day--start {
+  border-top-left-radius: 50% !important;
+  border-bottom-left-radius: 50% !important;
+}
+
+.IntakeDayPicker .DayPicker-Day--end {
+  border-top-right-radius: 50% !important;
+  border-bottom-right-radius: 50% !important;
+}
+
+.IntakeDayPicker .DayPicker-Day--selected {
+  background-color: blue !important;
+  color: white !important;
+  border-radius: 0 !important;
+}
+
+.IntakeDayPicker .DayPicker-Day--highlighted.DayPicker-Day--selected {
+  background-color: purple !important;
+  color: white !important;
+  border-radius: 0 !important;
+}
