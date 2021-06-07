@@ -42,7 +42,6 @@ class SwapWizard extends React.Component {
 
   handleIntakeDatesChange = (intakeDates) => {
     this.setState({ intakeDates })
-    console.log(intakeDates)
   }
 
   handleSubmit = (event) => {
@@ -50,9 +49,7 @@ class SwapWizard extends React.Component {
     alert(JSON.stringify(this.state))
     const createAdminSwapPeriodURL = `/admin/swaps`
 
-    axios
-      .post(createAdminSwapPeriodURL, this.state)
-      .then((res) => console.log(res))
+    axios.post(createAdminSwapPeriodURL, this.state)
   }
 
   render() {

@@ -40,8 +40,9 @@ export default class StayDatePicker extends React.Component {
   render() {
     const { from, to } = this.state
     const modifiers = { start: from, end: to }
+
     return (
-      <div className="RangeExample">
+      <div>
         <p>
           {!from && !to && 'When is check-in?'}
           {from && !to && 'When is check-out?'}
@@ -56,7 +57,7 @@ export default class StayDatePicker extends React.Component {
           )}
         </p>
         <DayPicker
-          className="Selectable"
+          className="StayDayPicker"
           numberOfMonths={this.props.numberOfMonths}
           showOutsideDays={this.props.showOutsideDays}
           canChangeMonth={this.props.canChangeMonth}

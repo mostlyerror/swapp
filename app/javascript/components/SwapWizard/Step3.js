@@ -16,15 +16,19 @@ export const Step3 = (props) => {
           the day before the check-out.
         </p>
       </div>
-      <IntakeDatePicker
-        stayDates={props.stayDates}
-        onIntakeDatesChange={props.onIntakeDatesChange}
-      />
-      <div className="flex justify-between">
-        <ButtonOutline onClick={props.back}>Back: Set Stay Dates</ButtonOutline>
-        {props.canAdvance && (
-          <Button onClick={props.advance}>Next: Availability</Button>
-        )}
+      <div className="mt-4 text-center">
+        <IntakeDatePicker
+          stayDates={props.stayDates}
+          onIntakeDatesChange={props.onIntakeDatesChange}
+        />
+        <div className="flex justify-between">
+          <ButtonOutline onClick={props.back}>
+            Back: Set Stay Dates
+          </ButtonOutline>
+          {props.canAdvance && (
+            <Button onClick={props.advance}>Next: Availability</Button>
+          )}
+        </div>
       </div>
     </div>
   )

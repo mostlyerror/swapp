@@ -1,12 +1,12 @@
 import React from 'react'
 import DayPicker, { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
-import './IntakeDatePicker.scss'
+import './IntakeDatePicker.css'
 import { getDaysArray } from '../utils'
 
 export default class IntakeDatePicker extends React.Component {
   static defaultProps = {
-    numberOfMonths: 1,
+    numberOfMonths: 2,
     canChangeMonth: false,
     showOutsideDays: true,
   }
@@ -14,19 +14,22 @@ export default class IntakeDatePicker extends React.Component {
   constructor(props) {
     super(props)
     this.handleDayClick = this.handleDayClick.bind(this)
-    this.handleResetClick = this.handleResetClick.bind(this)
+    this.handleDayMouseEnter = this.handleDayMouseEnter.bind(this)
     this.state = this.getInitialState()
   }
 
   getInitialState() {
     const { from, to } = this.props.stayDates
-    // const fromTo = { from, to }
-    const highlighted = {
+    const stayDays = getDaysArray(from, to)
+
+    const modifiers = {
       highlighted: getDaysArray(from, to),
+      start: stayDays[0],
+      end: stayDays[stayDays.length - 1],
     }
 
     return {
-      modifiers: highlighted,
+      modifiers,
       selectedDays: [],
     }
   }
@@ -45,22 +48,23 @@ export default class IntakeDatePicker extends React.Component {
     this.props.onIntakeDatesChange(selectedDays)
   }
 
-  handleResetClick() {
-    this.setState(this.getInitialState())
-    this.props.onIntakeDatesChange(this.getInitialState())
+  // this doesn't happen on tablet view...?
+  handleDayMouseEnter(day, modifiers, event) {
+    console.log('handleDayMouseEnter')
   }
 
   render() {
     return (
-      <div className="RangeExample">
+      <div>
         <DayPicker
-          className="Selectable"
+          className="IntakeDayPicker"
           numberOfMonths={this.props.numberOfMonths}
           showOutsideDays={this.props.showOutsideDays}
           canChangeMonth={this.props.canChangeMonth}
           selectedDays={this.state.selectedDays}
           modifiers={this.state.modifiers}
           onDayClick={this.handleDayClick}
+          onDayMouseEnter={this.handleDayMouseEnter}
         />
       </div>
     )
