@@ -18,6 +18,7 @@ export const Step3 = (props) => {
       </div>
       <div className="mt-4 text-center">
         <IntakeDatePicker
+          selectedDays={props.intakeDates}
           stayDates={props.stayDates}
           onIntakeDatesChange={props.onIntakeDatesChange}
         />

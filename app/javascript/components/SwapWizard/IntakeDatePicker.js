@@ -10,6 +10,7 @@ export default class IntakeDatePicker extends React.Component {
     numberOfMonths: 2,
     canChangeMonth: false,
     showOutsideDays: true,
+    selectedDays: [],
   }
 
   constructor(props) {
@@ -46,8 +47,8 @@ export default class IntakeDatePicker extends React.Component {
 
     return {
       modifiers,
-      selectedDays: [],
       disabledDays,
+      selectedDays: this.props.selectedDays,
     }
   }
 
