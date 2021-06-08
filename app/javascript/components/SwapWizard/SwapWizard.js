@@ -109,7 +109,13 @@ class SwapWizard extends React.Component {
 
           {this.state.currentStep === 5 && (
             <SwapWizardTransition>
-              <Step5 back={this.back} currentStep={this.state.currentStep} />
+              <Step5
+                checkIn={this.state.stayDates.from}
+                checkOut={this.state.stayDates.to}
+                intakeDates={this.state.intakeDates}
+                back={this.back}
+                currentStep={this.state.currentStep}
+              />
             </SwapWizardTransition>
           )}
         </form>
