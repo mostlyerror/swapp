@@ -52,15 +52,11 @@ export default class IntakeDatePicker extends React.Component {
   }
 
   handleDayClick(day, { selected }) {
-    if (DateUtils.isPastDay(day)) {
-      return false
-    }
-
-    if (!DateUtils.isDayBefore(day, this.props.stayDates.to)) {
-      return false
-    }
+    if (DateUtils.isPastDay(day)) return false
+    if (!DateUtils.isDayBefore(day, this.props.stayDates.to)) return false
 
     const selectedDays = this.state.selectedDays.concat()
+
     if (selected) {
       const selectedIndex = selectedDays.findIndex((selectedDay) =>
         DateUtils.isSameDay(selectedDay, day)
@@ -69,6 +65,7 @@ export default class IntakeDatePicker extends React.Component {
     } else {
       selectedDays.push(day)
     }
+
     this.setState({ selectedDays })
     this.props.onIntakeDatesChange(selectedDays)
   }
