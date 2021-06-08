@@ -16,7 +16,7 @@ export const Step3 = (props) => {
           the day before the check-out.
         </p>
       </div>
-      <div className="mt-4 text-center">
+      <div className="mt-4">
         <IntakeDatePicker
           selectedDays={props.intakeDates}
           stayDates={props.stayDates}
