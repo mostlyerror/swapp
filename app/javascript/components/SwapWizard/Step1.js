@@ -14,7 +14,7 @@ export const Step1 = (props) => {
             <li>2. Set dates to perform client intake</li>
             <li>3. Each intake day, update hotel availability</li>
           </ul>
-          <div className="mt-6">
+          <div className="mt-4">
             <ButtonOutline onClick={props.advance}>
               <span className="inline-flex items-center text-xl">
                 Get Started &rarr;

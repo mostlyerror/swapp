@@ -43,21 +43,8 @@ export default class StayDatePicker extends React.Component {
 
     return (
       <div>
-        <p>
-          {!from && !to && 'When is check-in?'}
-          {from && !to && 'When is check-out?'}
-          {from &&
-            to &&
-            `Selected from ${from.toLocaleDateString()} to
-                ${to.toLocaleDateString()}`}{' '}
-          {from && to && (
-            <button className="link" onClick={this.handleResetClick}>
-              Reset
-            </button>
-          )}
-        </p>
         <DayPicker
-          className="StayDayPicker"
+          className="StayDayPicker tabular-nums"
           numberOfMonths={this.props.numberOfMonths}
           showOutsideDays={this.props.showOutsideDays}
           canChangeMonth={this.props.canChangeMonth}
@@ -65,6 +52,33 @@ export default class StayDatePicker extends React.Component {
           modifiers={modifiers}
           onDayClick={this.handleDayClick}
         />
+        <div className="text-2xl">
+          {!from && !to && (
+            <p className="">
+              When is <span className="font-bold">check-in?</span>
+            </p>
+          )}
+          {from && !to && (
+            <p className="">
+              When is <span className="font-bold">check-out?</span>
+            </p>
+          )}
+          {from && to && (
+            <div className="mt-4 flex justify-center items-center gap-8 text-2xl">
+              <div>
+                <span className="font-bold">Check-in:</span>{' '}
+                {from.toLocaleDateString()}
+              </div>
+              <div>
+                <span className="font-bold">Check-out:</span>{' '}
+                {to.toLocaleDateString()}
+              </div>
+              <button className="link" onClick={this.handleResetClick}>
+                Reset
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     )
   }

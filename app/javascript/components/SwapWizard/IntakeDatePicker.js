@@ -75,7 +75,7 @@ export default class IntakeDatePicker extends React.Component {
     return (
       <div>
         <DayPicker
-          className="IntakeDayPicker"
+          className="IntakeDayPicker tabular-nums"
           numberOfMonths={this.props.numberOfMonths}
           showOutsideDays={this.props.showOutsideDays}
           canChangeMonth={this.props.canChangeMonth}

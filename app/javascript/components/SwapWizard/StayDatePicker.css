@@ -1,3 +1,17 @@
+.StayDayPicker {
+  font-size: 1.4rem;
+}
+
+.StayDayPicker .DayPicker-Month .DayPicker-Caption > div {
+  font-weight: 600;
+  text-align: center;
+}
+
+.StayDayPicker .DayPicker-Month {
+  background: white;
+  border: 1px solid #ccc;
+}
+
 .StayDayPicker
   .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
   background-color: hotpink;
