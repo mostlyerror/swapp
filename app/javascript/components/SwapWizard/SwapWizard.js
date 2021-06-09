@@ -8,6 +8,7 @@ import { Step3 } from './Step3'
 import { Step4 } from './Step4'
 import { Step5 } from './Step5'
 import dayjs from 'dayjs'
+import { sortDatesArray } from '../utils'
 
 class SwapWizard extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class SwapWizard extends React.Component {
   }
 
   handleIntakeDatesChange = (intakeDates) => {
-    this.setState({ intakeDates: intakeDates.sort() })
+    this.setState({ intakeDates: sortDatesArray(intakeDates) })
 
     if (intakeDates.length >= 1) {
       this.setState({ intakeDatesValid: true })
@@ -111,9 +112,9 @@ class SwapWizard extends React.Component {
           {this.state.currentStep === 5 && (
             <SwapWizardTransition>
               <Step5
-                checkIn={new Date()}
-                checkOut={new Date()}
-                intakeDates={[new Date(), new Date()]}
+                checkIn={this.state.stayDates.from}
+                checkOut={this.state.stayDates.to}
+                intakeDates={this.state.intakeDates}
                 back={this.back}
                 currentStep={this.state.currentStep}
               />

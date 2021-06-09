@@ -27,7 +27,6 @@ export const Step5 = (props) => {
         })
         }    
       </div>
-      <div className="mt-6"> Voucher Supply</div>
       <div className="mt-6 flex justify-between">
       <ButtonOutline onClick={props.back}>Back: I want to make changes</ButtonOutline>
       <Button type="submit">Looks good, let's go! </Button>

@@ -12,3 +12,8 @@ export function getDaysArray(start, end) {
   }
   return arr
 }
+
+export function sortDatesArray(arr) {
+  return arr.sort((a,b) => (a < b ? -1 : 1 ))
+}
+  
