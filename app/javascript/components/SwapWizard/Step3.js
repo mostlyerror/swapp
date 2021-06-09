@@ -25,10 +25,12 @@ export const Step3 = (props) => {
         />
         <SwapWizardTransition>
           <div className="mt-8">
+            <div className="mt-6 flex justify-between">
             <ButtonOutline onClick={props.back}>Back: Stay Dates</ButtonOutline>
             {props.canAdvance && (
-              <Button onClick={props.advance}>Next: Availability</Button>
+            <Button onClick={props.advance}>Next: Availability</Button>
             )}
+            </div>
           </div>
         </SwapWizardTransition>
       </div>
