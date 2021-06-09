@@ -4,6 +4,7 @@
 
 .StayDayPicker .DayPicker-Month .DayPicker-Caption > div {
   font-weight: 600;
+  text-align: center;
 }
 
 .StayDayPicker .DayPicker-Month {
