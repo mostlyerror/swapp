@@ -7,6 +7,7 @@ import { Step2 } from './Step2'
 import { Step3 } from './Step3'
 import { Step4 } from './Step4'
 import { Step5 } from './Step5'
+import dayjs from 'dayjs'
 
 class SwapWizard extends React.Component {
   constructor(props) {
@@ -110,9 +111,9 @@ class SwapWizard extends React.Component {
           {this.state.currentStep === 5 && (
             <SwapWizardTransition>
               <Step5
-                checkIn={this.state.stayDates.from}
-                checkOut={this.state.stayDates.to}
-                intakeDates={this.state.intakeDates}
+                checkIn={new Date()}
+                checkOut={new Date()}
+                intakeDates={[new Date(), new Date()]}
                 back={this.back}
                 currentStep={this.state.currentStep}
               />

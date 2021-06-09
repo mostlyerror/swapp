@@ -11,9 +11,9 @@ export const Step3 = (props) => {
         <h3 className="font-semibold tracking-wide">Set Intake Days</h3>
         <p className="mt-4">
           On each <span className="font-semibold italic">intake day</span>,
-          intake users will be able to issue vouchers to clients. Intake often
-          begins one day prior to the actual check-in, and may continue until
-          the day before the check-out.
+          intake users will be able to issue vouchers to clients. Intake typically
+          begins one day prior to the actual check-in, and may continue up until
+          the day immediately before the check-out day.
         </p>
       </div>
       <div className="mt-4 text-center">
