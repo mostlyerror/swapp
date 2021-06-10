@@ -82,7 +82,7 @@ input[type='search'] {
 }
 
 .zebra:nth-child(odd) {
-  @apply bg-gray-100;
+  background-color: #F0F0F0;
 }
 
 ::-webkit-scrollbar {
@@ -94,4 +94,12 @@ input[type='search'] {
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.admin-blue {
+  color:#5A6AFF;
+}
+
+.bg-admin-blue {
+  background-color:#ACB9FC;
 }
