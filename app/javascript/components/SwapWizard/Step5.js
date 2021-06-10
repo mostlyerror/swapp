@@ -3,7 +3,6 @@ import Button from './Button'
 import ButtonOutline from './ButtonOutline'
 import dayjs from 'dayjs'
 
-// review & create
 export const Step5 = (props) => {
   return (
     <>
@@ -21,22 +20,17 @@ export const Step5 = (props) => {
         </div>
       </div>
       <div className="mt-6"> Intake Dates</div>
-      <div>
-        {props.intakeDates.map((date, _idx) => {
-          return <IntakeDate date={date} />
-        })
-        }    
-      </div>
+      <ul>
+        {props.intakeDates.map((date, idx) => (
+          <li key={idx}>{dayjs(props.date).format('ddd MM/DD/YYYY')}</li>
+        ))}
+      </ul>
       <div className="mt-6 flex justify-between">
-      <ButtonOutline onClick={props.back}>Back: I want to make changes</ButtonOutline>
-      <Button type="submit">Looks good, let's go! </Button>
+        <ButtonOutline onClick={props.back}>
+          Back: I want to make changes
+        </ButtonOutline>
+        <Button type="submit">Looks good, let's go! </Button>
       </div>
     </>
   )
-}
-
-const IntakeDate = (props) => {
-  return(<ul>
-          <li>{dayjs(props.date).format('ddd MM/DD/YYYY')}</li>
-        </ul>)
 }
