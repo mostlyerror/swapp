@@ -39,7 +39,7 @@
               </div>
               <%= form.check_box :hotel_ids, { 
                     multiple: true, 
-                    checked: hotel.id.in?(@flag_hotel_ids),
+                    checked: hotel.in?(@client.flagged_hotels),
                     class: "col-span-1 w-6 h-6 rounded-md text-indigo-400"
                   }, hotel.id %>
               <%= form.label hotel.name, class: "col-span-8 text-2xl" %>
