@@ -7,7 +7,6 @@ import { Step2 } from './Step2'
 import { Step3 } from './Step3'
 import { Step4 } from './Step4'
 import { Step5 } from './Step5'
-import dayjs from 'dayjs'
 import { sortDatesArray } from '../utils'
 
 class SwapWizard extends React.Component {
@@ -43,11 +42,10 @@ class SwapWizard extends React.Component {
   }
 
   handleIntakeDatesChange = (intakeDates) => {
-    this.setState({ intakeDates: sortDatesArray(intakeDates) })
-
-    if (intakeDates.length >= 1) {
-      this.setState({ intakeDatesValid: true })
-    }
+    this.setState({
+      intakeDates: sortDatesArray(intakeDates),
+      intakeDatesValid: intakeDates.length >= 1,
+    })
   }
 
   handleSubmit = (event) => {
