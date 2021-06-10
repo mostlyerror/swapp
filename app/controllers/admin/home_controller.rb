@@ -15,5 +15,6 @@ class Admin::HomeController < Admin::BaseController
   end
 
   def awesome
+    @vouchers = Voucher.order(created_at: :desc).limit(20)
   end
 end
