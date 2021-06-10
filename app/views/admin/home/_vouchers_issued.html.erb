@@ -1,15 +1,17 @@
-<h3 class="font-semibold text-center tracking-wide">Last 20 Issued Vouchers</h3>
-<div class="grid grid-cols-7">
-  <div class="">#</div>
-  <div class="">Hotel</div>
-  <div class="">Client</div>
-  <div class="">In</div>
-  <div class="">Out</div>
-  <div class="">By</div>
-  <div class="">Issued</div>
+<h3 class="font-semibold text-center tracking-wide font-bold">Last 20 Issued Vouchers</h3>
+
+<div class="mt-5 grid grid-cols-7">
+  <div class="font-bold">#</div>
+  <div class="font-bold">Hotel</div>
+  <div class="font-bold">Client</div>
+  <div class="font-bold">In</div>
+  <div class="font-bold">Out</div>
+  <div class="font-bold">By</div>
+  <div class="font-bold">Issued</div>
 </div>
-<div class="grid grid-cols-7">
+<div class="">
     <% @vouchers.each do |voucher| %>
+    <div class="zebra grid grid-cols-7">
       <div>
         <%= voucher.number %>
       </div>
@@ -31,5 +33,7 @@
       <div> 
         <%= voucher.created_at.to_date.to_formatted_s(:short) %>
       </div>
+    </div>
     <% end %>   
-  </div>
+</div>
+  
