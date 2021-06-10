@@ -38,6 +38,7 @@ class SwapWizard extends React.Component {
       stayDates,
       stayDatesValid: _.indexOf(Object.values(stayDates), undefined) === -1,
       intakeDates: [],
+      intakeDatesValid: false,
     })
   }
 
