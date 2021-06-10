@@ -6,10 +6,10 @@ export const SwapWizardTransition = (props) => {
     <Transition
       appear={true}
       show={true}
-      enter="transition-opacity duration-500"
+      enter="transition-opacity ease-in-out duration-500"
       enterFrom="opacity-0"
       enterTo="opacity-100"
-      leave="transition-opacity duration-500"
+      leave="transition-opacity ease-in-out duration-500"
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
     >
