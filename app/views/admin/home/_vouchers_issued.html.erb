@@ -38,4 +38,14 @@
       <% end %>   
   </div>
 </div>
+<div class="p-12 bg-gray-100 border border-gray-500 flex flex-1 flex-col gap-y-6">
+<button type="button">
+  <%= link_to admin_swap_report_url(format: :csv), 
+  class: "inline-block py-4 px-8 rounded-full text-gray-900 font-bold
+  border-b border-gray-900 shadow-lg" do %>
+    <i class="bi bi-download"></i>
+    <span class="ml-6">Download Voucher Report</span>
+  <% end %>
+</button>
+</div>
   
