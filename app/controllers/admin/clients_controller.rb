@@ -1,5 +1,6 @@
 class Admin::ClientsController < Admin::BaseController
   def show
+    @client = Client.find(params[:id])
     # @swap = Swap.current
     # @vouchers = Voucher.order(created_at: :desc).limit(20)
     # @hotel_map = Hotel.all.pluck(:id, :name).to_h
