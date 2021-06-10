@@ -1,39 +1,41 @@
-<h3 class="font-semibold text-center tracking-wide font-bold">Last 20 Issued Vouchers</h3>
+<h3 class="font-semibold text-center tracking-wide font-bold" style="color:#5A6AFF">Last 20 Issued Vouchers</h3>
 
-<div class="mt-5 grid grid-cols-7">
-  <div class="font-bold">#</div>
-  <div class="font-bold">Hotel</div>
-  <div class="font-bold">Client</div>
-  <div class="font-bold">In</div>
-  <div class="font-bold">Out</div>
-  <div class="font-bold">By</div>
-  <div class="font-bold">Issued</div>
-</div>
-<div class="">
-    <% @vouchers.each do |voucher| %>
-    <div class="zebra grid grid-cols-7">
-      <div>
-        <%= voucher.number %>
-      </div>
-      <div>
-        <%= voucher.hotel.name %>
-      </div>
-      <div>
-        <%= voucher.client.name %>
-      </div>
-      <div>
-        <%= voucher.check_in.to_date.to_formatted_s(:short) %>
-      </div>
-      <div> 
-        <%= voucher.check_out.to_date.to_formatted_s(:short) %>
-      </div>
-      <div>
-        <%= voucher.user.name %>
-      </div>
-      <div> 
-        <%= voucher.created_at.to_date.to_formatted_s(:short) %>
-      </div>
+<div class="mt-5 border rounded-md border-gray-700 p-2 overflow-y-scroll" style="height:630px" >
+  <div class="mt-5 grid grid-cols-7">
+    <div class="font-bold text-center">Voucher No.</div>
+    <div class="font-bold text-left">Hotel</div>
+    <div class="font-bold text-left">Client</div>
+    <div class="font-bold text-center">Check-In</div>
+    <div class="font-bold text-center">Check-Out</div>
+    <div class="font-bold text-center">Issued By</div>
+    <div class="font-bold text-center">Issued On</div>
     </div>
-    <% end %>   
+  <div class="mt-5">
+      <% @vouchers.each do |voucher| %>
+      <div class="zebra grid grid-cols-7">
+        <div class="text-center">
+          <%= voucher.number %>
+        </div>
+        <div>
+          <%= voucher.hotel.name %>
+        </div>
+        <div class="text-left">
+          <%= voucher.client.name %>
+        </div>
+        <div class="text-center">
+          <%= voucher.check_in.to_date.to_formatted_s(:short) %>
+        </div>
+        <div class="text-center"> 
+          <%= voucher.check_out.to_date.to_formatted_s(:short) %>
+        </div>
+        <div class="text-center">
+          <%= voucher.user.name %>
+        </div>
+        <div class="text-center"> 
+          <%= voucher.created_at.to_date.to_formatted_s(:short) %>
+        </div>
+      </div>
+      <% end %>   
+  </div>
 </div>
   
