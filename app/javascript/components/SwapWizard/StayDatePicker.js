@@ -2,6 +2,8 @@ import React from 'react'
 import DayPicker, { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import './StayDatePicker.css'
+import { getDaysArray } from '../utils'
+import dayjs from 'dayjs'
 
 export default class StayDatePicker extends React.Component {
   static defaultProps = {
@@ -19,13 +21,27 @@ export default class StayDatePicker extends React.Component {
   }
 
   getInitialState() {
+    const firstCalendarDay = new Date(dayjs().startOf('month'))
+    const lastCalendarDay = new Date(
+      dayjs()
+        .month(new Date().getMonth() + (this.props.numberOfMonths - 1))
+        .endOf('month')
+    )
+    const allCalendarDays = getDaysArray(firstCalendarDay, lastCalendarDay)
+    const disabledDays = allCalendarDays.filter((date, idx) =>
+      DateUtils.isPastDay(date)
+    )
+
     return {
       from: this.props.from,
       to: this.props.to,
+      disabledDays,
     }
   }
 
   handleDayClick(day) {
+    if (DateUtils.isPastDay(day)) return false
+
     const range = DateUtils.addDayToRange(day, this.state)
     this.setState(range)
     this.props.onStayDatesChange(range)
@@ -51,6 +67,7 @@ export default class StayDatePicker extends React.Component {
           selectedDays={[from, { from, to }]}
           modifiers={modifiers}
           onDayClick={this.handleDayClick}
+          disabledDays={this.state.disabledDays}
         />
         <div className="text-2xl">
           {!from && !to && (
