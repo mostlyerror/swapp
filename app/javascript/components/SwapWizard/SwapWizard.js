@@ -34,10 +34,10 @@ class SwapWizard extends React.Component {
   }
 
   handleStayDatesChange = (stayDates) => {
-    this.setState({ stayDates })
-    const values = Object.values(stayDates)
     this.setState({
-      stayDatesValid: _.indexOf(values, undefined) === -1,
+      stayDates,
+      stayDatesValid: _.indexOf(Object.values(stayDates), undefined) === -1,
+      intakeDates: [],
     })
   }
 
