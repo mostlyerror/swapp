@@ -30,6 +30,12 @@
   </div>
 
   <div class="mt-4 md:mt-8">
-    <%= render partial: "incidents", client: @client %>
+    <%= react_component "Incidents/Incidents", 
+      client: @client, 
+      incident_report: @incident_report,
+      hotel_map: @hotel_map, 
+      form_path: admin_create_incident_report_path(@client),
+      red_flag: @red_flag
+     %>
   </div>
 </section>

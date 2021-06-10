@@ -85,6 +85,22 @@ input[type='search'] {
   color: #5a6aff;
 }
 
+.bg-admin-blue {
+  background-color: #acb9fc;
+}
+
+.bg-admin-blue:hover {
+  background-color: darken(#acb9fc, 2%);
+}
+
+.admin-orange {
+  color: #ffd79e;
+}
+
+.bg-admin-orange {
+  background-color: #ffd79e;
+}
+
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;

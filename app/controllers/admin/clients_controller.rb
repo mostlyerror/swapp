@@ -7,5 +7,6 @@ class Admin::ClientsController < Admin::BaseController
     # @flagged_stamps = RedFlag.where(client: @client).pluck(:created_at)
     # @incident_report = IncidentReport.new
     @incidents = @client.incident_reports.order(created_at: :desc)
+    @incident_report = IncidentReport.new
   end
 end

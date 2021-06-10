@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       put "swaps/:id/room_supply" => "swaps#update_room_supply", as: :update_room_supply
       get "/reports/swap" => "reports#swap", as: :swap_report
       put "/guests/:id" => "red_flags#edit_red_flag", as: :edit_red_flag
+      post "clients/:id/incidents" => "incident_reports#create", as: :create_incident_report
     end
   end
  
