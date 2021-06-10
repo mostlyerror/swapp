@@ -43,11 +43,10 @@ class SwapWizard extends React.Component {
   }
 
   handleIntakeDatesChange = (intakeDates) => {
-    this.setState({ intakeDates: sortDatesArray(intakeDates) })
-
-    if (intakeDates.length >= 1) {
-      this.setState({ intakeDatesValid: true })
-    }
+    this.setState({
+      intakeDates: sortDatesArray(intakeDates),
+      intakeDatesValid: intakeDates.length >= 1,
+    })
   }
 
   handleSubmit = (event) => {
