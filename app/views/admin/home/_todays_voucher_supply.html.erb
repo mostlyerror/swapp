@@ -1,6 +1,6 @@
 <section class="mt-16 max-w-6xl w-full">
   <%= form_for(:voucher_supply, url: admin_update_room_supply_path(@swap), method: :put) do |form| %>
-    <table class="border border-gray-900 rounded-3xl text-left w-full table-fixed divide-y-2 divide-gray-200 divide-solid">
+    <table class="border-4 border-gray-900 supply-background rounded-2xl text-left w-full table-fixed divide-y-2 divide-gray-200 divide-solid">
       <h2 class="text-4xl text-center font-semibold admin-blue p-6">Set Voucher Supply</h2>
       <% if @swap&.intake_ended? %>
         <section id="notice--intake-ended" class="notice bg-indigo-300">
@@ -42,13 +42,13 @@
           <% end %>
         </tbody>
       </table>
-      <div class="p-12 flex flex-1 flex-col gap-y-6">
+      <div class="p-12 flex flex-1 flex-col gap-y-2">
         <div class="flex flex-1 justify-center">
-          <button type="button" class="px-4 py-4 rounded-3xl supply-background border border-gray-900 shadow-lg">
+          <button type="button" class="px-4 py-4 rounded-3xl supply-button border border-gray-900 shadow-lg">
             <i class="bi bi-arrow-clockwise"></i>
-            <%= form.submit "Update Supply", 
+            <%= form.submit "Set Voucher Supply", 
               data: { confirm: "Warning! You are choosing to update the total voucher supply. As soon as the supply is updated users can immediately issue vouchers." },
-              class: "font-bold text-xl supply-background"
+              class: "font-bold text-2xl tracking-wide supply-button"
             %>
           </button>
         </div>
