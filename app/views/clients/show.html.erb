@@ -43,7 +43,7 @@
       </p>
     <% else %>
 
-      <% if @swap.intake_active? %>
+      <% if @swap&.intake_active? %>
 
         <% if @client.banned? %>
           <div class="text-center">
@@ -84,7 +84,7 @@
 
               <div class="my-8 md:my-16 text-center">
                 <%= button_to new_voucher_path(client_id: @client.id), { method: :get, params: { client_id: @client.id }, 
-                    class: button_class(!@swap.intake_active?) } do %>
+                    class: button_class(!@swap&.intake_active?) } do %>
                     <%= render partial: 'create_voucher_button' %>
                     <p class="mb-1 text-xs md:text-base">above sites will <span class="italic">not</span> be available!</p>
                 <% end %>
@@ -95,7 +95,7 @@
               <div class="my-8 md:my-16 text-center">
                 <%= button_to new_voucher_path(client_id: @client.id), 
                     { method: :get, params: { client_id: @client.id }, 
-                    class: button_class(!@swap.intake_active?) } do %>
+                    class: button_class(!@swap&.intake_active?) } do %>
                     <%= render partial: 'create_voucher_button' %>
                 <% end %>
               </div>
@@ -104,7 +104,7 @@
         <% end %>
       <% else %>
         <div class="mt-y md:my-16 text-center">
-          <%= button_tag nil, class: button_class(!@swap.intake_active?), disabled: true do %>
+          <%= button_tag nil, class: button_class(!@swap&.intake_active?), disabled: true do %>
             <%= render partial: 'create_voucher_button' %>
           <% end %>
           <p class="px-4 md:px-8 my-6 md:my-8 text-base md:text-xl">
