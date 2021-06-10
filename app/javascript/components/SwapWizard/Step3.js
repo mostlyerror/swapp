@@ -23,7 +23,7 @@ export const Step3 = (props) => {
           onIntakeDatesChange={props.onIntakeDatesChange}
         />
         <SwapWizardTransition>
-          <div className="mt-8">
+          <div className="mt-8 flex justify-between">
             <ButtonOutline onClick={props.back}>Back: Stay Dates</ButtonOutline>
             {props.canAdvance && (
               <Button onClick={props.advance}>Next: Availability</Button>
