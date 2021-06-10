@@ -4,7 +4,6 @@ import Button from './Button'
 import ButtonOutline from './ButtonOutline'
 import { SwapWizardTransition } from './SwapWizardTransition'
 
-// set intake dates
 export const Step3 = (props) => {
   return (
     <div className="text-center">
