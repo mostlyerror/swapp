@@ -8,15 +8,15 @@
           <p class="text-indigo-900"></p>
         </section>
       <% elsif SwapIntake.can_issue_voucher_today?(@swap) %>
-      <section class="px-32">
-        <p class="text-xl">If you want to increase the number of available rooms at the hotel, be sure to set a total that includes the current availability. For example, if you wish to add 5 to the current 15, set Available to 20.</p>
+      <section class="px-32 mb-5">
+        <p class="text-xl leading-relaxed">If you want to increase the number of available rooms at the hotel, be sure to set a total that <strong>includes</strong> the current availability. For example, if you wish to add 5 to the current 15, set "Available" to 20.</p>
       </section>
         <thead>
           <tr class="text-2xl bold">
-            <th class="w-1/5 p-2">Hotel</th>
-            <th class="w-1/5 p-2 text-center voucher-available">Available</th>
-            <th class="w-1/5 p-2 text-center">Issued</th>
-            <th class="w-1/5 p-2 text-center">Remaining</th>
+            <th class="w-1/5 p-5">Hotel</th>
+            <th class="w-1/5 p-5 text-center voucher-available">Available</th>
+            <th class="w-1/5 p-5 text-center">Issued</th>
+            <th class="w-1/5 p-5 text-center">Remaining</th>
           </tr>
         </thead>
         <tbody class="overflow-y-scroll text-2xl divide-y-2 divide-gray-200 divide-solid" style="height: 630px">
@@ -44,13 +44,11 @@
       </table>
       <div class="p-12 flex flex-1 flex-col gap-y-6">
         <div class="flex flex-1 justify-center">
-          <button type="button" class="flex text-center py-4 px-4 rounded-3xl supply-background border-b border-gray-900 shadow-lg">
+          <button type="button" class="px-4 py-4 rounded-3xl supply-background border border-gray-900 shadow-lg">
             <i class="bi bi-arrow-clockwise"></i>
             <%= form.submit "Update Supply", 
-              data: { confirm: "Warning! You are choosing to update the total voucher
-              supply. As soon as the supply is updated, users can immediately
-              issue vouchers." },
-              class: "ml-6 font-bold text-xl supply-background"
+              data: { confirm: "Warning! You are choosing to update the total voucher supply. As soon as the supply is updated users can immediately issue vouchers." },
+              class: "font-bold text-xl supply-background"
             %>
           </button>
         </div>
