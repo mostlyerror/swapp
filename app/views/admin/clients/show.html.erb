@@ -3,17 +3,19 @@
 </section>
 
 <section class="mt-8 md:mt-12 px-2 md:px-0 md:w-11/12 mx-auto text-base sm:text-lg md:text-xl">
-  <p class="text-xl sm:text-3xl md:text-5xl text-gray-900 font-bold"><%= @client.name %></h1>
+  <p class="text-xl sm:text-3xl md:text-5xl text-gray-900 font-bold"><%= @client.name %></p>
+  <p class="text-lg sm:text-2xl md:text-3.5xl text-gray-900 font-bold">Birth date: <%= @client.date_of_birth %></p>
 
-  <% if @client.banned? %>
-    <p class="mt-2 md:mt-4 text-base sm:text-lg md:text-xl">
-      <span class="font-semibold text-red-500"><%= @client.first_name %> has been red-flagged program-wide.</span> They are not eligible to receive SWAP hotel vouchers.
+  <div class="mt-4 md:mt-8 text-base md:text-xl">
+    <p>
+      This isn't the right <span class="font-semibold"><%= @client.name %></span>.
+      <span class="block md:inline">Take me back to admin <%= link_to 'client search' , admin_awesome_path, class: 'underline text-indigo-600' %>.</span>
     </p>
-  <% end %>
+  </div>
 
-  <% if @client.no_flags? %>
-    <p class="mt-2 md:mt-4 text-base sm:text-lg md:text-xl"><span class="font-bold"><%= @client.first_name %></span> is eligible to receive vouchers at any participating SWAP hotel.</p>
-  <% end %>
+  <div class="mt-4 md:mt-8">
+    <%= render partial: "eligibility", client: @client %>
+  </div>
 
   <div class="mt-4 md:mt-8">
     <% if @editing %>
@@ -23,11 +25,8 @@
     <% end %>
   </div>
 
-  <div class="mt-8 md:mt-12 text-center text-base md:text-xl">
-    <p>
-      This isn't the right <span class="font-bold"><%= @client.name %></span>.
-      <span class="block md:inline">Take me back to <%= link_to 'client search' , clients_path, class: 'underline text-indigo-600' %>.</span>
-    </p>
+  <div class="mt-4 md:mt-8">
+    <%= render partial: "update_red_flags", client: @client %>
   </div>
 
   <div class="my-8 md:my-12">

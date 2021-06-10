@@ -1,15 +1,23 @@
 class Admin::ClientsController < Admin::BaseController
   def show
     @client = Client.find(params[:id])
-    # @swap = Swap.current
-    # @vouchers = Voucher.order(created_at: :desc).limit(20)
-    # @hotel_map = Hotel.all.pluck(:id, :name).to_h
-    # @flagged_clients = Client.where(id: Client.ids).joins(:red_flags).uniq
 
-    # if @swap
-    #   @vouchers_remaining_today = RoomSupply.vouchers_remaining_today(@swap)
-    #   @num_vouchers_remaining_today = RoomSupply.num_vouchers_remaining_today(@swap)
-    #   @supply = RoomSupply.by_hotel(@swap)
-    # end
+    @swap = Swap.current
+
+    @hotels = Hotel.all
+
+    @hotel_map = Hotel.all.pluck(:id, :name).to_h
+      
+    @hotels = Hotel.all
+
+    @flag_hotel_ids = @client.flagged_hotels.pluck(:id)
+
+    @flagged_stamps = RedFlag.where(client: @client).pluck(:created_at)
+
+    @incident_report = IncidentReport.new
+
+    @incident_reports = @client.incident_reports.order(created_at: :desc).select do |ir| 
+      current_user.admin_user? || current_user == ir.reporter
+    end
   end
 end
