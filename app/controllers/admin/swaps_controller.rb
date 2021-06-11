@@ -1,4 +1,26 @@
 class Admin::SwapsController < Admin::BaseController
+  skip_before_action :verify_authenticity_token
+  add_flash_types :info, :error
+
+  def create
+    stay_start = params['stayDates']['from']
+    stay_end = params['stayDates']['to']
+    intake_dates = params['intakeDates'].map(&:to_date)
+
+    swap = Swap.new(
+      start_date: stay_start,
+      end_date: stay_end,
+      # intake_dates: intake_dates 
+      # # TODO: pull in changes from intake dates branch so this can work
+      # created_by: current_user   
+      # # created by?
+    )
+
+    if swap.save
+      return render json: swap, status: :created
+    end
+  end
+
   def extend
     swap = Swap.find(params[:id])
     if swap.extend!(params['days'])
@@ -27,5 +49,24 @@ class Admin::SwapsController < Admin::BaseController
     end
 
     return redirect_to admin_home_path
+  end
+
+  def edit_intake_dates
+    swap = Swap.current
+    Swap.transaction do 
+      intake_dates = params[:intake_dates].sort()
+     
+      if swap.update(intake_dates: intake_dates)
+        return redirect_back(
+          info: "Dates successfully saved.",
+          fallback_location: root_path
+        )
+      end
+
+      redirect_back(
+        error: "An error has occurred. Please try again.",
+        fallback_location: root_path
+      )
+    end
   end
 end
