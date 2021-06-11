@@ -81,6 +81,12 @@ input[type='search'] {
   @apply text-5xl text-gray-800 leading-tight;
 }
 
+
+.zebra:nth-child(odd) {
+  @apply bg-gray-100;
+}
+
+
 .admin-blue {
   color: #5a6aff;
 }
@@ -99,6 +105,18 @@ input[type='search'] {
 
 .bg-admin-orange {
   background-color: #ffd79e;
+}
+
+.supply-button {
+  background-color: #acb9fc;
+}
+
+.supply-background {
+  background-color: #ffffff;
+}
+
+.voucher-available {
+  background-color: #fed79e;
 }
 
 ::-webkit-scrollbar {

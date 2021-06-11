@@ -13,5 +13,12 @@ class Admin::HomeController < Admin::BaseController
   end
 
   def awesome
+    @vouchers = Voucher.order(created_at: :desc).limit(20)
+    @swap = Swap.current
+    
+    if @swap
+      @hotel_map = Hotel.all.pluck(:id, :name).to_h
+      @supply = RoomSupply.by_hotel(@swap)
+    end
   end
 end
