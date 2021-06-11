@@ -1,7 +1,6 @@
 import React from 'react'
 import ButtonOutline from './ButtonOutline'
 
-// first empty state
 export const Step1 = (props) => {
   return (
     <div className="flex gap-2">
