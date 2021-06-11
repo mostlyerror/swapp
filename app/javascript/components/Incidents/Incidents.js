@@ -65,18 +65,16 @@ const Incidents = (props) => {
                 className="mt-1 rounded-md"
                 type="date"
                 name="date"
-                value={props.incident_report.occurred_at}
+                defaultValue={props.incident_report.occurred_at || ''}
               />
             </div>
             <div>
               <label className="block">At which hotel did this occur?</label>
               <select className="mt-1 rounded-md" name="hotel_id">
-                {Object.entries(props.hotel_map).map((hotel, idx) => {
-                  const hotelId = hotel[0]
-                  const hotelName = hotel[1]
+                {Object.entries(props.hotel_map).map(([id, name], idx) => {
                   return (
-                    <option key={idx} value={hotelId}>
-                      {hotelName}
+                    <option key={idx} value={id}>
+                      {name}
                     </option>
                   )
                 })}
@@ -98,7 +96,7 @@ const Incidents = (props) => {
                 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
                   type="checkbox"
                   name="red_flag"
-                  value={props.incident_report.red_flag}
+                  defaultValue={props.incident_report.red_flag || ''}
                 />
               </div>
               <p>
