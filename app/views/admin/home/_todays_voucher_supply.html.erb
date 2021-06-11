@@ -1,6 +1,5 @@
-<section class="mt-16 max-w-6xl w-full">
+<section class="mt-16 max-w-6xl w-full rounded-2xl">
   <%= form_for(:voucher_supply, url: admin_update_room_supply_path(@swap), method: :put) do |form| %>
-    <table class="border-4 border-gray-900 supply-background rounded-2xl text-left w-full table-fixed divide-y-2 divide-gray-200 divide-solid">
       <h2 class="text-4xl text-center font-semibold admin-blue p-6">Set Voucher Supply</h2>
       <% if @swap&.intake_ended? %>
         <section id="notice--intake-ended" class="notice bg-indigo-300">
@@ -9,8 +8,10 @@
         </section>
       <% elsif SwapIntake.can_issue_voucher_today?(@swap) %>
       <section class="px-32 mb-5">
-        <p class="text-xl leading-relaxed">If you want to increase the number of available rooms at the hotel, be sure to set a total that <strong>includes</strong> the current availability. For example, if you wish to add 5 to the current 15, set "Available" to 20.</p>
+        <p class="text-xl leading-relaxed tracking-wide">If you want to increase the number of available rooms at the hotel, be sure to set a total that <strong>includes</strong> the current availability. For example, if you wish to add 5 to the current 15, set "Available" to 20.</p>
       </section>
+      <div class="border-4 border-black rounded-lg">
+       <table class="supply-background text-left w-full table-fixed divide-y-2 divide-gray-200 divide-solid">
         <thead>
           <tr class="text-2xl bold">
             <th class="w-1/5 p-5">Hotel</th>
@@ -42,10 +43,10 @@
           <% end %>
         </tbody>
       </table>
+      </div>
       <div class="p-12 flex flex-1 flex-col gap-y-2">
         <div class="flex flex-1 justify-center">
           <button type="button" class="px-4 py-4 rounded-3xl supply-button border border-gray-900 shadow-lg">
-            <i class="bi bi-arrow-clockwise"></i>
             <%= form.submit "Set Voucher Supply", 
               data: { confirm: "Warning! You are choosing to update the total voucher supply. As soon as the supply is updated users can immediately issue vouchers." },
               class: "font-bold text-2xl tracking-wide supply-button"
