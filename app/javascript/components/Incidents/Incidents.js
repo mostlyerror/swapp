@@ -4,29 +4,34 @@ const IncidentList = (props) => {
   return (
     <div className="max-w-lg mx-auto container p-2 md:p-6 text-lg text-gray-800">
       <h3 className="py-2 font-bold tracking-wide">Incidents</h3>
-      <div>
-        <div className="flex gap-4 items-start">
-          <div className="pt-2 max-w-xs bg-white flex items-center text-sm md:text-base rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-500">
-              <span className="text-sm md:text-base font-medium leading-none text-white">
-                BP
-              </span>
+      {props.incidents.map((incident, idx) => (
+        <IncidentReport key={idx} {...incident} />
+      ))}
+    </div>
+  )
+}
+
+const IncidentReport = (props) => {
+  return (
+    <div className="mt-4">
+      <div className="flex gap-4 items-start">
+        <div className="pt-2 max-w-xs bg-white flex items-center text-sm md:text-base rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-gray-500">
+            <span className="text-sm md:text-base font-medium leading-none text-white">
+              {`${props.reportedBy.firstName[0]}${props.reportedBy.lastName[0]}`}
             </span>
-          </div>
-          <div className="">
-            <p>
-              <span className="font-semibold">Reported By:</span>{' '}
-              frontdesk@comfortinn.com
-            </p>
-            <p className="mt-1">
-              <span className="font-semibold">Date of Incident:</span> 4/10/21
-            </p>
-            <p className="mt-3 text-xl leading-relaxed">
-              Got into an argument with hotel staff and would not keep noise
-              level down. Got into an argument with hotel staff and would not
-              keep noise level down.
-            </p>
-          </div>
+          </span>
+        </div>
+        <div className="">
+          <p>
+            <span className="font-semibold">Reported By:</span>{' '}
+            {props.reportedBy.email}
+          </p>
+          <p className="mt-1">
+            <span className="font-semibold">Date of Incident:</span>
+            {new Date(props.dateOfIncident).toLocaleDateString()}
+          </p>
+          <p className="mt-3 text-xl leading-relaxed">{props.description}</p>
         </div>
       </div>
     </div>
@@ -39,7 +44,7 @@ const Incidents = (props) => {
   return (
     <div>
       <div>
-        <IncidentList />
+        <IncidentList incidents={props.incidents} />
       </div>
 
       <div className="max-w-lg mx-auto container p-2 md:p-6 text-lg text-gray-800">
