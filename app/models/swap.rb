@@ -1,7 +1,7 @@
 class Swap < ApplicationRecord
   # include AASM 
 
-  validates_presence_of :start_date, :end_date
+  validates_presence_of :start_date, :end_date, :intake_dates
   validate :order_of_dates
   validate :overlapping_events
   validate :at_least_one_night

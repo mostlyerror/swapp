@@ -86,8 +86,25 @@ input[type='search'] {
   @apply bg-gray-100;
 }
 
+
 .admin-blue {
   color: #5a6aff;
+}
+
+.bg-admin-blue {
+  background-color: #acb9fc;
+}
+
+.bg-admin-blue:hover {
+  background-color: darken(#acb9fc, 2%);
+}
+
+.admin-orange {
+  color: #ffd79e;
+}
+
+.bg-admin-orange {
+  background-color: #ffd79e;
 }
 
 .supply-button {

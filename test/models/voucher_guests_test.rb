@@ -17,7 +17,6 @@ class VoucherGuestsTest < ActiveSupport::TestCase
     assert_equal(2, voucher.guests.size)
     client.vouchers.reload
     assert_equal(2, client.prior_guests.size)
-    swap.update(aasm_state: "inactive")
     Timecop.return
 
     Timecop.travel(Date.current - 3)

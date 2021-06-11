@@ -20,8 +20,8 @@ class SwapTest < ActiveSupport::TestCase
   end
 
   test "start/end dates make sense (start <= end)" do
-    swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current.yesterday)
-    refute swap.valid?, "end_date: #{swap.end_date}  must be later than start_date: #{swap.start_date}"
+    swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current.yesterday, intake_start_date: Date.current.yesterday, intake_end_date: Date.current)
+    refute swap.valid?, "end_date: #{swap.end_date} must be later than start_date: #{swap.start_date}"
 
     swap.end_date = Date.current.tomorrow
     assert swap.valid?
@@ -44,16 +44,22 @@ class SwapTest < ActiveSupport::TestCase
     swap = build_stubbed(:swap, start_date: Date.current - 2, end_date: Date.current + 2)
     refute swap.valid?
 
-    swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current.tomorrow)
+    swap = build_stubbed(:swap,
+      start_date: Date.current - 1,
+      end_date: Date.current
+    )
     refute swap.valid?
-    swap.start_date = Date.current.tomorrow
-    swap.end_date = Date.current + 2
-    assert swap.valid?
 
-    swap = build_stubbed(:swap, start_date: Date.current - 2, end_date: Date.current.yesterday)
+    swap = build_stubbed(:swap,
+      start_date: Date.current,
+      end_date: Date.current + 1
+    )
     refute swap.valid?
-    swap.start_date = Date.current - 3
-    swap.end_date = Date.current - 2
+
+    swap = build_stubbed(:swap,
+      start_date: Date.current + 1,
+      end_date: Date.current + 2,
+    )
     assert swap.valid?
   end
 
@@ -63,7 +69,7 @@ class SwapTest < ActiveSupport::TestCase
     swap = build_stubbed(:swap, start_date: Date.current.tomorrow, end_date: Date.current + 3)
     refute swap.valid?
 
-    swap.start_date = Date.current + 2
+    swap = build_stubbed(:swap, start_date: Date.current + 2, end_date: Date.current + 3)
     assert swap.valid?
   end
 end
