@@ -1,18 +1,6 @@
 class Admin::IncidentReportsController < Admin::BaseController
   skip_before_action :verify_authenticity_token
 
-  #   create_table "incident_reports", force: :cascade do |t|
-  #   t.bigint "client_id", null: false
-  #   t.text "description"
-  #   t.datetime "occurred_at"
-  #   t.datetime "created_at", precision: 6, null: false
-  #   t.datetime "updated_at", precision: 6, null: false
-  #   t.bigint "reporter_id"
-  # hotel_id
-  #   t.index ["client_id"], name: "index_incident_reports_on_client_id"
-  #   t.index ["reporter_id"], name: "index_incident_reports_on_reporter_id"
-  # end
-
   def create
     IncidentReport.transaction do
       client = Client.find(params[:id])
@@ -41,9 +29,4 @@ class Admin::IncidentReportsController < Admin::BaseController
 
     redirect_back(info: "New report created.", fallback_location: root_path)
   end
-  # private
-
-  # def incident_report_params
-  #   params.require(:incident_report).permit(:occurred_at, :description, :client_id)
-  # end
 end
