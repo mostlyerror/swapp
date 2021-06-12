@@ -1,7 +1,10 @@
 <main class="mt-12 container mx-auto max-w-4xl lg:max-w-7xl">
   <h1 class="font-bold">Swapp Admin Dashboard</h1>
+  <h2><em>Hello, <%= current_user.first_name %>! </em></h2>
+  <h2><em><strong>Today is <%= humanize_date(Date.current) %></strong></em></h2>
   <% if @swap %>
     <!-- TODO: swap period details section goes here -->
+    <%= render partial: 'current_swap_activation'%>
   <% else %>
   <section class="mt-8">
     <%= react_component("SwapWizard/SwapWizard") %>

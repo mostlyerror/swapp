@@ -81,11 +81,9 @@ input[type='search'] {
   @apply text-5xl text-gray-800 leading-tight;
 }
 
-
 .zebra:nth-child(odd) {
   @apply bg-gray-100;
 }
-
 
 .admin-blue {
   color: #5a6aff;
@@ -117,6 +115,15 @@ input[type='search'] {
 
 .voucher-available {
   background-color: #fed79e;
+}
+
+.current-swap {
+  background-color: #edf6f9;
+}
+
+.current-swap-border {
+  border-color: #5a6aff;
+  border-width: 4px;
 }
 
 ::-webkit-scrollbar {

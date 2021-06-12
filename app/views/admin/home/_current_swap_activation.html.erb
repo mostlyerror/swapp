@@ -1,24 +1,30 @@
 <section class="bg-white shadow-lg rounded-lg">
-  <h2 class="bg-gray-900 text-white text-6xl text-center font-semibold p-6">Current SWAP Activation</h2>
-  <div class="flex flex-1 flex-wrap text-center bg-white">
-    <div class="w-1/2 border border-gray-400">
-      <p class="p-6 tracking-wide bg-gray-900 text-white text-4xl font-semibold">Intake Start</p>
-      <p class="p-10 text-7xl font-bold tracking-wide"><%= (@swap.intake_start_date).to_formatted_s(:short) %>
-      </p>
+ <div class="p-8 grid grid-cols-2 border border-4 rounded-lg current-swap-border">
+    <div>
+      <h4 class="font-bold ml-5">Current Voucher Supply:</h4>
+      <div class="mt-4">
+       <ul class="d-flex ml-5 flex-1 flex-col">
+          <% @vouchers_remaining_today.each do |(hotel_id, vouchers)| %>
+           <li class="flex flex-1 p-1">
+            <p class="text-2xl w-5"><%= vouchers %></p>
+            <p class="text-2xl ml-5"><%= @hotel_map[hotel_id] %></p>
+          </li>
+        <% end %>
+        <p class="mt-2 text-2xl"><strong><%= @num_vouchers_remaining_today %> <span class="ml-3">total vouchers</span></strong></p>
+       </ul>
+      </div>
     </div>
-    <div class="w-1/2 border border-gray-400">
-      <p class="w-full p-6 tracking-wide bg-gray-900 text-white text-4xl font-semibold">Intake End</p>
-      <p class="p-10 text-7xl font-bold tracking-wide"><%= (@swap.intake_end_date).to_formatted_s(:short) %></p>
-    </div>
-    <div class="w-1/2 border border-gray-400">
-      <p class="p-6 tracking-wide bg-gray-900 text-white text-4xl font-semibold">Check In</p>
-      <p class="p-10 text-7xl font-bold tracking-wide"><%= @swap.start_date.to_formatted_s(:short) %>
-      </p>
-    </div>
-    <div class="w-1/2 border border-gray-400">
-      <p class="w-full p-6 tracking-wide bg-gray-900 text-white text-4xl font-semibold">Check Out</p>
-      <p class="p-10 text-7xl font-bold tracking-wide"><%= @swap.end_date.to_formatted_s(:short) %></p>
-    </div>
+    <div class="pr-3">
+      <h4 class="font-bold">Current Swap Period:</h4>
+      <div class="flex mt-5">
+        <div class="w-1/2 border border-gray-400">
+          <p class="p-3 text-center border border-black tracking-wide text-xl current-swap font-semibold">Check In</p>
+          <p class="p-8 text-center border border-black text-3xl font-bold current-swap tracking-wide"><%= @swap.start_date.to_formatted_s(:short) %></p>
+        </div>
+        <div class="w-1/2 border border-gray-400">
+          <p class="p-3 text-center w-full border border-black tracking-wide text-xl current-swap font-semibold">Check Out</p>
+          <p class="p-8 text-center border border-black text-3xl font-bold current-swap tracking-wide"><%= @swap.end_date.to_formatted_s(:short) %></p>
+        </div>
+      </div>
   </div>
-  <%= render partial: 'extend_swap' %>
 </section>
