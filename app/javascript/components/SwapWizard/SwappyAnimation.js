@@ -11,23 +11,29 @@ const SwappyAnimation = (props) => {
   let tweenTarget = null
 
   useEffect(() => {
-    tl.to(tweenTarget, 1, {})
+    tl.to(tweenTarget, 0.75, { opacity: 1 })
       .set(tweenTarget, { attr: { src: SwappyYawn } })
-      .to(tweenTarget, 0.8, {})
+      .to(tweenTarget, 0.55, { y: -15, ease: 'elastic.out(1.2, 0.5' })
+      .to(tweenTarget, 0.15, { y: 0, ease: 'power2.out' })
       .set(tweenTarget, { attr: { src: SwappyBlink } })
       .to(tweenTarget, 0.5, {})
       .set(tweenTarget, { attr: { src: SwappyAwake } })
-      .to(tweenTarget, 0.15, {})
+      .to(tweenTarget, 0.12, {})
       .set(tweenTarget, { attr: { src: SwappyBlink } })
-      .to(tweenTarget, 0.25, {})
+      .to(tweenTarget, 0.22, {})
       .set(tweenTarget, { attr: { src: SwappyAwake } })
-      .to(tweenTarget, 0.8, {})
+      .to(tweenTarget, 0.7, {})
       .add(props.advance)
   }, [])
 
   return (
     <div className="flex justify-center">
-      <img id="swappy" ref={(e) => (tweenTarget = e)} src={SwappySleep} />
+      <img
+        id="swappy"
+        className="opacity-0"
+        ref={(e) => (tweenTarget = e)}
+        src={SwappySleep}
+      />
     </div>
   )
 }
