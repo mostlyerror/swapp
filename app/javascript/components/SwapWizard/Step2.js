@@ -1,6 +1,7 @@
 import React from 'react'
 import StayDatePicker from './StayDatePicker'
 import Button from './Button'
+import ButtonOutline from './ButtonOutline'
 import { SwapWizardTransition } from './SwapWizardTransition'
 
 export const Step2 = (props) => {
@@ -23,6 +24,9 @@ export const Step2 = (props) => {
           to={props.to}
           onStayDatesChange={props.onStayDatesChange}
         />
+
+        <ButtonOutline onClick={props.back}>Nevermind!</ButtonOutline>
+
         {props.canAdvance && (
           <SwapWizardTransition>
             <div className="mt-8">
