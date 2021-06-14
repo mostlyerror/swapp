@@ -14,7 +14,7 @@ class SwapWizard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentStep: 1,
+      currentStep: 3,
       stayDates: {},
       stayDatesValid: false,
       intakeDates: [],

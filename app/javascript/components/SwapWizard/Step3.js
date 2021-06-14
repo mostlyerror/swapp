@@ -3,18 +3,24 @@ import IntakeDatePicker from './IntakeDatePicker'
 import Button from './Button'
 import ButtonOutline from './ButtonOutline'
 import { SwapWizardTransition } from './SwapWizardTransition'
+import SwappyChillin from './SwappyChillin'
 
 export const Step3 = (props) => {
   return (
-    <div className="text-center">
-      <div className="">
-        <h3 className="font-semibold">Set Intake Days</h3>
-        <p className="mt-4 text-xl">
-          On each <span className="font-semibold italic">intake day</span>,
-          intake users will be able to issue vouchers to clients. Intake
-          typically begins one day prior to the actual check-in, and may
-          continue up until the day immediately before the check-out day.
-        </p>
+    <div className="">
+      <div className="flex px-5 gap-6">
+        <div className="w-1/2">
+          <SwappyChillin />
+        </div>
+        <div className="text-left">
+          <h3 className="font-semibold">Set Intake Days</h3>
+          <p className="mt-4 text-xl">
+            On each <span className="font-semibold italic">intake day</span>,
+            intake users will be able to issue vouchers to clients. Intake
+            typically begins one day prior to the actual check-in, and may
+            continue up until the day immediately before the check-out day.
+          </p>
+        </div>
       </div>
       <div className="mt-4">
         <IntakeDatePicker
