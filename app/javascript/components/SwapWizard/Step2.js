@@ -9,10 +9,10 @@ export const Step2 = (props) => {
   return (
     <div className="">
       <div className="flex px-5 gap-6">
-        <div className="w-1/2">
+        <div className="w-1/5">
           <SwappyChillin />
         </div>
-        <div className="text-left">
+        <div className="flex-1">
           <h3 className="font-semibold">Set Stay Period</h3>
           <p className="mt-4 text-xl">
             The <span className="font-semibold italic">stay period</span> is when

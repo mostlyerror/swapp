@@ -14,7 +14,7 @@ class SwapWizard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentStep: 3,
+      currentStep: 1,
       stayDates: {},
       stayDatesValid: false,
       intakeDates: [],
@@ -30,7 +30,7 @@ class SwapWizard extends React.Component {
 
   advance = (event) => {
     this.setState((prevState) => ({
-      currentStep: _.min([prevState.currentStep + 1, 5]),
+      currentStep: _.min([prevState.currentStep + 1, 6]),
     }))
   }
 

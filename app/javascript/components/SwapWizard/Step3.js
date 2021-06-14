@@ -9,10 +9,10 @@ export const Step3 = (props) => {
   return (
     <div className="">
       <div className="flex px-5 gap-6">
-        <div className="w-1/2">
+        <div className="w-1/5">
           <SwappyChillin />
         </div>
-        <div className="text-left">
+        <div className="flex-1">
           <h3 className="font-semibold">Set Intake Days</h3>
           <p className="mt-4 text-xl">
             On each <span className="font-semibold italic">intake day</span>,
@@ -22,7 +22,7 @@ export const Step3 = (props) => {
           </p>
         </div>
       </div>
-      <div className="mt-4">
+      <div className="text-center mt-4">
         <IntakeDatePicker
           selectedDays={props.intakeDates}
           stayDates={props.stayDates}
