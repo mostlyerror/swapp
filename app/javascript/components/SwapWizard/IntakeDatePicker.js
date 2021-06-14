@@ -85,6 +85,15 @@ export default class IntakeDatePicker extends React.Component {
           onDayMouseEnter={this.handleDayMouseEnter}
           disabledDays={this.state.disabledDays}
         />
+        {this.state.selectedDays.length > 0 && (
+          <div className="mt-4 text-2xl tabular-nums">
+            <span className="font-bold">Selected Intake Dates: </span>
+            <br />
+            {this.state.selectedDays
+              .map((day) => day.toLocaleDateString())
+              .join(', ')}
+          </div>
+        )}
       </div>
     )
   }

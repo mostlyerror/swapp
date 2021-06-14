@@ -10,8 +10,10 @@ class Admin::SwapsController < Admin::BaseController
     swap = Swap.new(
       start_date: stay_start,
       end_date: stay_end,
-      # intake_dates: intake_dates # TODO: pull in changes from intake dates branch so this can work
-      # created_by: current_user   # created by?
+      # intake_dates: intake_dates 
+      # # TODO: pull in changes from intake dates branch so this can work
+      # created_by: current_user   
+      # # created by?
     )
 
     if swap.save

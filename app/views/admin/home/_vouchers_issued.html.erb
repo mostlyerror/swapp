@@ -1,59 +1,41 @@
-<section class="mt-16 md:w-11/12 md:mx-auto">
+<h3 class="font-semibold text-center tracking-wide font-bold" style="color:#5A6AFF">Last 20 Issued Vouchers</h3>
 
-  <h3 class="mt-20 font-bold text-center tracking-wide admin-blue">Last 20 Issued Vouchers</h3>
-
-  <div class="mt-5 border rounded-md border-gray-700 p-2 overflow-y-scroll" style="height:630px" >
-    <div class="mt-5 grid grid-cols-7">
-      <div class="font-bold text-center">Voucher No.</div>
-      <div class="font-bold text-left">Hotel</div>
-      <div class="font-bold text-left">Client</div>
-      <div class="font-bold text-center">Check-In</div>
-      <div class="font-bold text-center">Check-Out</div>
-      <div class="font-bold text-center">Issued By</div>
-      <div class="font-bold text-center">Issued On</div>
-      </div>
-    <div class="mt-5">
-        <% @vouchers.each do |voucher| %>
-        <div class="zebra grid grid-cols-7">
-          <div class="text-center">
-            <%= voucher.number %>
-          </div>
-          <div>
-            <%= voucher.hotel.name %>
-          </div>
-          <div class="text-left">
-            <%= voucher.client.name %>
-          </div>
-          <div class="text-center">
-            <%= voucher.check_in.to_date.to_formatted_s(:short) %>
-          </div>
-          <div class="text-center"> 
-            <%= voucher.check_out.to_date.to_formatted_s(:short) %>
-          </div>
-          <div class="text-center">
-            <%= voucher.user.name %>
-          </div>
-          <div class="text-center"> 
-            <%= voucher.created_at.to_date.to_formatted_s(:short) %>
-          </div>
-        </div>
-        <% end %>   
+<div class="mt-5 border rounded-md border-gray-700 p-2 overflow-y-scroll" style="height:630px" >
+  <div class="mt-5 grid grid-cols-7">
+    <div class="font-bold text-center">Voucher No.</div>
+    <div class="font-bold text-left">Hotel</div>
+    <div class="font-bold text-left">Client</div>
+    <div class="font-bold text-center">Check-In</div>
+    <div class="font-bold text-center">Check-Out</div>
+    <div class="font-bold text-center">Issued By</div>
+    <div class="font-bold text-center">Issued On</div>
     </div>
-  </div>
-  <div class="p-12 bg-gray-100 border border-gray-500 flex flex-1 flex-col gap-y-6">
-  <button type="button">
-    <%= link_to admin_swap_report_url(format: :csv), 
-    class: "inline-block py-2 px-8 bg-admin-blue rounded-full text-gray-900 font-bold
-    border-b border-gray-900 shadow-lg" do %>
-      <div class="flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z "/>
-        </svg>
-        <span class="ml-5">Download Voucher Report</span>
+  <div class="mt-5">
+      <% @vouchers.each do |voucher| %>
+      <div class="zebra grid grid-cols-7">
+        <div class="text-center">
+          <%= voucher.number %>
+        </div>
+        <div>
+          <%= voucher.hotel.name %>
+        </div>
+        <div class="text-left">
+          <%= voucher.client.name %>
+        </div>
+        <div class="text-center">
+          <%= voucher.check_in.to_date.to_formatted_s(:short) %>
+        </div>
+        <div class="text-center"> 
+          <%= voucher.check_out.to_date.to_formatted_s(:short) %>
+        </div>
+        <div class="text-center">
+          <%= voucher.user.name %>
+        </div>
+        <div class="text-center"> 
+          <%= voucher.created_at.to_date.to_formatted_s(:short) %>
+        </div>
       </div>
-    <% end %>
-  </button>
+      <% end %>   
   </div>
-</section>
+</div>
   

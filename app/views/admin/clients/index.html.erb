@@ -1,21 +1,22 @@
-<h3 class="mt-20 font-bold text-center tracking-wide admin-blue">Go to Client Detail</h3>
 <section class="mt-4 px-2 md:w-11/12 mx-auto">
- <div class="mt-4 md:mt-16 md:px-4 md:w-10/12 mx-auto">
-    <div class="mt-4 md:mt-8">
-    <div class="md:mt-8 text-gray-800">
-        <p>Search for a client whose red flags you want to update, or whose incidents you want to view.</p>
-    </div>
-    <form class="client_search" id="client_search" action="/admin/awesome" accept-charset="UTF-8" method="get">
+  <%= render partial: "shared/swap_notices" %>
+  <div class="mt-12 md:mt-16 md:px-4 md:w-10/12 mx-auto">
+    <h1 class="md:text-5xl text-gray-900 font-bold">Client Search</h1>
+    <div class="mt-6 md:mt-8">
+      <div class="md:text-xl text-gray-800">
+        <p>Names have different spellings, so use broad search terms, like “Jean” for “Jeanmarie” or “Jo” for “Joseph.”</p>
+      </div>
+      <form class="client_search" id="client_search" action="/clients" accept-charset="UTF-8" method="get">
         <div class="flex mt-4">
-        <input id="search-input" class="flex-1 rounded-l border border-gray-300 md:text-xl md:p-4" name="q[first_name_or_last_name_cont]" id="q_first_name_or_last_name_cont" type="search" minlength="2" required placeholder="Search by first or last name" autofocus="autofocus">
-        <button id="search-btn" class="border border-gray-300 rounded-r flex items-center justify-center px-3 md:px-5">
+          <input id="search-input" class="flex-1 rounded-l border border-gray-300 md:text-xl md:p-4" name="q[first_name_or_last_name_cont]" id="q_first_name_or_last_name_cont" type="search" minlength="2" required placeholder="Search by first or last name" autofocus="autofocus">
+          <button id="search-btn" class="border border-gray-300 rounded-r flex items-center justify-center px-3 md:px-5">
             <svg class="h-4 w-4 md:h-6 md:w-6 text-grey-dark" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
-        </button>
+          </button>
         </div>
-    </form>
+      </form>
     </div>
-</div>
-
+  </div>
+</section>
 
 <section class="mt-16 md:w-11/12 md:mx-auto">
   <% if @searched %>
@@ -33,7 +34,7 @@
         <div class="grid grid-cols-7 bg-white border border-gray-300 block overflow-y-scroll max-h-96">
           <% @clients.each_with_index do |client, idx| %>
             <div class="col-span-3 pl-2 md:pl-4 py-2 md:py-3 text-left <%= idx.even? && 'bg-gray-200' %>">
-              <%= link_to(client.name, admin_clients_path(client), class: 'link') %>
+              <%= link_to(client.name, client_path(client), class: 'link') %>
             </div>
             <div class="col-span-3 py-2 md:py-3 text-left tabular-nums <%= idx.even? && 'bg-gray-200' %>">
               <%= formatted_date(client.date_of_birth) %>
