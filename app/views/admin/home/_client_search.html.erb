@@ -2,7 +2,7 @@
 <section class="mt-4 px-2 md:w-11/12 mx-auto">
  <div class="mt-4 md:mt-16 md:px-4 md:w-10/12 mx-auto">
     <div class="mt-4 md:mt-8">
-    <div class="md:mt-8 text-gray-800">
+    <div class="md:mt-8 md:text-xl text-gray-800">
         <p>Search for a client whose red flags you want to update, or whose incidents you want to view.</p>
     </div>
     <form class="client_search" id="client_search" action="/admin/awesome" accept-charset="UTF-8" method="get">
@@ -22,7 +22,7 @@
     <% if @clients.any? %>
       <p class="text-base md:text-xl mt-12 md:mt-16 px-2 md:px-8">
         <strong><%= @clients.size %> results found for "<%= @searched_term
-          %>"</strong>. Click on a row to view the client's program history and issue a hotel voucher.
+          %>."</strong> Click on a row to view a client's program history, update red flags, or modify incident reports.
       </p>
       <div class="mt-6 shadow-lg md:text-xl">
         <div class="grid grid-cols-7 bg-white border border-gray-300">
@@ -51,35 +51,10 @@
         <strong>0 results found for "<%= @searched_term %>"</strong>
       </p>
   <% end %>
-  <div class="mt-6 px-4 py-6 sm:py-8 md:py-12 md:px-0 md:w-10/12 md:mx-auto">
+  <div class="mt-4 px-4 py-6 sm:py-8 md:py-12 md:px-0 md:w-10/12 md:mx-auto">
     <p class="text-base md:text-xl">
       Still don't see your client? If they have previously participated, try searching for an alternate name.
     </p>
-    <div class="mt-4 sm:mt-6 md:mt-8">
-      <% if @swap.present? %>
-        <% if @num_vouchers_remaining_today.zero? %>
-          <p class="text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">Cannot perform intake. <span class="block md:inline">No vouchers available.</span></p>
-        <% else %>
-          <div class="text-center">
-            <%= link_to new_intake_path, 
-              class: "mt-4 px-3 md:px-4 py-2 md:py-3 inline-flex items-center
-              border border-transparent bg-indigo-600 hover:bg-indigo-700 
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-              text-white text-lg sm:text-xl md:text-3xl leading-4 font-semibold tracking-wide
-              rounded-lg shadow-sm" do %>
-              <span>New Client Intake</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5 md:h-8 md:w-8" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-              </svg>
-            <% end %>
-          </div>
-        <% end %>
-      <% else %>
-        <div class="mt-4 md:mt-6 text-xl md:text-2xl font-bold tracking-wide">
-          New client intake can only be performed during an active SWAP period.
-        </div>
-      <% end %>
-    </div>
   </div>
 <% end %>
 </section>
