@@ -48,7 +48,7 @@ class Admin::SwapsController < Admin::BaseController
       end
     end
 
-    return redirect_to admin_home_path
+    return redirect_to admin_awesome_path
   end
 
   def edit_intake_dates
