@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_10_225119) do
+ActiveRecord::Schema.define(version: 2021_06_17_204756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -168,6 +168,10 @@ ActiveRecord::Schema.define(version: 2021_06_10_225119) do
     t.boolean "hotel_user", default: false, null: false
     t.boolean "intake_user", default: false, null: false
     t.boolean "show_swap_panel", default: true
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
