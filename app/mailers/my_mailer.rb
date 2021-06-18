@@ -4,5 +4,5 @@ class MyMailer < Devise::Mailer
   default template_path: './views/devise/mailer' # to make sure that your mailer uses the devise views
   # If there is an object in your application that returns a contact email, you can use it as follows
   # Note that Devise passes a Devise::Mailer object to your proc, hence the parameter throwaway (*).
-  default from: ->(*) { 'bjohnson@codeforamerica.org' }
+  default from: ->(*) { 'bjohnson@codeforamerica.org' } 
 end
