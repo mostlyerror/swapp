@@ -17,7 +17,7 @@ class IntakesController < ApplicationController
 
     if client_params[:client_id]
       @client = Client.find(client_params[:client_id])
-    elsif client_params[:id]
+    elsif client_params[:id].present?
       @client = Client.find(client_params[:id])
     else
       @client = Client.new
