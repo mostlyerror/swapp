@@ -66,4 +66,14 @@ class SwapTest < ActiveSupport::TestCase
     swap.start_date = Date.current + 2
     assert swap.valid?
   end
+
+  test "intake_dates must be an array sorted from earliest to most recent date" do
+    swap = Swap.new( 
+      start_date: Date.current + 1,
+      end_date: Date.current + 3,
+      intake_dates: (Date.current..(Date.current+1)).to_a.reverse
+      )
+    assert swap.invalid?  
+    assert swap.errors.key? :intake_dates
+  end   
 end
