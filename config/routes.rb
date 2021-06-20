@@ -43,5 +43,6 @@ Rails.application.routes.draw do
     end
   end
  
-  root to: "landing#index"
+  # root to: "landing#index"
+  root to: "pages#home"
 end
