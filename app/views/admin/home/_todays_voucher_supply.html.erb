@@ -13,26 +13,25 @@
         <div class="pr-4 py-4">Remaining</div>
       </div>
 
-        <% @supply.each do |hotel_id, supply| %>
-          <div class="grid grid-cols-5 text-2xl text-center items-center w-full">
-            <div class="pl-4 py-3 col-span-2 text-left"><%= @hotel_map[hotel_id] %></div>
-            <div class="py-3 bg-admin-orange">
-              <%= form.number_field hotel_id,
-                min: 0, 
-                step: 1, 
-                class: "w-20 text-center p-2 text-2xl border border-black", 
-                value: supply[Date.current][:vacant]
-              %>
-            </div>
-            <div class="py-3">
-              <%= supply[Date.current][:issued].to_i %>
-            </div>
-            <div class="pr-4 py-3">
-              <%= supply[Date.current][:vacant].to_i - supply[Date.current][:issued].to_i %>
-            </div>
+      <% @supply.each do |hotel_id, supply| %>
+        <div class="grid grid-cols-5 text-2xl text-center items-center w-full">
+          <div class="pl-4 py-3 col-span-2 text-left"><%= @hotel_map[hotel_id] %></div>
+          <div class="py-3 bg-admin-orange">
+            <%= form.number_field hotel_id,
+              min: 0, 
+              step: 1, 
+              class: "w-20 text-center p-2 text-2xl border border-black", 
+              value: supply[Date.current][:vacant]
+            %>
           </div>
-        <% end %>
-      </div>
+          <div class="py-3">
+            <%= supply[Date.current][:issued].to_i %>
+          </div>
+          <div class="pr-4 py-3">
+            <%= supply[Date.current][:vacant].to_i - supply[Date.current][:issued].to_i %>
+          </div>
+        </div>
+      <% end %>
     </div>
 
     <div class="mt-12 flex flex-1 justify-center">
