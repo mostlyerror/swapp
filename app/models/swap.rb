@@ -18,8 +18,8 @@ class Swap < ApplicationRecord
     start_date..end_date
   end
 
-  def intake_period
-    intake_dates
+  def swap
+    start_date..end_date
   end
 
   def stay_period
@@ -93,7 +93,7 @@ class Swap < ApplicationRecord
     end
 
     def no_intake_on_last_night
-      if intake_period.include? end_date
+      if intake_dates.include? end_date
         return errors.add(:base, "Cannot perform intake on last day of swap period")
       end
     end
