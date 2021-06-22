@@ -7,45 +7,38 @@ export const Step5 = (props) => {
   return (
     <>
       <div className="flex px-5 gap-6">
-        <div className="w-1/3">
+        <div className="w-1/5">
           <SwappyChillin />
         </div>
         <div className="flex-1">
-          <h3 className="font-semibold tracking-wide">Review</h3>
-          <div className="flex">
-            <div className="flex flex-col">
-              <div className="border border-gray-400">
-                <p
-                  className="text-center border border-black tracking-wide
-                text-xl current-swap font-semibold"
-                >
-                  Check In
-                </p>
-                <p className="text-center border border-black text-3xl font-bold current-swap tracking-wide">
-                  {props.checkIn.toLocaleDateString()}
-                </p>
-              </div>
-              <div className="border border-gray-400">
-                <p className="text-center w-full border border-black tracking-wide text-xl current-swap font-semibold">
-                  Check Out
-                </p>
-                <p className="text-center border border-black text-3xl font-bold current-swap tracking-wide">
-                  {props.checkOut.toLocaleDateString()}
-                </p>
-              </div>
-            </div>
-            <div className="">
-              <div className=""> Intake Dates</div>
-              <ul>
-                {props.intakeDates.map((date, idx) => (
-                  <li key={idx}>{date.toLocaleDateString()}</li>
-                ))}
-              </ul>
-            </div>
+          <h3 className="font-semibold tracking-wide">Review Details</h3>
+          <p className="mt-1 text-2xl">
+            Swappy says,{' '}
+            <em>
+              "You can always go back and make changes if things look funny!"
+            </em>
+          </p>
+        </div>
+      </div>
+      <div className="mt-12 grid grid-cols-2 gap-6 max-w-2xl text-3xl mx-auto tabular-nums">
+        <div className="flex justify-between">
+          <span className="font-bold">Check In</span>
+          <span>{props.checkIn.toLocaleDateString()}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-bold">Check Out</span>
+          <span>{props.checkOut.toLocaleDateString()}</span>
+        </div>
+        <div className="col-span-2">
+          <div className="font-bold">Intake Dates</div>
+          <div className="mt-2">
+            {props.intakeDates
+              .map((date, idx) => date.toLocaleDateString())
+              .join(', ')}
           </div>
         </div>
       </div>
-      <div className="mt-6 flex justify-between">
+      <div className="mt-8 flex justify-between">
         <ButtonOutline onClick={props.back}>
           Back: I want to make changes
         </ButtonOutline>

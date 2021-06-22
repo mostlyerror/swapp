@@ -76,13 +76,11 @@ class SwapWizard extends React.Component {
               />
             </SwapWizardTransition>
           )}
-
           {this.state.currentStep === 2 && (
             <SwapWizardTransition>
               <SwappyAnimation advance={this.advance} />
             </SwapWizardTransition>
           )}
-
           {this.state.currentStep === 3 && (
             <SwapWizardTransition>
               <Step2
@@ -96,7 +94,6 @@ class SwapWizard extends React.Component {
               />
             </SwapWizardTransition>
           )}
-
           {this.state.currentStep === 4 && (
             <SwapWizardTransition>
               <Step3
@@ -110,7 +107,6 @@ class SwapWizard extends React.Component {
               />
             </SwapWizardTransition>
           )}
-
           {this.state.currentStep === 5 && (
             <SwapWizardTransition>
               <Step4
@@ -120,7 +116,6 @@ class SwapWizard extends React.Component {
               />
             </SwapWizardTransition>
           )}
-
           {this.state.currentStep === 6 && (
             <SwapWizardTransition>
               <Step5
