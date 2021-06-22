@@ -10,7 +10,7 @@ class Admin::SwapsController < Admin::BaseController
     swap = Swap.new(
       start_date: stay_start,
       end_date: stay_end,
-      intake_dates: intake_dates
+      intake_dates: intake_dates,
       intake_start_date: intake_dates.first,
       intake_end_date: intake_dates.last
     )
