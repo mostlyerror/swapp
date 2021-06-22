@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
       map.merge(Hash[hotel.id, hotel])
     end
 
-    if @swap = Swap.current
+    if @swap = Swap.current_or_upcoming
       @vouchers_remaining_today = RoomSupply.vouchers_remaining_today(@swap)
       @num_vouchers_remaining_today = RoomSupply.num_vouchers_remaining_today(@swap)
       @supply = RoomSupply.by_hotel(@swap)

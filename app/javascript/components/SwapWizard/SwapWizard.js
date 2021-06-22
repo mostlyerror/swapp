@@ -18,6 +18,7 @@ class SwapWizard extends React.Component {
       stayDatesValid: false,
       intakeDates: [],
       intakeDatesValid: false,
+      errors: [],
     }
   }
 
@@ -51,10 +52,15 @@ class SwapWizard extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    alert(JSON.stringify(this.state))
     const createAdminSwapPeriodURL = `/admin/swaps`
-
-    axios.post(createAdminSwapPeriodURL, this.state)
+    axios
+      .post(createAdminSwapPeriodURL, this.state)
+      .then((response) => {
+        window.location.reload()
+      })
+      .catch((error) => {
+        this.setState({ errors: error.response.data.errors })
+      })
   }
 
   render() {

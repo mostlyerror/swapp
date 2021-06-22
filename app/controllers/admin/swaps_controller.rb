@@ -10,14 +10,17 @@ class Admin::SwapsController < Admin::BaseController
     swap = Swap.new(
       start_date: stay_start,
       end_date: stay_end,
-      # intake_dates: intake_dates 
-      # # TODO: pull in changes from intake dates branch so this can work
-      # created_by: current_user   
-      # # created by?
+      intake_dates: intake_dates
+      intake_start_date: intake_dates.first,
+      intake_end_date: intake_dates.last
     )
 
     if swap.save
       return render json: swap, status: :created
+  else
+      render json: {
+        errors: swap.errors.as_json(full_messages: true)
+      }, status: 422
     end
   end
 
