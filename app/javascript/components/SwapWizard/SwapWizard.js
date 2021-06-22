@@ -14,7 +14,7 @@ class SwapWizard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentStep: 6,
+      currentStep: 1,
       stayDates: {},
       stayDatesValid: false,
       intakeDates: [],
@@ -124,11 +124,9 @@ class SwapWizard extends React.Component {
           {this.state.currentStep === 6 && (
             <SwapWizardTransition>
               <Step5
-                // checkIn={this.state.stayDates.from}
-                checkIn={new Date()}
-                // checkOut={this.state.stayDates.to}
-                checkOut={new Date()}
-                intakeDates={[new Date(), new Date()]}
+                checkIn={this.state.stayDates.from}
+                checkOut={this.state.stayDates.to}
+                intakeDates={this.state.intakeDates}
                 back={this.back}
                 currentStep={this.state.currentStep}
               />
