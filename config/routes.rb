@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get "/awesome" => "home#awesome", as: :awesome
       get "/awesome/clients/:id" => "clients#show", as: :clients
       get "/" => "home#index", as: :home
+      get "clients/search" => "clients#search", as: :clients_search
       post "swaps" => "swaps#create"
       put "swaps/:id/extend" => "swaps#extend", as: :extend_swap
       put "swaps/:id/room_supply" => "swaps#update_room_supply", as: :update_room_supply

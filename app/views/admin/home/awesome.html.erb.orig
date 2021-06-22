@@ -7,7 +7,10 @@
 
   <section>
   <% if @swap %>
+<<<<<<< HEAD
+=======
     <%= render partial: 'current_swap_activation'%>
+>>>>>>> awesome-admin
     <%= render partial: 'todays_voucher_supply' %>
   <% else %>
     <%= react_component("SwapWizard/SwapWizard") %>

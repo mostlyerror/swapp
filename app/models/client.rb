@@ -43,7 +43,7 @@ class Client < ApplicationRecord
 
   # Callbacks
   before_save do
-    self.race = self.race.reject {|r| r == "0"}
+    self.race = self&.race&.reject {|r| r == "0"}
   end
 
   def name

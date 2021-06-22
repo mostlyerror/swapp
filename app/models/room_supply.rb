@@ -35,7 +35,7 @@ class RoomSupply
 
   def self.by_hotel(swap)
     supply = Hotel.all.reduce({}) do |memo, hotel| 
-      dates = swap.intake_period.to_a.reduce({}) do |dates, day|
+      dates = swap.intake_dates.reduce({}) do |dates, day|
         dates.merge(Hash[day, {vacant: nil, issued: nil}])
       end
       memo.merge(Hash[hotel.id, dates])
