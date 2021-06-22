@@ -13,9 +13,9 @@
     </form>
   </div>
 
-    <div class="mt-12">
-      <% if @searched %>
-        <% if @clients.any? %>
+  <div class="mt-12">
+    <% if @searched %>
+      <% if @clients.any? %>
           <p class="text-2xl">
             <strong><%= @clients.size %> results found for "<%= @searched_term %>."</strong>
             Click on a row to view a client's program history, update red flags, or modify incident reports.
@@ -42,17 +42,14 @@
               <% end %>
             </div>
           </div>
-        <% else %>
-          <p class="mt-8 text-2xl">
-            <strong>0 results found for "<%= @searched_term %>"</strong>
-          </p>
+      <% else %>
+        <p class="mt-8 text-2xl">
+          <strong>0 results found for "<%= @searched_term %>"</strong>
+        </p>
       <% end %>
         <p class="mt-8 text-2xl">
           Still don't see your client? If they have previously participated, try searching for an alternate name.
         </p>
-      </div>
     <% end %>
-    </div>
   </div>
-
 </section>
