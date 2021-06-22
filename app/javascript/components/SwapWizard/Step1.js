@@ -1,10 +1,12 @@
 import React from 'react'
-import ButtonOutline from './ButtonOutline'
+import Button from './Button'
+import Swappy from 'images/swappy.png'
 
 export const Step1 = (props) => {
   return (
-    <div className="flex gap-2">
-      <div className="flex-1">
+    <div className="flex gap-6">
+      <img className="w-96" src={Swappy} />
+      <div className="ml-4">
         <h3 className="font-semibold tracking-wide">No Active SWAP Period</h3>
         <div className="mt-4 text-gray-500">
           <p className="mt-4">The activation process is simple:</p>
@@ -13,17 +15,14 @@ export const Step1 = (props) => {
             <li>2. Set dates to perform client intake</li>
             <li>3. Each intake day, update hotel availability</li>
           </ul>
-          <div className="mt-4">
-            <ButtonOutline onClick={props.advance}>
-              <span className="inline-flex items-center text-xl">
-                Get Started &rarr;
-              </span>
-            </ButtonOutline>
-          </div>
         </div>
-      </div>
-      <div className="">
-        <img className="w-full" src="https://i.imgur.com/NNJS2hi.png"></img>
+        <div className="mt-8 flex justify-center">
+          <Button onClick={props.advance}>
+            <span className="inline-flex items-center text-xl">
+              Get Started &rarr;
+            </span>
+          </Button>
+        </div>
       </div>
     </div>
   )

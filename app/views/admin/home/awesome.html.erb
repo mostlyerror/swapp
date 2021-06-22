@@ -3,7 +3,6 @@
   <h2 class="admin-blue font-semibold"><em>Hello, <%= current_user.first_name %>! </em></h2>
   <h2 class="admin-blue"><em><strong>Today is <%= humanize_date(Date.current) %></strong></em></h2>
   <% if @swap %>
-    <!-- TODO: swap period details section goes here -->
     <%= render partial: 'current_swap_activation'%>
   <% else %>
   <section class="mt-8">
