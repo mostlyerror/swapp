@@ -22,10 +22,6 @@ class Swap < ApplicationRecord
     current || upcoming
   end
 
-  def swap
-    start_date..end_date
-  end
-
   def stay_period
     start_date..end_date
   end
