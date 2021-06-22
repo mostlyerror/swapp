@@ -14,8 +14,12 @@ class Swap < ApplicationRecord
     where("LEAST(start_date, intake_dates[1]) <= ? AND end_date >= ?", Date.current, Date.current).first
   end
 
-  def swap
-    start_date..end_date
+  def self.upcoming
+    where("start_date >= ? OR intake_dates[1] >= ?", Date.current, Date.current).first
+  end
+
+  def self.current_or_upcoming
+    current || upcoming
   end
 
   def swap
