@@ -1,30 +1,44 @@
 import React from 'react'
 import Button from './Button'
 import ButtonOutline from './ButtonOutline'
+import SwappyChillin from './SwappyChillin'
 
 export const Step5 = (props) => {
   return (
     <>
-      <h3 className="font-semibold tracking-wide">Review</h3>
-      <div className="mt-4">
-        <div className="flex gap-10">
-          <div className="flex flex-col">
-            <div>Check-In</div>
-            <div>{props.checkIn.toLocaleDateString()}</div>
-          </div>
-          <div className="flex flex-col">
-            <div>Check-Out</div>
-            <div>{props.checkOut.toLocaleDateString()}</div>
+      <div className="flex px-5 gap-6">
+        <div className="w-1/5">
+          <SwappyChillin />
+        </div>
+        <div className="flex-1">
+          <h3 className="font-semibold tracking-wide">Review Details</h3>
+          <p className="mt-1 text-2xl">
+            Swappy says,{' '}
+            <em>
+              "You can always go back and make changes if things look funny!"
+            </em>
+          </p>
+        </div>
+      </div>
+      <div className="mt-12 grid grid-cols-2 gap-6 max-w-2xl text-3xl mx-auto tabular-nums">
+        <div className="flex justify-between">
+          <span className="font-bold">Check In</span>
+          <span>{props.checkIn.toLocaleDateString()}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="font-bold">Check Out</span>
+          <span>{props.checkOut.toLocaleDateString()}</span>
+        </div>
+        <div className="col-span-2">
+          <div className="font-bold">Intake Dates</div>
+          <div className="mt-2">
+            {props.intakeDates
+              .map((date, idx) => date.toLocaleDateString())
+              .join(', ')}
           </div>
         </div>
       </div>
-      <div className="mt-6"> Intake Dates</div>
-      <ul>
-        {props.intakeDates.map((date, idx) => (
-          <li key={idx}>{date.toLocaleDateString()}</li>
-        ))}
-      </ul>
-      <div className="mt-6 flex justify-between">
+      <div className="mt-8 flex justify-between">
         <ButtonOutline onClick={props.back}>
           Back: I want to make changes
         </ButtonOutline>

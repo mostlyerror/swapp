@@ -9,7 +9,7 @@ class Availability < ApplicationRecord
 
   private 
     def date_must_be_within_swap_intake_period
-      if swap.present? && date.present? && !date.in?(swap.intake_period)
+      if swap.present? && date.present? && !date.in?(swap.intake_dates)
         errors.add(:date_must_be_within_swap_intake_period)
       end
     end

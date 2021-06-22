@@ -8,7 +8,7 @@ class AvailabilityTest < ActiveSupport::TestCase
 
     av.date = Date.current
     refute av.date.in? swap.stay_period
-    assert av.date.in? swap.intake_period
+    assert av.date.in? swap.intake_dates
     assert av.valid?
   end
 

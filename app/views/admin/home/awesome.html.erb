@@ -1,14 +1,21 @@
 <main class="mt-12 container mx-auto max-w-4xl lg:max-w-7xl">
   <h1 class="font-bold">Swapp Admin Dashboard</h1>
-  <% if @swap %>
-    <!-- TODO: swap period details section goes here -->
-  <% else %>
+  <h2 class="mt-8 admin-blue font-semibold"><em>Hello, <%= current_user.first_name %>! </em></h2>
+  <h2 class="admin-blue"><em><strong>Today is <%= humanize_date(Date.current) %></strong></em></h2>
+
   <section class="mt-8">
+  <% if @swap %>
+    <%= render partial: 'current_swap_activation'%>
+  <% else %>
     <%= react_component("SwapWizard/SwapWizard") %>
   </section>
   <% end %>
-  <section class="">
+
+  <section class="mt-8">
     <%= render partial: 'client_search' %>
+  </section>
+
+  <section class="mt-8">
     <%= render partial: 'vouchers_issued' %>
   </section>
 </main>

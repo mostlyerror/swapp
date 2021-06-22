@@ -81,11 +81,9 @@ input[type='search'] {
   @apply text-5xl text-gray-800 leading-tight;
 }
 
-
 .zebra:nth-child(odd) {
   @apply bg-gray-100;
 }
-
 
 .admin-blue {
   color: #5a6aff;
@@ -119,6 +117,15 @@ input[type='search'] {
   background-color: #fed79e;
 }
 
+.current-swap {
+  background-color: #edf6f9;
+}
+
+.current-swap-border {
+  border-color: #5a6aff;
+  border-width: 4px;
+}
+
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
@@ -131,9 +138,9 @@ input[type='search'] {
 }
 
 .admin-blue {
-  color:#5A6AFF;
+  color: #5a6aff;
 }
 
 .bg-admin-blue {
-  background-color:#ACB9FC;
+  background-color: #acb9fc;
 }
