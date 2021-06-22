@@ -7,13 +7,14 @@ import { Step2 } from './Step2'
 import { Step3 } from './Step3'
 import { Step4 } from './Step4'
 import { Step5 } from './Step5'
+import SwappyAnimation from './SwappyAnimation'
 import { sortDatesArray } from '../utils'
 
 class SwapWizard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentStep: 1,
+      currentStep: 6,
       stayDates: {},
       stayDatesValid: false,
       intakeDates: [],
@@ -30,7 +31,7 @@ class SwapWizard extends React.Component {
 
   advance = (event) => {
     this.setState((prevState) => ({
-      currentStep: _.min([prevState.currentStep + 1, 5]),
+      currentStep: _.min([prevState.currentStep + 1, 6]),
     }))
   }
 
@@ -78,6 +79,12 @@ class SwapWizard extends React.Component {
 
           {this.state.currentStep === 2 && (
             <SwapWizardTransition>
+              <SwappyAnimation advance={this.advance} />
+            </SwapWizardTransition>
+          )}
+
+          {this.state.currentStep === 3 && (
+            <SwapWizardTransition>
               <Step2
                 back={this.back}
                 advance={this.advance}
@@ -90,7 +97,7 @@ class SwapWizard extends React.Component {
             </SwapWizardTransition>
           )}
 
-          {this.state.currentStep === 3 && (
+          {this.state.currentStep === 4 && (
             <SwapWizardTransition>
               <Step3
                 back={this.back}
@@ -104,7 +111,7 @@ class SwapWizard extends React.Component {
             </SwapWizardTransition>
           )}
 
-          {this.state.currentStep === 4 && (
+          {this.state.currentStep === 5 && (
             <SwapWizardTransition>
               <Step4
                 back={this.back}
@@ -114,12 +121,14 @@ class SwapWizard extends React.Component {
             </SwapWizardTransition>
           )}
 
-          {this.state.currentStep === 5 && (
+          {this.state.currentStep === 6 && (
             <SwapWizardTransition>
               <Step5
-                checkIn={this.state.stayDates.from}
-                checkOut={this.state.stayDates.to}
-                intakeDates={this.state.intakeDates}
+                // checkIn={this.state.stayDates.from}
+                checkIn={new Date()}
+                // checkOut={this.state.stayDates.to}
+                checkOut={new Date()}
+                intakeDates={[new Date(), new Date()]}
                 back={this.back}
                 currentStep={this.state.currentStep}
               />
