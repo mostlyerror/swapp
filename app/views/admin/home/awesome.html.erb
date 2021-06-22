@@ -8,6 +8,7 @@
   <section>
   <% if @swap %>
     <%= render partial: 'current_swap_activation'%>
+    <%= render partial: 'todays_voucher_supply' %>
   <% else %>
     <%= react_component("SwapWizard/SwapWizard") %>
   <% end %>
