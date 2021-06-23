@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2021_06_23_224409) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "reporter_id"
-    t.integer "hotel_id", null: false
+    t.integer "hotel_id"
     t.boolean "red_flag", default: false
     t.index ["client_id"], name: "index_incident_reports_on_client_id"
     t.index ["reporter_id"], name: "index_incident_reports_on_reporter_id"
@@ -166,10 +166,6 @@ ActiveRecord::Schema.define(version: 2021_06_23_224409) do
     t.boolean "hotel_user", default: false, null: false
     t.boolean "intake_user", default: false, null: false
     t.boolean "show_swap_panel", default: true
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
