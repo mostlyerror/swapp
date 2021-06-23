@@ -5,8 +5,7 @@ class SwapIntakeTest < ActiveSupport::TestCase
     @swap = build_stubbed(:swap, 
                           start_date: Date.current.tomorrow, 
                           end_date: Date.current.tomorrow + 1,
-                          intake_start_date: Date.current,
-                          intake_end_date: Date.current.tomorrow 
+                          intake_dates: (Date.current..Date.current.tomorrow).to_a
                          )
   end
 

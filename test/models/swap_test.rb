@@ -20,7 +20,7 @@ class SwapTest < ActiveSupport::TestCase
   end
 
   test "start/end dates make sense (start <= end)" do
-    swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current.yesterday, intake_start_date: Date.current.yesterday, intake_end_date: Date.current)
+    swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current.yesterday, intake_dates: (Date.current.yesterday..Date.current).to_a)
     refute swap.valid?, "end_date: #{swap.end_date} must be later than start_date: #{swap.start_date}"
 
     swap.end_date = Date.current.tomorrow
