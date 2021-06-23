@@ -71,11 +71,11 @@ class Voucher < ApplicationRecord
 
     def dates_must_fall_within_swap_period
       if swap && !(check_in.in? swap.stay_period)
-        errors.add(:check_in, "check_in (#{check_in}) does not fall within swap period: #{swap.swap}")
+        errors.add(:check_in, "check_in (#{check_in}) does not fall within swap period: #{swap.stay_period}")
       end
 
       if swap && !(check_out.in? swap.stay_period)
-        errors.add(:check_out, "check_out (#{check_out}) does not fall within swap period: #{swap.swap}")
+        errors.add(:check_out, "check_out (#{check_out}) does not fall within swap period: #{swap.stay_period}")
       end
     end
 end
