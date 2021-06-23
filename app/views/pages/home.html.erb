@@ -1,16 +1,23 @@
 <section>
   <div class="flex flex-col">
-    <%= image_tag ("cabin.png") %>
+    <%= image_tag ("cabin4x.png") %>
   </div>
-
-  <div class="max-w-md md:max-w-xl mx-auto px-8 py-12 flex flex-col space-y-16">
-    <h4 class="text-2xl md:text-3xl text-center font-bold tracking-wide">
-      Help a person experiencing homelessness find shelter.
-      <div class="flex flex-col md:flex-row md:items-start">
-        <p class="mt-1 md:mt-2 text-base md:text-lg text-gray-800">
-          swapp is a web application, built by Code for America Community Fellows, in partnership with Department of Community Safety and Well-Being, that helps people experiencing homelessness access temporary shelter during periods of inclement weather.
-        </p>
-      </div>
+  <div class="max-w-md md:max-w-xl mx-auto px-8 py-12 flex flex-col">
+    <h4 class="text-2xl md:text-5xl tracking-wide">
+      Help a person experiencing homelessness
+      <h4 class="text-2xl md:text-5xl font-bold">
+        find shelter.
+      </h3>
+      <div class="mt-10 flex flex-col">
+        <p class="text-base md:text-lg font-bold">Are you a caseworker ready to do intake?</p>
+        <%= link_to clients_path, class: "mt-4 inline-flex items-center px-3 py-2 
+        border border-transparent bg-indigo-600 hover:bg-indigo-700 
+        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+        text-white text-lg sm:text-xl md:text-2xl leading-4 font-semibold tracking-wide
+        rounded-lg shadow-sm" do %>
+          <span>Go to Login </span>
+        <% end %>
+    </div>
     </h4>
   </div>
 </section>
