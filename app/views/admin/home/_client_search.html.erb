@@ -1,12 +1,11 @@
 <section class="container mx-auto">
-  <h3 class="font-bold text-center tracking-wide admin-blue">Go to Client Detail</h3>
-
+  <h4 class="font-bold tracking-wide admin-blue text-4xl text-center">Client Lookup</h4>
   <div class="mt-8 text-gray-800">
     <p class="text-2xl">Search for a client whose red flags you want to update, or whose incidents you want to view.</p>
     <form class="client_search" id="client_search" action="/admin/awesome" accept-charset="UTF-8" method="get">
       <div class="flex mt-8">
-        <input id="search-input" class="flex-1 rounded-l border border-gray-300 text-2xl p-6" name="q[first_name_or_last_name_cont]" id="q_first_name_or_last_name_cont" type="search" minlength="2" required placeholder="Search by first or last name" autofocus="autofocus">
-        <button id="search-btn" class="border border-gray-300 rounded-r flex items-center justify-center px-3 px-5">
+        <input id="search-input" class="flex-1 rounded-l-xl border border-gray-300 text-2xl p-6" name="q[first_name_or_last_name_cont]" id="q_first_name_or_last_name_cont" type="search" minlength="2" required placeholder="Search by first or last name" autofocus="autofocus">
+        <button id="search-btn" class="border border-gray-300 rounded-r-xl flex items-center justify-center px-3 px-5">
           <svg class="h-8 w-8 text-grey-dark" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/></svg>
         </button>
       </div>

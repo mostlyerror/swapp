@@ -1,13 +1,29 @@
-<div class="p-12 bg-gray-100 border border-gray-500 flex flex-1 flex-col gap-y-6">
+<div>
+  <h4 class="font-bold tracking-wide admin-blue text-4xl text-center">Extend SWAP Period</h4>
+  <p class="mt-4 max-w-3xl text-2xl leading-relaxed tracking-wide">
+    Extending the SWAP period will <span class="font-semibold">extend all
+    current voucher holders’ stay</span> by the number of specified days.
+  </p>
   <%= form_for(@swap, url: admin_extend_swap_path(@swap), method: :put) do |form| %>
-    <div class="flex flex-1 justify-center">
-      <%= number_field_tag "days", 1, min: 1, step: 1, class: "pl-8 w-24 rounded-l-lg p-4 border-t mr-0 text-5xl text-gray-900 bg-white border border-gray-500"
-      %>
-      <%= 
-        form.submit "extend stay period", 
-          data: { confirm: "WARNING: The current Swap Period will be extended. This action cannot be undone, except by a database administrator. Are you certain this is what you want to do?" },
-          class:"py-4 px-8 rounded-r-lg bg-yellow-300 text-gray-900 font-bold border-b border-gray-900 shadow-lg"
-      %>
+    <div class="mt-4 flex items-center gap-6">
+      <div class="bg-admin-orange px-6 py-4">
+        <p class="text-2xl font-semibold tracking-wide">
+          Extend current SWAP by &nbsp;
+          <%= number_field_tag "days", 1, min: 1, step: 1, 
+            class: "p-2 w-20 
+            text-2xl text-gray-900 text-center
+            bg-white border border-gray-500" 
+          %> 
+          &nbsp; days.
+        </p>
+      </div>
+      <div>
+        <%= 
+          form.submit "Extend", 
+            data: { confirm: "WARNING: The current Swap Period will be extended. This action cannot be undone, except by a database administrator. Are you certain this is what you want to do?" },
+            class: "p-4 font-bold text-2xl tracking-wide bg-admin-blue rounded-3xl border border-gray-900 shadow-lg"
+        %>
+      </div>
     </div>
   <% end %>
 </div>

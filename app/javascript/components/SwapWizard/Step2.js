@@ -8,19 +8,20 @@ import SwappyChillin from './SwappyChillin'
 export const Step2 = (props) => {
   return (
     <div className="">
-      <div className="flex px-5 gap-6">
+      <div className="flex gap-8">
         <div className="w-1/5">
           <SwappyChillin />
         </div>
         <div className="flex-1">
-          <h3 className="font-semibold">Set Stay Period</h3>
-          <p className="mt-4 text-xl">
-            The <span className="font-semibold italic">stay period</span> is when
-            voucher recipients are eligible to actually stay at a hotel. It's similar to selecting a check-in and check-out for a hotel
+          <h2 className="font-semibold">Set Stay Period</h2>
+          <p className="mt-4 text-2xl leading-relaxed">
+            The <span className="font-semibold italic">stay period</span> is
+            when voucher recipients are eligible to actually stay at a hotel.
+            It's similar to selecting a check-in and check-out for a hotel
             reservation.
           </p>
         </div>
-      </div> 
+      </div>
       <div className="text-center mt-4">
         <StayDatePicker
           from={props.from}

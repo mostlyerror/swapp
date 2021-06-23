@@ -6,13 +6,13 @@ import SwappyChillin from './SwappyChillin'
 export const Step5 = (props) => {
   return (
     <>
-      <div className="flex px-5 gap-6">
+      <div className="flex gap-6">
         <div className="w-1/5">
           <SwappyChillin />
         </div>
         <div className="flex-1">
-          <h3 className="font-semibold tracking-wide">Review Details</h3>
-          <p className="mt-1 text-2xl">
+          <h2 className="font-semibold tracking-wide">Review Details</h2>
+          <p className="mt-4 text-2xl leading-relaxed">
             Swappy says,{' '}
             <em>
               "You can always go back and make changes if things look funny!"

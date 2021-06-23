@@ -8,13 +8,13 @@ import SwappyChillin from './SwappyChillin'
 export const Step3 = (props) => {
   return (
     <div className="">
-      <div className="flex px-5 gap-6">
+      <div className="flex gap-6">
         <div className="w-1/5">
           <SwappyChillin />
         </div>
         <div className="flex-1">
-          <h3 className="font-semibold">Set Intake Days</h3>
-          <p className="mt-4 text-xl">
+          <h2 className="font-semibold">Set Intake Days</h2>
+          <p className="mt-4 text-2xl leading-relaxed">
             On each <span className="font-semibold italic">intake day</span>,
             intake users will be able to issue vouchers to clients. Intake
             typically begins one day prior to the actual check-in, and may
@@ -31,10 +31,12 @@ export const Step3 = (props) => {
         <SwapWizardTransition>
           <div className="mt-8">
             <div className="mt-6 flex justify-between">
-            <ButtonOutline onClick={props.back}>Back: Stay Dates</ButtonOutline>
-            {props.canAdvance && (
-            <Button onClick={props.advance}>Next: Availability</Button>
-            )}
+              <ButtonOutline onClick={props.back}>
+                Back: Stay Dates
+              </ButtonOutline>
+              {props.canAdvance && (
+                <Button onClick={props.advance}>Next: Availability</Button>
+              )}
             </div>
           </div>
         </SwapWizardTransition>
