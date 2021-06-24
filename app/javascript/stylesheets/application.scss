@@ -89,8 +89,15 @@ input[type='search'] {
   color: #5a6aff;
 }
 
+.admin-blue-light {
+  color: lighten(#5a6aff, 2%);
+}
+
 .bg-admin-blue {
   background-color: #acb9fc;
+}
+.bg-admin-blue-light {
+  background-color: lighten(#acb9fc, 2%);
 }
 
 .bg-admin-blue:hover {
