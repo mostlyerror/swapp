@@ -21,33 +21,39 @@ export const Step5 = (props) => {
           </p>
         </div>
       </div>
-      <div className="mt-12 p-8 text-4xl tabular-nums">
-        <div className="flex gap-6">
-          <div className="flex flex-col p-6 gap-2 bg-white rounded-xl">
-            <span className="text-2xl font-bold uppercase tracking-wide">
+      <div className="mt-12 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 gap-8">
+          <div className="flex flex-col px-12 py-6 gap-2 bg-white rounded-xl">
+            <span className="text-3xl font-bold uppercase tracking-wide">
               Check In
             </span>
-            <span>{props.checkIn.toLocaleDateString()}</span>
+            <span className="text-4xl">
+              {props.checkIn.toLocaleDateString()}
+            </span>
           </div>
-          <div className="flex flex-col p-6 gap-2 bg-white rounded-xl">
-            <span className="text-2xl font-bold uppercase tracking-wide">
+          <div className="flex flex-col px-12 py-6 gap-2 bg-white rounded-xl">
+            <span className="text-3xl font-bold uppercase tracking-wide">
               Check Out
             </span>
-            <span>{props.checkOut.toLocaleDateString()}</span>
+            <span className="text-4xl">
+              {props.checkOut.toLocaleDateString()}
+            </span>
           </div>
         </div>
-        <div className="mt-4 flex flex-col p-6 gap-2 bg-white rounded-xl">
-          <span className="text-2xl font-bold uppercase tracking-wide">
+        <div className="mt-8 px-12 px-12 py-6 bg-white rounded-xl">
+          <span className="text-3xl font-bold uppercase tracking-wide">
             Intake Dates
           </span>
-          <div className="flex flex-col">
+          <div className="mt-4 flex flex-col gap-3">
             {props.intakeDates.map((date, idx) => (
-              <li key={idx}>{date.toLocaleDateString()}</li>
+              <li className="text-4xl" key={idx}>
+                {date.toLocaleDateString()}
+              </li>
             ))}
           </div>
         </div>
       </div>
-      <div className="p-8 flex justify-center gap-8">
+      <div className="mt-4 p-8 flex justify-center gap-8">
         <ButtonOutline onClick={props.back}>
           <span className="text-3xl font-semibold">&larr; Back: Nope</span>
         </ButtonOutline>
