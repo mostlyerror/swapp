@@ -86,7 +86,7 @@ export default class IntakeDatePicker extends React.Component {
           disabledDays={this.state.disabledDays}
         />
         {this.state.selectedDays.length > 0 && (
-          <div className="mt-4 text-2xl tabular-nums">
+          <div className="mt-4 text-3xl tabular-nums">
             <span className="font-bold">Selected Intake Dates: </span>
             <br />
             {this.state.selectedDays

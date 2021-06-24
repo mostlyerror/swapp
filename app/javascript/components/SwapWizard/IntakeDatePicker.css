@@ -1,5 +1,5 @@
 .IntakeDayPicker {
-  font-size: 1.6rem;
+  font-size: 1.85rem;
 }
 
 .IntakeDayPicker .DayPicker-Month .DayPicker-Caption > div {
@@ -10,6 +10,11 @@
 .IntakeDayPicker .DayPicker-Month {
   background: white;
   border: 1px solid #ccc;
+  margin: 0;
+}
+
+.IntakeDayPicker .DayPicker-Month:nth-child(2) {
+  margin-left: 10px;
 }
 .IntakeDayPicker .DayPicker-Day--highlighted {
   background-color: lightpink;

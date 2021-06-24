@@ -66,7 +66,7 @@ class SwapWizard extends React.Component {
 
   render() {
     return (
-      <div className="bg-indigo-50 rounded-md p-8">
+      <div className="bg-indigo-50 rounded-md">
         <form onSubmit={this.handleSubmit}>
           {this.state.currentStep === 1 && (
             <SwapWizardTransition>

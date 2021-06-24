@@ -5,14 +5,17 @@ import SwappyBlink from 'images/swappy-blink.png'
 import SwappyAwake from 'images/swappy-awake.png'
 
 const SwappyChillin = (props) => {
-  const [tl] = useState(new TimelineLite({
-    onComplete:function() {this.restart();}
-  }))
+  const [tl] = useState(
+    new TimelineLite({
+      onComplete: function () {
+        this.restart()
+      },
+    })
+  )
 
   let tweenTarget = null
 
   useEffect(() => {
-
     tl.to(tweenTarget, 0.75, {})
       .set(tweenTarget, { attr: { src: SwappyBlink } })
       .to(tweenTarget, 0.5, {})
@@ -25,14 +28,12 @@ const SwappyChillin = (props) => {
   }, [])
 
   return (
-    <div className="flex justify-center">
-      <img
-        id="swappy"
-        className="w-full"
-        ref={(e) => (tweenTarget = e)}
-        src={SwappyAwake}
-      />
-    </div>
+    <img
+      id="swappy"
+      className="w-full"
+      ref={(e) => (tweenTarget = e)}
+      src={SwappyAwake}
+    />
   )
 }
 

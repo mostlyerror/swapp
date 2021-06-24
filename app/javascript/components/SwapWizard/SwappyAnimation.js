@@ -11,7 +11,6 @@ const SwappyAnimation = (props) => {
   let tweenTarget = null
 
   useEffect(() => {
-
     tl.to(tweenTarget, 0.75, { opacity: 1 })
       .set(tweenTarget, { attr: { src: SwappyYawn } })
       .to(tweenTarget, 0.55, { y: -15, ease: 'elastic.out(1.2, 0.5' })
@@ -28,7 +27,7 @@ const SwappyAnimation = (props) => {
   }, [])
 
   return (
-    <div className="flex justify-center">
+    <div className="py-12 flex justify-center">
       <img
         id="swappy"
         className="opacity-0"
