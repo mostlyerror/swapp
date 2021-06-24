@@ -11,9 +11,9 @@ export const Step1 = (props) => {
         </div>
         <div>
           <h2 className="text-4xl font-semibold">
-            Shh.. Swapp's sleeping right now.
+            Swapp's deactivated right now.
           </h2>
-          <div className="pl-4">
+          <div className="pl-8">
             <p className="mt-8 text-3xl">
               But, <strong>activating</strong> is easy:
             </p>
@@ -27,8 +27,8 @@ export const Step1 = (props) => {
       </div>
       <div className="mt-8 flex justify-center">
         <Button onClick={props.advance}>
-          <span className="inline-flex items-center font-semibold tracking-wide text-3xl">
-            Let's Go! &rarr;
+          <span className="font-semibold tracking-wide text-3xl">
+            Get Started &rarr;
           </span>
         </Button>
       </div>
