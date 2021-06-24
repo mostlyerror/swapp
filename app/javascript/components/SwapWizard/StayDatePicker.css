@@ -1,5 +1,5 @@
 .StayDayPicker {
-  font-size: 1.6rem;
+  font-size: 1.85rem;
 }
 
 .StayDayPicker .DayPicker-Month .DayPicker-Caption > div {
@@ -10,6 +10,11 @@
 .StayDayPicker .DayPicker-Month {
   background: white;
   border: 1px solid #ccc;
+  margin: 0;
+}
+
+.StayDayPicker .DayPicker-Month:nth-child(2) {
+  margin-left: 10px;
 }
 
 .StayDayPicker
