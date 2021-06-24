@@ -69,7 +69,7 @@ export default class StayDatePicker extends React.Component {
           onDayClick={this.handleDayClick}
           disabledDays={this.state.disabledDays}
         />
-        <div className="text-3xl">
+        <div className="mt-4 text-3xl tabular-nums">
           {!from && !to && (
             <p className="">
               When is <span className="font-bold">check-in?</span>
@@ -81,7 +81,7 @@ export default class StayDatePicker extends React.Component {
             </p>
           )}
           {from && to && (
-            <div className="mt-4 flex justify-center items-center gap-8">
+            <div className="flex justify-center items-center gap-8">
               <div>
                 <span className="font-bold">Check-in:</span>{' '}
                 {from.toLocaleDateString()}

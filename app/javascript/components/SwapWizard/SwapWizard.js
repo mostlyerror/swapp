@@ -14,11 +14,20 @@ class SwapWizard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentStep: 3,
-      stayDates: {},
-      stayDatesValid: false,
-      intakeDates: [],
-      intakeDatesValid: false,
+      // currentStep: 1,
+      currentStep: 6,
+      stayDates: { from: new Date('2021-06-25'), to: new Date('2021-06-29') },
+      // stayDates: {},
+      // stayDatesValid: false,
+      stayDatesValid: true,
+      // intakeDates: [],
+      // intakeDatesValid: false,
+      intakeDates: [
+        new Date('2021-06-24'),
+        new Date('2021-06-25'),
+        new Date('2021-06-26'),
+      ],
+      intakeDatesValid: true,
       errors: [],
     }
   }

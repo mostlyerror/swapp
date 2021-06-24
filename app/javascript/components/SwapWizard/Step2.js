@@ -31,13 +31,15 @@ export const Step2 = (props) => {
       </div>
       <div className="p-8 flex justify-center gap-8">
         <ButtonOutline onClick={props.back}>
-          <span className="text-3xl">&larr; Nevermind</span>
+          <span className="text-3xl font-semibold">&larr; Nevermind</span>
         </ButtonOutline>
 
         {props.canAdvance && (
           <SwapWizardTransition>
             <Button onClick={props.advance}>
-              <span className="text-3xl">Next: Set Intake Dates</span>
+              <span className="text-3xl font-semibold">
+                Next: Set Intake Dates &rarr;
+              </span>
             </Button>
           </SwapWizardTransition>
         )}
