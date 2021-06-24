@@ -1,11 +1,5 @@
 class Admin::HomeController < Admin::BaseController
-  def index
-    @vouchers = Voucher.order(created_at: :desc).limit(20)
-    @q = Client.ransack(params[:q])
-    @searched = !params[:q].nil?
-    @searched_term = params[:q]&.values&.first
-    @clients = @q.result(distinct: true)
-
+  def users
     @users = User.all.map do |user|
       roles = []
       roles << 'intake' if user.intake_user?
@@ -18,6 +12,14 @@ class Admin::HomeController < Admin::BaseController
         roles: roles.sort
       }
     end
+  end
+
+  def index
+    @vouchers = Voucher.order(created_at: :desc).limit(20)
+    @q = Client.ransack(params[:q])
+    @searched = !params[:q].nil?
+    @searched_term = params[:q]&.values&.first
+    @clients = @q.result(distinct: true)
 
     if @swap
       @vouchers_remaining_today = RoomSupply.vouchers_remaining_today(@swap)
