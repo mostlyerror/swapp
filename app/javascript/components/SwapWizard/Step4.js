@@ -2,6 +2,7 @@ import React from 'react'
 import Button from './Button'
 import ButtonOutline from './ButtonOutline'
 import SwappyChillin from './SwappyChillin'
+import VoucherSupplyGif from 'images/update-voucher-supply.gif'
 
 export function Step4(props) {
   return (
@@ -20,7 +21,10 @@ export function Step4(props) {
         </div>
       </div>
       <div className="mt-12 text-center">
-        <img src="https://media.giphy.com/media/HIYW8sTRTHt1m/giphy.gif" />
+        <img
+          className="w-3/5 mx-auto border border-black rounded-xl"
+          src={VoucherSupplyGif}
+        />
         <div className="p-8 flex justify-center gap-8">
           <ButtonOutline onClick={props.back}>
             <span className="text-3xl font-semibold">
@@ -29,7 +33,7 @@ export function Step4(props) {
           </ButtonOutline>
           <Button onClick={props.advance}>
             <span className="text-3xl font-semibold">
-              Next: Review & Confirm &rarr;
+              Got It! Let's Review &rarr;
             </span>
           </Button>
         </div>
