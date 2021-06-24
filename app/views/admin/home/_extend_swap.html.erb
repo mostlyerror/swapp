@@ -5,8 +5,8 @@
     current voucher holders’ stay</span> by the number of specified days.
   </p>
   <%= form_for(@swap, url: admin_extend_swap_path(@swap), method: :put) do |form| %>
-    <div class="mt-4 flex items-center gap-6">
-      <div class="bg-admin-orange px-6 py-4">
+    <div class="mt-4 flex justify-center items-center gap-8">
+      <div class="bg-admin-orange px-8 py-4 rounded-xl">
         <p class="text-2xl font-semibold tracking-wide">
           Extend current SWAP by &nbsp;
           <%= number_field_tag "days", 1, min: 1, step: 1, 
