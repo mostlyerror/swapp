@@ -14,7 +14,7 @@ class SwapWizard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentStep: 1,
+      currentStep: 3,
       stayDates: {},
       stayDatesValid: false,
       intakeDates: [],
@@ -66,7 +66,7 @@ class SwapWizard extends React.Component {
 
   render() {
     return (
-      <div className="bg-indigo-50 rounded-md p-8">
+      <div className="bg-indigo-50 rounded-md">
         <form onSubmit={this.handleSubmit}>
           {this.state.currentStep === 1 && (
             <SwapWizardTransition>
