@@ -1,16 +1,33 @@
-<div class="bg-gray-100">
-  <section class="">
-    <%= render partial: 'shared/swap_notices' %>
-  </section>
-  <section class="">
+<main class="mt-12 lg:container lg:mx-auto lg:max-w-7xl">
+  <div class="container mx-auto">
+    <h1 class="font-bold">Swapp Admin Dashboard</h1>
+    <h2 class="mt-8 admin-blue font-semibold"><em>Hello, <%= current_user.first_name %>! </em></h2>
+    <h2 class="admin-blue"><em><strong>Today is <%= humanize_date(Date.current) %></strong></em></h2>
+  </div>
+
+  <section class="mt-12">
     <% if @swap %>
-      <%= render partial: 'current_swap_activation' %>
-      <%= render partial: 'todays_voucher_supply' %>
+      <div class="container mx-auto">
+        <%= render partial: 'current_swap_activation'%>
+      </div>
+      <% if @swap.intake_active? %>
+        <div class="mt-24 container mx-auto">
+          <%= render partial: 'todays_voucher_supply' %>
+        </div>
+      <% end %>
+      <div class="mt-24 container mx-auto">
+        <%= render partial: 'extend_swap' %>
+      </div>
     <% else %>
-      <%= render partial: 'activate_swap' %>
+      <%= react_component("SwapWizard/SwapWizard") %>
     <% end %>
   </section>
-  <section class="">
+
+  <section class="mt-24 container mx-auto">
+    <%= render partial: 'client_search' %>
+  </section>
+
+  <section class="mt-24 container mx-auto">
     <%= render partial: 'vouchers_issued' %>
   </section>
-</div>
+</main>
