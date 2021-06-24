@@ -5,7 +5,7 @@ import SwappyChillin from './SwappyChillin'
 
 export function Step4(props) {
   return (
-    <div className="p-4">
+    <div className="py-8 px-4">
       <div className="flex gap-6">
         <div className="w-1/4 p-4">
           <SwappyChillin />
@@ -19,7 +19,7 @@ export function Step4(props) {
           </p>
         </div>
       </div>
-      <div className="mt-8 text-center">
+      <div className="mt-12 text-center">
         <img src="https://media.giphy.com/media/HIYW8sTRTHt1m/giphy.gif" />
         <div className="p-8 flex justify-center gap-8">
           <ButtonOutline onClick={props.back}>

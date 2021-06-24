@@ -7,7 +7,7 @@ import SwappyChillin from './SwappyChillin'
 
 export const Step2 = (props) => {
   return (
-    <div className="p-4">
+    <div className="py-8 px-4">
       <div className="flex gap-8">
         <div className="w-1/4 p-4">
           <SwappyChillin />
