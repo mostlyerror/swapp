@@ -6,6 +6,19 @@ class Admin::HomeController < Admin::BaseController
     @searched_term = params[:q]&.values&.first
     @clients = @q.result(distinct: true)
 
+    @users = User.all.map do |user|
+      roles = []
+      roles << 'intake' if user.intake_user?
+      roles << 'admin' if user.admin_user?
+      roles << 'hotel' if user.hotel_user?
+
+      {
+        name: user.name,
+        email: user.email,
+        roles: roles.sort
+      }
+    end
+
     if @swap
       @vouchers_remaining_today = RoomSupply.vouchers_remaining_today(@swap)
       @num_vouchers_remaining_today = RoomSupply.num_vouchers_remaining_today(@swap)
