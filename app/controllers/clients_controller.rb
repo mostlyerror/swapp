@@ -30,6 +30,9 @@ class ClientsController < ApplicationController
     )
 
     if @client.update(client_params)
+      if current_user.admin_user?
+        return redirect_to admin_clients_path
+      end
       return redirect_to @client
     end
     render :show
