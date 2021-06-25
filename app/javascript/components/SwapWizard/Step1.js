@@ -11,16 +11,16 @@ export const Step1 = (props) => {
         </div>
         <div>
           <h2 className="text-4xl font-semibold">
-            Swapp's deactivated right now.
+            Swapp is deactivated right now.
           </h2>
           <div className="pl-8">
             <p className="mt-8 text-3xl">
               But, <strong>activating</strong> is easy:
             </p>
             <ul className="mt-4 space-y-2 text-3xl tabular-nums">
-              <li>1. Set the hotel stay period</li>
-              <li>2. Set client intake dates</li>
-              <li>3. Each intake day, update hotel room availability.</li>
+              <li>1. Set the hotel stay period.</li>
+              <li>2. Set client intake dates.</li>
+              <li>3. On each intake day, update the hotel room availability.</li>
             </ul>
           </div>
         </div>

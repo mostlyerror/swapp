@@ -15,9 +15,9 @@ export const Step2 = (props) => {
         <div className="flex-1">
           <h2 className="font-bold">Set Stay Period</h2>
           <p className="mt-4 text-2xl leading-relaxed">
-            The <span className="font-semibold italic">stay period</span> is
-            when voucher recipients are eligible to actually stay at a hotel.
-            It's like selecting a check-in and check-out for a hotel
+            The <span className="font-semibold italic">stay period</span> includes
+            the dates when voucher recipients are permitted to stay at a hotel.
+            It's similar to selecting a check-in and check-out for a hotel
             reservation.
           </p>
         </div>

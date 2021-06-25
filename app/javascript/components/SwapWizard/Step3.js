@@ -16,7 +16,7 @@ export const Step3 = (props) => {
           <h2 className="font-semibold">Set Intake Days</h2>
           <p className="mt-4 text-2xl leading-relaxed">
             On each <span className="font-semibold italic">intake day</span>,
-            users will be able to issue vouchers. Intake typically begins one
+            caseworkers are allowed to issue vouchers. Intake typically begins one
             day prior to the actual check-in, and may continue up until the day
             before check-out.
           </p>

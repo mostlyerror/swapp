@@ -11,12 +11,12 @@ export const Step5 = (props) => {
           <SwappyChillin />
         </div>
         <div className="flex-1">
-          <h2 className="font-semibold">Review Details</h2>
+          <h2 className="font-semibold">Review</h2>
           <p className="mt-4 text-2xl leading-relaxed">
-            Confirm check-in, check-out, and intake dates are correct. Swappy
+            Confirm that check-in, check-out, and intake dates are correct. Swappy
             says,{' '}
             <em>
-              "You can always go back and make changes if things look funny!"
+              "You can click "Back" to make changes if these dates aren't what you want!"
             </em>
           </p>
         </div>
@@ -55,7 +55,7 @@ export const Step5 = (props) => {
       </div>
       <div className="mt-4 p-8 flex justify-center gap-8">
         <ButtonOutline onClick={props.back}>
-          <span className="text-3xl font-semibold">&larr; Back: Nope</span>
+          <span className="text-3xl font-semibold">&larr; Back: Make Changes</span>
         </ButtonOutline>
         <Button type="submit">
           <span className="text-3xl font-semibold">

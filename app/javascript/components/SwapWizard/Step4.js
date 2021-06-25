@@ -12,11 +12,12 @@ export function Step4(props) {
           <SwappyChillin />
         </div>
         <div className="flex-1">
-          <h2 className="font-semibold">Update Hotel Availability</h2>
+          <h2 className="font-semibold">Reminder: Update Hotel Availability</h2>
           <p className="mt-4 text-2xl leading-relaxed">
-            Set the voucher supply according to each hotel's room availability{' '}
-            <em>on that day</em>. This should be done as early as possible on
-            each day of intake.
+            On each intake day, remember to: call each hotel, ask for each
+            hotel's room availability, and set the voucher supply based on each hotel's
+            reported room availability{' '} <em>for that day</em>. This should be done as
+            early as possible on each day of intake.
           </p>
         </div>
       </div>
