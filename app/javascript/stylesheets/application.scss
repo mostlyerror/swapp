@@ -65,6 +65,11 @@ input[type="search"] {
   @apply bg-blue-700;
 }
 
+.bullet-font li{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .link {
   @apply text-blue-600 underline;
 }
