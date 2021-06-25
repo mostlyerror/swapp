@@ -16,7 +16,7 @@
       <% @supply.each do |hotel_id, supply| %>
         <div class="grid grid-cols-5 text-2xl text-center items-center w-full">
           <div class="pl-4 py-3 col-span-2 text-left"><%= @hotel_map[hotel_id] %></div>
-          <div class="py-3 bg-admin-orange">
+          <div class="py-3 bg-admin-orange h-full">
             <%= form.number_field hotel_id,
               min: 0, 
               step: 1, 
