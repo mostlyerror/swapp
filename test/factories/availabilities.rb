@@ -3,6 +3,6 @@ FactoryBot.define do
     hotel
     swap
     vacant { 1 }
-    date { self.swap.intake_start_date }
+    date { self.swap.intake_dates.first }
   end
 end

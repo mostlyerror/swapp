@@ -81,11 +81,9 @@ input[type='search'] {
   @apply text-5xl text-gray-800 leading-tight;
 }
 
-
 .zebra:nth-child(odd) {
   @apply bg-gray-100;
 }
-
 
 .admin-blue {
   color: #5a6aff;
@@ -107,16 +105,13 @@ input[type='search'] {
   background-color: #ffd79e;
 }
 
-.supply-button {
-  background-color: #acb9fc;
+.current-swap {
+  background-color: #edf6f9;
 }
 
-.supply-background {
-  background-color: #ffffff;
-}
-
-.voucher-available {
-  background-color: #fed79e;
+.current-swap-border {
+  border-color: #5a6aff;
+  border-width: 4px;
 }
 
 ::-webkit-scrollbar {
@@ -128,4 +123,8 @@ input[type='search'] {
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.admin-blue {
+  color: #5a6aff;
 }

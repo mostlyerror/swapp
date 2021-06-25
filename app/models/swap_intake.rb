@@ -6,7 +6,7 @@ class SwapIntake
 
   def self.can_issue_voucher_on? date, swap
     return false if swap.nil?
-    date.in? swap.intake_period
+    date.in? swap.intake_dates
   end
 
   def self.can_issue_voucher_today? swap
@@ -15,7 +15,7 @@ class SwapIntake
   end
 
   def self.first_intake_day swap
-    swap.intake_period.first
+    swap.intake_dates.first
   end
 
   def self.today_is_first_intake_day? swap
@@ -24,7 +24,7 @@ class SwapIntake
   end
 
   def self.last_intake_day swap
-    swap.intake_period.last
+    swap.intake_dates.last
   end
 
   def self.today_is_last_intake_day? swap

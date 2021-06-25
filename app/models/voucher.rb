@@ -7,7 +7,7 @@ class Voucher < ApplicationRecord
   validates_presence_of :check_in, :check_out
   validates_uniqueness_of :client_id, scope: :swap_id
   validate :dates_must_be_today_or_later_when_issued, on: :create
-  validate :order_of_dates, :dates_must_fall_within_swap
+  validate :order_of_dates, :dates_must_fall_within_swap_period
   # num_adults_in_household
   # num_children_in_household
 
@@ -69,13 +69,13 @@ class Voucher < ApplicationRecord
       end
     end
 
-    def dates_must_fall_within_swap
-      if swap && !(check_in.in? swap.swap)
-        errors.add(:check_in, "check_in (#{check_in}) does not fall within swap period: #{swap.swap}")
+    def dates_must_fall_within_swap_period
+      if swap && !(check_in.in? swap.stay_period)
+        errors.add(:check_in, "check_in (#{check_in}) does not fall within swap period: #{swap.stay_period}")
       end
 
-      if swap && !(check_out.in? swap.swap)
-        errors.add(:check_out, "check_out (#{check_out}) does not fall within swap period: #{swap.swap}")
+      if swap && !(check_out.in? swap.stay_period)
+        errors.add(:check_out, "check_out (#{check_out}) does not fall within swap period: #{swap.stay_period}")
       end
     end
 end

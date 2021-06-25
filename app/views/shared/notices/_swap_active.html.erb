@@ -7,7 +7,7 @@
         <h5 class="font-semibold">SWAP is active</h5>
         <div class="text-base md:text-xl text-indigo-900">
           <p class="mt-3 leading-relaxed">Vouchers can be issued from<br/>
-            <strong><%= humanize_date_short(@swap.intake_start_date) %></strong> through <strong><%= humanize_date_short(@swap.intake_end_date) %></strong></p>
+            <strong><%= humanize_date_short(@swap.intake_dates.first) %></strong> through <strong><%= humanize_date_short(@swap.intake_dates.last) %></strong></p>
           <p class="mt-3 leading-relaxed">Voucher check-in is <strong><%= humanize_date_short(@swap.start_date) %></strong></p>
           <p class="leading-relaxed">Voucher check-out is <strong><%= humanize_date_short(@swap.end_date) %></strong></p>
         </div>

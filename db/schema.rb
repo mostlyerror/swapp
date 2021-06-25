@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_17_204756) do
+ActiveRecord::Schema.define(version: 2021_06_23_224409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2021_06_17_204756) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "reporter_id"
-    t.integer "hotel_id", null: false
+    t.integer "hotel_id"
     t.boolean "red_flag", default: false
     t.index ["client_id"], name: "index_incident_reports_on_client_id"
     t.index ["reporter_id"], name: "index_incident_reports_on_reporter_id"
@@ -149,8 +149,6 @@ ActiveRecord::Schema.define(version: 2021_06_17_204756) do
     t.date "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.date "intake_start_date"
-    t.date "intake_end_date"
     t.date "intake_dates", default: [], array: true
   end
 
