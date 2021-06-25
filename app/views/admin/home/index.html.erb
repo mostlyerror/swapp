@@ -5,8 +5,9 @@
     <h2 class="admin-blue"><em><strong>Today is <%= humanize_date(Date.current) %></strong></em></h2>
   </div>
 
-  <section class="mt-12">
-    <%= link_to 'Manage Users', admin_users_path %>
+  <section class="mt-12 container mx-auto">
+    <%= link_to 'Manage Users', admin_users_path, 
+    class: "text-xl admin-blue underline" %>
   </section>
 
   <section class="mt-12">
