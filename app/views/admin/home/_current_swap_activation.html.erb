@@ -1,19 +1,10 @@
 <section class="bg-white shadow-lg rounded-lg">
  <div class="p-8 grid grid-cols-2 border border-4 rounded-lg current-swap-border">
-  <div>
-    <p class="text-3xl font-bold">Current Voucher Supply</p>
-    <ul class="mt-6 text-2xl space-y-2">
-      <% @vouchers_remaining_today.each do |(hotel_id, vouchers)| %>
-        <li>
-          <span><%= vouchers %></span>
-          <span class="ml-5"><%= @hotel_map[hotel_id] %></span>
-        </li>
-      <% end %>
-      <p class="mt-2 font-bold"><%= @num_vouchers_remaining_today %> <span class="ml-5">Total Vouchers</span></p>
-    </ul>
-  </div>
   <div class="text-3xl">
-    <p class="font-bold">Current Swap Period</p>
+    <p class="font-bold">
+    <%= @swap.upcoming? ? 'Upcoming' : 'Current' %> 
+    Swap Period
+    </p>
     <div class="mt-6 space-y-6">
       <div class="flex gap-8">
         <div>

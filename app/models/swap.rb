@@ -22,6 +22,10 @@ class Swap < ApplicationRecord
     current || upcoming
   end
 
+  def upcoming?
+    Date.current < intake_dates.first
+  end
+
   def stay_period
     start_date..end_date
   end
