@@ -54,14 +54,12 @@ const UserEditRow = (props) => {
           <p className="text-xs uppercase tracking-wide font-semibold text-gray-500">
             Roles
           </p>
-
           <div className="p-1">
             <div className="flex items-center">
               <input
-                className={`w-4 h-4 rounded admin-blue
+                className="w-4 h-4 rounded admin-blue
                 border-2 border-gray-300 focus:border-indigo-500
-                focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3
-                ${props.person.roles.includes('intake') && 'font-bold'} `}
+                focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
                 type="checkbox"
                 defaultChecked={props.person.roles.includes('intake')}
               />
@@ -77,10 +75,9 @@ const UserEditRow = (props) => {
             </div>
             <div className="flex items-center">
               <input
-                className={`w-4 h-4 rounded admin-blue
+                className="w-4 h-4 rounded admin-blue
                 border-2 border-gray-300 focus:border-indigo-500
-                focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3
-                ${props.person.roles.includes('admin') && 'font-bold'} `}
+                focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
                 type="checkbox"
                 defaultChecked={props.person.roles.includes('admin')}
               />
@@ -96,9 +93,9 @@ const UserEditRow = (props) => {
             </div>
             <div className="flex items-center">
               <input
-                className={`w-4 h-4 rounded admin-blue
+                className="w-4 h-4 rounded admin-blue
                 border-2 border-gray-300 focus:border-indigo-500
-                focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3`}
+                focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
                 type="checkbox"
                 defaultChecked={props.person.roles.includes('hotel')}
               />
@@ -114,7 +111,6 @@ const UserEditRow = (props) => {
             </div>
           </div>
         </div>
-
         {/* {props.person.roles.map((role, roleIdx) => {
           return (
             <span

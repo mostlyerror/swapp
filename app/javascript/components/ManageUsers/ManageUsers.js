@@ -34,6 +34,7 @@ const ManageUsers = (props) => {
       </div>
       <div className="mt-8">
         <List
+          setUsers={setUsers}
           users={users.filter((user) => {
             return (
               user.first_name.toLowerCase().match(term) ||

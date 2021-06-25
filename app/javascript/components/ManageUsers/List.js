@@ -9,6 +9,7 @@ const List = (props) => {
   const handleEdit = (id) => {
     console.log(`editing user: ${id}`)
     setEditing(id)
+    props.setUsers([props.users.find((user) => user.id === id)])
   }
 
   return (
