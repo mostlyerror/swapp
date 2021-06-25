@@ -51,9 +51,9 @@ const List = (props) => {
   }
   return (
     <div className="flex flex-col">
-      <div className="overflow-x-auto">
-        <div className="align-middle inline-block min-w-full">
-          <div className="overflow-hidden border border-gray-800 sm:rounded-lg">
+      <div className="border border-gray-800 rounded-lg p-1">
+        <div className="overflow-y-scroll max-h-128">
+          <div className="align-middle inline-block min-w-full">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>

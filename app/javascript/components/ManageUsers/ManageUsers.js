@@ -23,7 +23,7 @@ const ManageUsers = (props) => {
       <h1 className="font-bold">Manage Users</h1>
       <div className="mt-8 flex gap-4">
         <input
-          className="flex-1 rounded border border-gray-400 text-base px-4 py-2"
+          className="flex-1 rounded-lg border border-gray-400 text-base px-4 py-2"
           type="search"
           placeholder="Search by first or last name"
           autoFocus="autofocus"
