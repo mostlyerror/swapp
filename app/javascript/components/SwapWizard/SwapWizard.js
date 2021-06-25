@@ -31,7 +31,7 @@ class SwapWizard extends React.Component {
 
   advance = (event) => {
     this.setState((prevState) => ({
-      currentStep: _.min([prevState.currentStep + 1, 6]),
+      currentStep: _.min([prevState.currentStep + 1, 5]),
     }))
   }
 
@@ -76,12 +76,12 @@ class SwapWizard extends React.Component {
               />
             </SwapWizardTransition>
           )}
-          {this.state.currentStep === 2 && (
+          {/* {this.state.currentStep === 2 && (
             <SwapWizardTransition>
               <SwappyAnimation advance={this.advance} />
             </SwapWizardTransition>
-          )}
-          {this.state.currentStep === 3 && (
+          )} */}
+          {this.state.currentStep === 2 && (
             <SwapWizardTransition>
               <Step2
                 back={this.back}
@@ -94,7 +94,7 @@ class SwapWizard extends React.Component {
               />
             </SwapWizardTransition>
           )}
-          {this.state.currentStep === 4 && (
+          {this.state.currentStep === 3 && (
             <SwapWizardTransition>
               <Step3
                 back={this.back}
@@ -107,7 +107,7 @@ class SwapWizard extends React.Component {
               />
             </SwapWizardTransition>
           )}
-          {this.state.currentStep === 5 && (
+          {this.state.currentStep === 4 && (
             <SwapWizardTransition>
               <Step4
                 back={this.back}
@@ -116,7 +116,7 @@ class SwapWizard extends React.Component {
               />
             </SwapWizardTransition>
           )}
-          {this.state.currentStep === 6 && (
+          {this.state.currentStep === 5 && (
             <SwapWizardTransition>
               <Step5
                 checkIn={this.state.stayDates.from}
