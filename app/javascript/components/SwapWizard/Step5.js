@@ -23,28 +23,28 @@ export const Step5 = (props) => {
       </div>
       <div className="mt-12 max-w-3xl mx-auto">
         <div className="grid grid-cols-2 gap-8">
-          <div className="flex flex-col px-12 py-6 gap-2 bg-white rounded-xl">
-            <span className="text-3xl font-bold uppercase tracking-wide">
+          <div className="flex flex-col shadow">
+            <div className="rounded-t-xl bg-gray-50 py-4 px-6 text-3xl text-gray-900 font-semibold uppercase tracking-wide border-b border-gray-200">
               Check In
-            </span>
-            <span className="text-4xl">
+            </div>
+            <div className="py-4 px-6 text-4xl bg-white rounded-b-xl">
               {props.checkIn.toLocaleDateString()}
-            </span>
+            </div>
           </div>
-          <div className="flex flex-col px-12 py-6 gap-2 bg-white rounded-xl">
-            <span className="text-3xl font-bold uppercase tracking-wide">
+          <div className="flex flex-col shadow">
+            <div className="rounded-t-xl bg-gray-50 py-4 px-6 text-3xl text-gray-900 font-semibold uppercase tracking-wide border-b border-gray-200">
               Check Out
-            </span>
-            <span className="text-4xl">
+            </div>
+            <div className="py-4 px-6 text-4xl bg-white rounded-b-xl">
               {props.checkOut.toLocaleDateString()}
-            </span>
+            </div>
           </div>
         </div>
-        <div className="mt-8 px-12 px-12 py-6 bg-white rounded-xl">
-          <span className="text-3xl font-bold uppercase tracking-wide">
+        <div className="mt-8 shadow">
+          <div className="rounded-t-xl bg-gray-50 py-4 px-6 text-3xl text-gray-900 font-semibold uppercase tracking-wide border-b border-gray-200">
             Intake Dates
-          </span>
-          <div className="mt-4 flex flex-col gap-3">
+          </div>
+          <div className="rounded-b-xl bg-white py-8 px-6 flex flex-col gap-3">
             {props.intakeDates.map((date, idx) => (
               <li className="text-4xl" key={idx}>
                 {date.toLocaleDateString()}
