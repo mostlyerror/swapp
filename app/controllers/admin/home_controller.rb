@@ -7,6 +7,7 @@ class Admin::HomeController < Admin::BaseController
       roles << 'hotel' if user.hotel_user?
 
       {
+        id: user.id, 
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
