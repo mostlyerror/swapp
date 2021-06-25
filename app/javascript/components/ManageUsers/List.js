@@ -152,8 +152,7 @@ const UserRow = (props) => {
 }
 
 const List = (props) => {
-  // const [editing, setEditing] = useState(null)
-  const [editing, setEditing] = useState(1)
+  const [editing, setEditing] = useState(null)
 
   const handleEdit = (id) => {
     console.log(`editing user: ${id}`)

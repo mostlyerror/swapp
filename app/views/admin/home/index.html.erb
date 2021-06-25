@@ -6,6 +6,10 @@
   </div>
 
   <section class="mt-12">
+    <%= link_to 'Manage Users', admin_users_path %>
+  </section>
+
+  <section class="mt-12">
     <% if @swap %>
       <div class="container mx-auto">
         <%= render partial: 'current_swap_activation'%>
