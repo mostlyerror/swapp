@@ -12,6 +12,10 @@ const List = (props) => {
     props.setUsers([props.users.find((user) => user.id === id)])
   }
 
+  const handleSave = (id) => {
+    console.log(`saving user: ${id}`)
+  }
+
   return (
     <div className="flex flex-col">
       <div className="border border-gray-800 rounded-lg p-1">
@@ -19,23 +23,35 @@ const List = (props) => {
           <div className="align-middle inline-block min-w-full">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    User
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Roles
-                  </th>
-                  <th scope="col" className="relative px-6 py-3">
-                    <span className="sr-only">Edit</span>
-                  </th>
-                </tr>
+                {editing && (
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Editing User..
+                    </th>
+                  </tr>
+                )}
+                {!editing && (
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      User
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Roles
+                    </th>
+                    <th scope="col" className="relative px-6 py-3">
+                      <span className="sr-only">Edit</span>
+                    </th>
+                  </tr>
+                )}
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {props.users.map((person) =>
