@@ -5,8 +5,8 @@
     current voucher holders’ stay</span> by the number of specified days.
   </p>
   <%= form_for(@swap, url: admin_extend_swap_path(@swap), method: :put) do |form| %>
-    <div class="mt-4 flex justify-center items-center gap-8">
-      <div class="bg-admin-orange px-8 py-4 rounded-xl">
+    <div class="mt-4 flex justify-center items-center">
+      <div class="bg-admin-orange border border-gray-900 px-8 py-4 rounded-l-xl">
         <p class="text-2xl font-semibold tracking-wide">
           Extend current SWAP by &nbsp;
           <%= number_field_tag "days", 1, min: 1, step: 1, 
@@ -16,12 +16,12 @@
           %> 
           &nbsp; days.
         </p>
-      </div>
-      <div>
+        </div>
         <%= 
           form.submit "Extend", 
             data: { confirm: "WARNING: The current Swap Period will be extended. This action cannot be undone, except by a database administrator. Are you certain this is what you want to do?" },
-            class: "p-4 font-bold text-2xl tracking-wide bg-admin-blue rounded-3xl border border-gray-900 shadow-lg"
+            class: "btn-extend p-6 text-2xl tracking-wide 
+            bg-admin-blue rounded-r-xl border border-gray-900"
         %>
       </div>
     </div>
