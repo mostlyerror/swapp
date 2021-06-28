@@ -80,3 +80,5 @@ gem "react-rails", "~> 2.6"
 
 
 gem "sendgrid-actionmailer", "~> 3.2"
+
+gem "data_migrate", "~> 7.0"
