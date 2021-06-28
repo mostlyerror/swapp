@@ -10,6 +10,11 @@ const List = (props) => {
     props.setUsers([props.users.find((user) => user.id === id)])
   }
 
+  const cancelEdit = () => {
+    setEditing(null)
+    props.resetUsers()
+  }
+
   return (
     <div className="flex flex-col">
       <div className="border border-gray-800 rounded-lg p-1">
@@ -54,6 +59,7 @@ const List = (props) => {
                       key={person.email}
                       person={person}
                       handleUpdateUser={props.handleUpdateUser}
+                      cancelEdit={cancelEdit}
                     />
                   ) : (
                     <UserRow

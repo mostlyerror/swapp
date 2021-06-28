@@ -2,14 +2,6 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import List from './List'
 
-// const Filters = (props) => {
-//   return (
-//     <ul className="flex flex-1">
-//       <li>Active</li>
-//     </ul>
-//   )
-// }
-
 const ManageUsers = (props) => {
   const [users, setUsers] = useState(props.users)
   const [term, setTerm] = useState('')
@@ -17,7 +9,6 @@ const ManageUsers = (props) => {
 
   const handleSearchChange = (event) => {
     setTerm(event.target.value.toLowerCase())
-    // filter the user list
   }
 
   const handleUpdateUser = (person) => {
@@ -32,6 +23,8 @@ const ManageUsers = (props) => {
       })
   }
 
+  const resetUsers = () => setUsers(props.users)
+
   return (
     <main className="container mx-auto lg:max-w-7xl">
       <h1 className="font-bold">Manage Users</h1>
@@ -44,11 +37,11 @@ const ManageUsers = (props) => {
           value={term}
           onChange={handleSearchChange}
         />
-        {/* <Filters /> */}
       </div>
       <div className="mt-8">
         <List
           setUsers={setUsers}
+          resetUsers={resetUsers}
           users={users.filter((user) => {
             return (
               user.first_name.toLowerCase().match(term) ||

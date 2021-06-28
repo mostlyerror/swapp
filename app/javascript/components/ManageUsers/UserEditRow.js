@@ -149,13 +149,22 @@ const UserEditRow = (props) => {
       <tr>
         <td></td>
         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-          <button
-            type="button"
-            className="text-indigo-600 hover:text-indigo-900"
-            onClick={() => props.handleUpdateUser(person)}
-          >
-            Save
-          </button>
+          <div className="flex gap-6">
+            <button
+              type="button"
+              className="text-indigo-600 hover:text-indigo-900"
+              onClick={props.cancelEdit}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="text-indigo-600 hover:text-indigo-900"
+              onClick={() => props.handleUpdateUser(person)}
+            >
+              Save
+            </button>
+          </div>
         </td>
         <td></td>
       </tr>
