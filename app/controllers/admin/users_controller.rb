@@ -14,6 +14,7 @@ class Admin::UsersController < Admin::BaseController
     end
 
     user = User.find(user_id)
+    user.active = params['active']
     user.first_name = params['first_name']
     user.last_name = params['last_name']
     user.email = params['email']

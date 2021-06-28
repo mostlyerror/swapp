@@ -15,6 +15,11 @@ const UserEditRow = (props) => {
           ? person.roles.filter((r) => r !== role)
           : person.roles.concat([role]),
       })
+    } else if (event.target.name.match('active')) {
+      setPerson({
+        ...person,
+        active: !person.active,
+      })
     } else {
       setPerson({
         ...person,
@@ -149,7 +154,7 @@ const UserEditRow = (props) => {
         <td></td>
       </tr>
       <tr>
-        <td>
+        <td className="px-6 py-4 whitespace-nowrap">
           <div className="flex items-center">
             <input
               className="w-5 h-5 rounded admin-blue

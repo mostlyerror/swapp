@@ -17,9 +17,8 @@ const UserRow = (props) => {
               <span className="text-sm font-semibold text-gray-900">
                 {`${props.person.first_name} ${props.person.last_name}`}
               </span>
-              {props.person.deactivated && (
-                <span className="px-2 rounded text-xs tracking-wide uppercase bg-red-100 text-gray-800">
-                  {' '}
+              {!props.person.active && (
+                <span className="ml-2 px-2 rounded text-xs tracking-wide uppercase bg-red-100 text-gray-800">
                   Deactivated
                 </span>
               )}

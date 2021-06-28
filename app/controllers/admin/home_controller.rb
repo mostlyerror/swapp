@@ -1,6 +1,6 @@
 class Admin::HomeController < Admin::BaseController
   def users
-    @users = User.all.map do |user|
+    @users = User.all.order('id asc').map do |user|
       roles = []
       roles << 'intake' if user.intake_user?
       roles << 'admin' if user.admin_user?
@@ -8,6 +8,7 @@ class Admin::HomeController < Admin::BaseController
 
       {
         id: user.id, 
+        active: user.active, 
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
