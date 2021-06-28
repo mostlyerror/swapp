@@ -35,7 +35,7 @@ const UserRow = (props) => {
       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
         <button
           type="button"
-          className="text-indigo-600 hover:text-indigo-900"
+          className="px-2 py-1 bg-admin-blue hover:bg-admin-blue-darker text-black text-sm rounded border border-black"
           onClick={() => props.onEdit(props.person.id)}
         >
           Edit

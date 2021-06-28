@@ -152,14 +152,14 @@ const UserEditRow = (props) => {
           <div className="flex gap-6">
             <button
               type="button"
-              className="text-indigo-600 hover:text-indigo-900"
+              className="text-indigo-600 hover:text-indigo-900 underline"
               onClick={props.cancelEdit}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="text-indigo-600 hover:text-indigo-900"
+              className="px-2 py-1 bg-admin-blue hover:bg-admin-blue-darker text-black text-sm rounded border border-black"
               onClick={() => props.handleUpdateUser(person)}
             >
               Save
