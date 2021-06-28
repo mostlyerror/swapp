@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import UserRow from './UserRow'
 import UserEditRow from './UserEditRow'
 
@@ -9,17 +8,6 @@ const List = (props) => {
   const handleEdit = (id) => {
     setEditing(id)
     props.setUsers([props.users.find((user) => user.id === id)])
-  }
-
-  const handleUpdateUser = (person) => {
-    const updateUserURL = `/admin/users/${person.id}`
-    axios
-      .put(updateUserURL, person)
-      .then((response) => {
-        console.log(response)
-        window.location.reload()
-      })
-      .catch()
   }
 
   return (
@@ -65,7 +53,7 @@ const List = (props) => {
                     <UserEditRow
                       key={person.email}
                       person={person}
-                      handleUpdateUser={handleUpdateUser}
+                      handleUpdateUser={props.handleUpdateUser}
                     />
                   ) : (
                     <UserRow

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import List from './List'
 
 // const Filters = (props) => {
@@ -12,10 +13,23 @@ import List from './List'
 const ManageUsers = (props) => {
   const [users, setUsers] = useState(props.users)
   const [term, setTerm] = useState('')
+  const [errors, setErrors] = useState([])
 
   const handleSearchChange = (event) => {
     setTerm(event.target.value.toLowerCase())
     // filter the user list
+  }
+
+  const handleUpdateUser = (person) => {
+    const updateUserURL = `/admin/users/${person.id}`
+    axios
+      .put(updateUserURL, person)
+      .then((response) => {
+        window.location.reload()
+      })
+      .catch((err) => {
+        setErrors(err.response.data)
+      })
   }
 
   return (
@@ -42,6 +56,7 @@ const ManageUsers = (props) => {
               user.email.toLowerCase().match(term)
             )
           })}
+          handleUpdateUser={handleUpdateUser}
         />
       </div>
     </main>

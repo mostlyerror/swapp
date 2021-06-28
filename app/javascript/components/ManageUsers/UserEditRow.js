@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import _ from 'lodash'
 
 const UserEditRow = (props) => {
   const [person, setPerson] = useState(props.person)
