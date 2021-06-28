@@ -1,9 +1,24 @@
 
 class Admin::UsersController < Admin::BaseController
-    skip_before_action :verify_authenticity_token, only: [:update]
-  # TODO: move the users list from caseworker side users controller to here.
-  # def index
-  # end
+  skip_before_action :verify_authenticity_token, only: [:update]
+
+  def index
+    @users = User.all.order('id asc').map do |user|
+      roles = []
+      roles << 'intake' if user.intake_user?
+      roles << 'admin' if user.admin_user?
+      roles << 'hotel' if user.hotel_user?
+
+      {
+        id: user.id, 
+        active: user.active, 
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        roles: roles.sort
+      }
+    end
+  end
 
   def update
     user_id = params['id'].to_i

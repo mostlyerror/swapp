@@ -44,7 +44,7 @@ Rails.application.routes.draw do
       user.active? && user.admin_user?
     }) do
       get "/" => "home#index", as: :home
-      get "/users" => "home#users", as: :users
+      get "/users" => "users#index", as: :users
       put "users/:id" => "users#update"
       get "clients/search" => "clients#search", as: :clients_search
       get "/home/clients/:id" => "clients#show", as: :clients
