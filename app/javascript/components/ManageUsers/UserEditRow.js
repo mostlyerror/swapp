@@ -1,15 +1,25 @@
 import React, { useState } from 'react'
+import _ from 'lodash'
 
 const UserEditRow = (props) => {
   const [person, setPerson] = useState(props.person)
 
   const handleChange = (event) => {
-    console.log(event.target.name)
-    console.log(event.target.value)
-    setPerson({
-      ...person,
-      [event.target.name]: event.target.value,
-    })
+    if (event.target.name.match('roles')) {
+      let role = event.target.name.match(/roles\[(\w+)\]/)[1]
+
+      setPerson({
+        ...person,
+        roles: person.roles.includes(role)
+          ? person.roles.filter((r) => r !== role)
+          : person.roles.concat([role]),
+      })
+    } else {
+      setPerson({
+        ...person,
+        [event.target.name]: event.target.value,
+      })
+    }
   }
 
   return (
@@ -79,7 +89,7 @@ const UserEditRow = (props) => {
                   focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
                   type="checkbox"
                   name="roles[intake]"
-                  onChange={() => handleChange}
+                  onChange={handleChange}
                   checked={person.roles.includes('intake')}
                 />
                 <label
