@@ -1,23 +1,20 @@
 <section>
-  <div class="slab-aliceblue">
+  <div class="slab-pink">
     <div class="max-w-screen-lg mx-auto px-4 py-12 flex flex-col">
-      <div class="flex grid grid-cols-2 cabin-container">
-        <h4 class="mt-10 text-2xl md:text-5xl tracking-wide">
-          Help a person <br> experiencing <br> homelessness <br> <b>find shelter</b>.
-        </h4>
+      <div class="grid grid-cols-2 cabin-container">
         <div>
-          <%= image_tag ("cabin4x.png"), :class => "tv" %>
+          <h4 class="mt-10 text-2xl md:text-4.5xl tracking-wide">
+            Help a person <br> experiencing <br> homelessness <br> <b>find shelter</b>.
+          </h4>
+          <p class="text-base md:text-lg font-bold">Are you a caseworker ready to do intake?</p>
+            <%= link_to clients_path,  class: "inline-block py-2 px-8 bg-admin-blue rounded-full 
+            text-gray-900 font-bold border-b border-gray-900 shadow-lg"  do %>
+              <span>Go to Login </span> <% end %>
+        </div>      
+        <div>
+          <%= image_tag ("cabin2x.png"), class: "cabin"  %>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="slab-aliceblue">
-    <div class="max-w-screen-lg mx-auto px-4 py-12 flex flex-col">
-      <p class="text-base md:text-lg font-bold">Are you a caseworker ready to do intake?</p>
-        <%= link_to clients_path,  class: "inline-block py-2 px-8 bg-admin-blue rounded-full 
-        text-gray-900 font-bold border-b border-gray-900 shadow-lg"  do %>
-          <span>Go to Login </span> <% end %>
     </div>
   </div>
 </section>
