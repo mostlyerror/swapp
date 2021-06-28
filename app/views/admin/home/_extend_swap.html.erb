@@ -16,14 +16,13 @@
           %> 
           &nbsp; days.
         </p>
-        </div>
-        <%= 
-          form.submit "Extend", 
-            data: { confirm: "WARNING: The current Swap Period will be extended. This action cannot be undone, except by a database administrator. Are you certain this is what you want to do?" },
-            class: "btn-extend p-6 text-2xl tracking-wide 
-            bg-admin-blue rounded-r-xl border border-gray-900"
-        %>
       </div>
+      <%= 
+        form.submit "Extend", 
+          data: { confirm: "WARNING: The current Swap Period will be extended. This action cannot be undone, except by a database administrator. Are you certain this is what you want to do?" },
+          class: "btn-extend p-6 text-2xl tracking-wide 
+          bg-admin-blue rounded-r-xl border border-gray-900"
+      %>
     </div>
   <% end %>
 </div>
