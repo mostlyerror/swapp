@@ -27,8 +27,8 @@ const ManageUsers = (props) => {
 
   return (
     <main className="container mx-auto lg:max-w-7xl">
-      <h1 className="font-bold">Manage Users</h1>
-      <div className="mt-8 flex justify-between">
+      <h1 className="text-center font-bold">Manage Users</h1>
+      <div className="mt-8 flex justify-center">
         <input
           className="w-2/3 rounded-lg border border-gray-400 text-base px-4 py-2"
           type="search"
