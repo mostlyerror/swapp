@@ -4,8 +4,6 @@ const UserEditRow = (props) => {
   const [person, setPerson] = useState(props.person)
 
   const handleChange = (event) => {
-    console.log(event.target.name)
-    console.log(event.target.value)
     if (event.target.name.match('roles')) {
       let role = event.target.name.match(/roles\[(\w+)\]/)[1]
 

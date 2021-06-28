@@ -32,8 +32,6 @@ Rails.application.routes.draw do
     }) do
       get "/", to: "home#index", as: :home
       get "/vouchers/:id" => "vouchers#show", as: :vouchers
-      # get "/guests/:id" => "home#show", as: :show_client
-      # post "/guests/:id" => "incident_reports#create", as: :create_report
       post "/incidents" => "incident_reports#create", as: :create_report
     end
   end
