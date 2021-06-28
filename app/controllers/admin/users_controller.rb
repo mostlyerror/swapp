@@ -6,10 +6,6 @@ class Admin::UsersController < Admin::BaseController
   # end
 
   def update
-    puts 'updating...'
-    ap params
-
-
     user_id = params['id'].to_i
     if user_id != params['user']['id'].to_i
       render json: {
@@ -19,6 +15,15 @@ class Admin::UsersController < Admin::BaseController
 
     user = User.find(user_id)
     user.assign_attributes(user_params)
+    user.first_name = params['first_name']
+    user.last_name = params['last_name']
+    user.email = params['email']
+    params['roles'].each do |role|
+      user.admin_user = true if role == "admin"
+      user.intake_user = true if role == "intake"
+      user.hotel_user = true if role == "hotel"
+    end
+
     if user.save
       render json: user, status: :ok
     else
@@ -26,9 +31,5 @@ class Admin::UsersController < Admin::BaseController
         errors: user.errors.as_json(full_messages: true)
       }, status: 422
     end
-  end
-
-  def user_params
-    params.require(:user).permit(:first_name, :last_name, :email)
   end
 end
