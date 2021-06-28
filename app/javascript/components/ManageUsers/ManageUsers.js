@@ -28,9 +28,9 @@ const ManageUsers = (props) => {
   return (
     <main className="container mx-auto lg:max-w-7xl">
       <h1 className="font-bold">Manage Users</h1>
-      <div className="mt-8 flex gap-4">
+      <div className="mt-8 flex justify-between">
         <input
-          className="flex-1 rounded-lg border border-gray-400 text-base px-4 py-2"
+          className="w-2/3 rounded-lg border border-gray-400 text-base px-4 py-2"
           type="search"
           placeholder="Search by first or last name"
           autoFocus="autofocus"
