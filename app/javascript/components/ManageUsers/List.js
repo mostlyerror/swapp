@@ -7,15 +7,19 @@ const List = (props) => {
   const [editing, setEditing] = useState(null)
 
   const handleEdit = (id) => {
-    console.log(`editing user: ${id}`)
     setEditing(id)
     props.setUsers([props.users.find((user) => user.id === id)])
   }
 
   const handleUpdateUser = (person) => {
-    event.preventDefault()
     const updateUserURL = `/admin/users/${person.id}`
-    axios.put(updateUserURL, person).then().catch()
+    axios
+      .put(updateUserURL, person)
+      .then((response) => {
+        console.log(response)
+        window.location.reload()
+      })
+      .catch()
   }
 
   return (
