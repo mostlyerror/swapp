@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import UserRow from './UserRow'
 import UserEditRow from './UserEditRow'
 
 const List = (props) => {
-  // const [editing, setEditing] = useState(null)
-  const [editing, setEditing] = useState(1)
+  const [editing, setEditing] = useState(null)
 
   const handleEdit = (id) => {
     console.log(`editing user: ${id}`)
@@ -12,8 +12,10 @@ const List = (props) => {
     props.setUsers([props.users.find((user) => user.id === id)])
   }
 
-  const handleSave = (id) => {
-    console.log(`saving user: ${id}`)
+  const handleUpdateUser = (person) => {
+    event.preventDefault()
+    const updateUserURL = `/admin/users/${person.id}`
+    axios.put(updateUserURL, person).then().catch()
   }
 
   return (
@@ -56,7 +58,11 @@ const List = (props) => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {props.users.map((person) =>
                   person.id === editing ? (
-                    <UserEditRow key={person.email} person={person} />
+                    <UserEditRow
+                      key={person.email}
+                      person={person}
+                      handleUpdateUser={handleUpdateUser}
+                    />
                   ) : (
                     <UserRow
                       onEdit={handleEdit}

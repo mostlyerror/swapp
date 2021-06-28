@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 
 const UserEditRow = (props) => {
   const [person, setPerson] = useState(props.person)
@@ -11,14 +10,6 @@ const UserEditRow = (props) => {
       ...person,
       [event.target.name]: event.target.value,
     })
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const updateUserURL = `/users/${person.id}`
-    console.log(updateUserURL)
-    console.log(person)
-    // axios.put(updateUserURL, person)
   }
 
   return (
@@ -152,7 +143,7 @@ const UserEditRow = (props) => {
           <button
             type="button"
             className="text-indigo-600 hover:text-indigo-900"
-            onClick={handleSubmit}
+            onClick={() => props.handleUpdateUser(person)}
           >
             Save
           </button>
