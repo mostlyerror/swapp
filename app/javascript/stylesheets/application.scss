@@ -1,12 +1,12 @@
 /* app/javascript/stylesheets/application.scss */
-@import "tailwindcss/base";
-@import "tailwindcss/components";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
 
 /* Add any custom CSS here */
-@import "tailwindcss/utilities";
+@import 'tailwindcss/utilities';
 
 body {
-  font-family: "Manrope", ui-sans-serif, sans-serif;
+  font-family: 'Manrope', ui-sans-serif, sans-serif;
 }
 
 h1 {
@@ -29,7 +29,7 @@ input {
   border-radius: 0;
 }
 
-input[type="search"] {
+input[type='search'] {
   -webkit-appearance: none;
 }
 
@@ -47,6 +47,14 @@ input[type="search"] {
 
 .btn-indigo:hover {
   @apply bg-indigo-700;
+}
+
+.btn-extend {
+  padding: 1.05em 1.4em;
+  font-weight: 700;
+  box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+  text-align:center;
+  border-left: unset;
 }
 
 .btn-red {
@@ -81,6 +89,46 @@ input[type="search"] {
   @apply text-5xl text-gray-800 leading-tight;
 }
 
+.zebra:nth-child(odd) {
+  @apply bg-gray-100;
+}
+
+.admin-blue {
+  color: #5a6aff;
+}
+
+.admin-blue-light {
+  color: lighten(#5a6aff, 2%);
+}
+
+.bg-admin-blue {
+  background-color: #acb9fc;
+}
+.bg-admin-blue-light {
+  background-color: lighten(#acb9fc, 2%);
+}
+
+.bg-admin-blue:hover {
+  background-color: darken(#acb9fc, 2%);
+}
+
+.admin-orange {
+  color: #ffd79e;
+}
+
+.bg-admin-orange {
+  background-color: #ffd79e;
+}
+
+.current-swap {
+  background-color: #edf6f9;
+}
+
+.current-swap-border {
+  border-color: #5a6aff;
+  border-width: 4px;
+}
+
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
@@ -90,4 +138,8 @@ input[type="search"] {
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.admin-blue {
+  color: #5a6aff;
 }

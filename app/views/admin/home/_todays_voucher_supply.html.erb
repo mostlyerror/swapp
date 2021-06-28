@@ -1,61 +1,44 @@
-<section class="mt-16 max-w-6xl w-full">
+<section class="container mx-auto">
   <%= form_for(:voucher_supply, url: admin_update_room_supply_path(@swap), method: :put) do |form| %>
-    <table class="shadow bg-white rounded text-left w-full table-fixed">
-      <h2 class="bg-gray-900 text-white text-6xl text-center font-semibold p-6">Today's Voucher Supply</h2>
-      <% if @swap&.intake_ended? %>
-        <section id="notice--intake-ended" class="notice bg-indigo-300">
-          <h3>Swap must be activated in order to update today's voucher supply.</h3>
-          <p class="text-indigo-900"></p>
-        </section>
-      <% elsif SwapIntake.can_issue_voucher_today?(@swap) %>
-        <thead>
-          <tr class="bg-gray-900 text-white text-4xl">
-            <th class="w-2/5 p-6"></th>
-            <th class="w-3/5 p-6 text-center" colspan="3"><%= Date.current.strftime("%A, %b %d") %></th>
-          </tr>
-          <tr class="bg-gray-900 text-white text-4xl">
-            <th class="w-2/5 p-2">Hotel</th>
-            <th class="w-1/5 p-2 text-center">Vacancy</th>
-            <th class="w-1/5 p-2 text-center">Issued</th>
-            <th class="w-1/5 p-2 text-center">Remaining</th>
-          </tr>
-        </thead>
-        <tbody class="overflow-y-scroll text-5xl" style="height: 630px">
-          <% @supply.each do |hotel_id, supply| %>
-            <tr>
-              <td class="w-3/5 p-6 text-left">
-                <%= @hotel_map[hotel_id] %>
-              </td>
-              <td class="w-1/5 p-6 text-center tabular-nums">
-                <%= form.number_field hotel_id,
-                min: 0, step: 1, 
-                class: "rounded-lg w-20 text-center p-2 text-5xl", 
-                value: supply[Date.current][:vacant]
-              %>
-              </td>
-              <td class="w-1/5 p-6 text-center tabular-nums">
-                <%= supply[Date.current][:issued].to_i %>
-              </td>
-              <td class="w-1/5 p-6 text-center tabular-nums">
-                <%= supply[Date.current][:vacant].to_i - supply[Date.current][:issued].to_i %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <div class="p-12 bg-gray-100 border border-gray-500 flex flex-1 flex-col gap-y-6">
-        <div class="flex flex-1 justify-center">
-          <button type="button" class="flex items-center py-4 px-8 rounded-lg bg-yellow-300 border-b border-gray-900 shadow-lg">
-            <i class="bi bi-arrow-clockwise"></i>
-            <%= form.submit "update supply", 
-              data: { confirm: "Warning! You are choosing to update the total voucher
-              supply. As soon as the supply is updated, users can immediately
-              issue vouchers." },
-              class: "ml-6 font-bold bg-yellow-300"
-            %>
-          </button>
-        </div>
+    <h4 class="font-bold tracking-wide admin-blue text-4xl text-center">Today's Voucher Supply</h4>
+    <p class="mt-4 max-w-3xl text-2xl leading-relaxed tracking-wide">
+      To increase the number of available rooms at the hotel, set a total that <strong>includes</strong> the current availability. For example, if you wish to add 5 to the current 15, set "Available" to 20.
+    </p>
+
+    <div class="mt-6 bg-white border border-black rounded-2xl text-2xl tabular-nums">
+      <div class="grid grid-cols-5 text-2xl font-semibold text-center w-full">
+        <div class="pl-4 py-4 col-span-2 text-left">Hotel</div>
+        <div class="py-4 bg-admin-orange">Available</div>
+        <div class="py-4">Issued</div>
+        <div class="pr-4 py-4">Remaining</div>
       </div>
-    <% end %>
+
+      <% @supply.each do |hotel_id, supply| %>
+        <div class="grid grid-cols-5 text-2xl text-center items-center w-full">
+          <div class="pl-4 py-3 col-span-2 text-left"><%= @hotel_map[hotel_id] %></div>
+          <div class="py-3 bg-admin-orange h-full">
+            <%= form.number_field hotel_id,
+              min: 0, 
+              step: 1, 
+              class: "w-20 text-center p-2 text-2xl border border-gray-500", 
+              value: supply[Date.current][:vacant]
+            %>
+          </div>
+          <div class="py-3">
+            <%= supply[Date.current][:issued].to_i %>
+          </div>
+          <div class="pr-4 py-3">
+            <%= supply[Date.current][:vacant].to_i - supply[Date.current][:issued].to_i %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-12 flex flex-1 justify-center">
+      <%= form.submit "Update Voucher Supply",
+        data: { confirm: "Warning! You are choosing to update the total voucher supply. As soon as the supply is updated users can immediately issue vouchers." },
+        class: "p-4 font-bold text-2xl tracking-wide bg-admin-blue rounded-3xl border border-gray-900 shadow-lg"
+      %>
+    </div>
   <% end %>
 </section>

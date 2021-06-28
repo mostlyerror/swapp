@@ -43,7 +43,7 @@ class Client < ApplicationRecord
 
   # Callbacks
   before_save do
-    self.race = self.race.reject {|r| r == "0"}
+    self.race = self&.race&.reject {|r| r == "0"}
   end
 
   def name
@@ -54,12 +54,25 @@ class Client < ApplicationRecord
     vouchers.flat_map(&:guests).uniq
   end
 
+  def ban_at!(hotel)
+    return false if existing_flag = red_flags.find_by(hotel: hotel)
+    red_flags.create(hotel: hotel)
+  end
+
+  def ban!
+    update(banned: true)
+  end
+
+  def unban!
+    update(banned: false)
+  end
+
   def partial_ban?
-    !banned && flagged_hotels.any?
+    !banned && red_flags.any?
   end
 
   def no_flags?
-    !banned && flagged_hotels.empty?
+    !banned && red_flags.empty?
   end
 
   def current_voucher

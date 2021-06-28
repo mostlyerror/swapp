@@ -94,6 +94,9 @@ GEM
     concurrent-ruby (1.1.8)
     connection_pool (2.2.5)
     crass (1.0.6)
+    data_migrate (7.0.1)
+      activerecord (>= 5.0)
+      railties (>= 5.0)
     devise (4.8.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -286,6 +289,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  data_migrate (~> 7.0)
   devise (~> 4.7)
   dotenv-rails
   factory_bot_rails (~> 6.1)

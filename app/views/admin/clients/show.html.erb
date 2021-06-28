@@ -1,0 +1,42 @@
+<section class="mt-4 px-2 md:px-0 md:w-11/12 mx-auto">
+  <%= render partial: 'shared/swap_notices' %>
+</section>
+
+<section class="mt-8 md:mt-12 px-2 md:px-0 md:w-11/12 mx-auto text-base sm:text-lg md:text-xl">
+  <p class="text-xl sm:text-3xl md:text-5xl text-gray-900 font-bold"><%= @client.name %></p>
+  <p class="text-lg sm:text-2xl md:text-3.5xl text-gray-900 font-bold">Birth date: <%= @client.date_of_birth %></p>
+
+  <div class="mt-4 md:mt-8 text-base md:text-xl">
+    <p>
+      This isn't the right <span class="font-semibold"><%= @client.name %></span>.
+      <span class="block md:inline">Take me back to admin <%= link_to 'client search' , admin_home_path, class: 'underline text-indigo-600' %>.</span>
+    </p>
+  </div>
+
+  <div class="mt-4 md:mt-8">
+    <%= render partial: "eligibility", client: @client %>
+  </div>
+
+  <div class="mt-4 md:mt-8">
+    <% if @editing %>
+      <%= render partial: 'client_details_form' , client: @client %>
+    <% else %>
+      <%= render partial: 'client_details' , client: @client %>
+    <% end %>
+  </div>
+
+  <div class="mt-4 md:mt-8">
+    <%= render partial: "update_red_flags", client: @client %>
+  </div>
+
+  <div class="mt-4 md:mt-8">
+    <%= react_component "Incidents/Incidents", 
+      client: @client, 
+      incident_report: @incident_report,
+      incidents: @incidents,
+      hotel_map: @hotel_map, 
+      form_path: admin_create_incident_report_path(@client),
+      red_flag: @red_flag
+     %>
+  </div>
+</section>

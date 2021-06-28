@@ -1,52 +1,56 @@
-<section class="border border-gray-500 mt-16 shadow-xl">
-  <h2 class="bg-gray-900 text-white text-6xl text-center font-semibold p-6">Recently Issued (last 20)</h2>
-  <table class=" bg-white rounded text-left text-4xl w-full">
-    <thead>
-      <tr class="bg-gray-900 text-white block">
-        <th class="px-1 w-1/6 lg:rounded-tl-lg py-8">#</th>
-        <th class="px-1 w-1/6 lg:rounded-tl-lg py-8">Hotel</th>
-        <th class="px-1 w-1/6 py-8">In</th>
-        <th class="px-1 w-1/6 py-8">Out</th>
-        <th class="px-1 w-1/6 py-8">By</th>
-        <th class="px-1 w-1/6 lg:rounded-tr-lg py-8">Issued</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody class="block overflow-y-scroll" style="height: 630px;">
+<h4 class="font-bold tracking-wide admin-blue text-4xl text-center">Last 20 Issued Vouchers</h4>
+
+<div class="mt-5 border rounded-md border-gray-700 p-2 overflow-y-scroll" style="height:630px" >
+  <div class="mt-5 grid grid-cols-7">
+    <div class="font-bold text-center">Voucher No.</div>
+    <div class="font-bold text-left">Hotel</div>
+    <div class="font-bold text-left">Client</div>
+    <div class="font-bold text-center">Check-In</div>
+    <div class="font-bold text-center">Check-Out</div>
+    <div class="font-bold text-center">Issued By</div>
+    <div class="font-bold text-center">Issued On</div>
+    </div>
+  <div class="mt-5">
       <% @vouchers.each do |voucher| %>
-        <tr>
-          <td class="py-3 px-1 w-1/6 text-left tabular-nums">
-            <%= voucher.number %>
-          </td>
-          <td class="px-1 w-1/6 text-left tabular-nums">
-            <%= voucher.hotel.name %>
-          </td>
-          <td class="px-1 w-1/6 text-left">
-            <%= voucher.check_in.to_date.to_formatted_s(:short) %>
-          </td>
-          <td class="px-1 w-1/6 text-left">
-            <%= voucher.check_out.to_date.to_formatted_s(:short) %>
-          </td>
-          <td class="px-1 w-1/6 text-left">
-            <%= voucher.user.name %>
-          </td>
-          <td class="px-1 w-1/6 text-left">
-            <%= voucher.created_at.to_date.to_formatted_s(:short) %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <div class="p-12 bg-gray-100 border border-gray-500 flex flex-1 flex-col gap-y-6">
-    <button type="button">
-      <%= link_to admin_swap_report_url(format: :csv), 
-        class: "inline-block py-4 px-8 rounded-lg bg-yellow-300 text-gray-900 font-bold
-        border-b border-gray-900 shadow-lg" do %>
-        <i class="bi bi-download"></i>
-        <span class="ml-6">
-          voucher report
-        </span>
-      <% end %>
-    </button>
+      <div class="zebra grid grid-cols-7">
+        <div class="text-center">
+          <%= voucher.number %>
+        </div>
+        <div>
+          <%= voucher.hotel.name %>
+        </div>
+        <div class="text-left">
+          <%= voucher.client.name %>
+        </div>
+        <div class="text-center">
+          <%= voucher.check_in.to_date.to_formatted_s(:short) %>
+        </div>
+        <div class="text-center"> 
+          <%= voucher.check_out.to_date.to_formatted_s(:short) %>
+        </div>
+        <div class="text-center">
+          <%= voucher.user.name %>
+        </div>
+        <div class="text-center"> 
+          <%= voucher.created_at.to_date.to_formatted_s(:short) %>
+        </div>
+      </div>
+      <% end %>   
   </div>
-</section>
+</div>
+
+<div class="p-12 flex flex-1 flex-col gap-y-6">
+  <button type="button">
+    <%= link_to admin_swap_report_url(format: :csv), 
+    class: "inline-block py-2 px-8 bg-admin-blue rounded-full text-gray-900 font-bold
+    border-b border-gray-900 shadow-lg" do %>
+      <div class="flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z "/>
+        </svg>
+        <span class="ml-5">Download Voucher Report</span>
+      </div>
+    <% end %>
+  </button>
+</div>

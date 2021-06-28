@@ -1,0 +1,37 @@
+<section class="bg-white rounded border border-gray-200 text-lg md:text-2xl">
+  <div class="max-w-3xl mx-auto container p-2 md:p-6">
+    <h2 class="mt-4 text-center font-bold tracking-wide admin-blue">Incidents</h2>
+    <div class="flex flex-col bg-white border border-gray-300 px-4 py-2 mt-3 rounded-lg shadow-sm">
+      <% if @incidents.empty? %>
+        No reported incidents.
+      <% else %>
+        <ul class="divide-y-2">
+          <% @incidents.each do |incident| %>
+            <li class="flex flex-col space-y-2 p-3">
+              <div class="flex items-center">
+                <div>
+                  <span class="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+                    <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </span>
+                </div>
+                <div class="ml-3">
+                  <p class="text-base font-medium text-gray-700 group-hover:text-gray-900">
+                    <%= incident.reporter.name %> (<%= incident.reporter.email %>)
+                  </p>
+                  <p class="text-base font-medium text-gray-500 group-hover:text-gray-700">
+                    Date Occurred: <%= humanize_date_with_year(incident.occurred_at) %>
+                  </p>
+                </div>
+              </div>
+              <div class="text-xl">
+                <%= incident.description %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</section>

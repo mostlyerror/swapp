@@ -1,5 +1,26 @@
 class Admin::SwapsController < Admin::BaseController
+  skip_before_action :verify_authenticity_token
   add_flash_types :info, :error
+
+  def create
+    stay_start = params['stayDates']['from']
+    stay_end = params['stayDates']['to']
+    intake_dates = params['intakeDates'].map(&:to_date)
+
+    swap = Swap.new(
+      start_date: stay_start,
+      end_date: stay_end,
+      intake_dates: intake_dates
+    )
+
+    if swap.save
+      return render json: swap, status: :created
+  else
+      render json: {
+        errors: swap.errors.as_json(full_messages: true)
+      }, status: 422
+    end
+  end
 
   def extend
     swap = Swap.find(params[:id])

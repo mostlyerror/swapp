@@ -7,18 +7,8 @@ class ClientsController < ApplicationController
   end
 
   def search
-    q = params[:q].downcase
-    clients = Client.includes(:incident_reports)
-      .where("first_name ILIKE ? or last_name ILIKE ?", "%#{q}%", "%#{q}%").limit(8)
-    @results = clients.map do |c| 
-      attrs = c.slice(:id, :first_name, :last_name, :name, :date_of_birth)
-      attrs.merge(
-        banned: c.banned, 
-        red_flag: c.incident_reports.any?,
-        flagged_hotels: c.flagged_hotels.pluck(:id, :name)
-      )
-    end
-    render json: @results
+    results = ClientSearch.search(params[:q])
+    render json: results
   end
 
   def show
@@ -40,6 +30,9 @@ class ClientsController < ApplicationController
     )
 
     if @client.update(client_params)
+      if current_user.admin_user?
+        return redirect_to admin_clients_path
+      end
       return redirect_to @client
     end
     render :show

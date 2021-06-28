@@ -1,0 +1,48 @@
+.StayDayPicker {
+  font-size: 1.85rem;
+}
+
+.StayDayPicker .DayPicker-Month .DayPicker-Caption > div {
+  font-weight: 600;
+  text-align: center;
+}
+
+.StayDayPicker .DayPicker-Month {
+  background: white;
+  border: 1px solid #ccc;
+  margin: 0;
+}
+
+.StayDayPicker .DayPicker-Month:nth-child(2) {
+  margin-left: 10px;
+}
+
+.StayDayPicker
+  .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+  background-color: hotpink;
+  color: black;
+}
+
+.StayDayPicker .DayPicker-Day--start:not(.DayPicker-Day--outside) {
+  background-color: hotpink !important;
+  color: black !important;
+}
+
+.StayDayPicker .DayPicker-Day--end:not(.DayPicker-Day--outside) {
+  background-color: hotpink !important;
+  color: black !important;
+}
+
+.StayDayPicker .DayPicker-Day {
+  border-radius: 0 !important;
+}
+
+.StayDayPicker .DayPicker-Day--start {
+  border-top-left-radius: 50% !important;
+  border-bottom-left-radius: 50% !important;
+}
+
+.StayDayPicker .DayPicker-Day--end {
+  border-top-right-radius: 50% !important;
+  border-bottom-right-radius: 50% !important;
+}

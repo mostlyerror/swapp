@@ -1,67 +1,67 @@
-import React, { Component } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import Autocomplete from "react-autocomplete";
-import axios from "axios";
-import _ from "lodash";
-import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
-import ReactModal from "react-modal";
+import React, { Component } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import Autocomplete from 'react-autocomplete'
+import axios from 'axios'
+import _ from 'lodash'
+import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa'
+import ReactModal from 'react-modal'
 
-const NULL_DOB_PLACEHOLDER_VALUE = "1600-01-01";
+const NULL_DOB_PLACEHOLDER_VALUE = '1600-01-01'
 
 class GuestsForm extends Component {
   state = {
     clients: [],
     selected: [],
-    val: "",
-    newGuestFirstName: "",
-    newGuestLastName: "",
-    newGuestDateOfBirth: "",
+    val: '',
+    newGuestFirstName: '',
+    newGuestLastName: '',
+    newGuestDateOfBirth: '',
     errors: [],
     showModal: false,
-  };
+  }
 
   fetchClients = _.debounce((term) => {
-    const clientsURL = `/clients/search.json?q=${term}`;
+    const clientsURL = `/clients/search.json?q=${term}`
     axios.get(clientsURL).then((response) => {
       this.setState({
         clients: response.data.filter((client, _idx) => {
-          return client.id !== this.props.client.id;
+          return client.id !== this.props.client.id
         }),
-      });
-    });
-  }, 300);
+      })
+    })
+  }, 300)
 
   handleChange = (event, val) => {
-    this.setState({ val: val });
-    if (val === "" || val.length < 2) {
-      return;
+    this.setState({ val: val })
+    if (val === '' || val.length < 2) {
+      return
     }
-    this.fetchClients(val);
-  };
+    this.fetchClients(val)
+  }
 
-  isItemSelectable = (item) => !item.red_flag;
+  isItemSelectable = (item) => !item.red_flag
 
   handleSelect = (name, client) => {
     this.setState((prevState) => {
       return {
-        val: "",
+        val: '',
         clients: [],
-        selected: _.uniqBy([...prevState.selected, client], "id"),
-      };
-    });
-  };
+        selected: _.uniqBy([...prevState.selected, client], 'id'),
+      }
+    })
+  }
 
   removeGuest = (guest) => {
     this.setState((prevState) => ({
       selected: prevState.selected.filter((val, idx, arr) => {
-        return val !== guest;
+        return val !== guest
       }),
-    }));
-  };
+    }))
+  }
 
   renderClientName = (state, val) => {
-    return state.name.toLowerCase().indexOf(val.toLowerCase()) !== -1;
-  };
+    return state.name.toLowerCase().indexOf(val.toLowerCase()) !== -1
+  }
 
   renderInput = (props) => {
     return (
@@ -92,38 +92,38 @@ class GuestsForm extends Component {
           </button>
         </Transition>
       </div>
-    );
-  };
+    )
+  }
 
-  renderMenu = (item) => <div className="dropdown">{item}</div>;
+  renderMenu = (item) => <div className="dropdown">{item}</div>
 
   renderItem = (item, isHighlighted) => (
     <div
       key={item.id}
       id={`add_guest_${item.id}`}
       className={`item ${
-        isHighlighted ? "selected-item" : ""
+        isHighlighted ? 'selected-item' : ''
       } mt-4 grid grid-cols-11 space-evenly gap-4`}
     >
       <div
         className={`${
-          item.red_flag ? "text-gray-300 font-normal" : "font-semibold"
+          item.red_flag ? 'text-gray-300 font-normal' : 'font-semibold'
         } col-span-5`}
       >
         {`${item.first_name} ${item.last_name}`}
       </div>
       <div
         className={`${
-          item.red_flag ? "text-gray-300 font-normal" : "font-semibold"
+          item.red_flag ? 'text-gray-300 font-normal' : 'font-semibold'
         } col-span-5`}
       >
         {(item.date_of_birth !== NULL_DOB_PLACEHOLDER_VALUE &&
           item.date_of_birth) ||
-          "--"}
+          '--'}
       </div>
       <div className="text-right">
         {item.red_flag ? (
-          "🚩"
+          '🚩'
         ) : (
           <button type="button">
             <FaPlusCircle className="text-indigo-500" />
@@ -131,98 +131,98 @@ class GuestsForm extends Component {
         )}
       </div>
     </div>
-  );
+  )
 
   openModal = () => {
-    this.setState({ showModal: true });
-  };
+    this.setState({ showModal: true })
+  }
 
   cancelModal = () => {
     this.setState({
       showModal: false,
-      newGuestFirstName: "",
-      newGuestLastName: "",
-      newGuestDateOfBirth: "",
-    });
-  };
+      newGuestFirstName: '',
+      newGuestLastName: '',
+      newGuestDateOfBirth: '',
+    })
+  }
 
   closeModal = () => {
     this.setState({
       showModal: false,
-      val: "",
+      val: '',
       clients: [],
-      newGuestFirstName: "",
-      newGuestLastName: "",
-      newGuestDateOfBirth: "",
+      newGuestFirstName: '',
+      newGuestLastName: '',
+      newGuestDateOfBirth: '',
       errors: [],
-    });
-  };
+    })
+  }
 
   createClient = (client) => {
-    const clientsURL = `/clients`;
+    const clientsURL = `/clients`
     const csrfToken = document
       .querySelector('[name="csrf-token"]')
-      .getAttribute("content");
+      .getAttribute('content')
     return axios.post(clientsURL, client, {
       headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": csrfToken,
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken,
       },
-    });
-  };
+    })
+  }
 
   createGuest = () => {
     const newGuest = {
       first_name: this.state.newGuestFirstName,
       last_name: this.state.newGuestLastName,
       date_of_birth: this.state.newGuestDateOfBirth,
-    };
+    }
 
     this.createClient(newGuest)
       .then((response) => {
         const guest = _.pick(response.data, [
-          "id",
-          "first_name",
-          "last_name",
-          "date_of_birth",
-          "red_flag",
-        ]);
+          'id',
+          'first_name',
+          'last_name',
+          'date_of_birth',
+          'red_flag',
+        ])
 
         this.setState((prevState) => {
           return {
             selected: [...prevState.selected, guest],
             errors: [],
-          };
-        });
-        this.closeModal();
+          }
+        })
+        this.closeModal()
       })
       .catch((err) => {
         this.setState({
           errors: err.response.data,
-        });
-      });
-  };
+        })
+      })
+  }
 
   addPriorGuests = () => {
     const priorGuests = this.props.prior_guests
       .map((guest, _idx) => {
         return _.pick(guest, [
-          "id",
-          "first_name",
-          "last_name",
-          "date_of_birth",
-          "red_flag",
-        ]);
+          'id',
+          'first_name',
+          'last_name',
+          'date_of_birth',
+          'red_flag',
+        ])
       })
       .filter((guest, _idx) => {
-        return !guest.red_flag;
-      });
+        return !guest.red_flag
+      })
     this.setState((prevState) => {
       return {
         selected: [...prevState.selected, ...priorGuests],
-      };
-    });
-  };
+      }
+    })
+  }
 
   render() {
     return (
@@ -246,7 +246,7 @@ class GuestsForm extends Component {
                       "
                     >
                       add prior guests
-                    </button>{" "}
+                    </button>{' '}
                     before searching.
                   </span>
                 </p>
@@ -272,7 +272,7 @@ class GuestsForm extends Component {
                   <div className="col-span-5 tabular-nums">
                     {(guest.date_of_birth !== NULL_DOB_PLACEHOLDER_VALUE &&
                       guest.date_of_birth) ||
-                      "--"}
+                      '--'}
                   </div>
                   <div
                     className="text-right"
@@ -293,12 +293,12 @@ class GuestsForm extends Component {
           items={this.state.clients}
           getItemValue={(item) => `${item.first_name} ${item.last_name}`}
           inputProps={{
-            id: "guest_autocomplete",
-            className: "mt-6 p-1 w-full border border-gray-300 rounded",
-            autoComplete: "false",
-            placeholder: "Search for a guest",
+            id: 'guest_autocomplete',
+            className: 'mt-6 p-1 w-full border border-gray-300 rounded',
+            autoComplete: 'false',
+            placeholder: 'Search for a guest',
           }}
-          wrapperProps={{ className: "w-full" }}
+          wrapperProps={{ className: 'w-full' }}
           shouldItemRender={this.renderClientName}
           renderInput={this.renderInput}
           renderMenu={this.renderMenu}
@@ -320,8 +320,7 @@ class GuestsForm extends Component {
               <Dialog.Title className="text-lg sm:text-xl md:text-2xl font-bold">
                 Create New Guest
               </Dialog.Title>
-              <Dialog.Description className="text-base sm:text-lg md:text-xl text-gray-700">
-              </Dialog.Description>
+              <Dialog.Description className="text-base sm:text-lg md:text-xl text-gray-700"></Dialog.Description>
 
               {this.state.errors.length > 0 && (
                 <div className="my-2 sm:my-4 md:my-6 rounded-lg bg-red-50 p-2">
@@ -348,8 +347,7 @@ class GuestsForm extends Component {
                       <div className="mt-2 ml-2 sm:ml-3 md:ml-4 text-sm sm:text-base md:text-lg text-red-700">
                         <ul className="list-disc space-y-1 md:space-y-2">
                           {this.state.errors.map((error, idx) => {
-                            console.log(error);
-                            return <li className="">{error}</li>;
+                            return <li className="">{error}</li>
                           })}
                         </ul>
                       </div>
@@ -373,8 +371,8 @@ class GuestsForm extends Component {
                         return {
                           ...prevState,
                           newGuestFirstName: event.target.value,
-                        };
-                      });
+                        }
+                      })
                     }}
                   />
                 </div>
@@ -392,8 +390,8 @@ class GuestsForm extends Component {
                         return {
                           ...prevState,
                           newGuestLastName: event.target.value,
-                        };
-                      });
+                        }
+                      })
                     }}
                   />
                 </div>
@@ -410,8 +408,8 @@ class GuestsForm extends Component {
                         return {
                           ...prevState,
                           newGuestDateOfBirth: event.target.value,
-                        };
-                      });
+                        }
+                      })
                     }}
                   />
                 </div>
@@ -441,8 +439,8 @@ class GuestsForm extends Component {
           </div>
         </Dialog>
       </div>
-    );
+    )
   }
 }
 
-export default GuestsForm;
+export default GuestsForm
