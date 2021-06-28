@@ -40,7 +40,9 @@ class IntakesTest < ApplicationSystemTestCase
 
     toggle(Intake::HOUSEHOLD_TANF.key, intake.household_tanf)
     fill_in(Intake::HOMELESSNESS_DATE_BEGAN.text, with: intake.homelessness_date_began)
-    toggle(Intake::HOMELESSNESS_FIRST_TIME.key, !intake.have_you_ever_experienced_homelessness_before)
+    if !intake.have_you_ever_experienced_homelessness_before
+      toggle(Intake::HOMELESSNESS_FIRST_TIME.key, false)
+    end
     choose(intake.homelessness_how_long_this_time)
     select(intake.homelessness_episodes_last_three_years, from: Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS.text)
     select(intake.homelessness_total_last_three_years, from: Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS.text)
