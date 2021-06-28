@@ -1,29 +1,32 @@
 <section>
-  <div class="flex flex-col">
-    <%= image_tag ("cabin4x.png") %>
-  </div>
-  <div class="max-w-md md:max-w-xl mx-auto px-8 py-12 flex flex-col">
-    <h4 class="text-2xl md:text-5xl tracking-wide">
-      Help a person experiencing homelessness
-      <h4 class="text-2xl md:text-5xl font-bold">
-        find shelter.
-      </h3>
-      <div class="mt-10 flex flex-col">
-        <p class="text-base md:text-lg font-bold">Are you a caseworker ready to do intake?</p>
-        <%= link_to clients_path, class: "mt-4 inline-flex items-center px-3 py-2 
-        border border-transparent bg-indigo-600 hover:bg-indigo-700 
-        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-        text-white text-lg sm:text-xl md:text-2xl leading-4 font-semibold tracking-wide
-        rounded-lg shadow-sm" do %>
-          <span>Go to Login </span>
-        <% end %>
+  <div class="slab-aliceblue">
+    <div class="max-w-screen-lg mx-auto px-4 py-12 flex flex-col">
+      <div class="flex grid grid-cols-2 cabin-container">
+        <h4 class="mt-10 text-2xl md:text-5xl tracking-wide">
+          Help a person <br> experiencing <br> homelessness <br> <b>find shelter</b>.
+        </h4>
+        <div>
+          <%= image_tag ("cabin4x.png"), :class => "tv" %>
+        </div>
+      </div>
     </div>
-    </h4>
+  </div>
+
+  <div class="slab-aliceblue">
+  <div class="max-w-screen-lg mx-auto px-4 py-12 flex flex-col">
+  <p class="text-base md:text-lg font-bold">Are you a caseworker ready to do intake?</p>
+          <%= link_to clients_path,  class: "inline-block py-2 px-8 bg-admin-blue rounded-full text-gray-900 font-bold
+          border-b border-gray-900 shadow-lg"  do %>
+            <span>Go to Login </span>
+          <% end %>
+        </div>
+      </h4>
+    </div>
   </div>
 </section>
 
 <section>
-  <div class="max-w-md md:max-w-xl mx-auto px-8 py-12 flex flex-col space-y-16">
+  <div class="max-w-md md:max-w-4xl mx-auto px-8 py-12 flex flex-col space-y-16">
     <h4 class="text-2xl md:text-3xl text-center font-bold tracking-wide">
       How it works:
     </h4>
@@ -70,7 +73,55 @@
 </section>
 
 <section>
-  <div class="max-w-md md:max-w-xl mx-auto px-8 py-12 flex flex-col space-y-16">
+  <div class="slab-aliceblue">
+    <div class="md:max-w-4xl mx-auto flex flex-col">
+      <div class="flex grid grid-cols-3 stats-container">
+        <div class="stats-container justify-center py-12">
+
+          <div class="stats-box p-5">
+            <div class="stats-number">
+              <span class="count">560</span>
+            </div>
+            <div id="stats-words">
+              clients served
+            </div>
+          </div>
+
+          <div class="stats-box p-5">
+            <div class="stats-number">
+              <span class="count">8,300</span>
+            </div>
+            <div id="stats-words">
+              nights of homelessness averted
+            </div>
+          </div>
+
+          <div class="stats-box p-5">
+            <div class="stats-number">
+              <span class="count">8.5</span>
+            </div>
+            <div id="stats-words">
+              minutes of caseworker time saved
+            </div>  
+          </div>
+
+          <div class="stats-box p-5">
+            <div id="stats-number">
+              <span class="count">8.5</span>
+            </div>
+            <div id="stats-words">
+              minutes of caseworker time saved
+            </div>  
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="max-w-screen-lg mx-auto px-8 py-12 flex flex-col space-y-16">
     <h4 class="text-2xl md:text-3xl text-center font-bold tracking-wide">
       FAQs:
     </h4>
@@ -79,7 +130,7 @@
         <p class="text-xl md:text-xl font-bold tracking-wide">
           What is SWAP?
         </p>
-        <p class="mt-1 md:mt-2 text-base md:text-sm text-gray-800">
+        <p class="mt-1 md:mt-2 text-base md:text-lg text-gray-800">
           SWAP is a program that provides hotel/motel vouchers to literal homeless individuals/families for the duration of the severe weather. SWAP
           participants will also be provided with cold weather gear, first aid kits, hygiene kits and food when available.
         </p>
@@ -90,7 +141,7 @@
         <p class="text-xl md:text-xl font-bold tracking-wide">
           What does SWAP consider severe weather?
         </p>
-        <p class="mt-1 md:mt-2 text-base md:text-sm text-gray-800">
+        <p class="mt-1 md:mt-2 text-base md:text-lg text-gray-800">
           During periods of inclement weather, 32 degrees Fahrenheit and wet or 20 degrees Fahrenheit and dry, SWAP will "activate,"and people experiencing homelessness can apply to receive a hotel/motel voucher at the intake location. SWAP will activate by 10:00 AM Monday through Friday. If activations occur over weekends or holidays, the intake will
           occur the prior business day.
         </p>
@@ -101,7 +152,7 @@
         <p class="text-xl md:text-xl font-bold tracking-wide">
           What if those temperatures are not met?
         </p>
-        <p class="mt-1 md:mt-2 text-base md:text-sm text-gray-800">
+        <p class="mt-1 md:mt-2 text-base md:text-lg text-gray-800">
           If the above conditions are not met, SWAP will NOT activate and SWAP hotel/motel vouchers will NOT be available.
         </p>
       </div>
@@ -111,15 +162,15 @@
         <p class="text-xl md:text-xl font-bold tracking-wide">
           Do I qualify to receive a voucher through the SWAP program?
         </p>
-        <p class="mt-1 md:mt-2 text-base md:text-sm text-gray-800">
-          You qualify if you are:
+        <p class="mt-1 md:mt-2 text-base md:text-lg text-gray-800">
+          You qualify if you:
         </p>
-        <p class="mt-1 md:mt-2 text-base md:text-sm text-gray-800">
-          <ul class="md:text-sm" >
-            <li>Living in a place not meant for daily living, (car, park, sidewalk, abandoned buildings, tent or on the street).</li>
-            <li>Being evicted from a private dwelling unit, have no other safe place to go, and do not have the resources to obtain housing.</li>
-            <li>Will not have a safe place to sleep tonight.</li>
-            <li>Discharged from an institution, such as a mental health or substance abuse treatment facility, jail, or prison, where you were a resident for more than 30 consecutive days and you have no other safe place to go.</li>
+        <p class="mt-1 md:mt-2 text-base md:text-lg text-gray-800">
+          <ul class="mt-1 md:mt-2 text-base md:text-lg text-gray-800" >
+            <li>- Live in a place not meant for daily living, (car, park, sidewalk, abandoned buildings, tent or on the street).</li>
+            <li>- Are being evicted from a private dwelling unit, have no other safe place to go, and do not have the resources to obtain housing.</li>
+            <li>- Will not have a safe place to sleep tonight.</li>
+            <li>- Discharged from an institution, such as a mental health or substance abuse treatment facility, jail, or prison, where you were a resident for more than 30 consecutive days and you have no other safe place to go.</li>
           </ul>
         </p>
       </div>
@@ -129,12 +180,10 @@
         <p class="text-xl md:text-xl font-bold tracking-wide">
           What do I need to do to receive a voucher?
         </p>
-        <p class="mt-1 md:mt-2 text-base md:text-sm text-gray-800">
-        <ul class="md:text-sm" >
-          <li>Intakes are held at Almost Home's Housing Navigation Center, 22 S. 4th Avenue (garden level), Brighton, CO 80601. Intakes are conducted on "activated" days between 12 and 4 pm.</li>
-          <li>To receive notifications via email, sign up here. To receive notifications via text, send an SMS to . To receive notifications via voice recording, call . Any changes in location or time of intakes will be indicated in each activation email.</li>
-          <li>All voucher recipients must perform intake, sign a waiver, and certify that they do not have a safe place to stay for the night.</li>
-        </p>
+        <ul class="mt-1 md:mt-2 text-base md:text-lg text-gray-800" >
+          <li>- Intakes are held at Almost Home's Housing Navigation Center, 22 S. 4th Avenue (garden level), Brighton, CO 80601. Intakes are conducted on "activated" days between 12 and 4 pm.</li>
+          <li>- To receive notifications via email, sign up here. To receive notifications via text, send an SMS to . To receive notifications via voice recording, call . Any changes in location or time of intakes will be indicated in each activation email.</li>
+          <li>- All voucher recipients must perform intake, sign a waiver, and certify that they do not have a safe place to stay for the night.</li>
         </ul>
       </div>
     </div>
