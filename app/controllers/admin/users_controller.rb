@@ -18,11 +18,9 @@ class Admin::UsersController < Admin::BaseController
     user.first_name = params['first_name']
     user.last_name = params['last_name']
     user.email = params['email']
-    params['roles'].each do |role|
-      user.admin_user = true if role == "admin"
-      user.intake_user = true if role == "intake"
-      user.hotel_user = true if role == "hotel"
-    end
+    user.admin_user = 'admin'.in? params['roles']
+    user.intake_user = 'intake'.in? params['roles']
+    user.hotel_user = 'hotel'.in? params['roles']
 
     if user.save
       render json: user, status: :ok
