@@ -12,7 +12,10 @@ Rails.application.routes.draw do
     end
   end
 
-  constraints(lambda { |req| req.env["warden"].user(:user)&.intake_user? }) do
+  constraints(lambda do |req| 
+    user = req.env["warden"].user(:user)
+    user.active? && (user.intake_user? || user.admin_user?)
+  end) do
     get "clients/search" => "clients#search", as: :clients_search
     resources :clients
     resources :intakes
@@ -25,20 +28,22 @@ Rails.application.routes.draw do
   namespace :hotels do
     constraints(lambda { |req| 
       user = req.env["warden"].user(:user)
-      user.hotel_user? || user.admin_user?
+      user.active? && (user.hotel_user? || user.admin_user?)
     }) do
       get "/", to: "home#index", as: :home
       get "/vouchers/:id" => "vouchers#show", as: :vouchers
-      # get "/guests/:id" => "home#show", as: :show_client
-      # post "/guests/:id" => "incident_reports#create", as: :create_report
       post "/incidents" => "incident_reports#create", as: :create_report
     end
   end
 
   namespace :admin do
-    constraints(lambda { |req| req.env["warden"].user(:user)&.admin_user? }) do
+    constraints(lambda { |req| 
+      user = req.env["warden"].user(:user)
+      user.active? && user.admin_user?
+    }) do
       get "/" => "home#index", as: :home
-      get "/users" => "home#users", as: :users
+      get "/users" => "users#index", as: :users
+      put "users/:id" => "users#update"
       get "clients/search" => "clients#search", as: :clients_search
       get "/home/clients/:id" => "clients#show", as: :clients
       post "swaps" => "swaps#create"

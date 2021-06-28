@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_224409) do
+ActiveRecord::Schema.define(version: 2021_06_28_015817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -48,6 +48,9 @@ ActiveRecord::Schema.define(version: 2021_06_23_224409) do
     t.boolean "force_intake", default: false
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "hotels", force: :cascade do |t|
     t.string "name", null: false
     t.json "address"
@@ -71,7 +74,7 @@ ActiveRecord::Schema.define(version: 2021_06_23_224409) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "reporter_id"
-    t.integer "hotel_id"
+    t.integer "hotel_id", null: false
     t.boolean "red_flag", default: false
     t.index ["client_id"], name: "index_incident_reports_on_client_id"
     t.index ["reporter_id"], name: "index_incident_reports_on_reporter_id"
@@ -166,6 +169,11 @@ ActiveRecord::Schema.define(version: 2021_06_23_224409) do
     t.boolean "hotel_user", default: false, null: false
     t.boolean "intake_user", default: false, null: false
     t.boolean "show_swap_panel", default: true
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.boolean "active"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

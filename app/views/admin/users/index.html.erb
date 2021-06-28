@@ -1,9 +1,9 @@
 <section class="mt-12 container mx-auto">
-  <%= link_to 'Back', :back, 
+  <%= link_to 'Back', admin_home_path,
   class: "text-xl admin-blue underline" %>
 </section>
 
-<section class="mt-24 container mx-auto">
+<section class="my-24 container mx-auto">
   <%= react_component('ManageUsers/ManageUsers', current_user: current_user,
   users: @users) %>
 </section>
