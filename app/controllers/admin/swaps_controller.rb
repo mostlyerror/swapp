@@ -15,7 +15,21 @@ class Admin::SwapsController < Admin::BaseController
 
     if swap.save
       return render json: swap, status: :created
-  else
+    else
+      render json: {
+        errors: swap.errors.as_json(full_messages: true)
+      }, status: 422
+    end
+  end
+
+  def update
+    swap = Swap.find(params[:id])
+    swap.start_date = params['stayDates']['from']
+    swap.end_date = params['stayDates']['to']
+    swap.intake_dates = params['intakeDates'].map(&:to_date)
+    if swap.save
+      return render json: swap, status: :created
+    else
       render json: {
         errors: swap.errors.as_json(full_messages: true)
       }, status: 422

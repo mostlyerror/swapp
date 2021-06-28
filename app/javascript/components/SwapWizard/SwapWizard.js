@@ -1,5 +1,5 @@
 import React from 'react'
-import _ from 'lodash'
+import _, { update } from 'lodash'
 import axios from 'axios'
 import { SwapWizardTransition } from './SwapWizardTransition'
 import { Step1 } from './Step1'
@@ -13,13 +13,31 @@ import { sortDatesArray } from '../utils'
 class SwapWizard extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      currentStep: 1,
-      stayDates: {},
-      stayDatesValid: false,
-      intakeDates: [],
-      intakeDatesValid: false,
-      errors: [],
+
+    if (props.swap) {
+      this.state = {
+        swap: props.swap,
+        currentStep: 2,
+        stayDates: {
+          from: new Date(props.swap.start_date.split('-')),
+          to: new Date(props.swap.end_date.split('-')),
+        },
+        stayDatesValid: true,
+        intakeDates: props.swap.intake_dates.map(
+          (date) => new Date(date.split('-'))
+        ),
+        intakeDatesValid: true,
+        errors: [],
+      }
+    } else {
+      this.state = {
+        currentStep: 1,
+        stayDates: { from: null, to: null },
+        stayDatesValid: false,
+        intakeDates: [],
+        intakeDatesValid: false,
+        errors: [],
+      }
     }
   }
 
@@ -53,15 +71,27 @@ class SwapWizard extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    const createAdminSwapPeriodURL = `/admin/swaps`
-    axios
-      .post(createAdminSwapPeriodURL, this.state)
-      .then((response) => {
-        window.location.reload()
-      })
-      .catch((error) => {
-        this.setState({ errors: error.response.data.errors })
-      })
+    if (this.state.swap) {
+      const updateAdminSwapPeriodURL = `/admin/swaps/${this.state.swap.id}/update`
+      axios
+        .put(updateAdminSwapPeriodURL, this.state)
+        .then((response) => {
+          window.location.replace(window.location.href.split(/[?#]/)[0])
+        })
+        .catch((error) => {
+          this.setState({ errors: error.response.data.errors })
+        })
+    } else {
+      const createAdminSwapPeriodURL = `/admin/swaps`
+      axios
+        .post(createAdminSwapPeriodURL, this.state)
+        .then((response) => {
+          window.location.replace(window.location.href.split(/[?#]/)[0])
+        })
+        .catch((error) => {
+          this.setState({ errors: error.response.data.errors })
+        })
+    }
   }
 
   render() {

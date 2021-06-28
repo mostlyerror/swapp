@@ -1,6 +1,25 @@
 require 'test_helper'
 
 class RoomSupplyTest < ActiveSupport::TestCase
+  test "ignores availabilities created today that are no longer relevant (swap window moved)" do
+    swap = create(:swap, :tomorrow)
+    hotel = create(:hotel)
+    supply = RoomSupply.vouchers_remaining_today(swap)
+    assert_equal 0, supply[hotel.id]
+    assert_equal 10, supply[swap.availabilities.first.hotel_id]
+
+    # move the swap period up by two days, previous availabilities are now dangling
+    swap.update(
+      start_date: swap.start_date + 2,
+      end_date: swap.end_date + 2,
+      intake_dates: swap.intake_dates.map {|d| d + 2 }
+    )
+
+    supply = RoomSupply.vouchers_remaining_today(swap)
+    assert_equal 0, supply[hotel.id]
+    assert_equal 0, supply[swap.availabilities.first.hotel_id]
+  end
+
   test "vouchers_remaining_today" do
     swap = create(:swap, :tomorrow)
     hotel = create(:hotel)

@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       get "clients/search" => "clients#search", as: :clients_search
       get "/home/clients/:id" => "clients#show", as: :clients
       post "swaps" => "swaps#create"
+      put "swaps/:id/update" => "swaps#update"
       put "swaps/:id/extend" => "swaps#extend", as: :extend_swap
       put "swaps/:id/room_supply" => "swaps#update_room_supply", as: :update_room_supply
       get "/reports/swap" => "reports#swap", as: :swap_report

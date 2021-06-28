@@ -12,9 +12,12 @@
 
   <section class="mt-12">
     <% if @swap %>
-      <div class="container mx-auto">
+      <% if @change_swap %>
+        <%= react_component("SwapWizard/SwapWizard", swap: @swap) %>
+      <% else %>
         <%= render partial: 'current_swap_activation'%>
-      </div>
+      <% end %>
+
       <% if @swap.intake_active? %>
         <div class="mt-24 container mx-auto">
           <%= render partial: 'todays_voucher_supply' %>

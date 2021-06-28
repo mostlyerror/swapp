@@ -3,7 +3,10 @@ class RoomSupply
   def self.latest_vacancies(swap)
     avs = swap.availabilities
       .reload
-      .where(created_at: Date.current.beginning_of_day..Date.current.end_of_day)
+      .where(
+        date: swap.start_date..swap.end_date, 
+        created_at: Date.current.beginning_of_day..Date.current.end_of_day
+      )
     Hotel.pluck(:id).reduce({}) do |memo, hotel_id|
       av = avs.select { |av| av.hotel_id == hotel_id }.first
       vacancy = av.present? ? av.vacant : 0
@@ -47,7 +50,10 @@ class RoomSupply
       .count
 
     swap.availabilities
-      .where(created_at: Date.current.beginning_of_day..Date.current.end_of_day)
+      .where(
+        date: swap.start_date..swap.end_date, 
+        created_at: Date.current.beginning_of_day..Date.current.end_of_day,
+      )
       .each_with_object(supply) do |av, supply|
         supply[av.hotel_id][av.date][:vacant] = av.vacant
         supply[av.hotel_id][Date.current][:issued] = vouchers[av.hotel_id].to_i
