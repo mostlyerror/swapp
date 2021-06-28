@@ -3,7 +3,8 @@ import UserRow from './UserRow'
 import UserEditRow from './UserEditRow'
 
 const List = (props) => {
-  const [editing, setEditing] = useState(null)
+  // const [editing, setEditing] = useState(null)
+  const [editing, setEditing] = useState(1)
 
   const handleEdit = (id) => {
     setEditing(id)

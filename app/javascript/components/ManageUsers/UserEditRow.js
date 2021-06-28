@@ -4,6 +4,8 @@ const UserEditRow = (props) => {
   const [person, setPerson] = useState(props.person)
 
   const handleChange = (event) => {
+    console.log(event.target.name)
+    console.log(event.target.value)
     if (event.target.name.match('roles')) {
       let role = event.target.name.match(/roles\[(\w+)\]/)[1]
 
@@ -147,7 +149,26 @@ const UserEditRow = (props) => {
         <td></td>
       </tr>
       <tr>
-        <td></td>
+        <td>
+          <div className="flex items-center">
+            <input
+              className="w-5 h-5 rounded admin-blue
+                  border-2 border-gray-300 focus:border-indigo-500
+                  focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
+              type="checkbox"
+              name="active"
+              onChange={handleChange}
+              checked={person.active}
+            />
+            <label
+              className={`ml-2 text-lg ${person.active && 'font-bold'}
+
+              }`}
+            >
+              Active
+            </label>
+          </div>
+        </td>
         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
           <div className="flex gap-6">
             <button
