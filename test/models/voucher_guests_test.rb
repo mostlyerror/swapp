@@ -33,5 +33,6 @@ class VoucherGuestsTest < ActiveSupport::TestCase
     assert_equal(2, voucher.guests.size)
     client.vouchers.reload
     assert_equal(4, client.prior_guests.size)
+    Timecop.return
   end
 end
