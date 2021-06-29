@@ -4,7 +4,7 @@ class RoomSupply
     avs = swap.availabilities
       .reload
       .where(
-        date: swap.start_date..swap.end_date, 
+        date: ([swap.start_date, swap.intake_dates.first].min)..swap.end_date, 
         created_at: Date.current.beginning_of_day..Date.current.end_of_day
       )
     Hotel.pluck(:id).reduce({}) do |memo, hotel_id|
@@ -51,7 +51,7 @@ class RoomSupply
 
     swap.availabilities
       .where(
-        date: swap.start_date..swap.end_date, 
+        date: ([swap.start_date, swap.intake_dates.first].min)..swap.end_date,
         created_at: Date.current.beginning_of_day..Date.current.end_of_day,
       )
       .each_with_object(supply) do |av, supply|
