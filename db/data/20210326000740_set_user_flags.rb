@@ -6,9 +6,6 @@ class SetUserFlags < ActiveRecord::Migration[6.0]
     intake_users = User.where.not("email ILIKE ?", "%frontdesk%")
     intake_users.update_all(intake_user: true, hotel_user: false)
   end
-end
-
-  end
 
   def down
     raise ActiveRecord::IrreversibleMigration
