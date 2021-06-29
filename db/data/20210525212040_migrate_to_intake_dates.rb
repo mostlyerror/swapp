@@ -13,9 +13,6 @@ class MigrateToIntakeDates < ActiveRecord::Migration[6.0]
           swap.save!
       end
     end
-  end    
-end
-
   end
 
   def down
