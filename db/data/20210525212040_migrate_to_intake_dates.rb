@@ -10,7 +10,7 @@ class MigrateToIntakeDates < ActiveRecord::Migration[6.0]
           range = swap.intake_start_date..swap.intake_end_date
           swap.intake_dates = range.to_a
           ap "#{swap.id} | #{swap.intake_start_date} | #{swap.intake_end_date} | #{swap.intake_dates.join(',')}"
-          swap.save!
+          swap.save!(validate: false)
       end
     end
   end
