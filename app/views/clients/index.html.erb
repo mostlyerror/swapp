@@ -59,7 +59,22 @@
     <div class="mt-4 sm:mt-6 md:mt-8">
       <% if @swap.present? %>
         <% if @num_vouchers_remaining_today.zero? %>
+          <!-- temporarily disabled for covid vaccination clinic 
           <p class="text-xl sm:text-2xl md:text-3xl font-bold tracking-wide">Cannot perform intake. <span class="block md:inline">No vouchers available.</span></p>
+          -->
+          <div class="text-center">
+            <%= link_to new_intake_path, 
+              class: "mt-4 px-3 md:px-4 py-2 md:py-3 inline-flex items-center
+              border border-transparent bg-indigo-600 hover:bg-indigo-700 
+              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+              text-white text-lg sm:text-xl md:text-3xl leading-4 font-semibold tracking-wide
+              rounded-lg shadow-sm" do %>
+              <span>New Client Intake</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5 md:h-8 md:w-8" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            <% end %>
+          </div>
         <% else %>
           <div class="text-center">
             <%= link_to new_intake_path, 
