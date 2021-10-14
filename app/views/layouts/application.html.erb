@@ -14,8 +14,10 @@
   <body class="bg-gray-50 overscroll-x-hidden">
     <%= render partial: 'shared/test_environment' %>
     <%= render partial: 'layouts/header' %>
-    <div class="min-h-screen">
-      <%= yield %>
+    <div class="container">
+      <div class="min-h-screen">
+        <%= yield %>
+      </div>
     </div>
     <%= render partial: 'layouts/footer' %>
   </body>
