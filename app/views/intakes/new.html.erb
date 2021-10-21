@@ -52,6 +52,7 @@
       </div>
 
       <div class="mt-4 md:mt-8">
+        <% question = Intake::DATE_OF_BIRTH %>
         <%= client_attributes.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
         <%= client_attributes.date_field question.key,
             value: Date.current - 50.years,
