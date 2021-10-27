@@ -1,5 +1,6 @@
 class Hotels::HomeController < Hotels::BaseController
   def index
+    @hotel = current_user.hotel
     @vouchers = Voucher
       .includes(client: [:flagged_hotels])
       .where(hotel: current_user.hotel)
