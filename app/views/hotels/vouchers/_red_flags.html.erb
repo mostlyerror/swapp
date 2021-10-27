@@ -1,11 +1,10 @@
 <div class="flex items-center">
-  <h4 class="px-2 font-bold tracking-wide">Red Flags</h4>
   <% if current_user.admin_user? %>
     <span class="uppercase text-red-900 bg-red-200 font-semibold tracking-wide rounded-lg px-2">admin only</span>
   <% end %>
 </div>
 <% if current_user.admin_user? %>
-  <div class="flex flex-col gap-4 bg-white border border-gray-300 p-4 mt-3 rounded-lg shadow-sm">
+  <div class="flex flex-col gap-4 bg-white border border-gray-300 p-4 mt-3 rounded-lg shadow-sm md:shadow-lg">
     <% flash.each do |type, msg| %>
       <% if type == "info" %>
         <div class="flex items-center bg-green-100 text-lg text-green-900 p-4 rounded-lg" role="alert">
@@ -45,12 +44,15 @@
     <% end %>
   </div>
 <% elsif current_user.hotel_user? %>
-  <div class="bg-white border border-gray-300 p-4 mt-3 rounded-lg text-xl text-gray-800 shadow-sm">
-    <% if !@flagged_here %>
-      <p>Client is not red flagged. They are currently eligible to receive vouchers at this hotel.</p>
-      <p class="mt-2">If you believe this client should be ineligible, notify a SWAP administrator with a summary of the disturbance, name, and date of birth of the client.</p>
-    <% else %>
-      Client has been red flagged. They are no longer eligible to receive vouchers at this hotel.
-    <% end %>
+  <div>
+    <h3 class="px-2 py-2 text-xl tracking-wide font-normal bg-gray-900 text-gray-100 rounded-t-lg">Red Flags</h3>
+    <div class="p-4 bg-white border border-gray-300 rounded-b-lg text-xl text-gray-800 shadow-sm md:shadow-lg">
+      <% if !@flagged_here %>
+        <p>Client is not red flagged. They are currently eligible to receive vouchers at this hotel.</p>
+        <p class="mt-2">If you believe this client should be ineligible, notify a SWAP administrator with a summary of the disturbance, name, and date of birth of the client.</p>
+      <% else %>
+        Client has been red flagged. They are no longer eligible to receive vouchers at this hotel.
+      <% end %>
+    </div>
   </div>
 <% end %>
