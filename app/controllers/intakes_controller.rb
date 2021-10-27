@@ -30,7 +30,11 @@ class IntakesController < ApplicationController
       force_intake: false
     ))
 
-    @intake = Intake.new(intake_params.except(:voucher).merge(
+    if !@client.save
+      return render :new
+    end
+
+    @intake = Intake.new(intake_params.except(:voucher, :client_attributes).merge(
       user_id: current_user.id,
       client_id: @client.id,
       household_tanf: !!intake_params[:household_tanf],
@@ -44,10 +48,6 @@ class IntakesController < ApplicationController
       developmental_disability: !!intake_params[:developmental_disability],
       fleeing_domestic_violence: !!intake_params[:fleeing_domestic_violence]
     ))
-
-    if !@client.save
-      return render :new
-    end
 
     if !@intake.save
       return render :new
