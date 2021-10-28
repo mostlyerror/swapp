@@ -4,7 +4,7 @@
   <% if @swap.present? %>
     <div class="bg-indigo-100 border-2 border-indigo-300 divide-y-2 divide-indigo-300 rounded-md">
       <section id="notice--swap-active" class="p-4 text-center">
-        <h5 class="font-semibold">SWAP is active</h5>
+        <h4>SWAP is active</h4>
         <div class="text-base md:text-xl text-indigo-900">
           <p class="mt-3 leading-relaxed">Vouchers can be issued from<br/>
             <strong><%= humanize_date_short(@swap.intake_dates.first) %></strong> through <strong><%= humanize_date_short(@swap.intake_dates.last) %></strong></p>
@@ -24,7 +24,7 @@
   <% end %>
   <% if @num_vouchers_remaining_today&.zero? %>
     <section id="notice--no-vouchers" class="p-4 bg-yellow-200 border-2 border-yellow-400 rounded-md">
-      <h5 class="text-center font-bold">Currently, there are no vouchers available to dispense.</h5>
+      <h4 class="text-center">Currently, there are no vouchers available to dispense.</h4>
     </section>
   <% end %>
 <% end %>

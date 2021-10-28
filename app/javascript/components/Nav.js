@@ -31,7 +31,7 @@ class Nav extends Component {
   }
   render() {
     return (
-      <div className="bg-white">
+      <div>
         <Disclosure as="nav" className="bg-white border-b border-gray-200">
           {({ open }) => (
             <>

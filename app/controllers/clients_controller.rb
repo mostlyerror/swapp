@@ -1,4 +1,6 @@
 class ClientsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:update]
+
   def index
     @q = Client.ransack(params[:q])
     @searched = !params[:q].nil?
@@ -30,11 +32,9 @@ class ClientsController < ApplicationController
     )
 
     if @client.update(client_params)
-      if current_user.admin_user?
-        return redirect_to admin_clients_path
-      end
       return redirect_to @client
     end
+
     render :show
   end
 

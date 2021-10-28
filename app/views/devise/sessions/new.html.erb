@@ -11,7 +11,7 @@
   <div class="relative h-screen">
     <div class="container mx-auto max-w-lg px-2 relative top-1/2 transform -translate-y-1/2">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <h1 class="text-4xl text-center font-bold">swapp</h1>
+        <h1 class="text-center">swapp</h1>
         <div class="mt-4">
           <% if flash.alert %>
             <div id="error_explanation" class="mb-4">
@@ -36,7 +36,7 @@
             %>
           </div>
           <div class="mt-8">
-            <%= f.submit "Log in", class: "w-full p-4 rounded-md bg-indigo-500 text-xl text-white hover:bg-indigo-700 font-bold tracking-wide" %>
+            <%= f.submit "Log in", class: "w-full p-4 rounded-md bg-indigo-500 text-xl text-white hover:bg-indigo-700 font-bold tracking-wide shadow-sm md:shadow-lg" %>
             <% if devise_mapping.rememberable? %>
               <div class="mt-8 text-center">
                 <%= f.check_box :remember_me, class: "mr-2 h-6 w-6" %>
