@@ -1,24 +1,41 @@
-
-<div class="mt-4 px-2 md:w-11/12 mx-auto">
-  <%= render partial: 'shared/swap_notices' %>
-</div>
-
-<div class="mt-4 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
-  <h2 class="md:text-5xl text-gray-900 font-bold">Create Voucher</h2>
-</div>
-
-<% if @existing_voucher.present? %>
-  <div class="notice bg-green-400">
-    <h3>
-      <%= @client.first_name %> was already issued a <%= link_to 'voucher', @existing_voucher %> for the most recent SWAP period!
-    </h3>
+<div class="px-2 md:container lg:max-w-6xl">
+  <div class="mt-4">
+    <%= render partial: 'shared/swap_notices' %>
   </div>
-<% else %> 
-  <section class="">
-    <% if SwapIntake.can_issue_voucher_today?(@swap) %>
-      <%= render partial: 'form' %>
-    <% else %>
-      <!-- todo notice we can't issue vouchers today -->
+
+  <div class="mt-4 md:mt-8">
+    <h2>Create Voucher</h2>
+  </div>
+
+  <% if !@swap.present? %>
+    <div class="bg-white rounded p-4 border border-gray-200">
+      Vouchers can only be issued during an active SWAP period.
+      <p>
+        <%= link_to("Back to client search", clients_path, class: "mt-2 underline text-indigo-600") %>
+      </p>
+    </div>
+  <% elsif @num_vouchers_remaining_today.zero? %>
+    <div class="bg-white rounded p-4 border border-gray-200">
+      No more vouchers remaining today. Coordinate with SWAP Administrators to serve client.
+      <p>
+        <%= link_to("Back to client search", clients_path, class: "mt-2 underline text-indigo-600") %>
+      </p>
+    </div>
+  <% else %>
+    <% if @existing_voucher.present? %>
+      <div class="notice bg-green-400">
+        <h3>
+          <%= @client.first_name %> was already issued a <%= link_to 'voucher', @existing_voucher %> for the most recent SWAP period!
+        </h3>
+      </div>
+    <% else %> 
+      <section class="">
+        <% if SwapIntake.can_issue_voucher_today?(@swap) %>
+          <%= render partial: 'form' %>
+        <% else %>
+          <!-- todo notice we can't issue vouchers today -->
+        <% end %>
+      </section>
     <% end %>
-  </section>
-<% end %>
+  <% end %>
+</div>

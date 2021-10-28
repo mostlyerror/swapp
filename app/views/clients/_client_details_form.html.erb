@@ -1,5 +1,5 @@
 <%= form_with(model: @client, local: true) do |form| %>
-  <div class="bg-white rounded-top p-4 rounded-top-lg border border-gray-200">
+  <div class="bg-white p-4 rounded-t-lg border border-gray-200">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <% question = Intake::FIRST_NAME %>
@@ -89,7 +89,6 @@
       </div>
     </div>
   </div>
-</div>
 
 <div class="flex items-center justify-center md:justify-end space-x-2 md:space-x-6 p-4 md:p-6 bg-gray-50 rounded-b shadow border-t border-gray-300">
   <div class="flex items-center space-x-2">
