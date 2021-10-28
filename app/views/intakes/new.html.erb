@@ -1,387 +1,396 @@
+<div class="px-2 md:px-0 md:container lg:max-w-6xl">
 <%= form_with(model: @intake, local: true) do |form| %>
-<div class="mt-4 px-2 md:w-11/12 mx-auto">
-  <%= render partial: 'shared/swap_notices' %>
-</div>
-
-<div class="mt-4 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
-  <h2 class="md:text-5xl text-gray-900 font-bold">Client Intake</h2>
-</div>
-
-<div class="mt-4 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
-  <% if @intake.errors.any? %>
-  <div id="error_explanation" class="my-4 md:my-12 p-8 bg-red-400 font-bold">
-    <p><%= pluralize(@intake.errors.count, "error") %> prohibited this intake from being saved:</p>
-    <ul class="mt-8">
-      <% @intake.errors.full_messages.each do |message| %>
-        <li class=""><%= message %></li>
-      <% end %>
-    </ul>
+  <div class="mt-4">
+    <%= render partial: 'shared/swap_notices' %>
   </div>
-  <% end %>
 
-  <!-- <div class="mt-8 flex flex-col md:flex-row gap-4"> --> 
-  <div class="mt-8 grid grid-cols-1 md:grid-cols-2 md:grid-flow-col gap-4">
-    <%= form.fields_for :client, @client do |client_attributes|%>
-    <div class="">
-      <%= hidden_field_tag 'intake[client_attributes][id]', @client.id %>
+  <div class="mt-4 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
+    <h2>Client Intake</h2>
+  </div>
 
-      <div>
-        <% question = Intake::FIRST_NAME %>
-        <%= client_attributes.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-        <%= client_attributes.text_field question.key,
-            size: 24, 
-            value: @client.first_name,
-            required: true,
-            class: "p-2 block w-full text-base sm:text-lg md:text-xl
-            border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-            focus:ring-offset-0 focus:ring-3 rounded-md"
-        %>
-      </div>
+  <div class="mt-4 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
+    <% if @intake.errors.any? %>
+    <div id="error_explanation" class="my-4 md:my-12 p-8 bg-red-400 font-bold">
+      <p><%= pluralize(@intake.errors.count, "error") %> prohibited this intake from being saved:</p>
+      <ul class="mt-8">
+        <% @intake.errors.full_messages.each do |message| %>
+          <li class=""><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
 
-      <div class="mt-4 md:mt-8">
-        <% question = Intake::LAST_NAME %>
-        <%= client_attributes.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-        <%= client_attributes.text_field question.key,
-            size: 24, 
-            value: @client.last_name,
-            required: true,
-            class: "p-2 block w-full text-base sm:text-lg md:text-xl
-            border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-            focus:ring-offset-0 focus:ring-3 rounded-md"
-        %>
-      </div>
+    <!-- <div class="mt-8 flex flex-col md:flex-row gap-4"> --> 
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 md:grid-flow-col gap-4">
+      <%= form.fields_for :client, @client do |client_attributes|%>
+      <div class="">
+        <%= hidden_field_tag 'intake[client_attributes][id]', @client.id %>
 
-      <div class="mt-4 md:mt-8">
-        <% question = Intake::DATE_OF_BIRTH %>
-        <%= client_attributes.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-        <%= client_attributes.date_field question.key,
-            value: Date.current - 50.years,
-            required: true,
-            class: "p-2 block w-full text-base sm:text-lg md:text-xl
-            border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-            focus:ring-offset-0 focus:ring-3 rounded-md"
-        %>
+        <div>
+          <% question = Intake::FIRST_NAME %>
+          <%= client_attributes.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+          <%= client_attributes.text_field question.key,
+              size: 24, 
+              value: @client.first_name,
+              required: true,
+              class: "p-2 block w-full text-base sm:text-lg md:text-xl
+              border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+              focus:ring-offset-0 focus:ring-3 rounded-md"
+          %>
         </div>
 
-      <div class="mt-4 md:mt-8">
-        <% question = Intake::GENDER %>
-        <%= client_attributes.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-        <%= client_attributes.select question.key,
-            options_for_select(question.choices, @client.gender),
-            {},
-            required: true,
-            class: "p-2 block w-full text-base sm:text-lg md:text-xl
-            border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-            focus:ring-offset-0 focus:ring-3 rounded-md"
+        <div class="mt-4 md:mt-8">
+          <% question = Intake::LAST_NAME %>
+          <%= client_attributes.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+          <%= client_attributes.text_field question.key,
+              size: 24, 
+              value: @client.last_name,
+              required: true,
+              class: "p-2 block w-full text-base sm:text-lg md:text-xl
+              border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+              focus:ring-offset-0 focus:ring-3 rounded-md"
           %>
+        </div>
+
+        <div class="mt-4 md:mt-8">
+          <% question = Intake::DATE_OF_BIRTH %>
+          <%= client_attributes.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+          <%= client_attributes.date_field question.key,
+              value: Date.current - 50.years,
+              required: true,
+              class: "p-2 block w-full text-base sm:text-lg md:text-xl
+              border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+              focus:ring-offset-0 focus:ring-3 rounded-md"
+          %>
+          </div>
+
+        <div class="mt-4 md:mt-8">
+          <% question = Intake::GENDER %>
+          <%= client_attributes.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+          <%= client_attributes.select question.key,
+              options_for_select(question.choices, @client.gender),
+              {},
+              required: true,
+              class: "p-2 block w-full text-base sm:text-lg md:text-xl
+              border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+              focus:ring-offset-0 focus:ring-3 rounded-md"
+            %>
+        </div>
+      </div>
+
+        <div class="space-y-4">
+          <div class="row-span-4">
+            <% question = Intake::RACE %>
+            <%= client_attributes.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+            <div class="p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
+              <ul class="flex flex-col w-full space-y-2">
+                <% question.choices.each do |race| %>
+                  <li class="p-1 md:p-2 flex items-start">
+                    <%= client_attributes.check_box question.key, { 
+                      multiple: true, 
+                      checked: race.in?(@client.race || []),
+                      class: "mt-2 w-5 h-5 rounded text-sm md:text-base text-indigo-600 border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
+                      },
+                      race
+                    %>
+                    <%= client_attributes.label "#{question.key}_#{to_htmlfor(race)}", race, class: "ml-4 text-base md:text-lg" %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+
+          <div>
+            <% question = Intake::ETHNICITY %>
+            <%= client_attributes.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+            <%= client_attributes.select question.key,
+              options_for_select(question.choices, @client.ethnicity),
+              {},
+              required: true,
+              class: "p-2 block w-full text-base sm:text-lg md:text-xl
+              border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+              focus:ring-offset-0 focus:ring-3 rounded-md"
+            %>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="mt-8 md:mt-16 border border-gray-500 rounded-lg">
+    <div class="bg-gray-200 p-3 sm:p-5 md:p-8 leading-snug text-base sm:text-lg md:text-xl md:text-center">
+      The following section only pertains to the client's family members/household.
+    </div>
+
+    <div class="p-4 md:p-6 lg:p-8">
+      <div class="space-y-4 md:space-y-8">
+        <%= react_component('FamilyMembers', sub_questions: {
+          first_name: Intake::FIRST_NAME.to_h,
+          last_name: Intake::LAST_NAME.to_h,
+          relationship: Intake::RELATIONSHIP.to_h,
+          date_of_birth: Intake::DATE_OF_BIRTH.to_h,
+          gender: Intake::GENDER.to_h,
+          race: Intake::RACE.to_h,
+          ethnicity: Intake::ETHNICITY.to_h,
+          veteran: Intake::VETERAN.to_h,
+          disabling_condition: Intake::DISABLING_CONDITION.to_h
+        }) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8 md:mt-16 px-2 md:px-12 space-y-4 md:space-y-8 text-gray-700">
+    <div>
+      <% question = Intake::HOUSEHOLD_TANF %>
+      <%= react_component('Toggle', 
+        question: question.to_h,
+        name: "intake[household_tanf]",
+        checked: @intake.household_tanf
+      ) %>    
+    </div>
+    
+    <div>
+      <% question = Intake::HOMELESSNESS_FIRST_TIME %>
+      <%= react_component('Toggle', 
+        question: question.to_h,
+        id: "homelessness_first_time",
+        checked: @intake.homelessness_first_time
+      ) %>
+    </div>
+
+    <div>
+      <% question = Intake::HOMELESSNESS_DATE_BEGAN %>
+      <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+      <%= form.date_field question.key,
+        value: Date.current - 1.year,
+        required: true,
+        class: "mt-2 block w-full text-base sm:text-lg 
+          border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3
+          rounded-md"
+        %>
+    </div>
+
+    <div>
+      <% question = Intake::HOMELESSNESS_HOW_LONG_THIS_TIME %>
+      <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+      <div class="mt-2 p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <ul class="flex flex-col w-full space-y-2">
+          <% question.choices.each do |choice| %>
+            <li class="p-1 flex items-center">
+              <%= form.radio_button question.key, choice,
+                required: true,
+                checked: @intake.homelessness_how_long_this_time == choice,
+                class: "w-5 h-5
+                text-sm text-indigo-600 
+                border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
+              %>
+              <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice, class: "ml-4 text-sm sm:text-base md:text-lg" %>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </div>
 
-      <div class="space-y-4">
-        <div class="row-span-4">
-          <% question = Intake::RACE %>
-          <%= client_attributes.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-          <div class="p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
-            <ul class="flex flex-col w-full space-y-2">
-              <% question.choices.each do |race| %>
-                <li class="p-1 md:p-2 flex items-start">
-                  <%= client_attributes.check_box question.key, { 
-                    multiple: true, 
-                    checked: race.in?(@client.race || []),
-                    class: "mt-2 w-5 h-5 rounded text-sm md:text-base text-indigo-600 border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
-                    },
-                    race
-                  %>
-                  <%= client_attributes.label "#{question.key}_#{to_htmlfor(race)}", race, class: "ml-4 text-base md:text-lg" %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
+    <div>
+      <% question = Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS %>
+      <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+      <%= form.select question.key, options_for_select(
+          Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS.choices, 
+          @intake.homelessness_episodes_last_three_years || ''
+        ),
+        {include_blank: ''},
+        required: true,
+        class: "mt-2 block w-full text-base sm:text-lg rounded-md
+        border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+        focus:ring-offset-0 focus:ring-3"
+      %>
+    </div>
+
+    <div>
+      <% question = Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS %>
+      <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+      <%= form.select question.key, options_for_select(
+          Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS.choices, 
+          @intake.homelessness_total_last_three_years || ''
+        ),
+        {include_blank: ''},
+        required: true,
+        class: "mt-2 block w-full text-base sm:text-lg rounded-md
+        border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+        focus:ring-offset-0 focus:ring-3"
+      %>
+    </div>
+
+    <div>
+      <% question = Intake::LAST_PERMANENT_RESIDENCE_COUNTY %>
+      <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+      <%= form.text_field question.key,
+          value: @intake.last_permanent_residence_county,
+          placeholder: question.placeholder,
+          required: true,
+          class: "mt-2 block w-full text-base sm:text-lg border-gray-300 placeholder-gray-300
+          focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0
+          focus:ring-3 rounded-md"
+        %>
+    </div>
+
+    <div>
+      <% question = Intake::HEALTH_INSURANCE %>
+      <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+      <%= form.select question.key, options_for_select(
+          Intake::HEALTH_INSURANCE.choices, 
+          @intake.health_insurance || ''
+        ),
+        {include_blank: ''},
+        required: true,
+        class: "mt-2 block w-full text-base sm:text-lg rounded-md
+        border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+        focus:ring-offset-0 focus:ring-3"
+      %>
+    </div>
+
+    <div>
+      <% question = Intake::ARE_YOU_WORKING %>
+      <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
+      <%= form.select question.key, options_for_select(
+          Intake::ARE_YOU_WORKING.choices, 
+          @intake.are_you_working || ''
+        ),
+        {include_blank: ''},
+        required: true,
+        class: "mt-2 block w-full text-base sm:text-lg rounded-md
+        border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+        focus:ring-offset-0 focus:ring-3"
+      %>
+    </div>
+
+    <div>
+      <% question = Intake::NON_CASH_BENEFITS %>
+      <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
+      <div class="mt-2 p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <ul id="<%= "#{question.key}_list" %>" class="flex flex-1 flex-col w-full space-y-2">
+          <% question.choices.each do |choice| %>
+            <li class="p-1 flex items-center">
+              <%= form.check_box question.key, { 
+                  multiple: true, 
+                  checked: choice.in?(@intake.non_cash_benefits || []),
+                  class: "w-5 h-5 rounded text-sm text-indigo-600
+                  border-gray-300 focus:border-indigo-500
+                  focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
+                },
+                choice
+              %>
+              <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice, class: "ml-4 text-sm sm:text-base md:text-lg" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <% question = Intake::INCOME_SOURCE %>
+      <%= react_component('IncomeSourceToggle', 
+        question: question.to_h,
+        name: "intake[#{question.key}]",
+        checked: @intake.income_source_any
+      ) %>
+    </div>
+
+    <div>
+      <% question = Intake::VETERAN %>
+      <%= react_component('VeteranToggle', 
+        question: question.to_h,
+        name: "intake[client_attributes][#{question.key}]",
+        checked: @client.veteran,
+        sub_questions: {
+          veteran_military_branch: Intake::VETERAN_MILITARY_BRANCH.to_h, 
+          veteran_separation_year: Intake::VETERAN_SEPARATION_YEAR.to_h,
+          veteran_discharge_status: Intake::VETERAN_DISCHARGE_STATUS.to_h
+        }
+      ) %>
+    </div>
+
+    <div>
+      <% question = Intake::ACTIVE_DUTY %>
+      <%= react_component('Toggle',
+        question: question.to_h,
+        name: "intake[#{question.key}]",
+        checked: @intake.active_duty
+      ) %>
+    </div>
+
+    <div>
+      <% question = Intake::SUBSTANCE_MISUSE %>
+      <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
+      <%= form.select question.key, options_for_select(
+          Intake::SUBSTANCE_MISUSE.choices, 
+          @intake.substance_misuse || ''
+        ),
+        {include_blank: ''},
+        required: true,
+        class: "mt-2 block w-full text-base sm:text-lg rounded-md
+        border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+        focus:ring-offset-0 focus:ring-3"
+      %>
+    </div>
+  </div>
+
+
+  <div class="mt-8 md:mt-16 border border-gray-500 rounded-lg">
+    <div class="bg-gray-200 p-3 sm:p-5 md:p-12 leading-snug text-base sm:text-lg md:text-xl md:text-center">
+      For the following section, only select ‘yes’ when the condition is a long-term impairment.
+    </div>
+
+    <div class="p-4 md:p-6 lg:p-8">
+      <div class="space-y-4 md:space-y-8">
+        <div>
+          <% question = Intake::CHRONIC_HEALTH_CONDITION %>
+          <%= react_component('Toggle',
+            question: question.to_h,
+            name: "intake[#{question.key}]",
+            checked: @intake.chronic_health_condition
+          ) %>
         </div>
 
         <div>
-          <% question = Intake::ETHNICITY %>
-          <%= client_attributes.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-          <%= client_attributes.select question.key,
-            options_for_select(question.choices, @client.ethnicity),
-            {},
-            required: true,
-            class: "p-2 block w-full text-base sm:text-lg md:text-xl
-            border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-            focus:ring-offset-0 focus:ring-3 rounded-md"
-          %>
+          <% question = Intake::MENTAL_HEALTH_DISABILITY %>
+          <%= react_component('Toggle',
+            question: question.to_h,
+            name: "intake[#{question.key}]",
+            checked: @intake.mental_health_disability
+          ) %>
+        </div>
+
+        <div>
+          <% question = Intake::PHYSICAL_DISABILITY %>
+          <%= react_component('Toggle',
+            question: question.to_h,
+            name: "intake[#{question.key}]",
+            checked: @intake.physical_disability
+          ) %>
+        </div>
+
+        <div>
+          <% question = Intake::DEVELOPMENTAL_DISABILITY %>
+          <%= react_component('Toggle',
+            question: question.to_h,
+            name: "intake[#{question.key}]",
+            checked: @intake.developmental_disability
+          ) %>
+        </div>
+
+        <div>
+          <% question = Intake::FLEEING_DOMESTIC_VIOLENCE %>
+          <%= react_component('Toggle',
+            question: question.to_h,
+            name: "intake[#{question.key}]",
+            checked: @intake.fleeing_domestic_violence
+          ) %>
         </div>
       </div>
     </div>
   </div>
 
-<div class="mt-8 md:mt-16 bg-gray-200 p-3 sm:p-5 md:p-8 leading-snug text-base sm:text-lg md:text-xl md:text-center">
-  The following section only pertains to the client's family members/household.
-</div>
-
-<div class="mt-8 md:mt-16 px-2 md:px-12 space-y-4 md:space-y-8 text-gray-700">
-  <div>
-    <%= react_component('FamilyMembers', sub_questions: {
-      first_name: Intake::FIRST_NAME.to_h,
-      last_name: Intake::LAST_NAME.to_h,
-      relationship: Intake::RELATIONSHIP.to_h,
-      date_of_birth: Intake::DATE_OF_BIRTH.to_h,
-      gender: Intake::GENDER.to_h,
-      race: Intake::RACE.to_h,
-      ethnicity: Intake::ETHNICITY.to_h,
-      veteran: Intake::VETERAN.to_h,
-      disabling_condition: Intake::DISABLING_CONDITION.to_h
-    }) %>
-  </div>
-</div>
-
-<div class="mt-8 md:mt-16 px-2 md:px-12 space-y-4 md:space-y-8 text-gray-700">
-  <div>
-    <% question = Intake::HOUSEHOLD_TANF %>
-    <%= react_component('Toggle', 
-      question: question.to_h,
-      name: "intake[household_tanf]",
-      checked: @intake.household_tanf
-    ) %>    
-  </div>
-  
-  <div>
-    <% question = Intake::HOMELESSNESS_FIRST_TIME %>
-    <%= react_component('Toggle', 
-      question: question.to_h,
-      id: "homelessness_first_time",
-      checked: @intake.homelessness_first_time
-    ) %>
-  </div>
-
-  <div>
-    <% question = Intake::HOMELESSNESS_DATE_BEGAN %>
-    <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-    <%= form.date_field question.key,
-      value: Date.current - 1.year,
-      required: true,
-      class: "mt-2 block w-full text-base sm:text-lg 
-        border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3
-        rounded-md"
-      %>
-  </div>
-
-  <div>
-    <% question = Intake::HOMELESSNESS_HOW_LONG_THIS_TIME %>
-    <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-    <div class="mt-2 p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
-      <ul class="flex flex-col w-full space-y-2">
-        <% question.choices.each do |choice| %>
-          <li class="p-1 flex items-center">
-            <%= form.radio_button question.key, choice,
-              required: true,
-              checked: @intake.homelessness_how_long_this_time == choice,
-              class: "w-5 h-5
-              text-sm text-indigo-600 
-              border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
-            %>
-            <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice, class: "ml-4 text-sm sm:text-base md:text-lg" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-
-  <div>
-    <% question = Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS %>
-    <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-    <%= form.select question.key, options_for_select(
-        Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS.choices, 
-        @intake.homelessness_episodes_last_three_years || ''
-      ),
-      {include_blank: ''},
-      required: true,
-      class: "mt-2 block w-full text-base sm:text-lg rounded-md
-      border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-      focus:ring-offset-0 focus:ring-3"
-    %>
-  </div>
-
-  <div>
-    <% question = Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS %>
-    <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-    <%= form.select question.key, options_for_select(
-        Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS.choices, 
-        @intake.homelessness_total_last_three_years || ''
-      ),
-      {include_blank: ''},
-      required: true,
-      class: "mt-2 block w-full text-base sm:text-lg rounded-md
-      border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-      focus:ring-offset-0 focus:ring-3"
-    %>
-  </div>
-
-  <div>
-    <% question = Intake::LAST_PERMANENT_RESIDENCE_COUNTY %>
-    <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-    <%= form.text_field question.key,
-        value: @intake.last_permanent_residence_county,
-        placeholder: question.placeholder,
-        required: true,
-        class: "mt-2 block w-full text-base sm:text-lg border-gray-300 placeholder-gray-300
-        focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0
-        focus:ring-3 rounded-md"
-      %>
-  </div>
-
-  <div>
-    <% question = Intake::HEALTH_INSURANCE %>
-    <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-    <%= form.select question.key, options_for_select(
-        Intake::HEALTH_INSURANCE.choices, 
-        @intake.health_insurance || ''
-      ),
-      {include_blank: ''},
-      required: true,
-      class: "mt-2 block w-full text-base sm:text-lg rounded-md
-      border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-      focus:ring-offset-0 focus:ring-3"
-    %>
-  </div>
-
-  <div>
-    <% question = Intake::ARE_YOU_WORKING %>
-    <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-    <%= form.select question.key, options_for_select(
-        Intake::ARE_YOU_WORKING.choices, 
-        @intake.are_you_working || ''
-      ),
-      {include_blank: ''},
-      required: true,
-      class: "mt-2 block w-full text-base sm:text-lg rounded-md
-      border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-      focus:ring-offset-0 focus:ring-3"
-    %>
-  </div>
-
-  <div>
-    <% question = Intake::NON_CASH_BENEFITS %>
-    <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-    <div class="mt-2 p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
-      <ul id="<%= "#{question.key}_list" %>" class="flex flex-1 flex-col w-full space-y-2">
-        <% question.choices.each do |choice| %>
-          <li class="p-1 flex items-center">
-            <%= form.check_box question.key, { 
-                multiple: true, 
-                checked: choice.in?(@intake.non_cash_benefits || []),
-                class: "w-5 h-5 rounded text-sm text-indigo-600
-                border-gray-300 focus:border-indigo-500
-                focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
-              },
-              choice
-            %>
-            <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice, class: "ml-4 text-sm sm:text-base md:text-lg" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-
-  <div>
-    <% question = Intake::INCOME_SOURCE %>
-    <%= react_component('IncomeSourceToggle', 
-      question: question.to_h,
-      name: "intake[#{question.key}]",
-      checked: @intake.income_source_any
-    ) %>
-  </div>
-
-  <div>
-    <% question = Intake::VETERAN %>
-    <%= react_component('VeteranToggle', 
-      question: question.to_h,
-      name: "intake[client_attributes][#{question.key}]",
-      checked: @client.veteran,
-      sub_questions: {
-        veteran_military_branch: Intake::VETERAN_MILITARY_BRANCH.to_h, 
-        veteran_separation_year: Intake::VETERAN_SEPARATION_YEAR.to_h,
-        veteran_discharge_status: Intake::VETERAN_DISCHARGE_STATUS.to_h
-      }
-    ) %>
-  </div>
-
-  <div>
-    <% question = Intake::ACTIVE_DUTY %>
-    <%= react_component('Toggle',
-      question: question.to_h,
-      name: "intake[#{question.key}]",
-      checked: @intake.active_duty
-    ) %>
-  </div>
-
-  <div>
-    <% question = Intake::SUBSTANCE_MISUSE %>
-    <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
-    <%= form.select question.key, options_for_select(
-        Intake::SUBSTANCE_MISUSE.choices, 
-        @intake.substance_misuse || ''
-      ),
-      {include_blank: ''},
-      required: true,
-      class: "mt-2 block w-full text-base sm:text-lg rounded-md
-      border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-      focus:ring-offset-0 focus:ring-3"
-    %>
-  </div>
-</div>
-
-<div class="mt-8 md:mt-16 bg-gray-200 p-3 sm:p-5 md:p-12 leading-snug text-base sm:text-lg md:text-xl md:text-center">
-  For the following section, only select ‘yes’ when the condition is a long-term impairment.
-</div>
-
-<div class="mt-8 md:mt-16 px-2 md:px-12 space-y-4 md:space-y-8 text-gray-700">
-  <div>
-    <% question = Intake::CHRONIC_HEALTH_CONDITION %>
-    <%= react_component('Toggle',
-      question: question.to_h,
-      name: "intake[#{question.key}]",
-      checked: @intake.chronic_health_condition
-    ) %>
-  </div>
-
-  <div>
-    <% question = Intake::MENTAL_HEALTH_DISABILITY %>
-    <%= react_component('Toggle',
-      question: question.to_h,
-      name: "intake[#{question.key}]",
-      checked: @intake.mental_health_disability
-    ) %>
-  </div>
-
-  <div>
-    <% question = Intake::PHYSICAL_DISABILITY %>
-    <%= react_component('Toggle',
-      question: question.to_h,
-      name: "intake[#{question.key}]",
-      checked: @intake.physical_disability
-    ) %>
-  </div>
-
-  <div>
-    <% question = Intake::DEVELOPMENTAL_DISABILITY %>
-    <%= react_component('Toggle',
-      question: question.to_h,
-      name: "intake[#{question.key}]",
-      checked: @intake.developmental_disability
-    ) %>
-  </div>
-
-  <div>
-    <% question = Intake::FLEEING_DOMESTIC_VIOLENCE %>
-    <%= react_component('Toggle',
-      question: question.to_h,
-      name: "intake[#{question.key}]",
-      checked: @intake.fleeing_domestic_violence
-    ) %>
-  </div>
-
-  <div class="text-center pb-24">
+  <div class="text-center p-16">
     <input type="submit" name="commit" value="Submit Intake" class="
           mt-4 px-3 md:px-4 py-2 md:py-3 inline-flex items-center
           border border-transparent bg-indigo-600 hover:bg-indigo-700 
@@ -390,9 +399,8 @@
           rounded-lg shadow-sm cursor-pointer" 
     />
   </div>
-</div>
-</div>
   <% end %>
 <% end %>
+</div>
 
 <%= javascript_pack_tag "intake_form" %>

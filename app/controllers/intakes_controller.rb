@@ -1,6 +1,4 @@
 class IntakesController < ApplicationController
-  before_action :hydrate_form, only: %i[ new create ]
-
   def new
     if params[:client_id].present?
       @client = Client.find(params[:client_id])
@@ -108,17 +106,5 @@ class IntakesController < ApplicationController
         :veteran_discharge_status,
       ]
     )
-  end
-
-  def hydrate_form
-    @disabled = []
-    supply = RoomSupply.vouchers_remaining_today(@swap)
-    @hotels = Hotel.all.reduce({}) do |memo, hotel|
-      name = "#{hotel.name} (#{supply[hotel.id]})"
-      if supply[hotel.id].to_i <= 0
-        @disabled << hotel.id
-      end
-      memo.merge(Hash[name, hotel.id])
-    end
   end
 end

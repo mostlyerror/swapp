@@ -10,20 +10,18 @@ body {
 }
 
 h1 {
-  @apply text-4xl;
+  @apply font-bold leading-tight text-gray-900 text-3xl md:text-4xl lg:text-5xl;
 }
 h2 {
-  @apply text-3.5xl;
+  @apply font-bold leading-tight text-gray-900 text-2xl md:text-3xl lg:text-4xl;
 }
 h3 {
-  @apply text-3xl;
+  @apply font-bold leading-tight text-gray-900 text-xl md:text-2xl lg:text-3xl;
 }
 h4 {
-  @apply text-2xl;
+  @apply font-semibold leading-tight text-xl md:text-xl;
 }
-h5 {
-  @apply text-xl;
-}
+
 // fix ios element rounding
 input {
   border-radius: 0;
@@ -52,8 +50,8 @@ input[type='search'] {
 .btn-extend {
   padding: 1.05em 1.4em;
   font-weight: 700;
-  box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
-  text-align:center;
+  box-shadow: inset 0 -0.6em 0 -0.35em rgba(0, 0, 0, 0.17);
+  text-align: center;
   border-left: unset;
 }
 
