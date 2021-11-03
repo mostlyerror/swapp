@@ -30,4 +30,18 @@ class Hotel < ApplicationRecord
   def address_second
     "#{address['city']}, #{address['state']} #{address['zip']}"
   end
+
+  def self.to_csv
+    CSV.generate(headers: true) do |csv|
+      csv << column_names
+      all.each do |hotel|
+        row = column_names.map  do |col| 
+          col == "address" ?
+            hotel.send(col).to_json :
+            hotel.send(col) 
+        end
+        csv << row
+      end
+    end
+  end
 end
