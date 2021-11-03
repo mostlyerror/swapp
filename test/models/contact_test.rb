@@ -12,7 +12,10 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #
-class Contact < ApplicationRecord
-  has_many :hotels_contacts, class_name: "HotelContact", table_name: :hotels_contacts
-  has_many :hotels, through: :hotels_contacts
+require 'test_helper'
+
+class ContactTest < ActiveSupport::TestCase
+  test "contact can have 0 to many hotels" do
+    c = create(:contact)
+  end
 end

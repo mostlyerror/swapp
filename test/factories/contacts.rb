@@ -12,7 +12,7 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #
-class Contact < ApplicationRecord
-  has_many :hotels_contacts, class_name: "HotelContact", table_name: :hotels_contacts
-  has_many :hotels, through: :hotels_contacts
+FactoryBot.define do
+  factory :contact do
+  end
 end
