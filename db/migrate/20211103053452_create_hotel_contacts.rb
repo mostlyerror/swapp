@@ -2,9 +2,10 @@ class CreateHotelContacts < ActiveRecord::Migration[6.0]
   def change
     create_table :contacts do |t|
       t.string "first_name", null: false
-      t.string "last_name", null: false
+      t.string "last_name", null: true
       t.string "phone", null: true
       t.string "email", null: true
+      t.string "title", null: true
       t.string "preferred_contact_method", null: true
       t.timestamps
     end
