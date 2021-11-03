@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_26_202417) do
+ActiveRecord::Schema.define(version: 2021_11_03_053452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 2021_10_26_202417) do
     t.boolean "force_intake", default: false
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "phone"
+    t.string "email"
+    t.string "preferred_contact_method"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "hotels", force: :cascade do |t|
     t.string "name", null: false
     t.json "address"
@@ -55,6 +65,16 @@ ActiveRecord::Schema.define(version: 2021_10_26_202417) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "pet_friendly", default: false
+  end
+
+  create_table "hotels_contacts", force: :cascade do |t|
+    t.bigint "hotel_id"
+    t.bigint "contact_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contact_id"], name: "index_hotels_contacts_on_contact_id"
+    t.index ["hotel_id", "contact_id"], name: "index_hotels_contacts_on_hotel_id_and_contact_id", unique: true
+    t.index ["hotel_id"], name: "index_hotels_contacts_on_hotel_id"
   end
 
   create_table "hotels_users", id: false, force: :cascade do |t|
