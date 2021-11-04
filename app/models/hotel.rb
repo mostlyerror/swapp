@@ -44,4 +44,20 @@ class Hotel < ApplicationRecord
       end
     end
   end
+
+  def self.import(file)
+    ActiveRecord::Base.transaction do 
+      CSV.foreach(file.path, headers: true) do |row|
+        row["address"] = JSON.parse(row["address"]) if row["address"].present?
+        row.delete(:created_at)
+        row.delete(:updated_at)
+
+        if id = row.delete("id").last
+          Hotel.find(id).update!(row.to_h)
+        else
+          Hotel.create!(row.to_h)
+        end
+      end
+    end
+  end
 end
