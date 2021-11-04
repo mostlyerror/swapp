@@ -1,3 +1,38 @@
+# == Schema Information
+# Schema version: 20211103053452
+#
+# Table name: vouchers
+#
+#  id                        :bigint           not null, primary key
+#  check_in                  :date             not null
+#  check_out                 :date             not null
+#  guest_ids                 :integer          default([]), is an Array
+#  notes                     :text
+#  num_adults_in_household   :integer
+#  num_children_in_household :integer
+#  number                    :string
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  client_id                 :bigint           not null, indexed, indexed => [swap_id]
+#  hotel_id                  :bigint           not null, indexed
+#  swap_id                   :bigint           indexed => [client_id], indexed
+#  user_id                   :bigint           not null, indexed
+#
+# Indexes
+#
+#  index_vouchers_on_client_id              (client_id)
+#  index_vouchers_on_client_id_and_swap_id  (client_id,swap_id)
+#  index_vouchers_on_hotel_id               (hotel_id)
+#  index_vouchers_on_swap_id                (swap_id)
+#  index_vouchers_on_user_id                (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_1a4d6b99f0  (swap_id => swaps.id)
+#  fk_rails_1ea81e504c  (hotel_id => hotels.id)
+#  fk_rails_35b9b0ce9d  (client_id => clients.id)
+#  fk_rails_3e6ca7b204  (user_id => users.id)
+#
 require 'test_helper'
 
 class VoucherTest < ActiveSupport::TestCase
