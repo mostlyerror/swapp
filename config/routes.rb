@@ -76,6 +76,9 @@
 #                     admin_swap_report GET    /admin/reports/swap(.:format)                                                            admin/reports#swap
 #                   admin_edit_red_flag PUT    /admin/guests/:id(.:format)                                                              admin/red_flags#edit_red_flag
 #          admin_create_incident_report POST   /admin/clients/:id/incidents(.:format)                                                   admin/incident_reports#create
+#                      admin_hotels_csv GET    /admin/hotels.csv(.:format)                                                              admin/hotels#index
+#                 admin_hotels_importer GET    /admin/hotels/importer(.:format)                                                         admin/hotels#importer
+#                   admin_hotels_import POST   /admin/hotels/import(.:format)                                                           admin/hotels#import
 #                                  root GET    /                                                                                        landing#index
 #         rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                  action_mailbox/ingresses/postmark/inbound_emails#create
 #            rails_relay_inbound_emails POST   /rails/action_mailbox/relay/inbound_emails(.:format)                                     action_mailbox/ingresses/relay/inbound_emails#create

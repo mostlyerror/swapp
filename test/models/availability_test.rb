@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211103053452
+# Schema version: 20211104055535
 #
 # Table name: availabilities
 #
@@ -19,7 +19,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_6b15febea0  (hotel_id => hotels.id)
+#  fk_rails_b93457d69c  (hotel_id => hotels.id)
 #  fk_rails_ccaa540134  (swap_id => swaps.id)
 #
 require 'test_helper'

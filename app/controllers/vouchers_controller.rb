@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211103053452
+# Schema version: 20211104055535
 #
 # Table name: vouchers
 #
@@ -29,9 +29,9 @@
 # Foreign Keys
 #
 #  fk_rails_1a4d6b99f0  (swap_id => swaps.id)
-#  fk_rails_1ea81e504c  (hotel_id => hotels.id)
 #  fk_rails_35b9b0ce9d  (client_id => clients.id)
 #  fk_rails_3e6ca7b204  (user_id => users.id)
+#  fk_rails_4ba6faec0b  (hotel_id => hotels.id)
 #
 class VouchersController < ApplicationController
   before_action :set_voucher, only: %i[ show created ]
