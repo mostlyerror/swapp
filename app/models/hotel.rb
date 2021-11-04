@@ -1,10 +1,12 @@
 # == Schema Information
-# Schema version: 20211103053452
+# Schema version: 20211104062639
 #
 # Table name: hotels
 #
 #  id           :bigint           not null, primary key
+#  active       :boolean          default(TRUE)
 #  address      :json
+#  log_data     :jsonb
 #  name         :string           not null
 #  pet_friendly :boolean          default(FALSE)
 #  phone        :string
@@ -12,6 +14,7 @@
 #  updated_at   :datetime         not null
 #
 class Hotel < ApplicationRecord
+  has_logidze
   has_many :availabilities
   has_many :vouchers
   has_many :hotel_users, class_name: 'HotelUser', table_name: :hotels_users
@@ -23,6 +26,8 @@ class Hotel < ApplicationRecord
 
   validates_presence_of :name
 
+  scope :active, ->() { where(active: true) }
+
   def street_address
     address['street']
   end
@@ -33,9 +38,11 @@ class Hotel < ApplicationRecord
 
   def self.to_csv
     CSV.generate(headers: true) do |csv|
-      csv << column_names
+      ignore_columns = %w[log_data created_at updated_at]
+      selected_columns = column_names - ignore_columns
+      csv << selected_columns
       all.each do |hotel|
-        row = column_names.map  do |col| 
+        row = selected_columns.map  do |col| 
           col == "address" ?
             hotel.send(col).to_json :
             hotel.send(col) 
@@ -49,8 +56,6 @@ class Hotel < ApplicationRecord
     ActiveRecord::Base.transaction do 
       CSV.foreach(file.path, headers: true) do |row|
         row["address"] = JSON.parse(row["address"]) if row["address"].present?
-        row.delete(:created_at)
-        row.delete(:updated_at)
 
         if id = row.delete("id").last
           Hotel.find(id).update!(row.to_h)

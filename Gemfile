@@ -44,3 +44,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
+
+gem "logidze", "~> 1.2"
+
+gem "fx", "~> 0.6.2"

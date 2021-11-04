@@ -1,10 +1,12 @@
 # == Schema Information
-# Schema version: 20211103053452
+# Schema version: 20211104062639
 #
 # Table name: hotels
 #
 #  id           :bigint           not null, primary key
+#  active       :boolean          default(TRUE)
 #  address      :json
+#  log_data     :jsonb
 #  name         :string           not null
 #  pet_friendly :boolean          default(FALSE)
 #  phone        :string
