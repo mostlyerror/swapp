@@ -153,6 +153,10 @@ Rails.application.routes.draw do
       get "/reports/swap" => "reports#swap", as: :swap_report
       put "/guests/:id" => "red_flags#edit_red_flag", as: :edit_red_flag
       post "clients/:id/incidents" => "incident_reports#create", as: :create_incident_report
+
+      get "/hotels.csv" => "hotels#index", as: :hotels_csv
+      get "/hotels/importer" => "hotels#importer"
+      post "/hotels/import" => "hotels#import"
     end
   end
  

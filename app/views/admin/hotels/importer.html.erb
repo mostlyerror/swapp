@@ -1,0 +1,12 @@
+<div>
+  <h4>Download CSV</h4>
+  <%= link_to "download", admin_hotels_csv_path, format: :csv %>
+</div>
+
+<div>
+  <h4>Upsert from csv</h4>
+  <%= form_tag admin_hotels_import_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import CSV" %>
+  <% end %>
+</div>
