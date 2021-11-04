@@ -1,11 +1,12 @@
 # == Schema Information
-# Schema version: 20211104055535
+# Schema version: 20211104062639
 #
 # Table name: hotels
 #
 #  id           :bigint           not null, primary key
 #  active       :boolean          default(TRUE)
 #  address      :json
+#  log_data     :jsonb
 #  name         :string           not null
 #  pet_friendly :boolean          default(FALSE)
 #  phone        :string
@@ -13,6 +14,7 @@
 #  updated_at   :datetime         not null
 #
 class Hotel < ApplicationRecord
+  has_logidze
   has_many :availabilities
   has_many :vouchers
   has_many :hotel_users, class_name: 'HotelUser', table_name: :hotels_users

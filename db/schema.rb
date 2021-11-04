@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_04_062309) do
+ActiveRecord::Schema.define(version: 2021_11_04_062639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062309) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "pet_friendly", default: false
     t.boolean "active", default: true
+    t.jsonb "log_data"
   end
 
   create_table "hotels_contacts", force: :cascade do |t|
@@ -599,4 +600,8 @@ ActiveRecord::Schema.define(version: 2021_11_04_062309) do
       $function$
   SQL
 
+
+  create_trigger :logidze_on_hotels, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_hotels BEFORE INSERT OR UPDATE ON public.hotels FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
 end
