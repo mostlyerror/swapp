@@ -26,7 +26,7 @@ class Hotel < ApplicationRecord
 
   validates_presence_of :name
 
-  default_scope { where(active: true) }
+  scope :active, ->() { where(active: true) }
 
   def street_address
     address['street']
@@ -38,9 +38,11 @@ class Hotel < ApplicationRecord
 
   def self.to_csv
     CSV.generate(headers: true) do |csv|
-      csv << column_names
+      ignore_columns = %w[log_data created_at updated_at]
+      selected_columns = column_names - ignore_columns
+      csv << selected_columns
       all.each do |hotel|
-        row = column_names.map  do |col| 
+        row = selected_columns.map  do |col| 
           col == "address" ?
             hotel.send(col).to_json :
             hotel.send(col) 
@@ -54,8 +56,6 @@ class Hotel < ApplicationRecord
     ActiveRecord::Base.transaction do 
       CSV.foreach(file.path, headers: true) do |row|
         row["address"] = JSON.parse(row["address"]) if row["address"].present?
-        row.delete(:created_at)
-        row.delete(:updated_at)
 
         if id = row.delete("id").last
           Hotel.find(id).update!(row.to_h)
