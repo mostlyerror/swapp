@@ -21,6 +21,9 @@ First, install the following:
 ### Install Tailwind CSS v2.0
 1. Install some node packages to provide the best CSS compatibility possible. Run `npm install tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9`
 
+### Install webpacker
+1. Install webpacker with `rails webpacker:install`
+
 ### Set up the database
 1. Run the following:
     - `rails db:create`
@@ -55,7 +58,8 @@ Essentially, you can run `EDITOR=vim rails credentials:edit` to open your encryp
 
 ### Run the app
 1. Run `rails server` to start the app
-1. Navigate to `http://localhost:3000` to view 
+2. In a separate process, run `./bin/webpack-dev-server`
+3. Navigate to `http://localhost:3000` to view 
 
 ## How to contribute
 
