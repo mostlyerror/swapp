@@ -26,6 +26,7 @@
 #  fk_rails_9bcdbad11d  (user_id => users.id)
 #
 class ShortIntake < ApplicationRecord
+  has_logidze
   belongs_to :client
   accepts_nested_attributes_for :client
   belongs_to :user

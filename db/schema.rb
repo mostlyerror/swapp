@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_04_062639) do
+ActiveRecord::Schema.define(version: 2021_11_06_161846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
     t.integer "vacant"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "log_data"
     t.index ["hotel_id", "swap_id", "date"], name: "index_availabilities_on_hotel_id_and_swap_id_and_date", unique: true
     t.index ["hotel_id"], name: "index_availabilities_on_hotel_id"
     t.index ["swap_id"], name: "index_availabilities_on_swap_id"
@@ -47,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
     t.jsonb "family_members", default: {}
     t.boolean "banned", default: false
     t.boolean "force_intake", default: false
+    t.jsonb "log_data"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -58,6 +60,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
     t.string "preferred_contact_method"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "log_data"
   end
 
   create_table "hotels", force: :cascade do |t|
@@ -76,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
     t.bigint "contact_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "log_data"
     t.index ["contact_id"], name: "index_hotels_contacts_on_contact_id"
     t.index ["hotel_id", "contact_id"], name: "index_hotels_contacts_on_hotel_id_and_contact_id", unique: true
     t.index ["hotel_id"], name: "index_hotels_contacts_on_hotel_id"
@@ -84,6 +88,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
   create_table "hotels_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "hotel_id", null: false
+    t.jsonb "log_data"
     t.index ["hotel_id"], name: "index_hotels_users_on_hotel_id"
     t.index ["user_id"], name: "index_hotels_users_on_user_id"
   end
@@ -97,6 +102,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
     t.bigint "reporter_id"
     t.integer "hotel_id"
     t.boolean "red_flag", default: false
+    t.jsonb "log_data"
     t.index ["client_id"], name: "index_incident_reports_on_client_id"
     t.index ["reporter_id"], name: "index_incident_reports_on_reporter_id"
   end
@@ -140,6 +146,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
     t.integer "income_source_general_assistance"
     t.date "homelessness_date_began"
     t.boolean "household_tanf"
+    t.jsonb "log_data"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end
@@ -149,6 +156,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
     t.bigint "hotel_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "log_data"
     t.index ["client_id"], name: "index_red_flags_on_client_id"
     t.index ["hotel_id"], name: "index_red_flags_on_hotel_id"
   end
@@ -164,6 +172,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
     t.bigint "client_id", null: false
     t.bigint "user_id", null: false
     t.boolean "household_composition_changed"
+    t.jsonb "log_data"
     t.index ["client_id"], name: "index_short_intakes_on_client_id"
     t.index ["user_id"], name: "index_short_intakes_on_user_id"
   end
@@ -174,6 +183,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.date "intake_dates", default: [], array: true
+    t.jsonb "log_data"
   end
 
   create_table "users", force: :cascade do |t|
@@ -191,6 +201,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
     t.boolean "intake_user", default: false, null: false
     t.boolean "show_swap_panel", default: true
     t.boolean "active", default: true
+    t.jsonb "log_data"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -209,6 +220,7 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
     t.integer "num_children_in_household"
     t.integer "guest_ids", default: [], array: true
     t.text "notes"
+    t.jsonb "log_data"
     t.index ["client_id", "swap_id"], name: "index_vouchers_on_client_id_and_swap_id"
     t.index ["client_id"], name: "index_vouchers_on_client_id"
     t.index ["hotel_id"], name: "index_vouchers_on_hotel_id"
@@ -601,7 +613,43 @@ ActiveRecord::Schema.define(version: 2021_11_04_062639) do
   SQL
 
 
+  create_trigger :logidze_on_availabilities, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_availabilities BEFORE INSERT OR UPDATE ON public.availabilities FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_clients, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_clients BEFORE INSERT OR UPDATE ON public.clients FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_contacts, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_contacts BEFORE INSERT OR UPDATE ON public.contacts FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
   create_trigger :logidze_on_hotels, sql_definition: <<-SQL
       CREATE TRIGGER logidze_on_hotels BEFORE INSERT OR UPDATE ON public.hotels FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_hotels_contacts, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_hotels_contacts BEFORE INSERT OR UPDATE ON public.hotels_contacts FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_hotels_users, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_hotels_users BEFORE INSERT OR UPDATE ON public.hotels_users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_incident_reports, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_incident_reports BEFORE INSERT OR UPDATE ON public.incident_reports FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_intakes, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_intakes BEFORE INSERT OR UPDATE ON public.intakes FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_red_flags, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_red_flags BEFORE INSERT OR UPDATE ON public.red_flags FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_short_intakes, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_short_intakes BEFORE INSERT OR UPDATE ON public.short_intakes FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_swaps, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_swaps BEFORE INSERT OR UPDATE ON public.swaps FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_users, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_users BEFORE INSERT OR UPDATE ON public.users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_vouchers, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_vouchers BEFORE INSERT OR UPDATE ON public.vouchers FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
   SQL
 end

@@ -1,6 +1,5 @@
 class ClientSearch
     def self.search(search_term)
-        ap search_term
         search_term.downcase!
         clients = Client.includes(:incident_reports)
         .where("first_name ILIKE ? or last_name ILIKE ?", "%#{search_term}%", "%#{search_term}%").limit(8)

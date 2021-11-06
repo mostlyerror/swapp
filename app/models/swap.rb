@@ -11,6 +11,7 @@
 #  updated_at   :datetime         not null
 #
 class Swap < ApplicationRecord
+  has_logidze
   # include AASM 
 
   validates_presence_of :start_date, :end_date, :intake_dates

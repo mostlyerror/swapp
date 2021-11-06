@@ -34,6 +34,7 @@
 #  fk_rails_4ba6faec0b  (hotel_id => hotels.id)
 #
 class Voucher < ApplicationRecord
+  has_logidze
   belongs_to :client
   belongs_to :user
   belongs_to :hotel

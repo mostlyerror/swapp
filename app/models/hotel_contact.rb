@@ -16,6 +16,7 @@
 #  index_hotels_contacts_on_hotel_id_and_contact_id  (hotel_id,contact_id) UNIQUE
 #
 class HotelContact < ApplicationRecord
+  has_logidze
   self.table_name = :hotels_contacts
   belongs_to :hotel
   belongs_to :contact
