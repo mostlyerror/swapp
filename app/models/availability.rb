@@ -23,6 +23,7 @@
 #  fk_rails_ccaa540134  (swap_id => swaps.id)
 #
 class Availability < ApplicationRecord
+  has_logidze
   belongs_to :hotel
   belongs_to :swap
 

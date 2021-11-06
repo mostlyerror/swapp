@@ -23,6 +23,7 @@
 #  updated_at               :datetime         not null
 #
 class Client < ApplicationRecord
+  has_logidze
   include PgSearch::Model
   pg_search_scope :that_sounds_like, against: [:first_name, :last_name], using: :dmetaphone
 

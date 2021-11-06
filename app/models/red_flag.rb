@@ -20,6 +20,7 @@
 #  fk_rails_974f96e3bd  (client_id => clients.id)
 #
 class RedFlag < ApplicationRecord
+  has_logidze
     self.table_name = :red_flags
     belongs_to :client
     belongs_to :hotel

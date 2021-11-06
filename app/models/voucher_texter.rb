@@ -15,5 +15,4 @@ class VoucherTexter
       body: body
     )
   end
-
 end
