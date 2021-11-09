@@ -1,49 +1,4 @@
 <div class="flex items-center">
-  <% if current_user.admin_user? %>
-    <span class="uppercase text-red-900 bg-red-200 font-semibold tracking-wide rounded-lg px-2">admin only</span>
-  <% end %>
-</div>
-<% if current_user.admin_user? %>
-  <div class="flex flex-col gap-4 bg-white border border-gray-300 p-4 mt-3 rounded-lg shadow-sm md:shadow-lg">
-    <% flash.each do |type, msg| %>
-      <% if type == "info" %>
-        <div class="flex items-center bg-green-100 text-lg text-green-900 p-4 rounded-lg" role="alert">
-          <svg class="h-6 w-6 mr-3 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <%= msg %>
-        </div>
-      <% elsif type == "error" %>
-        <div class="flex items-center bg-red-100 text-lg text-red-900 p-4 rounded-lg" role="alert">
-          <svg class="h-6 w-6 mr-3 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-          </svg>
-          <%= msg %>
-        </div>
-      <% end %>
-    <% end %>
-    <%= form_for(@client, url: admin_edit_red_flag_path(@client), method: :put) do |form| %>
-      <div class="flex flex-col gap-4 text-xl text-gray-800">
-        <p class="">Select Hotel(s) where client is no longer eligible to stay.</p>
-        <p class="leading-snug"><span class="font-semibold">Warning:</span> checking these boxes will disallow the client from receiving a voucher at the selected hotel.</p>
-        <p class="leading-snug">Removing a red flag without hotel confirmation may also result in the client being sent to a hotel where they are unable to stay.</p>
-      </div>
-      <ul class="flex flex-1 flex-col mt-4 p-2 gap-4">
-        <% @hotels.each do |hotel| %>
-          <li class="flex items-center">
-            <%= form.check_box :hotel_ids, { 
-                multiple: true, 
-                checked: hotel.id.in?(@flag_hotel_ids),
-                class: "w-6 h-6 rounded-md text-indigo-500"
-              }, hotel.id %>
-            <%= form.label hotel.name, class: "px-2 text-xl" %>
-          </li>
-        <% end %>
-      </ul>
-      <%= form.submit "Update Flags", class: "mt-4 px-4 md:px-6 lg:px-8 py-2 bg-indigo-600 hover:bg-indigo-700 text-lg text-white font-semibold tracking-wide cursor-pointer rounded" %>
-    <% end %>
-  </div>
-<% elsif current_user.hotel_user? %>
   <div>
     <h3 class="px-2 py-2 text-xl tracking-wide font-normal bg-gray-900 text-gray-100 rounded-t-lg">Red Flags</h3>
     <div class="p-4 bg-white border border-gray-300 rounded-b-lg text-xl text-gray-800 shadow-sm md:shadow-lg">
@@ -55,4 +10,4 @@
       <% end %>
     </div>
   </div>
-<% end %>
+</div>
