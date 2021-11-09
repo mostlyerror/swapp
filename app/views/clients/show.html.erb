@@ -1,4 +1,4 @@
-<div class="md:container lg:max-w-6xl">
+<div class="md:container lg:max-w-6xl pb-24">
   <section class="mt-4 px-2">
     <%= render partial: 'shared/swap_notices' %>
   </section>
@@ -10,12 +10,6 @@
         Last update: <%= time_ago_in_words(@client.updated_at) %> ago
       </p>
     </div>
-
-    <% if @client.banned? %>
-      <p class="mt-2 md:mt-4 text-base sm:text-lg md:text-xl">
-        <span class="font-semibold text-red-500"><%= @client.first_name %> has been red-flagged program-wide.</span> They are not eligible to receive SWAP hotel vouchers.
-      </p>
-    <% end %>
 
     <div class="mt-4 md:mt-8">
       <% if @editing %>
@@ -36,4 +30,18 @@
 
     <!-- todo: build workflow for disabling vouchers during non-active swap periods -->
   </section>
+
+  <div>
+    <% if @client.banned? %>
+      <p class="mt-2 md:mt-4 text-base sm:text-lg md:text-xl">
+        <span class="font-semibold text-red-500"><%= @client.first_name %> has been red-flagged program-wide.</span> They are not eligible to receive SWAP hotel vouchers.
+      </p>
+    <% else %>
+      <div class="flex justify-center">
+      <%= button_to new_voucher_path(client_id: @client.id), { method: :get, params: { client_id: @client.id }, class: button_class(!@swap&.intake_active?) } do %>
+          <%= render partial: 'create_voucher_button' %>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
