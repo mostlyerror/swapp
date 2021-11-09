@@ -11,12 +11,6 @@
       </p>
     </div>
 
-    <% if @client.banned? %>
-      <p class="mt-2 md:mt-4 text-base sm:text-lg md:text-xl">
-        <span class="font-semibold text-red-500"><%= @client.first_name %> has been red-flagged program-wide.</span> They are not eligible to receive SWAP hotel vouchers.
-      </p>
-    <% end %>
-
     <div class="mt-4 md:mt-8">
       <% if @editing %>
         <%= render partial: 'client_details_form' , client: @client %>
@@ -36,4 +30,11 @@
 
     <!-- todo: build workflow for disabling vouchers during non-active swap periods -->
   </section>
+  <div>
+    <% if @client.banned? %>
+      <p class="mt-2 md:mt-4 text-base sm:text-lg md:text-xl">
+        <span class="font-semibold text-red-500"><%= @client.first_name %> has been red-flagged program-wide.</span> They are not eligible to receive SWAP hotel vouchers.
+      </p>
+    <% end %>
+  </div>
 </div>
