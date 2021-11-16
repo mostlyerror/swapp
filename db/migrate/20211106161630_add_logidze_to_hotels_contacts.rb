@@ -4,11 +4,11 @@ class AddLogidzeToHotelsContacts < ActiveRecord::Migration[6.0]
 
     reversible do |dir|
       dir.up do
-        create_trigger :logidze_on_hotel_contacts, on: :hotels_contacts
+        create_trigger :logidze_on_hotels_contacts, on: :hotels_contacts
       end
 
       dir.down do
-        execute "DROP TRIGGER IF EXISTS logidze_on_hotel_contacts on hotels_contacts;"
+        execute "DROP TRIGGER IF EXISTS logidze_on_hotels_contacts on hotels_contacts;"
       end
     end
 
