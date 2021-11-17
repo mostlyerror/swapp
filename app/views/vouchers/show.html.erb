@@ -1,20 +1,25 @@
-<div class="px-2 md:px-6 md:w-11/12 mx-auto mt-8 md:mt-12">
-  <p class="mt-4 text-base sm:text-lg md:text-xl text-gray-800">
-    This is a digital record of a hotel voucher. <strong>This does NOT replace a physical voucher!</strong> ONLY the paper voucher will be accepted by the hotel front desk.
-  </p>
-</div>
+<div class="px-2 md:container lg:max-w-6xl">
 
-<div class="px-3 sm:px-6 md:px-16 md:w-11/12 mx-auto mt-8 md:mt-12">
-  <%= render @voucher %>
-</div>
+  <section class="mt-8 md:mt-12 lg:mt-16 ">
+    <h1 class="text-center">Hotel Voucher</h1>
+    <p class="mt-4 md:mt-8 text-base sm:text-lg md:text-xl text-gray-800 max-w-3xl md:text-center mx-auto">
+      This is a digital record of a hotel voucher. <strong>This does NOT replace a
+      physical voucher!</strong> ONLY the paper voucher will be accepted by the
+      hotel front desk.  Write down the voucher details on your physical voucher
+      slip.  </p>
+  </section>
 
-<div class="py-4 sm:py-6 md:py-8 md:w-11/12 mx-auto flex justify-between max-w-xs">
-  <div class="p-4">
-    <%= link_to 'Back', :back, 
-    class: 'text-xl sm:text-2xl md:text-3xl underline font-bold text-indigo-600' %>
+  <section class="mx-auto mt-8 md:mt-12 md:max-w-4xl">
+    <%= render @voucher %>
+  </section>
+
+  <div class="py-4 sm:py-6 md:py-8 md:w-11/12 mx-auto flex justify-between max-w-xs">
+    <div class="p-4">
+      <%= link_to 'Back', :back, 
+      class: 'text-xl sm:text-2xl md:text-3xl underline font-bold text-indigo-600' %>
+    </div>
+    <div class="p-4">
+      <%= link_to 'Search', clients_path, 
+      class: 'text-xl sm:text-2xl md:text-3xl underline font-bold text-indigo-600' %>
   </div>
-  <div class="p-4">
-    <%= link_to 'Search', clients_path, 
-    class: 'text-xl sm:text-2xl md:text-3xl underline font-bold text-indigo-600' %>
-  </div>
-</ul>
+</div>
