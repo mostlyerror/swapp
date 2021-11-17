@@ -41,7 +41,7 @@
 #  created_at                                      :datetime         not null
 #  updated_at                                      :datetime         not null
 #  client_id                                       :bigint           not null, indexed
-#  swap_id                                         :bigint           not null, indexed
+#  swap_id                                         :bigint           indexed
 #  user_id                                         :bigint           not null, indexed
 #
 # Indexes
@@ -91,6 +91,7 @@ class IntakesController < ApplicationController
     end
 
     @intake = Intake.new(intake_params.except(:voucher, :client_attributes).merge(
+      swap_id: @swap.id,
       user_id: current_user.id,
       client_id: @client.id,
       household_tanf: !!intake_params[:household_tanf],

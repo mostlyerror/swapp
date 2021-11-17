@@ -41,7 +41,7 @@
 #  created_at                                      :datetime         not null
 #  updated_at                                      :datetime         not null
 #  client_id                                       :bigint           not null, indexed
-#  swap_id                                         :bigint           not null, indexed
+#  swap_id                                         :bigint           indexed
 #  user_id                                         :bigint           not null, indexed
 #
 # Indexes
@@ -58,7 +58,7 @@
 #
 class Intake < ApplicationRecord
   has_logidze
-  belongs_to :swap
+  belongs_to :swap, optional: true
   belongs_to :client
   accepts_nested_attributes_for :client
   belongs_to :user
