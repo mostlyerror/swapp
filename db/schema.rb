@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_06_161846) do
+ActiveRecord::Schema.define(version: 2021_11_17_041844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -147,7 +147,9 @@ ActiveRecord::Schema.define(version: 2021_11_06_161846) do
     t.date "homelessness_date_began"
     t.boolean "household_tanf"
     t.jsonb "log_data"
+    t.bigint "swap_id", null: false
     t.index ["client_id"], name: "index_intakes_on_client_id"
+    t.index ["swap_id"], name: "index_intakes_on_swap_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"
   end
 
@@ -173,7 +175,9 @@ ActiveRecord::Schema.define(version: 2021_11_06_161846) do
     t.bigint "user_id", null: false
     t.boolean "household_composition_changed"
     t.jsonb "log_data"
+    t.bigint "swap_id", null: false
     t.index ["client_id"], name: "index_short_intakes_on_client_id"
+    t.index ["swap_id"], name: "index_short_intakes_on_swap_id"
     t.index ["user_id"], name: "index_short_intakes_on_user_id"
   end
 
@@ -233,10 +237,12 @@ ActiveRecord::Schema.define(version: 2021_11_06_161846) do
   add_foreign_key "incident_reports", "clients"
   add_foreign_key "incident_reports", "users", column: "reporter_id"
   add_foreign_key "intakes", "clients"
+  add_foreign_key "intakes", "swaps"
   add_foreign_key "intakes", "users"
   add_foreign_key "red_flags", "clients"
   add_foreign_key "red_flags", "hotels"
   add_foreign_key "short_intakes", "clients"
+  add_foreign_key "short_intakes", "swaps"
   add_foreign_key "short_intakes", "users"
   add_foreign_key "vouchers", "clients"
   add_foreign_key "vouchers", "hotels"

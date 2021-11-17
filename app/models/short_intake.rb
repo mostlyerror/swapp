@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211103053452
+# Schema version: 20211117041844
 #
 # Table name: short_intakes
 #
@@ -13,20 +13,24 @@
 #  created_at                            :datetime         not null
 #  updated_at                            :datetime         not null
 #  client_id                             :bigint           not null, indexed
+#  swap_id                               :bigint           not null, indexed
 #  user_id                               :bigint           not null, indexed
 #
 # Indexes
 #
 #  index_short_intakes_on_client_id  (client_id)
+#  index_short_intakes_on_swap_id    (swap_id)
 #  index_short_intakes_on_user_id    (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_89b2ca1ad8  (client_id => clients.id)
 #  fk_rails_9bcdbad11d  (user_id => users.id)
+#  fk_rails_d42dc07699  (swap_id => swaps.id)
 #
 class ShortIntake < ApplicationRecord
   has_logidze
+  belongs_to :swap
   belongs_to :client
   accepts_nested_attributes_for :client
   belongs_to :user
