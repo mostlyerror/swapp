@@ -1,36 +1,25 @@
-<section class="px-2 md:px-6 md:w-11/12 mx-auto mt-8 md:mt-12">
-  <h1>Hotel voucher created! 🎉</h1>
-  <p class="mt-8 text-base sm:text-lg md:text-xl text-gray-800">
-    This is a digital record of a hotel voucher. <strong>This does NOT replace a
-    physical voucher!</strong> ONLY the paper voucher will be accepted by the
-    hotel front desk.  Write down the voucher details on your physical voucher
-    slip.  </p>
-</section>
+<div class="px-2 md:container lg:max-w-6xl">
+  <section class="mt-8 md:mt-12 lg:mt-16 ">
+    <h1 class="text-center">Hotel voucher created! 🎉</h1>
+    <p class="mt-4 md:mt-8 text-base sm:text-lg md:text-xl text-gray-800 max-w-3xl md:text-center mx-auto">
+      This is a digital record of a hotel voucher. <strong>This does NOT replace a
+      physical voucher!</strong> ONLY the paper voucher will be accepted by the
+      hotel front desk.  Write down the voucher details on your physical voucher
+      slip.  </p>
+  </section>
 
-<section class="px-3 sm:px-6 md:px-16 md:w-11/12 mx-auto mt-8 md:mt-12">
-  <%= render @voucher %>
-  <div class="mt-18 px-6">
-    <h2 class="text-center">Send Digital Voucher</h2>
-    <div class="space-x-4 text-center">
-      <%= form_for(@voucher, url: send_voucher_path(@voucher.id), method: :post) do |form| %>
-        <div class="inline-block p-6">
-          <%= form.submit "E-mail", class: "px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-800 text-lg sm:text-xl md:text-2xl text-white cursor-pointer" %>
-        </div>
-        <div class="inline-block p-6">
-          <%= form.submit "Text/SMS", class: "px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-800 text-lg sm:text-xl md:text-2xl text-white cursor-pointer" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</section>
+  <section class="mx-auto mt-8 md:mt-12 md:max-w-4xl">
+    <%= render @voucher %>
+  </section>
 
-<section class="px-2 sm:px-4 md:px-8 md:w-11/12 mx-auto my-8 sm:my-12 md:my-24">
-  <%= link_to clients_path, class: 'text-lg sm:text-xl md:text-2xl' do %>
-    <p class="text-base sm:text-lg md:text-2xl text-center leading-relaxed">
-      Ready to help another client?
-    </p>
-    <p class="sm:mt-2 md:mt-4 text-base sm:text-lg md:text-2xl text-center underline text-indigo-600">
-      Go to client search.
-    </p>
-  <% end %>
-</section>
+  <section class="px-2 sm:px-4 md:px-8 md:w-11/12 mx-auto my-8 sm:my-12 md:my-24">
+    <%= link_to clients_path, class: 'text-lg sm:text-xl md:text-2xl' do %>
+      <p class="text-base sm:text-lg md:text-2xl text-center leading-relaxed">
+        Ready to help another client?
+      </p>
+      <p class="sm:mt-2 md:mt-4 text-base sm:text-lg md:text-2xl text-center underline text-indigo-600">
+        Go to client search.
+      </p>
+    <% end %>
+  </section>
+</div>
