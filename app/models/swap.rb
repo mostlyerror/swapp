@@ -21,6 +21,8 @@ class Swap < ApplicationRecord
   validate :no_intake_on_last_night
   validate :no_unsorted_intake_dates
 
+  has_many :intakes
+  has_many :short_intakes
   has_many :vouchers
   has_many :availabilities
 

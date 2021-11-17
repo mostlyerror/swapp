@@ -46,8 +46,8 @@ FactoryBot.define do
     }
 
     after(:create) do |voucher|
-      create(:intake, client: voucher.client, user: voucher.user)
-      create(:short_intake, client: voucher.client, user: voucher.user)
+      create(:intake, client: voucher.client, user: voucher.user, swap: voucher.swap)
+      create(:short_intake, client: voucher.client, user: voucher.user, swap: voucher.swap)
     end
   end
 end

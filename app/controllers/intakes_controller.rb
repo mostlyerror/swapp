@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211103053452
+# Schema version: 20211117041844
 #
 # Table name: intakes
 #
@@ -41,17 +41,20 @@
 #  created_at                                      :datetime         not null
 #  updated_at                                      :datetime         not null
 #  client_id                                       :bigint           not null, indexed
+#  swap_id                                         :bigint           indexed
 #  user_id                                         :bigint           not null, indexed
 #
 # Indexes
 #
 #  index_intakes_on_client_id  (client_id)
+#  index_intakes_on_swap_id    (swap_id)
 #  index_intakes_on_user_id    (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_3c0b295085  (client_id => clients.id)
 #  fk_rails_5601279132  (user_id => users.id)
+#  fk_rails_cc14202886  (swap_id => swaps.id)
 #
 class IntakesController < ApplicationController
   def new
@@ -88,6 +91,7 @@ class IntakesController < ApplicationController
     end
 
     @intake = Intake.new(intake_params.except(:voucher, :client_attributes).merge(
+      swap_id: @swap.id,
       user_id: current_user.id,
       client_id: @client.id,
       household_tanf: !!intake_params[:household_tanf],
