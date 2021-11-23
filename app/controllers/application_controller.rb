@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_swap_current
-  around_action :use_logidze_responsible, only: %i[create update]
+  around_action :use_logidze_responsible, only: %i[create update destroy]
 
   def set_swap_current
-    @hotel_map = Hotel.all.reduce({}) do |map, hotel|
+    @hotel_map = Hotel.active.reduce({}) do |map, hotel|
       map.merge(Hash[hotel.id, hotel])
     end
 
