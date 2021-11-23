@@ -14,7 +14,7 @@
 #  updated_at   :datetime         not null
 #
 class Hotel < ApplicationRecord
-  # include SoftDeletable
+  include SoftDeletable
   has_logidze
 
   has_many :availabilities
