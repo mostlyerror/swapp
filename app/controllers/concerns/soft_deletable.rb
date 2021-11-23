@@ -3,7 +3,7 @@ module SoftDeletable
 
   included do
     acts_as_paranoid
-    # before_destroy :update_timestamps
+    before_destroy :update_timestamps
   end
 
   def update_timestamps
