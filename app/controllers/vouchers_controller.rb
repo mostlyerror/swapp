@@ -151,7 +151,7 @@ class VouchersController < ApplicationController
       supply = RoomSupply.vouchers_remaining_today(@swap)
       @disabled = []
       @client.flagged_hotels.map {|hotel| @disabled.push(hotel)}
-      @hotels = Hotel.all.reduce({}) do |memo, hotel|
+      @hotels = Hotel.active.reduce({}) do |memo, hotel|
         name = "#{hotel.name} (#{supply[hotel.id]})"
         if supply[hotel.id].to_i <= 0
           @disabled << hotel.id
