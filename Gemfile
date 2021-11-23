@@ -48,3 +48,5 @@ end
 gem "logidze", "~> 1.2"
 
 gem "fx", "~> 0.6.2"
+
+gem "acts_as_paranoid", "~> 0.7.3"
