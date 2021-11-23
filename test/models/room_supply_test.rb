@@ -1,6 +1,24 @@
 require 'test_helper'
 
 class RoomSupplyTest < ActiveSupport::TestCase
+  test "public API filters out inactive hotels" do
+    swap = create(:swap, :tomorrow)
+    active_hotel = create(:hotel)
+    inactive_hotel = create(:hotel, active: false)
+
+    hotel_ids = RoomSupply.latest_vacancies(swap).keys
+    assert hotel_ids.include?(active_hotel.id)
+    assert_not hotel_ids.include?(inactive_hotel.id)
+
+    hotel_ids = RoomSupply.vouchers_issued_today(swap).keys
+    assert hotel_ids.include?(active_hotel.id)
+    assert_not hotel_ids.include?(inactive_hotel.id)
+
+    hotel_ids = RoomSupply.vouchers_remaining_today(swap).keys
+    assert hotel_ids.include?(active_hotel.id)
+    assert_not hotel_ids.include?(inactive_hotel.id)
+  end
+
   test "ignores availabilities created today that are no longer relevant (swap window moved)" do
     swap = create(:swap, :tomorrow)
     hotel = create(:hotel)

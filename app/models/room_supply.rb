@@ -7,7 +7,7 @@ class RoomSupply
         date: ([swap.start_date, swap.intake_dates.first].min)..swap.end_date, 
         created_at: Date.current.beginning_of_day..Date.current.end_of_day
       )
-    Hotel.pluck(:id).reduce({}) do |memo, hotel_id|
+    Hotel.active.pluck(:id).reduce({}) do |memo, hotel_id|
       av = avs.select { |av| av.hotel_id == hotel_id }.first
       vacancy = av.present? ? av.vacant : 0
       memo.merge(Hash[hotel_id, vacancy])
@@ -16,7 +16,7 @@ class RoomSupply
 
   # how many vouchers per hotel were issued today?
   def self.vouchers_issued_today(swap)
-    hotel_ids = Hotel.pluck(:id)
+    hotel_ids = Hotel.active.pluck(:id)
     hotels = hotel_ids.zip(Array.new(hotel_ids.size, 0)).to_h
     vouchers = swap.vouchers
       .where(created_at: Date.current.beginning_of_day..Date.current.end_of_day)
@@ -37,7 +37,7 @@ class RoomSupply
   end
 
   def self.by_hotel(swap)
-    supply = Hotel.all.reduce({}) do |memo, hotel| 
+    supply = Hotel.active.reduce({}) do |memo, hotel| 
       dates = swap.intake_dates.reduce({}) do |dates, day|
         dates.merge(Hash[day, {vacant: nil, issued: nil}])
       end
