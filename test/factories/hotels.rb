@@ -16,6 +16,7 @@
 FactoryBot.define do
   factory :hotel do
     name { "#{FFaker::Company.name} hotel" }
+    active { true }
     address {
       {
         street: FFaker::Address.street_address,
