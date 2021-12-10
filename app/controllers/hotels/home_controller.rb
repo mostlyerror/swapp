@@ -3,9 +3,9 @@ class Hotels::HomeController < Hotels::BaseController
     @hotel = current_user.hotel
     @vouchers = Voucher
       .includes(client: [:flagged_hotels])
-      .where(hotel: current_user.hotel)
+      .where(hotel: current_user.hotels)
       .order(created_at: :desc)
-      .limit(60)
+      .limit(100)
   end
 
   def show
