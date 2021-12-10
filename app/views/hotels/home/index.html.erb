@@ -1,19 +1,23 @@
 <div class="min-h-screen container mx-auto max-w-6xl px-2 sm:px-3 md:px-4">
-  <h4 class="md:text-3xl lg:text-4xl mt-12 text-center font-bold">Vouchers for <%= @hotel.present? && @hotel&.name %></h4>
+  <h4 class="md:text-3xl lg:text-4xl mt-12 text-center font-bold">Voucher List</h4>
   <div class="mt-6 shadow-sm md:shadow-lg overflow-hidden border-b border-gray-200 rounded-md">
-    <div class="grid grid-cols-4">
-      <div class="pl-4 lg:pl-8 py-4 bg-gray-900 font-semibold text-base md:text-lg lg:text-xl text-white uppercase tracking-wide">No.</div>
-      <div class="py-4 bg-gray-900 font-semibold text-base md:text-lg lg:text-xl text-white uppercase tracking-wide">Name</div>
-      <div class="py-4 bg-gray-900 font-semibold text-base md:text-lg lg:text-xl text-white uppercase tracking-wide text-right">Check In</div>
+    <div class="grid grid-cols-5">
+      <div class="pl-4 lg:pl-8 py-4 bg-gray-900 font-semibold text-sm md:text-base lg:text-lg text-white uppercase tracking-wide">No.</div>
+      <div class="py-4 bg-gray-900 font-semibold text-sm md:text-base lg:text-lg text-white uppercase tracking-wide">Hotel</div>
+      <div class="py-4 bg-gray-900 font-semibold text-sm md:text-base lg:text-lg text-white uppercase tracking-wide">Name</div>
+      <div class="py-4 bg-gray-900 font-semibold text-sm md:text-base lg:text-lg text-white uppercase tracking-wide text-right">Check In</div>
       <div class="pr-4 lg:pr-8 py-4 bg-gray-900 font-semibold text-base md:text-lg lg:text-xl text-white uppercase tracking-wide text-right">Check Out</div>
     </div>
     <% if @vouchers.empty? %>
-      <div class="pl-4 md:pl-6 lg:pl-8 py-4 text-center">No vouchers have been issued.</div>
+      <div class="text-center">No vouchers have been issued.</div>
     <% else %>
       <% @vouchers.each do |voucher| %>
-        <div class="grid grid-cols-4 group cursor-pointer text-base md:text-lg lg:text-xl">
+        <div class="grid grid-cols-5 group cursor-pointer text-sm md:text-base lg:text-lg">
           <%= link_to hotels_vouchers_path(voucher.id) do %>
             <div class="group-hover:bg-gray-100 group-hover:text-indigo-500 pl-4 md:pl-6 lg:pl-8 py-4"><%= voucher.number %></div>
+          <% end %>
+          <%= link_to hotels_vouchers_path(voucher.id) do %>
+            <div class="group-hover:bg-gray-100 group-hover:text-indigo-500 py-4 text-left"><%= voucher.hotel.name %></div>
           <% end %>
           <%= link_to hotels_vouchers_path(voucher.id) do %>
             <div class="group-hover:bg-gray-100 group-hover:text-indigo-500 py-4"><%= voucher.client.name %></div>
