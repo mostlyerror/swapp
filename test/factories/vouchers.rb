@@ -48,6 +48,8 @@ FactoryBot.define do
     notes {
       [true, false].sample && FFaker::HipsterIpsum.words(20) || nil
     }
+    voided_at { nil }
+    voided_by { nil }
 
     after(:create) do |voucher|
       create(:intake, client: voucher.client, user: voucher.issuer, swap: voucher.swap)
