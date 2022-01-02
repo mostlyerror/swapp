@@ -35,5 +35,8 @@
   "devDependencies": {
     "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining": "^7.13.12",
     "webpack-dev-server": "^3.11.2"
+  },
+  "engines": {
+    "node": "14.17.5"
   }
 }
