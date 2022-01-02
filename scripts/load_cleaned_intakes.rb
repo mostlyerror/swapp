@@ -49,7 +49,7 @@ ActiveRecord::Base.transaction do
         raise :fail
       end
 
-      user = voucher.user
+      user = voucher.issuer
 
       intake_attrs = {
         client: client,

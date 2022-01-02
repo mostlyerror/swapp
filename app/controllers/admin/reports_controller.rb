@@ -21,7 +21,7 @@ class Admin::ReportsController < Admin::BaseController
         client_ethnicity
       )
 
-      Voucher.includes(:user, :hotel, :client)
+      Voucher.includes(:issuer, :voided_by, :hotel, :client)
         .order(id: :asc)
         .find_each do |voucher|
         csv << [
@@ -30,7 +30,9 @@ class Admin::ReportsController < Admin::BaseController
           voucher.check_out,
           voucher.created_at.to_date.to_s,
           voucher.created_at.strftime("%r"),
-          voucher.user.name,
+          voucher.issuer.name,
+          voucher.voided_at,
+          voucher.voided_by.name,
           voucher.hotel.name,
           voucher.client.first_name,
           voucher.client.last_name,

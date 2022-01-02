@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211106161846
+# Schema version: 20211223223312
 #
 # Table name: vouchers
 #
@@ -11,12 +11,14 @@
 #  num_adults_in_household   :integer
 #  num_children_in_household :integer
 #  number                    :string
+#  voided_at                 :datetime
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  client_id                 :bigint           not null, indexed, indexed => [swap_id]
 #  hotel_id                  :bigint           not null, indexed
 #  swap_id                   :bigint           indexed => [client_id], indexed
 #  user_id                   :bigint           not null, indexed
+#  voided_by_id              :bigint           indexed
 #
 # Indexes
 #
@@ -25,6 +27,7 @@
 #  index_vouchers_on_hotel_id               (hotel_id)
 #  index_vouchers_on_swap_id                (swap_id)
 #  index_vouchers_on_user_id                (user_id)
+#  index_vouchers_on_voided_by_id           (voided_by_id)
 #
 # Foreign Keys
 #
@@ -32,11 +35,12 @@
 #  fk_rails_1ea81e504c  (hotel_id => hotels.id)
 #  fk_rails_35b9b0ce9d  (client_id => clients.id)
 #  fk_rails_3e6ca7b204  (user_id => users.id)
+#  fk_rails_8c1008a5cb  (voided_by_id => users.id)
 #
 FactoryBot.define do
   factory :voucher do
     client
-    user
+    association :issuer, factory: :user
     hotel
     swap { Swap.current || create(:swap, :tomorrow) }
     check_in { self.swap.start_date }
@@ -46,8 +50,8 @@ FactoryBot.define do
     }
 
     after(:create) do |voucher|
-      create(:intake, client: voucher.client, user: voucher.user, swap: voucher.swap)
-      create(:short_intake, client: voucher.client, user: voucher.user, swap: voucher.swap)
+      create(:intake, client: voucher.client, user: voucher.issuer, swap: voucher.swap)
+      create(:short_intake, client: voucher.client, user: voucher.issuer, swap: voucher.swap)
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_23_040844) do
+ActiveRecord::Schema.define(version: 2021_12_23_223312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -61,9 +61,6 @@ ActiveRecord::Schema.define(version: 2021_11_23_040844) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.jsonb "log_data"
-  end
-
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "hotels", force: :cascade do |t|
@@ -229,11 +226,14 @@ ActiveRecord::Schema.define(version: 2021_11_23_040844) do
     t.integer "guest_ids", default: [], array: true
     t.text "notes"
     t.jsonb "log_data"
+    t.datetime "voided_at"
+    t.bigint "voided_by_id"
     t.index ["client_id", "swap_id"], name: "index_vouchers_on_client_id_and_swap_id"
     t.index ["client_id"], name: "index_vouchers_on_client_id"
     t.index ["hotel_id"], name: "index_vouchers_on_hotel_id"
     t.index ["swap_id"], name: "index_vouchers_on_swap_id"
     t.index ["user_id"], name: "index_vouchers_on_user_id"
+    t.index ["voided_by_id"], name: "index_vouchers_on_voided_by_id"
   end
 
   add_foreign_key "availabilities", "hotels"
@@ -252,105 +252,13 @@ ActiveRecord::Schema.define(version: 2021_11_23_040844) do
   add_foreign_key "vouchers", "hotels"
   add_foreign_key "vouchers", "swaps"
   add_foreign_key "vouchers", "users"
-  create_function :logidze_capture_exception, sql_definition: <<-SQL
-      CREATE OR REPLACE FUNCTION public.logidze_capture_exception(error_data jsonb)
-       RETURNS boolean
-       LANGUAGE plpgsql
-      AS $function$
-        -- version: 1
-      BEGIN
-        -- Feel free to change this function to change Logidze behavior on exception.
-        --
-        -- Return `false` to raise exception or `true` to commit record changes.
-        --
-        -- `error_data` contains:
-        --   - returned_sqlstate
-        --   - message_text
-        --   - pg_exception_detail
-        --   - pg_exception_hint
-        --   - pg_exception_context
-        --   - schema_name
-        --   - table_name
-        -- Learn more about available keys:
-        -- https://www.postgresql.org/docs/9.6/plpgsql-control-structures.html#PLPGSQL-EXCEPTION-DIAGNOSTICS-VALUES
-        --
-
-        return false;
-      END;
-      $function$
-  SQL
-  create_function :logidze_compact_history, sql_definition: <<-SQL
-      CREATE OR REPLACE FUNCTION public.logidze_compact_history(log_data jsonb, cutoff integer DEFAULT 1)
-       RETURNS jsonb
-       LANGUAGE plpgsql
-      AS $function$
-        -- version: 1
-        DECLARE
-          merged jsonb;
-        BEGIN
-          LOOP
-            merged := jsonb_build_object(
-              'ts',
-              log_data#>'{h,1,ts}',
-              'v',
-              log_data#>'{h,1,v}',
-              'c',
-              (log_data#>'{h,0,c}') || (log_data#>'{h,1,c}')
-            );
-
-            IF (log_data#>'{h,1}' ? 'm') THEN
-              merged := jsonb_set(merged, ARRAY['m'], log_data#>'{h,1,m}');
-            END IF;
-
-            log_data := jsonb_set(
-              log_data,
-              '{h}',
-              jsonb_set(
-                log_data->'h',
-                '{1}',
-                merged
-              ) - 0
-            );
-
-            cutoff := cutoff - 1;
-
-            EXIT WHEN cutoff <= 0;
-          END LOOP;
-
-          return log_data;
-        END;
-      $function$
-  SQL
-  create_function :logidze_filter_keys, sql_definition: <<-SQL
-      CREATE OR REPLACE FUNCTION public.logidze_filter_keys(obj jsonb, keys text[], include_columns boolean DEFAULT false)
-       RETURNS jsonb
-       LANGUAGE plpgsql
-      AS $function$
-        -- version: 1
-        DECLARE
-          res jsonb;
-          key text;
-        BEGIN
-          res := '{}';
-
-          IF include_columns THEN
-            FOREACH key IN ARRAY keys
-            LOOP
-              IF obj ? key THEN
-                res = jsonb_insert(res, ARRAY[key], obj->key);
-              END IF;
-            END LOOP;
-          ELSE
-            res = obj;
-            FOREACH key IN ARRAY keys
-            LOOP
-              res = res - key;
-            END LOOP;
-          END IF;
-
-          RETURN res;
-        END;
-      $function$
+  add_foreign_key "vouchers", "users", column: "voided_by_id"
+  create_function :pg_search_dmetaphone, sql_definition: <<-SQL
+      CREATE OR REPLACE FUNCTION public.pg_search_dmetaphone(text)
+       RETURNS text
+       LANGUAGE sql
+       IMMUTABLE STRICT
+      AS $function$ SELECT array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1, E'\\s+')))), ' ') $function$
   SQL
   create_function :logidze_logger, sql_definition: <<-SQL
       CREATE OR REPLACE FUNCTION public.logidze_logger()
@@ -559,6 +467,58 @@ ActiveRecord::Schema.define(version: 2021_11_23_040844) do
         END;
       $function$
   SQL
+  create_function :logidze_capture_exception, sql_definition: <<-SQL
+      CREATE OR REPLACE FUNCTION public.logidze_capture_exception(error_data jsonb)
+       RETURNS boolean
+       LANGUAGE plpgsql
+      AS $function$
+        -- version: 1
+      BEGIN
+        -- Feel free to change this function to change Logidze behavior on exception.
+        --
+        -- Return `false` to raise exception or `true` to commit record changes.
+        --
+        -- `error_data` contains:
+        --   - returned_sqlstate
+        --   - message_text
+        --   - pg_exception_detail
+        --   - pg_exception_hint
+        --   - pg_exception_context
+        --   - schema_name
+        --   - table_name
+        -- Learn more about available keys:
+        -- https://www.postgresql.org/docs/9.6/plpgsql-control-structures.html#PLPGSQL-EXCEPTION-DIAGNOSTICS-VALUES
+        --
+
+        return false;
+      END;
+      $function$
+  SQL
+  create_function :logidze_version, sql_definition: <<-SQL
+      CREATE OR REPLACE FUNCTION public.logidze_version(v bigint, data jsonb, ts timestamp with time zone)
+       RETURNS jsonb
+       LANGUAGE plpgsql
+      AS $function$
+        -- version: 2
+        DECLARE
+          buf jsonb;
+        BEGIN
+          data = data - 'log_data';
+          buf := jsonb_build_object(
+                    'ts',
+                    (extract(epoch from ts) * 1000)::bigint,
+                    'v',
+                    v,
+                    'c',
+                    data
+                    );
+          IF coalesce(current_setting('logidze.meta', true), '') <> '' THEN
+            buf := jsonb_insert(buf, '{m}', current_setting('logidze.meta')::jsonb);
+          END IF;
+          RETURN buf;
+        END;
+      $function$
+  SQL
   create_function :logidze_snapshot, sql_definition: <<-SQL
       CREATE OR REPLACE FUNCTION public.logidze_snapshot(item jsonb, ts_column text DEFAULT NULL::text, columns text[] DEFAULT NULL::text[], include_columns boolean DEFAULT false)
        RETURNS jsonb
@@ -596,77 +556,118 @@ ActiveRecord::Schema.define(version: 2021_11_23_040844) do
         END;
       $function$
   SQL
-  create_function :logidze_version, sql_definition: <<-SQL
-      CREATE OR REPLACE FUNCTION public.logidze_version(v bigint, data jsonb, ts timestamp with time zone)
+  create_function :logidze_filter_keys, sql_definition: <<-SQL
+      CREATE OR REPLACE FUNCTION public.logidze_filter_keys(obj jsonb, keys text[], include_columns boolean DEFAULT false)
        RETURNS jsonb
        LANGUAGE plpgsql
       AS $function$
-        -- version: 2
+        -- version: 1
         DECLARE
-          buf jsonb;
+          res jsonb;
+          key text;
         BEGIN
-          data = data - 'log_data';
-          buf := jsonb_build_object(
-                    'ts',
-                    (extract(epoch from ts) * 1000)::bigint,
-                    'v',
-                    v,
-                    'c',
-                    data
-                    );
-          IF coalesce(current_setting('logidze.meta', true), '') <> '' THEN
-            buf := jsonb_insert(buf, '{m}', current_setting('logidze.meta')::jsonb);
+          res := '{}';
+
+          IF include_columns THEN
+            FOREACH key IN ARRAY keys
+            LOOP
+              IF obj ? key THEN
+                res = jsonb_insert(res, ARRAY[key], obj->key);
+              END IF;
+            END LOOP;
+          ELSE
+            res = obj;
+            FOREACH key IN ARRAY keys
+            LOOP
+              res = res - key;
+            END LOOP;
           END IF;
-          RETURN buf;
+
+          RETURN res;
         END;
       $function$
   SQL
-  create_function :pg_search_dmetaphone, sql_definition: <<-SQL
-      CREATE OR REPLACE FUNCTION public.pg_search_dmetaphone(text)
-       RETURNS text
-       LANGUAGE sql
-       IMMUTABLE STRICT
-      AS $function$ SELECT array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1, E'\\s+')))), ' ') $function$
+  create_function :logidze_compact_history, sql_definition: <<-SQL
+      CREATE OR REPLACE FUNCTION public.logidze_compact_history(log_data jsonb, cutoff integer DEFAULT 1)
+       RETURNS jsonb
+       LANGUAGE plpgsql
+      AS $function$
+        -- version: 1
+        DECLARE
+          merged jsonb;
+        BEGIN
+          LOOP
+            merged := jsonb_build_object(
+              'ts',
+              log_data#>'{h,1,ts}',
+              'v',
+              log_data#>'{h,1,v}',
+              'c',
+              (log_data#>'{h,0,c}') || (log_data#>'{h,1,c}')
+            );
+
+            IF (log_data#>'{h,1}' ? 'm') THEN
+              merged := jsonb_set(merged, ARRAY['m'], log_data#>'{h,1,m}');
+            END IF;
+
+            log_data := jsonb_set(
+              log_data,
+              '{h}',
+              jsonb_set(
+                log_data->'h',
+                '{1}',
+                merged
+              ) - 0
+            );
+
+            cutoff := cutoff - 1;
+
+            EXIT WHEN cutoff <= 0;
+          END LOOP;
+
+          return log_data;
+        END;
+      $function$
   SQL
 
 
-  create_trigger :logidze_on_availabilities, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_availabilities BEFORE INSERT OR UPDATE ON public.availabilities FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+  create_trigger :logidze_on_users, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_users BEFORE INSERT OR UPDATE ON public.users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
   create_trigger :logidze_on_clients, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_clients BEFORE INSERT OR UPDATE ON public.clients FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_contacts, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_contacts BEFORE INSERT OR UPDATE ON public.contacts FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_hotels, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_hotels BEFORE INSERT OR UPDATE ON public.hotels FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_hotels_contacts, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_hotels_contacts BEFORE INSERT OR UPDATE ON public.hotels_contacts FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_hotels_users, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_hotels_users BEFORE INSERT OR UPDATE ON public.hotels_users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+      CREATE TRIGGER logidze_on_clients BEFORE INSERT OR UPDATE ON public.clients FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
   create_trigger :logidze_on_incident_reports, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_incident_reports BEFORE INSERT OR UPDATE ON public.incident_reports FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+      CREATE TRIGGER logidze_on_incident_reports BEFORE INSERT OR UPDATE ON public.incident_reports FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_hotels, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_hotels BEFORE INSERT OR UPDATE ON public.hotels FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
   create_trigger :logidze_on_intakes, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_intakes BEFORE INSERT OR UPDATE ON public.intakes FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_red_flags, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_red_flags BEFORE INSERT OR UPDATE ON public.red_flags FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_short_intakes, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_short_intakes BEFORE INSERT OR UPDATE ON public.short_intakes FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_swaps, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_swaps BEFORE INSERT OR UPDATE ON public.swaps FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_users, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_users BEFORE INSERT OR UPDATE ON public.users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+      CREATE TRIGGER logidze_on_intakes BEFORE INSERT OR UPDATE ON public.intakes FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
   create_trigger :logidze_on_vouchers, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_vouchers BEFORE INSERT OR UPDATE ON public.vouchers FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE PROCEDURE logidze_logger('null', 'updated_at')
+      CREATE TRIGGER logidze_on_vouchers BEFORE INSERT OR UPDATE ON public.vouchers FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_swaps, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_swaps BEFORE INSERT OR UPDATE ON public.swaps FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_availabilities, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_availabilities BEFORE INSERT OR UPDATE ON public.availabilities FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_short_intakes, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_short_intakes BEFORE INSERT OR UPDATE ON public.short_intakes FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_hotels_users, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_hotels_users BEFORE INSERT OR UPDATE ON public.hotels_users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_red_flags, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_red_flags BEFORE INSERT OR UPDATE ON public.red_flags FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_contacts, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_contacts BEFORE INSERT OR UPDATE ON public.contacts FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_hotels_contacts, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_hotels_contacts BEFORE INSERT OR UPDATE ON public.hotels_contacts FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
 end
