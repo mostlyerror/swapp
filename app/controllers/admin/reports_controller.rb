@@ -10,6 +10,8 @@ class Admin::ReportsController < Admin::BaseController
         voucher_issued_date
         voucher_issued_time
         voucher_issued_by
+        voucher_voided_at
+        voucher_voided_by
         voucher_hotel_name
         client_first_name
         client_last_name
@@ -30,18 +32,18 @@ class Admin::ReportsController < Admin::BaseController
           voucher.check_out,
           voucher.created_at.to_date.to_s,
           voucher.created_at.strftime("%r"),
-          voucher.issuer.name,
+          voucher.issuer&.name,
           voucher.voided_at,
-          voucher.voided_by.name,
-          voucher.hotel.name,
-          voucher.client.first_name,
-          voucher.client.last_name,
-          voucher.client.date_of_birth,
-          voucher.client.gender,
-          voucher.client.phone_number,
-          voucher.client.email,
-          voucher.client.race&.join(","),
-          voucher.client.ethnicity,
+          voucher.voided_by&.name,
+          voucher.hotel&.name,
+          voucher.client&.first_name,
+          voucher.client&.last_name,
+          voucher.client&.date_of_birth,
+          voucher.client&.gender,
+          voucher.client&.phone_number,
+          voucher.client&.email,
+          voucher.client&.race&.join(","),
+          voucher.client&.ethnicity,
         ]
       end
     end
