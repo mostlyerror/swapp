@@ -58,7 +58,7 @@ class VouchersController < ApplicationController
       @voucher = Voucher.new(
         client: @client,
         swap: @swap,
-        user: current_user
+        issuer: current_user
       )
 
       if !@client.update(
