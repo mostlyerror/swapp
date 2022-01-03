@@ -227,9 +227,9 @@ class Intake < ApplicationRecord
     key: :pets,
     text: "Do you have a pet?",
     choices: [
-      "Yes. A dog that will stay with me in the hotel",
-      "Yes. A dog that will not be staying with me in the hotel",
-      "Yes. Cat or exotic pet that will not stay with me in the hotel",
+      "Yes. A dog that WILL stay with me in the hotel",
+      "Yes. A dog that WILL NOT stay with me in the hotel",
+      "Yes. Cat or exotic pet that WILL NOT stay with me in the hotel",
       "No"
     ]
   )
