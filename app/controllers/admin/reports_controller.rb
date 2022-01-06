@@ -1,5 +1,5 @@
 class Admin::ReportsController < Admin::BaseController
-  def swap
+  def vouchers
     remove_attrs = %w( id created_at updated_at )
 
     csv = CSV.generate(headers: true) do |csv|
@@ -21,6 +21,7 @@ class Admin::ReportsController < Admin::BaseController
         client_email
         client_race
         client_ethnicity
+        voucher_guests
       )
 
       Voucher.includes(:issuer, :voided_by, :hotel, :client)
@@ -44,6 +45,7 @@ class Admin::ReportsController < Admin::BaseController
           voucher.client&.email,
           voucher.client&.race&.join(","),
           voucher.client&.ethnicity,
+          format_guests(voucher.guests)
         ]
       end
     end
@@ -51,5 +53,11 @@ class Admin::ReportsController < Admin::BaseController
     respond_to do |format|
       format.csv { send_data csv, filename: "vouchers-#{Time.zone.now.iso8601}.csv" }
     end
+  end
+
+  def format_guests(guests)
+    guests.map do |guest|
+      "#{guest.name} - #{guest.date_of_birth}"
+    end.join(", ")
   end
 end
