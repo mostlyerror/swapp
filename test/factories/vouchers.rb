@@ -43,11 +43,11 @@ FactoryBot.define do
     association :issuer, factory: :user
     hotel
     swap { Swap.current || create(:swap, :tomorrow) }
-    check_in { self.swap.start_date }
-    check_out { self.swap.end_date }
-    notes {
-      [true, false].sample && FFaker::HipsterIpsum.words(20) || nil
-    }
+    check_in { swap.start_date }
+    check_out { swap.end_date }
+    notes do
+      ([true, false].sample && FFaker::HipsterIpsum.words(20)) || nil
+    end
     voided_at { nil }
     voided_by { nil }
 

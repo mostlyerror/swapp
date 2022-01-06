@@ -21,8 +21,7 @@
 #
 class RedFlag < ApplicationRecord
   has_logidze
-    self.table_name = :red_flags
-    belongs_to :client
-    belongs_to :hotel
-  end
-  
+  self.table_name = :red_flags
+  belongs_to :client
+  belongs_to :hotel
+end

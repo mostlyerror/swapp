@@ -15,7 +15,7 @@ class Hotels::HomeController < Hotels::BaseController
     @flagged_stamps = RedFlag.where(client: @client).pluck(:created_at)
     @incident_report = IncidentReport.new
 
-    @incident_reports = @client.incident_reports.order(created_at: :desc).select do |ir| 
+    @incident_reports = @client.incident_reports.order(created_at: :desc).select do |ir|
       current_user.admin_user? || current_user == ir.reporter
     end
   end

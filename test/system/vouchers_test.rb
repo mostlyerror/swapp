@@ -17,8 +17,8 @@ class VouchersTest < ApplicationSystemTestCase
     guest = create(:client)
 
     visit new_voucher_path(client_id: client.id)
-    assert_text /create voucher/i
-    assert_text /1 voucher/i
+    assert_text(/create voucher/i)
+    assert_text(/1 voucher/i)
 
     choose(Intake::SLEEP_LAST_NIGHT.choices.sample)
     fill_in(Intake::CITY_LAST_NIGHT.text, with: "thornton")
@@ -28,8 +28,8 @@ class VouchersTest < ApplicationSystemTestCase
     # guest section is empty
     assert_no_text guest.first_name
     assert_no_text guest.date_of_birth.to_s
-    assert_no_text /name/i
-    assert_no_text /dob/i
+    assert_no_text(/name/i)
+    assert_no_text(/dob/i)
 
     # guest appears in autocomplete
     # fill_in('guest_autocomplete', with: guest.first_name)
@@ -39,8 +39,8 @@ class VouchersTest < ApplicationSystemTestCase
 
     # click on match, guest added to guest list
     find("#add_guest_#{guest.id}").click
-    assert_text /name/i
-    assert_text /dob/i
+    assert_text(/name/i)
+    assert_text(/dob/i)
     assert_text guest.first_name
     assert_text guest.date_of_birth.to_s
 
@@ -51,10 +51,10 @@ class VouchersTest < ApplicationSystemTestCase
 
     click_on "Create"
 
-    assert_text /created/i
+    assert_text(/created/i)
     assert_text Voucher.last.number
     assert_text client.name
-    assert_text /guests/i
+    assert_text(/guests/i)
     assert_text guest.name
   end
 

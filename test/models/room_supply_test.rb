@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class RoomSupplyTest < ActiveSupport::TestCase
   test "public API filters out inactive hotels" do
@@ -30,7 +30,7 @@ class RoomSupplyTest < ActiveSupport::TestCase
     swap.update(
       start_date: swap.start_date + 2,
       end_date: swap.end_date + 2,
-      intake_dates: swap.intake_dates.map {|d| d + 2 }
+      intake_dates: swap.intake_dates.map { |d| d + 2 }
     )
 
     supply = RoomSupply.vouchers_remaining_today(swap)

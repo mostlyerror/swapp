@@ -26,11 +26,11 @@ FactoryBot.define do
   factory :client do
     first_name { FFaker::Name.first_name }
     last_name { FFaker::Name.last_name }
-    date_of_birth { FFaker::Time.date } 
+    date_of_birth { FFaker::Time.date }
     gender { Client::GENDER.sample }
     ethnicity { Client::ETHNICITY.sample }
     email { FFaker::Internet.email }
-    phone_number { '5555555555' }
+    phone_number { "5555555555" }
     race { [Client::RACE.sample] }
     family_members { {} }
     veteran { false }

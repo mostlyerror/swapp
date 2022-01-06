@@ -1,13 +1,13 @@
-ENV['RAILS_ENV'] ||= 'test'
-require_relative '../config/environment'
-require 'rails/test_help'
+ENV["RAILS_ENV"] ||= "test"
+require_relative "../config/environment"
+require "rails/test_help"
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
   FactoryBot.reload
 
-  FFaker::Locale.code 'en-US'
+  FFaker::Locale.code "en-US"
 
   # load Hotel and Race data?
   # load "#{Rails.root}/db/seeds/base.rb"

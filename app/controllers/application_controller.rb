@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def set_swap_current
     @hotel_map = Hotel.active.reduce({}) do |map, hotel|
-      map.merge(Hash[hotel.id, hotel])
+      map.merge({hotel.id => hotel})
     end
 
     if @swap = Swap.current_or_upcoming

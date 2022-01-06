@@ -32,9 +32,9 @@ class IntakesTest < ApplicationSystemTestCase
       fill_in("date_of_birth", with: FFaker::Time.date)
       check(Client::RACE.sample)
       select(Client::GENDER.sample, from: "family-member-form-gender")
-      choose("family-member-form-ethnicity-#{%w(yes no).sample}")
-      choose("family-member-form-veteran-#{%w(yes no).sample}")
-      choose("family-member-form-disabling-condition-#{%w(yes no).sample}")
+      choose("family-member-form-ethnicity-#{%w[yes no].sample}")
+      choose("family-member-form-veteran-#{%w[yes no].sample}")
+      choose("family-member-form-disabling-condition-#{%w[yes no].sample}")
       click_on("Save Family Member")
     end
 
@@ -73,14 +73,14 @@ class IntakesTest < ApplicationSystemTestCase
 
     click_on "Submit"
 
-    assert_text /create voucher/i
+    assert_text(/create voucher/i)
 
     new_client = Client.last
     assert new_client.intakes.size == 1
     new_intake = new_client.intakes.last
 
     # email and phone number collected in voucher form, not intake form
-    ignore_attrs = %w( id user_id client_id email phone_number family_members created_at updated_at )
+    ignore_attrs = %w[id user_id client_id email phone_number family_members created_at updated_at]
     assert_equal client.attributes.except(*ignore_attrs), new_client.attributes.except(*ignore_attrs)
     assert_equal intake.attributes.except(*ignore_attrs), new_intake.attributes.except(*ignore_attrs)
   end
@@ -92,6 +92,6 @@ class IntakesTest < ApplicationSystemTestCase
   end
 
   def random_relationship
-    %w(spouse wife husband mom dad mother father parent uncle aunt grandfather grandmother brother sister cousin nephew niece).sample
+    %w[spouse wife husband mom dad mother father parent uncle aunt grandfather grandmother brother sister cousin nephew niece].sample
   end
 end

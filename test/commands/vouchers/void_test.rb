@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Vouchers::VoidTest < ActiveSupport::TestCase
   setup do
@@ -11,7 +11,7 @@ class Vouchers::VoidTest < ActiveSupport::TestCase
     assert_nil @voucher.voided_at
 
     @command = Vouchers::Void.run!(voucher: @voucher, user: @user)
-    assert_equal true,  @command
+    assert_equal true, @command
 
     assert_equal true, @voucher.voided?
     assert_equal @user, @voucher.voided_by

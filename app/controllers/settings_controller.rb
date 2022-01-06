@@ -7,6 +7,6 @@ class SettingsController < ApplicationController
       :show_swap_panel
     )
     user.update(settings_params)
-    head 200
+    head :ok
   end
 end

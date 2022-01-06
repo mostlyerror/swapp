@@ -8,7 +8,7 @@ def parse_date(val)
     "%m/%d/%Y", # m_d_yy_slash
     "%m-%d-%Y", # m_d_yy_dash
     "%d-%b",    # d_b_no_year_dash
-    "%d/%b",    # d_b_no_year_slash
+    "%d/%b" # d_b_no_year_slash
   ]
   d1, d2 = val.to_s.strip.split("-")
   [d1, d2].compact.map do |d|
@@ -74,19 +74,19 @@ ActiveRecord::Base.transaction do
 
   Swap.transaction do
     @swap_periods = [
-      ['2020-10-26', '2020-10-27'],
-      ['2020-11-08', '2020-11-12'],
-      ['2020-11-23', '2020-11-29'],
-      ['2020-12-01', '2020-12-03'],
-      ['2020-12-10', '2020-12-18'],
-      ['2020-12-22', '2020-12-23'],
-      ['2020-12-26', '2021-01-01'],
-      ['2021-01-05', '2021-01-06'],
-      ['2021-01-08', '2021-01-12'],
-      ['2021-01-16', '2021-01-18'],
-      ['2021-01-23', '2021-01-27'],
-      ['2021-02-02', '2021-02-19'],
-      ['2021-02-24', '2021-03-05']
+      ["2020-10-26", "2020-10-27"],
+      ["2020-11-08", "2020-11-12"],
+      ["2020-11-23", "2020-11-29"],
+      ["2020-12-01", "2020-12-03"],
+      ["2020-12-10", "2020-12-18"],
+      ["2020-12-22", "2020-12-23"],
+      ["2020-12-26", "2021-01-01"],
+      ["2021-01-05", "2021-01-06"],
+      ["2021-01-08", "2021-01-12"],
+      ["2021-01-16", "2021-01-18"],
+      ["2021-01-23", "2021-01-27"],
+      ["2021-02-02", "2021-02-19"],
+      ["2021-02-24", "2021-03-05"]
     ]
 
     @swap_periods.each do |(start_date, end_date)|
@@ -96,9 +96,8 @@ ActiveRecord::Base.transaction do
 
   user = User.first_or_create(email: "swapp@codeforamerica.org")
 
-
   hotels = Hotel.all.reduce({}) do |memo, hotel|
-    memo.merge(Hash[hotel.name.parameterize.underscore, hotel.id])
+    memo.merge({hotel.name.parameterize.underscore => hotel.id})
   end
 
   opts = {
@@ -111,13 +110,13 @@ ActiveRecord::Base.transaction do
     line += 1
 
     client_attrs = {
-      last_name: row['Last Name'],
-      first_name: row['First Name'],
-      date_of_birth: parse_dob(row['DOB']),
-      phone_number: parse_phone_number(row['Phone']),
-      gender: parse_gender(row['Gender']),
-      email: parse_email(row['Email']),
-      ethnicity: row['Ethnicity']
+      last_name: row["Last Name"],
+      first_name: row["First Name"],
+      date_of_birth: parse_dob(row["DOB"]),
+      phone_number: parse_phone_number(row["Phone"]),
+      gender: parse_gender(row["Gender"]),
+      email: parse_email(row["Email"]),
+      ethnicity: row["Ethnicity"]
     }
 
     if client_attrs[:date_of_birth].blank?
@@ -125,14 +124,13 @@ ActiveRecord::Base.transaction do
     end
 
     client = Client.where("lower(last_name) = ? and lower(first_name) = ? and date_of_birth = ?",
-        client_attrs[:last_name].downcase,
-        client_attrs[:first_name].downcase,
-        client_attrs[:date_of_birth].to_s
-      ).first
+                          client_attrs[:last_name].downcase,
+                          client_attrs[:first_name].downcase,
+                          client_attrs[:date_of_birth].to_s).first
 
     client ||= Client.new(client_attrs)
     client.save
-    
+
     if client.errors.any?
       ap row
       ap client.errors
@@ -210,10 +208,10 @@ ActiveRecord::Base.transaction do
       gets
     end
 
-    hotel_id = hotels.fetch(row['Hotel'].parameterize.underscore)
-    date_range = parse_date(row['Date']).compact
+    hotel_id = hotels.fetch(row["Hotel"].parameterize.underscore)
+    date_range = parse_date(row["Date"]).compact
     check_in = date_range.first
-    check_out = date_range.first + row['# of Nights']&.strip.to_i
+    check_out = date_range.first + row["# of Nights"]&.strip.to_i
 
     swap = Swap.where("start_date <= ? AND ? <= end_date", check_out, check_in).first
 
@@ -233,9 +231,9 @@ ActiveRecord::Base.transaction do
       swap_id: swap.id,
       check_in: check_in,
       check_out: check_out,
-      number: row['Voucher #']&.strip,
-      num_adults_in_household: row['Number of adults in household']&.strip.to_i,
-      num_children_in_household: row['Number of children in household']&.strip.to_i,
+      number: row["Voucher #"]&.strip,
+      num_adults_in_household: row["Number of adults in household"]&.strip.to_i,
+      num_children_in_household: row["Number of children in household"]&.strip.to_i,
       created_at: timestamp,
       updated_at: timestamp
     }

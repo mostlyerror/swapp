@@ -10,15 +10,15 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-require 'test_helper'
+require "test_helper"
 
 class SwapTest < ActiveSupport::TestCase
   test "#stay_period" do
     swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current.tomorrow)
     assert Date.current.in? swap.stay_period
     assert Date.current.tomorrow.in? swap.stay_period
-    refute Date.current.yesterday.in? swap.stay_period
-    refute (Date.current.tomorrow + 1).in? swap.stay_period
+    assert_not Date.current.yesterday.in? swap.stay_period
+    assert_not (Date.current.tomorrow + 1).in? swap.stay_period
   end
 
   test "#duration" do
@@ -33,7 +33,7 @@ class SwapTest < ActiveSupport::TestCase
 
   test "start/end dates make sense (start <= end)" do
     swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current.yesterday, intake_dates: (Date.current.yesterday..Date.current).to_a)
-    refute swap.valid?, "end_date: #{swap.end_date} must be later than start_date: #{swap.start_date}"
+    assert_not swap.valid?, "end_date: #{swap.end_date} must be later than start_date: #{swap.start_date}"
 
     swap.end_date = Date.current.tomorrow
     assert swap.valid?
@@ -41,7 +41,7 @@ class SwapTest < ActiveSupport::TestCase
 
   test "single-day events are invalid - events must cross at least one night" do
     swap = build_stubbed(:swap, start_date: Date.current, end_date: Date.current)
-    refute swap.valid?
+    assert_not swap.valid?
     assert_equal 0, swap.nights
 
     swap.end_date = Date.current.tomorrow
@@ -54,24 +54,21 @@ class SwapTest < ActiveSupport::TestCase
     assert swap.persisted?
 
     swap = build_stubbed(:swap, start_date: Date.current - 2, end_date: Date.current + 2)
-    refute swap.valid?
+    assert_not swap.valid?
 
     swap = build_stubbed(:swap,
-      start_date: Date.current - 1,
-      end_date: Date.current
-    )
-    refute swap.valid?
+                         start_date: Date.current - 1,
+                         end_date: Date.current)
+    assert_not swap.valid?
 
     swap = build_stubbed(:swap,
-      start_date: Date.current,
-      end_date: Date.current + 1
-    )
-    refute swap.valid?
+                         start_date: Date.current,
+                         end_date: Date.current + 1)
+    assert_not swap.valid?
 
     swap = build_stubbed(:swap,
-      start_date: Date.current + 1,
-      end_date: Date.current + 2,
-    )
+                         start_date: Date.current + 1,
+                         end_date: Date.current + 2)
     assert swap.valid?
   end
 
@@ -79,19 +76,19 @@ class SwapTest < ActiveSupport::TestCase
     create(:swap, start_date: Date.current, end_date: Date.current.tomorrow)
 
     swap = build_stubbed(:swap, start_date: Date.current.tomorrow, end_date: Date.current + 3)
-    refute swap.valid?
+    assert_not swap.valid?
 
     swap = build_stubbed(:swap, start_date: Date.current + 2, end_date: Date.current + 3)
     assert swap.valid?
   end
 
   test "intake_dates must be an array sorted from earliest to most recent date" do
-    swap = Swap.new( 
+    swap = Swap.new(
       start_date: Date.current + 1,
       end_date: Date.current + 3,
-      intake_dates: (Date.current..(Date.current+1)).to_a.reverse
-      )
-    assert swap.invalid?  
+      intake_dates: (Date.current..(Date.current + 1)).to_a.reverse
+    )
+    assert swap.invalid?
     assert swap.errors.key? :intake_dates
-  end   
+  end
 end

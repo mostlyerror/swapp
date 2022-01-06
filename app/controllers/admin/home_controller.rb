@@ -7,10 +7,10 @@ class Admin::HomeController < Admin::BaseController
     @clients = @q.result(distinct: true)
 
     if @swap
-      @change_swap = params['change_swap']
+      @change_swap = params["change_swap"]
       @vouchers_remaining_today = RoomSupply.vouchers_remaining_today(@swap)
       @num_vouchers_remaining_today = RoomSupply.num_vouchers_remaining_today(@swap)
-      @supply = RoomSupply.by_hotel(@swap)  
+      @supply = RoomSupply.by_hotel(@swap)
       @hotel_map = Hotel.all.pluck(:id, :name).to_h
     end
   end

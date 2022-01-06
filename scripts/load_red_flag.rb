@@ -16,32 +16,32 @@ IncidentReport.transaction do
   CSV.foreach(filename, opts) do |row|
     line += 1
 
-    if id = row['client_id']
+    if id = row["client_id"]
       client = Client.find(id)
       @to_ban << {
         client: client,
-        reason: row['reason']
+        reason: row["reason"]
       }
       next
     end
 
     # handle three name entries, e.g., Josiah Elias Martinez Rivera
-    names = row['name'].split(' ')
+    names = row["name"].split(" ")
     last_name = names.last
     first_name = names.first
-    dob = row['dob']
+    dob = row["dob"]
 
-    reason = row['reason']
+    reason = row["reason"]
 
-    clients = Client.where("lower(last_name) = ? and lower(first_name) = ?", 
-                           last_name.strip.downcase, 
+    clients = Client.where("lower(last_name) = ? and lower(first_name) = ?",
+                           last_name.strip.downcase,
                            first_name.strip.downcase)
 
     if clients.count == 1
       client = clients.first
       @to_ban << {
         client: client,
-        reason: reason,
+        reason: reason
       }
     else
       to_reconcile << [names, dob]
@@ -49,7 +49,7 @@ IncidentReport.transaction do
   end
 
   puts "Reconcile: #{to_reconcile.size}"
-  puts to_reconcile.map {|c| c.join("\t")}
+  puts to_reconcile.map { |c| c.join("\t") }
   puts "=" * 80
 
   puts "Ban: #{@to_ban.size}"

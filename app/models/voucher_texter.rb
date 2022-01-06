@@ -1,5 +1,5 @@
 class VoucherTexter
-  def initialize(voucher, sid, token, phone_number)
+  def initialize(_voucher, _sid, _token, phone_number)
     @voucher = Voucher.find(params[:id])
     @twilio_number = phone_number
   end

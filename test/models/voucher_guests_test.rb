@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class VoucherGuestsTest < ActiveSupport::TestCase
   test "prior guests" do
@@ -8,11 +8,10 @@ class VoucherGuestsTest < ActiveSupport::TestCase
 
     swap = create(:swap, :tomorrow)
     guests = create_list(:client, 2)
-    voucher = create(:voucher, 
-      client: client, 
-      swap: swap, 
-      guest_ids: guests.map(&:id)
-    )
+    voucher = create(:voucher,
+                     client: client,
+                     swap: swap,
+                     guest_ids: guests.map(&:id))
 
     assert_equal(2, voucher.guests.size)
     client.vouchers.reload
@@ -24,11 +23,10 @@ class VoucherGuestsTest < ActiveSupport::TestCase
 
     swap = create(:swap, :tomorrow)
     guests = create_list(:client, 2)
-    voucher = create(:voucher, 
-      client: client, 
-      swap: swap, 
-      guest_ids: guests.map(&:id)
-    )
+    voucher = create(:voucher,
+                     client: client,
+                     swap: swap,
+                     guest_ids: guests.map(&:id))
 
     assert_equal(2, voucher.guests.size)
     client.vouchers.reload

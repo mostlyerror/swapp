@@ -60,7 +60,7 @@ FactoryBot.define do
   factory :intake do
     household_tanf { [true, false].sample }
     have_you_ever_experienced_homelessness_before { [true, false].sample }
-    homelessness_date_began { FFaker::Time.between(10.years.ago, 1.years.ago) }
+    homelessness_date_began { FFaker::Time.between(10.years.ago, 1.year.ago) }
     homelessness_how_long_this_time { Intake::HOMELESSNESS_HOW_LONG_THIS_TIME.choices.sample }
     homelessness_episodes_last_three_years { Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS.choices.sample }
     homelessness_total_last_three_years { Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS.choices.sample }
@@ -69,7 +69,7 @@ FactoryBot.define do
 
     non_cash_benefits { ["No"] }
     trait :with_non_cash_benefits do
-      non_cash_benefits do 
+      non_cash_benefits do
         choices = Intake::NON_CASH_BENEFITS.choices
         no_choice = choices.shift
         choices.size.times.map { choices.sample }.uniq
@@ -80,7 +80,7 @@ FactoryBot.define do
     trait :with_income do
       income_source_any { true }
       income_source_earned_income { (rand(10) * 100) }
-      income_source_ssdi{ (rand(10) * 100) }
+      income_source_ssdi { (rand(10) * 100) }
       income_source_ssi { (rand(10) * 100) }
       income_source_unemployment_insurance { (rand(10) * 100) }
       income_source_tanf { (rand(10) * 100) }

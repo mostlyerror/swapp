@@ -4,7 +4,7 @@
 #   include Devise::Test::IntegrationHelpers
 #   include DatesHelper
 
-#   setup do 
+#   setup do
 #     user = create(:user)
 #     sign_in user
 #     hotel = create(:hotel)
@@ -27,7 +27,7 @@
 #     visit root_path
 #     assert_text /today is the last day to issue vouchers/i
 #   end
-   
+
 #   test "out of vouchers" do
 #     swap = create(:swap, :tomorrow)
 #     visit root_path
