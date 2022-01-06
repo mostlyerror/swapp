@@ -49,17 +49,17 @@
     </div>
   </div>
   <!-- send digital voucher -->
-  <div class="p-6 bg-gray-100 flex justify-between items-center">
+  <div class="hidden p-6 bg-gray-100 flex justify-between items-center">
     <div class="text-lg md:text-xl">
       Share voucher details with guest:
     </div>
     <div>
       <%= form_for(@voucher, url: send_voucher_path(@voucher.id), method: :post) do |form| %>
         <div class="inline-block">
-          <%= form.submit "E-mail", class: "px-4 md:px-6 py-2 md:py-3 rounded md:rounded-lg bg-indigo-600 hover:bg-indigo-800 text-base md:text-lg lg:text-xl text-white cursor-pointer shadow-lg" %>
+          <%= form.submit "E-mail", disabled: true, class: "px-4 md:px-6 py-2 md:py-3 rounded md:rounded-lg bg-indigo-600 hover:bg-indigo-800 text-base md:text-lg lg:text-xl text-white cursor-pointer shadow-lg" %>
         </div>
         <div class="pl-4 inline-block">
-          <%= form.submit "Text/SMS", class: "px-4 md:px-6 py-2 md:py-3 rounded md:rounded-lg bg-indigo-600 hover:bg-indigo-800 text-base md:text-lg lg:text-xl text-white cursor-pointer shadow-lg" %>
+          <%= form.submit "Text/SMS", disabled: true, class: "px-4 md:px-6 py-2 md:py-3 rounded md:rounded-lg bg-indigo-600 hover:bg-indigo-800 text-base md:text-lg lg:text-xl text-white cursor-pointer shadow-lg" %>
         </div>
       <% end %>
     </div>
