@@ -1,0 +1,414 @@
+require:
+    - rubocop-performance
+    - rubocop-rails
+
+## For Reference:
+## Rubocop docs: https://docs.rubocop.org/
+## Ruby Style Guide: https://rubystyle.guide/
+## Rails Style Guide: https://rails.rubystyle.guide/
+
+AllCops:
+    TargetRubyVersion: 2.7.4
+    SuggestExtensions: false
+    NewCops: enable
+    Exclude:
+        - bin/**/*
+        - config/**/*
+        - db/**/*
+        - node_modules/**/*
+        - vendor/**/*
+
+Style/StringLiterals:
+    Enabled: true
+    EnforcedStyle: double_quotes
+
+Layout/SpaceInsideHashLiteralBraces:
+    Enabled: false
+    EnforcedStyle: no_space
+    EnforcedStyleForEmptyBraces: no_space
+
+Layout/MultilineMethodCallIndentation:
+    Enabled: false
+    EnforcedStyle: indented
+
+Layout/ArrayAlignment:
+    Enabled: false
+    EnforcedStyle: with_fixed_indentation
+
+Layout/FirstHashElementIndentation:
+    Enabled: false
+    EnforcedStyle: consistent
+
+# disable auto correct because this incorrectly "fixes" Home::SortService#sort
+Style/RedundantSort:
+    Enabled: false
+    AutoCorrect: false
+
+Style/NegatedIf:
+    Enabled: false
+    EnforcedStyle: postfix
+
+Layout/FirstArgumentIndentation:
+    Enabled: false
+    EnforcedStyle: consistent
+
+Layout/MultilineOperationIndentation:
+    Enabled: false
+    EnforcedStyle: indented
+
+Layout/FirstArrayElementIndentation:
+    Enabled: false
+    EnforcedStyle: consistent
+
+Style/HashSyntax:
+    Enabled: false
+    EnforcedStyle: ruby19_no_mixed_keys
+
+Style/EmptyMethod:
+    Enabled: false
+    EnforcedStyle: expanded
+
+Style/StringLiteralsInInterpolation:
+    Enabled: false
+    EnforcedStyle: double_quotes
+
+# disable for salesforce api code so we can easily keep naming consistent
+Naming/VariableName:
+    Enabled: false
+    EnforcedStyle: snake_case
+
+Naming/FileName:
+    Enabled: true
+    Exclude:
+        - app/commands/slack/**
+
+Rails/SkipsModelValidations:
+    Enabled: false
+    AllowedMethods:
+        - update_attribute
+        - update_column
+        - update_columns
+        - update_all
+        - touch
+
+# disable temporarily while we come up with a resolution for the import_inventory_photos rake task
+Security/Open:
+    Enabled: false
+
+Style/DateTime:
+    Enabled: false
+
+Style/RescueModifier:
+    Enabled: false
+    Exclude:
+        - spec/**/*
+
+Rails/Output:
+    Enabled: false
+    Exclude:
+        - lib/**/*
+        - app/services/tasks/*
+
+Rails/UnknownEnv:
+    Enabled: false
+    Environments:
+        - production
+        - staging
+        - test
+        - development
+
+Style/Documentation:
+    Enabled: false
+
+Metrics/AbcSize:
+    Enabled: false
+
+Style/ClassAndModuleChildren:
+    Enabled: false
+
+Style/IfUnlessModifier:
+    Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+    Enabled: false
+
+Metrics/PerceivedComplexity:
+    Enabled: false
+
+Style/InverseMethods:
+    Enabled: false
+
+Style/StringConcatenation:
+    Enabled: false
+
+Style/HashEachMethods:
+    Enabled: false
+
+Style/CaseLikeIf:
+    Enabled: false
+
+Metrics/CyclomaticComplexity:
+    Enabled: false
+
+Style/Next:
+    Enabled: false
+
+Layout/EmptyLineAfterGuardClause:
+    Enabled: false
+
+Style/HashAsLastArrayItem:
+    Enabled: false
+
+Lint/ShadowingOuterLocalVariable:
+    Enabled: false
+
+Naming/AccessorMethodName:
+    Enabled: false
+
+Style/IfWithBooleanLiteralBranches:
+    Enabled: false
+
+Metrics/BlockLength:
+    Enabled: false
+
+Style/NumericPredicate:
+    Enabled: false
+
+Style/SoleNestedConditional:
+    Enabled: false
+
+Style/GuardClause:
+    Enabled: false
+
+Style/SymbolArray:
+    Enabled: false
+
+Style/WordArray:
+    Enabled: false
+
+Naming/VariableNumber:
+    Enabled: false
+
+Naming/MethodParameterName:
+    Enabled: false
+
+Lint/DuplicateBranch:
+    Enabled: false
+
+Style/MultilineTernaryOperator:
+    Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+    Enabled: false
+
+Style/SymbolProc:
+    Enabled: false
+
+Lint/UselessAccessModifier:
+    Enabled: false
+
+Lint/UselessMethodDefinition:
+    Enabled: false
+
+Lint/UselessAssignment:
+    Enabled: false
+
+Lint/EmptyBlock:
+    Enabled: false
+
+Style/CaseEquality:
+    Enabled: false
+
+Metrics/ModuleLength:
+    Enabled: false
+
+Style/ExplicitBlockArgument:
+    Enabled: false
+
+Lint/TripleQuotes:
+    Enabled: false
+
+Style/ZeroLengthPredicate:
+    Enabled: false
+
+Style/StringChars:
+    Enabled: false
+
+Performance/RedundantSplitRegexpArgument:
+    Enabled: false
+
+Style/OptionalBooleanParameter:
+    Enabled: false
+
+Style/RedundantArgument:
+    Enabled: false
+
+Style/MutableConstant:
+    Enabled: false
+
+Naming/PredicateName:
+    Enabled: false
+
+Lint/UnusedBlockArgument:
+    Enabled: false
+
+Style/RaiseArgs:
+    Enabled: false
+
+Style/MultilineBlockChain:
+    Enabled: false
+
+Performance/Sum:
+    Enabled: false
+
+Lint/UnexpectedBlockArity:
+    Enabled: false
+
+Lint/SymbolConversion:
+    Enabled: false
+
+Performance/CollectionLiteralInLoop:
+    Enabled: false
+
+Style/FormatString:
+    Enabled: false
+
+Style/FormatStringToken:
+    Enabled: false
+
+Lint/MissingSuper:
+    Enabled: false
+
+Metrics/BlockNesting:
+    Enabled: false
+
+Style/NumericLiterals:
+    Enabled: false
+
+Style/RegexpLiteral:
+    Enabled: false
+
+Style/PreferredHashMethods:
+    Enabled: false
+
+Lint/EmptyClass:
+    Enabled: false
+
+Style/WhileUntilModifier:
+    Enabled: false
+
+Lint/DisjunctiveAssignmentInConstructor:
+    Enabled: false
+
+Style/FloatDivision:
+    Enabled: false
+
+Lint/ToJSON:
+    Enabled: false
+
+Performance/Casecmp:
+    Enabled: false
+
+Style/CommentAnnotation:
+    Enabled: false
+
+Lint/EmptyFile:
+    Enabled: false
+
+Style/AccessorGrouping:
+    Enabled: false
+
+Naming/MethodName:
+    Enabled: false
+
+Style/DoubleNegation:
+    Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+    Enabled: false
+
+Performance/TimesMap:
+    Enabled: false
+
+Style/ExpandPathArguments:
+    Enabled: false
+
+Style/Lambda:
+    Enabled: false
+
+Style/RedundantSelfAssignment:
+    Enabled: false
+
+Layout/EmptyLinesAroundAttributeAccessor:
+    Enabled: false
+
+Style/NegatedIfElseCondition:
+    Enabled: false
+
+Lint/ImplicitStringConcatenation:
+    Enabled: false
+
+Rails/RenderInline:
+    Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+    Enabled: false
+
+# The auto-corrector for blows up with an infinite loop
+Layout/LineEndStringConcatenationIndentation:
+    Enabled: false
+
+# This is a useful rule, but difficult for us to use because:
+# 1) The paranoia gem and soft deletes make it complicated to add unique indexes
+# 2) This rule relies on schema.rb, which we do not keep updated (we use structure.sql instead)
+Rails/UniqueValidationWithoutIndex:
+    Enabled: false
+
+#########################################################################################
+## TODO: Enable cops below
+#########################################################################################
+
+# https://docs.rubocop.org/rubocop-rails/2.7/cops_rails.html#railsoutputsafety
+Rails/OutputSafety:
+    Enabled: false
+
+# https://docs.rubocop.org/rubocop-rails/2.7/cops_rails.html#railshasmanyorhasonedependent
+Rails/HasManyOrHasOneDependent:
+    Enabled: false
+
+# https://docs.rubocop.org/rubocop-rails/2.7/cops_rails.html#railsinverseof
+Rails/InverseOf:
+    Enabled: false
+
+# https://docs.rubocop.org/rubocop/1.0/cops_style.html#stylefrozenstringliteralcomment
+Style/FrozenStringLiteralComment:
+    Enabled: false
+
+#########################################################################################
+## TODO: Strengthen cops below. These are code quality metrics that will take some thought
+##       and refactoring to strengthen throughout the code base
+#########################################################################################
+
+# https://docs.rubocop.org/rubocop/1.3/cops_metrics.html#metricsmethodlength
+# Default Max: 10
+Metrics/MethodLength:
+    Max: 400
+
+# https://docs.rubocop.org/rubocop/1.3/cops_layout.html#layoutlinelength
+# Default Max: 120
+# Style Guide recommends 80: https://rubystyle.guide/#max-line-length
+Layout/LineLength:
+    Max: 1000
+    Exclude:
+        - app/policies/roles.rb
+
+# https://docs.rubocop.org/rubocop/1.1/cops_metrics.html#metricsclasslength
+# Default Max: 100
+Metrics/ClassLength:
+    Max: 2000
+
+# https://docs.rubocop.org/rubocop/1.3/cops_metrics.html#metricsparameterlists
+# Default: 5
+Metrics/ParameterLists:
+    Max: 10
+    MaxOptionalParameters: 10
