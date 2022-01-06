@@ -64,36 +64,36 @@ class Intake < ApplicationRecord
   belongs_to :user
 
   auto_strip_attributes :homelessness_first_time,
-      :household_tanf,
-      :homelessness_episodes_last_three_years,
-      :armed_forces,
-      :active_duty,
-      :substance_misuse,
-      :chronic_health_condition,
-      :mental_health_disability,
-      :physical_disability,
-      :developmental_disability,
-      :fleeing_domestic_violence,
-      :homelessness_how_long_this_time,
-      :homelessness_total_last_three_years,
-      :are_you_working,
-      :last_permanent_residence_county,
-      :health_insurance,
-      :income_source_earned_income,
-      :income_source_ssdi,
-      :income_source_ssi,
-      :income_source_unemployment_insurance,
-      :income_source_tanf,
-      :income_source_child_support,
-      :income_source_retirement,
-      :income_source_alimony,
-      :income_source_veteran_service_compensation,
-      :income_source_general_assistance
-      :non_cash_benefits
+                        :household_tanf,
+                        :homelessness_episodes_last_three_years,
+                        :armed_forces,
+                        :active_duty,
+                        :substance_misuse,
+                        :chronic_health_condition,
+                        :mental_health_disability,
+                        :physical_disability,
+                        :developmental_disability,
+                        :fleeing_domestic_violence,
+                        :homelessness_how_long_this_time,
+                        :homelessness_total_last_three_years,
+                        :are_you_working,
+                        :last_permanent_residence_county,
+                        :health_insurance,
+                        :income_source_earned_income,
+                        :income_source_ssdi,
+                        :income_source_ssi,
+                        :income_source_unemployment_insurance,
+                        :income_source_tanf,
+                        :income_source_child_support,
+                        :income_source_retirement,
+                        :income_source_alimony,
+                        :income_source_veteran_service_compensation,
+                        :income_source_general_assistance
+  :non_cash_benefits
 
   FIRST_NAME = OpenStruct.new(
     key: :first_name,
-    text: "First Name" 
+    text: "First Name"
   )
 
   LAST_NAME = OpenStruct.new(
@@ -126,14 +126,14 @@ class Intake < ApplicationRecord
 
   HOMELESSNESS_FIRST_TIME = OpenStruct.new(
     key: :homelessness_first_time,
-    text: "Is this the first time you have been homeless?", 
-    choices: %w[ Yes No ]
+    text: "Is this the first time you have been homeless?",
+    choices: %w[Yes No]
   )
 
   HOUSEHOLD_TANF = OpenStruct.new(
     key: :household_tanf,
-    text: "Does anyone in your household receive TANF benefits?", 
-    choices: %w[ Yes No ]
+    text: "Does anyone in your household receive TANF benefits?",
+    choices: %w[Yes No]
   )
 
   HOMELESSNESS_DATE_BEGAN = OpenStruct.new(
@@ -143,7 +143,7 @@ class Intake < ApplicationRecord
 
   HOMELESSNESS_HOW_LONG_THIS_TIME = OpenStruct.new(
     key: :homelessness_how_long_this_time,
-    text: "How long have you been homeless this time?", 
+    text: "How long have you been homeless this time?",
     choices: [
       "1 night or less",
       "2 to 6 nights",
@@ -156,32 +156,32 @@ class Intake < ApplicationRecord
 
   HOMELESSNESS_EPISODES_LAST_THREE_YEARS = OpenStruct.new(
     key: :homelessness_episodes_last_three_years,
-    text: "Number of episodes of homelessness in the past three years?", 
+    text: "Number of episodes of homelessness in the past three years?",
     choices: [
-      '1',
-      '2',
-      '3',
-      '4 or more'
+      "1",
+      "2",
+      "3",
+      "4 or more"
     ]
   )
 
   HOMELESSNESS_TOTAL_LAST_THREE_YEARS = OpenStruct.new(
     key: :homelessness_total_last_three_years,
-    text: "Total number of months of homelessness in the past three years.", 
+    text: "Total number of months of homelessness in the past three years.",
     choices: [
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      '10',
-      '11',
-      '12',
-      'More than 12'
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "More than 12"
     ]
   )
 
@@ -198,7 +198,7 @@ class Intake < ApplicationRecord
       "On the streets or in a tent",
       "In the hospital",
       "Incarcerated",
-      "Institution",
+      "Institution"
     ]
   )
 
@@ -219,7 +219,7 @@ class Intake < ApplicationRecord
       "No ID",
       "Banned from shelter",
       "Current restraining order",
-      "Did not want to separate from significant other",
+      "Did not want to separate from significant other"
     ]
   )
 
@@ -233,7 +233,7 @@ class Intake < ApplicationRecord
       "No"
     ]
   )
-  
+
   HEALTH_INSURANCE = OpenStruct.new(
     key: :health_insurance,
     text: "Are you covered by health insurance?",
@@ -254,7 +254,7 @@ class Intake < ApplicationRecord
   INCOME_SOURCE = OpenStruct.new(
     key: :income_source_any,
     text: "Do you have income of any source?",
-    choices: %w[ Yes No ],
+    choices: %w[Yes No],
     sub_choices: {
       income_source_earned_income: "Earned Income (Paycheck)",
       income_source_ssdi: "SSDI (Disability)",
@@ -268,7 +268,6 @@ class Intake < ApplicationRecord
       income_source_general_assistance: "General Assistance"
     }
   )
-
 
   ARE_YOU_WORKING = OpenStruct.new(
     key: :are_you_working,
@@ -296,7 +295,7 @@ class Intake < ApplicationRecord
   VETERAN = OpenStruct.new(
     key: :veteran,
     text: "Are you a veteran?",
-    choices: %w[ Yes No ]
+    choices: %w[Yes No]
   )
 
   VETERAN_MILITARY_BRANCH = OpenStruct.new(
@@ -308,7 +307,7 @@ class Intake < ApplicationRecord
       "Airforce",
       "Marines",
       "Coast Guard"
-    ],
+    ]
   )
 
   VETERAN_SEPARATION_YEAR = OpenStruct.new(
@@ -323,55 +322,55 @@ class Intake < ApplicationRecord
       "Honorable",
       "Dishonorable",
       "Bad Conduct",
-      "Other than honorable",
+      "Other than honorable"
     ]
   )
 
   ACTIVE_DUTY = OpenStruct.new(
     key: :active_duty,
     text: "Were you ever called into active duty as a member of the National Guard or as a Reservist?",
-    choices: %w[ Yes No ]
+    choices: %w[Yes No]
   )
 
   SUBSTANCE_MISUSE = OpenStruct.new(
     key: :substance_misuse,
     text: "Do you have any Substance Misuse Issues?",
-    choices: [ 
+    choices: [
       "No",
       "Alcohol",
       "Drugs",
       "Alcohol and Drugs"
-     ]
+]
   )
 
   CHRONIC_HEALTH_CONDITION = OpenStruct.new(
     key: :chronic_health_condition,
     text: "Do you have a Chronic Health Condition?",
-    choices: %w[ Yes No ]
+    choices: %w[Yes No]
   )
 
   MENTAL_HEALTH_DISABILITY = OpenStruct.new(
     key: :mental_health_disability,
     text: "Do you have a Mental Health Disability?",
-    choices: %w[ Yes No ]
+    choices: %w[Yes No]
   )
 
   PHYSICAL_DISABILITY = OpenStruct.new(
     key: :physical_disability,
     text: "Do you have a Physical Disability?",
-    choices: %w[ Yes No ]
+    choices: %w[Yes No]
   )
 
   DEVELOPMENTAL_DISABILITY = OpenStruct.new(
     key: :developmental_disability,
     text: "Do you have a Developmental Disability?",
-    choices: %w[ Yes No ]
+    choices: %w[Yes No]
   )
 
   FLEEING_DOMESTIC_VIOLENCE = OpenStruct.new(
     key: :fleeing_domestic_violence,
     text: "Are you fleeing Domestic Violence, Sexual Assault or Stalking?",
-    choices: %w[ Yes No ]
+    choices: %w[Yes No]
   )
 
   NUM_ADULTS_HOUSEHOLD = OpenStruct.new(
@@ -386,7 +385,7 @@ class Intake < ApplicationRecord
     placeholder: "enter numeric value"
   )
 
-  LAST_PERMANENT_RESIDENCE_COUNTY= OpenStruct.new(
+  LAST_PERMANENT_RESIDENCE_COUNTY = OpenStruct.new(
     key: :last_permanent_residence_county,
     text: "In what county was your last permanent residence?",
     placeholder: "Adams"
@@ -404,7 +403,7 @@ class Intake < ApplicationRecord
 
   HOTEL_ID = OpenStruct.new(
     key: :hotel_id,
-    text: "Hotel (vouchers remaining)", 
+    text: "Hotel (vouchers remaining)"
   )
 
   PHONE_NUMBER = OpenStruct.new(
@@ -412,7 +411,7 @@ class Intake < ApplicationRecord
     text: "Phone Number (optional)"
   )
 
-  EMAIL= OpenStruct.new(
+  EMAIL = OpenStruct.new(
     key: :email,
     text: "Email (optional)"
   )
@@ -420,13 +419,13 @@ class Intake < ApplicationRecord
   BUS_PASS = OpenStruct.new(
     key: :bus_pass,
     text: "Bus Pass?",
-    choices: %w[ Yes No ]
+    choices: %w[Yes No]
   )
 
   KING_SOOPERS_CARD = OpenStruct.new(
     key: :king_soopers_card,
     text: "King Soopers Card?",
-    choices: %w[ Yes No ]
+    choices: %w[Yes No]
   )
 
   RELATIONSHIP = OpenStruct.new(
@@ -438,12 +437,12 @@ class Intake < ApplicationRecord
   DISABLING_CONDITION = OpenStruct.new(
     key: :disabling_condition,
     text: "Disabling Condition?",
-    choices: %w[ Yes No ]
+    choices: %w[Yes No]
   )
 
   GUESTS = OpenStruct.new(
     key: :guests,
     text: "Are you bringing guests?",
-    choices: %w[ Yes No ]
+    choices: %w[Yes No]
   )
 end

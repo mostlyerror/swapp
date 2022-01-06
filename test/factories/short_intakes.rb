@@ -34,7 +34,7 @@ FactoryBot.define do
     client
     user
     where_did_you_sleep_last_night { Intake::SLEEP_LAST_NIGHT.choices.sample }
-    what_city_did_you_sleep_in_last_night { 'Thornton' }
+    what_city_did_you_sleep_in_last_night { "Thornton" }
     why_not_shelter { Intake::WHY_NOT_SHELTER.choices.sample }
     pets { Intake::PETS.sample }
     bus_pass { [true, false].sample }

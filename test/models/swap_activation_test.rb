@@ -1,23 +1,23 @@
-require 'test_helper'
+require "test_helper"
 
 class SwapActivationTest < ActiveSupport::TestCase
   test "states" do
-    skip('needs refactor after implementing swaps.aasm_state')
+    skip("needs refactor after implementing swaps.aasm_state")
 
     swap = create :swap, :tomorrow
     assert swap.inactive?
-    refute swap.active?
+    assert_not swap.active?
     assert swap.may_activate?
-    refute swap.may_deactivate?
+    assert_not swap.may_deactivate?
 
     # assert_enqueued_emails 0
     assert_nothing_raised { swap.activate! }
     # assert_enqueued_email_with SwapMailer, :activated, args: []
     # assert_enqueued_emails 1
 
-    refute swap.inactive?
+    assert_not swap.inactive?
     assert swap.active?
-    refute swap.may_activate?
+    assert_not swap.may_activate?
     assert swap.may_deactivate?
 
     # assert_enqueued_emails 0

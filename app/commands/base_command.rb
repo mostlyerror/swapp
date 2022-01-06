@@ -1,4 +1,4 @@
-require 'active_interaction'
+require "active_interaction"
 
 class BaseCommand < ActiveInteraction::Base
 end

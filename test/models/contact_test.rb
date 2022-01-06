@@ -13,7 +13,7 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #
-require 'test_helper'
+require "test_helper"
 
 class ContactTest < ActiveSupport::TestCase
   test "contact can have 0 to many hotels" do

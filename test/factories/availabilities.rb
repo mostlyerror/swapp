@@ -27,6 +27,6 @@ FactoryBot.define do
     hotel
     swap
     vacant { 1 }
-    date { self.swap.intake_dates.first }
+    date { swap.intake_dates.first }
   end
 end

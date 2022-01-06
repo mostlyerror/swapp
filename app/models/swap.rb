@@ -12,9 +12,9 @@
 #
 class Swap < ApplicationRecord
   has_logidze
-  # include AASM 
+  # include AASM
 
-  validates_presence_of :start_date, :end_date, :intake_dates
+  validates :start_date, :end_date, :intake_dates, presence: true
   validate :order_of_dates
   validate :overlapping_events
   validate :at_least_one_night
@@ -50,12 +50,12 @@ class Swap < ApplicationRecord
     ((end_date - start_date) + 1).to_i
   end
 
-  def nights 
+  def nights
     duration - 1
   end
 
   def nights_remaining
-    [(end_date -  Date.current.to_date).to_i, 0].max
+    [(end_date - Date.current.to_date).to_i, 0].max
   end
 
   def intake_active?
@@ -66,14 +66,14 @@ class Swap < ApplicationRecord
     nights_remaining <= 0
   end
 
-  def extend! nights
+  def extend!(nights)
     nights = nights.to_i
     raise :cannot_extend_swap_by_negative_number_of_days if nights.negative?
 
-    self.transaction do
-      self.end_date = self.end_date.to_date + nights
+    transaction do
+      self.end_date = end_date.to_date + nights
       save!
-      self.vouchers.each { |voucher| voucher.extend!(nights) }
+      vouchers.each { |voucher| voucher.extend!(nights) }
     end
     self
   end
@@ -81,46 +81,46 @@ class Swap < ApplicationRecord
   def to_s
     "#{id}|#{start_date.to_date}|#{end_date.to_date}"
   end
-  
-  private 
 
-    def order_of_dates
-      if end_date&.< start_date
-        errors.add(:base, "end_date: #{end_date} must be same day or later than start_date: #{start_date}")
-      end
+  private
+
+  def order_of_dates
+    if end_date&.< start_date
+      errors.add(:base, "end_date: #{end_date} must be same day or later than start_date: #{start_date}")
+    end
+  end
+
+  def at_least_one_night
+    if start_date.nil?
+      return errors.add(:base, "start_date must not be nil")
     end
 
-    def at_least_one_night 
-      if start_date.nil?
-        return errors.add(:base, "start_date must not be nil")
-      end
-
-      if end_date.nil?
-        return errors.add(:base, "end_date must not be nil")
-      end
-
-      if nights <= 0
-        return errors.add(:base, "duration: (#{nights} nights) must be for at least one night")
-      end
+    if end_date.nil?
+      return errors.add(:base, "end_date must not be nil")
     end
 
-    def overlapping_events
-      overlapping = self.class.where("start_date <= ? AND ? <= end_date", end_date, start_date)
-        .reject { |sw| sw == self }
-      if overlapping.present?
-        errors.add(:overlapping, "can't overlap other swap period: #{overlapping.first}")
-      end
+    if nights <= 0
+      errors.add(:base, "duration: (#{nights} nights) must be for at least one night")
     end
+  end
 
-    def no_intake_on_last_night
-      if intake_dates.include? end_date
-        return errors.add(:base, "Cannot perform intake on last day of swap period")
-      end
+  def overlapping_events
+    overlapping = self.class.where("start_date <= ? AND ? <= end_date", end_date, start_date)
+      .reject { |sw| sw == self }
+    if overlapping.present?
+      errors.add(:overlapping, "can't overlap other swap period: #{overlapping.first}")
     end
+  end
 
-    def no_unsorted_intake_dates
-      if intake_dates.sort != intake_dates
-        return errors.add(:intake_dates, "Intake dates are unsorted")
-      end 
+  def no_intake_on_last_night
+    if intake_dates.include? end_date
+      errors.add(:base, "Cannot perform intake on last day of swap period")
     end
+  end
+
+  def no_unsorted_intake_dates
+    if intake_dates.sort != intake_dates
+      errors.add(:intake_dates, "Intake dates are unsorted")
+    end
+  end
 end

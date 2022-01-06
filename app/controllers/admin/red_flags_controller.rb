@@ -3,7 +3,7 @@ class Admin::RedFlagsController < Admin::BaseController
 
   def edit_red_flag
     client_id = params[:id]
-    RedFlag.transaction do 
+    RedFlag.transaction do
       RedFlag.where(client_id: client_id).destroy_all
 
       red_flag_attrs = params[:client][:hotel_ids].map do |hotel_id|

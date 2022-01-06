@@ -47,13 +47,11 @@ class ClientsController < ApplicationController
     @client = Client.find(params[:id])
     client_params = params.require(:client).permit!
 
-    if client_params['date_of_birth'].blank?
-      client_params['date_of_birth'] = '1600-01-01'
+    if client_params["date_of_birth"].blank?
+      client_params["date_of_birth"] = "1600-01-01"
     end
 
-    client_params.merge!(
-      race: client_params[:race].reject {|r| r == "0" }.sort,
-    )
+    client_params[:race] = client_params[:race].reject { |r| r == "0" }.sort
 
     if @client.update(client_params)
       return redirect_to @client
@@ -66,9 +64,9 @@ class ClientsController < ApplicationController
   # guests form sends xhr request to this endpoint
   # new clients are normally created in conjunction with intakes in intakes#create
   def create
-    client_params = params.require('client').permit(:first_name, :last_name, :date_of_birth)
-    if client_params['date_of_birth'].blank?
-      client_params['date_of_birth'] = '1600-01-01'
+    client_params = params.require("client").permit(:first_name, :last_name, :date_of_birth)
+    if client_params["date_of_birth"].blank?
+      client_params["date_of_birth"] = "1600-01-01"
     end
 
     client = Client.new(client_params.merge(force_intake: true))

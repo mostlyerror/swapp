@@ -22,7 +22,7 @@
 #  fk_rails_6b15febea0  (hotel_id => hotels.id)
 #  fk_rails_ccaa540134  (swap_id => swaps.id)
 #
-require 'test_helper'
+require "test_helper"
 
 class AvailabilityTest < ActiveSupport::TestCase
   test "availability date must be within swap intake period" do
@@ -31,11 +31,10 @@ class AvailabilityTest < ActiveSupport::TestCase
     assert av.valid?
 
     av.date = Date.current
-    refute av.date.in? swap.stay_period
+    assert_not av.date.in? swap.stay_period
     assert av.date.in? swap.intake_dates
     assert av.valid?
   end
-
 
   test "one availability per date per hotel per swap" do
     swap = create(:swap, :tomorrow)
@@ -43,7 +42,7 @@ class AvailabilityTest < ActiveSupport::TestCase
     av = create(:availability, swap: swap, hotel: hotel, date: swap.start_date, vacant: 1)
     assert av.persisted?
     av = build_stubbed(:availability, swap: swap, hotel: hotel, date: swap.start_date, vacant: 1)
-    refute av.valid?
+    assert_not av.valid?
     assert av.errors.key?(:one_per_date_per_hotel_per_swap)
 
     # skipping validations to test custom multi-column index using dates:
@@ -64,7 +63,7 @@ class AvailabilityTest < ActiveSupport::TestCase
     swap = create(:swap, :tomorrow)
     hotel = create(:hotel)
     swap.availabilities.create(
-      hotel: hotel, 
+      hotel: hotel,
       date: swap.start_date,
       vacant: 1
     )
@@ -75,9 +74,9 @@ class AvailabilityTest < ActiveSupport::TestCase
 
     hotel2 = create(:hotel)
     swap.availabilities.create(
-      hotel: hotel2, 
+      hotel: hotel2,
       date: swap.start_date,
-      vacant: 2,
+      vacant: 2
     )
 
     supply = RoomSupply.by_hotel(swap.reload)

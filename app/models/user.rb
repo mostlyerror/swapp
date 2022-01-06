@@ -34,7 +34,7 @@ class User < ApplicationRecord
   has_many :incident_reports, as: :reporter
   has_many :intakes
 
-  has_many :hotel_users, class_name: 'HotelUser', table_name: :hotels_users
+  has_many :hotel_users, class_name: "HotelUser", table_name: :hotels_users
   has_many :hotels, through: :hotel_users
 
   def hotel

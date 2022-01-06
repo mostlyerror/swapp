@@ -4,7 +4,7 @@ class Admin::HotelsController < Admin::BaseController
   def index
     respond_to do |format|
       format.csv do
-        ts = Time.now.strftime("%Y%m%dT%H%M")
+        ts = Time.zone.now.strftime("%Y%m%dT%H%M")
         send_data Hotel.to_csv, filename: "hotels-#{ts}.csv"
       end
     end

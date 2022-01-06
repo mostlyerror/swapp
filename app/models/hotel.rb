@@ -19,19 +19,19 @@ class Hotel < ApplicationRecord
 
   has_many :availabilities
   has_many :vouchers
-  has_many :hotel_users, class_name: 'HotelUser', table_name: :hotels_users
+  has_many :hotel_users, class_name: "HotelUser", table_name: :hotels_users
   has_many :users, through: :hotel_users
   has_many :hotels_contacts, class_name: "HotelContact", table_name: :hotels_contacts
   has_many :contacts, through: :hotels_contacts
-  has_many :red_flags, class_name: 'RedFlag', table_name: :red_flags
+  has_many :red_flags, class_name: "RedFlag", table_name: :red_flags
   has_many :clients, through: :red_flags
 
-  validates_presence_of :name
+  validates :name, presence: true
 
-  scope :active, ->() { where(active: true) }
+  scope :active, -> { where(active: true) }
 
   def street_address
-    address['street']
+    address["street"]
   end
 
   def address_second
@@ -43,11 +43,11 @@ class Hotel < ApplicationRecord
       ignore_columns = %w[log_data created_at updated_at]
       selected_columns = column_names - ignore_columns
       csv << selected_columns
-      all.each do |hotel|
-        row = selected_columns.map  do |col| 
+      all.find_each do |hotel|
+        row = selected_columns.map do |col|
           col == "address" ?
             hotel.send(col).to_json :
-            hotel.send(col) 
+            hotel.send(col)
         end
         csv << row
       end
@@ -55,7 +55,7 @@ class Hotel < ApplicationRecord
   end
 
   def self.import(file)
-    ActiveRecord::Base.transaction do 
+    ActiveRecord::Base.transaction do
       CSV.foreach(file.path, headers: true) do |row|
         row["address"] = JSON.parse(row["address"]) if row["address"].present?
 

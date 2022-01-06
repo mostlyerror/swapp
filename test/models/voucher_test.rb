@@ -37,7 +37,7 @@
 #  fk_rails_3e6ca7b204  (user_id => users.id)
 #  fk_rails_8c1008a5cb  (voided_by_id => users.id)
 #
-require 'test_helper'
+require "test_helper"
 
 class VoucherTest < ActiveSupport::TestCase
   test ".voided scope returns voided vouchers only" do
@@ -49,29 +49,27 @@ class VoucherTest < ActiveSupport::TestCase
   end
 
   test "voucher has to be for at least one night" do
-    skip('disabled validation for now')
+    skip("disabled validation for now")
     swap = create(:swap,
-      start_date: Date.current.yesterday,
-      end_date: Date.current
-    )
+                  start_date: Date.current.yesterday,
+                  end_date: Date.current)
     assert_equal 1, swap.nights
     assert_equal 0, swap.nights_remaining
 
     voucher = build_stubbed(:voucher, swap: swap)
-    refute voucher.valid?
+    assert_not voucher.valid?
     assert voucher.errors.key?(:nights)
   end
 
   test "one voucher per period per client" do
     swap = create(:swap, :future)
     voucher = create(:voucher, swap: swap)
-    voucher = build(:voucher, 
-      swap: swap, 
-      client: voucher.client,
-      check_in: swap.start_date,
-      check_out: swap.end_date,
-    )
-    refute voucher.valid?
+    voucher = build(:voucher,
+                    swap: swap,
+                    client: voucher.client,
+                    check_in: swap.start_date,
+                    check_out: swap.end_date)
+    assert_not voucher.valid?
     assert voucher.errors.key?(:client_id)
 
     voucher.client = create(:client)
@@ -80,12 +78,11 @@ class VoucherTest < ActiveSupport::TestCase
 
   test "voucher dates must be in order" do
     swap = build_stubbed(:swap, :future)
-    voucher = build_stubbed(:voucher, 
-      swap: swap,
-      check_in: swap.end_date,
-      check_out: swap.start_date
-    )
-    refute voucher.valid?
+    voucher = build_stubbed(:voucher,
+                            swap: swap,
+                            check_in: swap.end_date,
+                            check_out: swap.start_date)
+    assert_not voucher.valid?
     assert voucher.errors.key? :dates
 
     voucher.check_in = swap.start_date
@@ -95,41 +92,38 @@ class VoucherTest < ActiveSupport::TestCase
 
   test "check_in/out only during swap period" do
     swap = build_stubbed(:swap, :current)
-    voucher = build_stubbed(:voucher, 
-      swap: swap,
-      check_in: swap.start_date,
-      check_out: swap.end_date
-    )
+    voucher = build_stubbed(:voucher,
+                            swap: swap,
+                            check_in: swap.start_date,
+                            check_out: swap.end_date)
     # this doesn't raise because the validation for dates being
     # current or in the future only runs on creation, not save or build
     assert voucher.valid?
 
     voucher.check_in = swap.start_date - 1
-    refute voucher.valid?
+    assert_not voucher.valid?
     assert voucher.errors.key? :check_in
 
     voucher.check_out = swap.end_date + 1
-    refute voucher.valid?
+    assert_not voucher.valid?
     assert voucher.errors.key? :check_out
   end
 
   test "dates must be today or later at creation (no backdated vouchers)" do
     swap = create(:swap, :past)
     assert_raises do
-      create(:voucher, 
-        swap: swap, 
-        check_in: swap.start_date, 
-        check_out: swap.end_date,
-      )
+      create(:voucher,
+             swap: swap,
+             check_in: swap.start_date,
+             check_out: swap.end_date)
     end
 
     swap = create(:swap, :current)
     assert_raises do
-      create(:voucher, 
-        swap: swap, 
-        check_in: swap.start_date, 
-        check_out: swap.end_date,
-      )
+      create(:voucher,
+             swap: swap,
+             check_in: swap.start_date,
+             check_out: swap.end_date)
     end
 
     assert_nothing_raised do

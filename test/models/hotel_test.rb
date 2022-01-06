@@ -13,7 +13,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-require 'test_helper'
+require "test_helper"
 
 class HotelTest < ActiveSupport::TestCase
   test ".active does not include inactive hotels" do
@@ -27,7 +27,7 @@ class HotelTest < ActiveSupport::TestCase
     hotel = create(:hotel)
     assert hotel.deleted_at.blank?
     hotel.destroy
-    refute hotel.reload.deleted_at.blank?
+    assert_not hotel.reload.deleted_at.blank?
   end
 
   test "soft delete updates timestamps" do

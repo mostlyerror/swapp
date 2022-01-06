@@ -8,4 +8,3 @@ class MessagesController < ApplicationController
     render xml: HotlineResponse.new(body, from).response
   end
 end
- 

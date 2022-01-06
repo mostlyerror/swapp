@@ -38,8 +38,8 @@
 #  fk_rails_8c1008a5cb  (voided_by_id => users.id)
 #
 class VouchersController < ApplicationController
-  before_action :set_voucher, only: %i[ show created ]
-  before_action :set_voucher_supply_for_hotel_dropdown, only: %i[ new create ]
+  before_action :set_voucher, only: %i[show created]
+  before_action :set_voucher_supply_for_hotel_dropdown, only: %i[new create]
 
   def new
     @client = Client.find(params[:client_id])
@@ -63,14 +63,14 @@ class VouchersController < ApplicationController
 
       if !@client.update(
           phone_number: client_params[:phone_number],
-          email: client_params[:email],
-      )
+          email: client_params[:email]
+        )
         return render :new
       end
 
       short_intake_params = voucher_params[:short_intake]
       @short_intake = ShortIntake.new(short_intake_params)
-      @short_intake.why_not_shelter = short_intake_params[:why_not_shelter].reject {|r| r == "0" }
+      @short_intake.why_not_shelter = short_intake_params[:why_not_shelter].reject { |r| r == "0" }
       @short_intake.client = @client
       @short_intake.user = current_user
       @short_intake.swap = @swap
@@ -100,7 +100,6 @@ class VouchersController < ApplicationController
       end
     end
 
-
     redirect_to action: :created, id: @voucher.id
   end
 
@@ -110,13 +109,12 @@ class VouchersController < ApplicationController
   def send_voucher
     voucher = Voucher.find(params[:id])
 
-    if params[:commit] == 'E-mail'      
+    if params[:commit] == "E-mail"
       VoucherMailer.with(voucher: voucher).voucher_email.deliver_now
-    elsif params[:commit] == 'Text/SMS'
-      VoucherTexter.send_sms(voucher, ENV['TWILIO_SID'], ENV['TWILIO_TOKEN'])
+    elsif params[:commit] == "Text/SMS"
+      VoucherTexter.send_sms(voucher, ENV["TWILIO_SID"], ENV["TWILIO_TOKEN"])
     end
   end
-
 
   def show
   end
@@ -125,9 +123,9 @@ class VouchersController < ApplicationController
 
   def voucher_params
     params.require(:voucher).permit(
-      :check_in, 
-      :check_out, 
-      :hotel_id, 
+      :check_in,
+      :check_out,
+      :hotel_id,
       :guests,
       guest_ids: [],
       client: [
@@ -137,12 +135,12 @@ class VouchersController < ApplicationController
       ],
       short_intake: [
         :where_did_you_sleep_last_night,
-        :what_city_did_you_sleep_in_last_night, 
+        :what_city_did_you_sleep_in_last_night,
         {why_not_shelter: []},
         :pets,
         :bus_pass,
-        :king_soopers_card,
-      ],
+        :king_soopers_card
+      ]
     )
   end
 
@@ -155,13 +153,13 @@ class VouchersController < ApplicationController
     if @swap
       supply = RoomSupply.vouchers_remaining_today(@swap)
       @disabled = []
-      @client.flagged_hotels.map {|hotel| @disabled.push(hotel)}
+      @client.flagged_hotels.map { |hotel| @disabled.push(hotel) }
       @hotels = Hotel.active.reduce({}) do |memo, hotel|
         name = "#{hotel.name} (#{supply[hotel.id]})"
         if supply[hotel.id].to_i <= 0
           @disabled << hotel.id
         end
-        memo.merge(Hash[name, hotel.id])
+        memo.merge({name => hotel.id})
       end
     end
   end

@@ -58,11 +58,11 @@
 #
 class IntakesController < ApplicationController
   def new
-    if params[:client_id].present?
-      @client = Client.find(params[:client_id])
-    else
-      @client = Client.new
-    end
+    @client = if params[:client_id].present?
+                Client.find(params[:client_id])
+              else
+                Client.new
+              end
 
     @intake = Intake.new
     @voucher = Voucher.new
@@ -71,13 +71,13 @@ class IntakesController < ApplicationController
   def create
     client_params = intake_params[:client_attributes]
 
-    if client_params[:client_id]
-      @client = Client.find(client_params[:client_id])
-    elsif client_params[:id].present?
-      @client = Client.find(client_params[:id])
-    else
-      @client = Client.new
-    end
+    @client = if client_params[:client_id]
+                Client.find(client_params[:client_id])
+              elsif client_params[:id].present?
+                Client.find(client_params[:id])
+              else
+                Client.new
+              end
 
     @client.assign_attributes(client_params.merge(
       veteran: !!client_params[:veteran],
@@ -96,7 +96,7 @@ class IntakesController < ApplicationController
       client_id: @client.id,
       household_tanf: !!intake_params[:household_tanf],
       have_you_ever_experienced_homelessness_before: !intake_params[:homelessness_first_time],
-      non_cash_benefits: intake_params[:non_cash_benefits].reject {|r| r == "0" },
+      non_cash_benefits: intake_params[:non_cash_benefits].reject { |r| r == "0" },
       income_source_any: !!intake_params[:income_source_any],
       active_duty: !!intake_params[:active_duty],
       chronic_health_condition: !!intake_params[:chronic_health_condition],
@@ -120,17 +120,17 @@ class IntakesController < ApplicationController
       :homelessness_first_time,
       :homelessness_date_began,
       :homelessness_episodes_last_three_years,
-      :where_did_you_sleep_last_night, 
+      :where_did_you_sleep_last_night,
       :household_tanf,
       {why_not_shelter: []},
       :armed_forces,
-      :active_duty, 
-      :substance_misuse, 
+      :active_duty,
+      :substance_misuse,
       :chronic_health_condition,
       :mental_health_disability,
-      :physical_disability, 
+      :physical_disability,
       :developmental_disability,
-      :fleeing_domestic_violence, 
+      :fleeing_domestic_violence,
       :homelessness_how_long_this_time,
       :total_how_long_shelters_or_streets,
       :are_you_working,
@@ -151,10 +151,10 @@ class IntakesController < ApplicationController
       {non_cash_benefits: []},
       client_attributes: [
         :id,
-        :first_name, 
-        :last_name, 
-        :date_of_birth, 
-        :gender, 
+        :first_name,
+        :last_name,
+        :date_of_birth,
+        :gender,
         {race: []},
         :ethnicity,
         :phone_number,
@@ -162,7 +162,7 @@ class IntakesController < ApplicationController
         :veteran,
         :veteran_military_branch,
         :veteran_separation_year,
-        :veteran_discharge_status,
+        :veteran_discharge_status
       ]
     )
   end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ExtendingSwapTest < ActiveSupport::TestCase
   test "extending the period" do
@@ -33,7 +33,7 @@ class ExtendingSwapTest < ActiveSupport::TestCase
   test "voucher nights can't be reduced by extend" do
     swap = create(:swap, :tomorrow)
     voucher = create(:voucher, swap: swap)
-    assert_raises { voucher.extend!(-1)}
+    assert_raises { voucher.extend!(-1) }
   end
 
   test "vouchers not assoc'd to the swap period are not extended" do

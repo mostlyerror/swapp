@@ -1,7 +1,7 @@
 filename = Rails.root.join("intakes.csv")
 
 ActiveRecord::Base.transaction do
-  swapp_launch_date = '2021-03-11'
+  swapp_launch_date = "2021-03-11"
   Intake.where("created_at < ?", swapp_launch_date).destroy_all
   ShortIntake.where("created_at < ?", swapp_launch_date).destroy_all
 
@@ -16,7 +16,6 @@ ActiveRecord::Base.transaction do
   puts "Swap start: #{short_intakes_start}, end: #{ShortIntake.count}"
   puts "Swap start: #{vouchers_start}, end: #{Voucher.count}"
 
-
   opts = {
     headers: true,
     header_converters: ->(h) { h&.strip },
@@ -25,11 +24,11 @@ ActiveRecord::Base.transaction do
   CSV.foreach(filename, opts) do |row|
     voucher = Voucher
       .includes(:client, :hotel, :user)
-      .find_by(number: row['voucher_number'])
+      .find_by(number: row["voucher_number"])
 
     if voucher
-      voucher.num_adults_in_household = row['adults_ct']
-      voucher.num_children_in_household = row['children_ct']
+      voucher.num_adults_in_household = row["adults_ct"]
+      voucher.num_children_in_household = row["children_ct"]
       if !voucher.save(validate: false)
         ap row
         ap voucher.errors.messages
@@ -37,11 +36,11 @@ ActiveRecord::Base.transaction do
       end
 
       client = voucher.client
-      row['race'] && client.race = row['race'].split(",")
-      row['gender'] && client.gender = row['gender']
-      row['email'] && client.email = row['email']
-      row['phone'] && client.phone_number = row['phone']
-      row['ethnicity'] && client.ethnicity = row['ethnicity']
+      row["race"] && client.race = row["race"].split(",")
+      row["gender"] && client.gender = row["gender"]
+      row["email"] && client.email = row["email"]
+      row["phone"] && client.phone_number = row["phone"]
+      row["ethnicity"] && client.ethnicity = row["ethnicity"]
 
       if !client.save(validate: false)
         ap client
@@ -54,34 +53,34 @@ ActiveRecord::Base.transaction do
       intake_attrs = {
         client: client,
         user: user,
-        homelessness_first_time: 
-          ActiveRecord::Type::Boolean.new.cast(row['firsttime_hl']),
-        how_long_this_time: 
-          row['duration_hl'],
-        episodes_last_three_years_fewer_than_four_times: 
-          row['sheltersstreets_3yr_ct'] == "Fewer than 4 times",
-        total_how_long_shelters_or_streets: 
-          row['duration_sheltersstreets'],
+        homelessness_first_time:
+          ActiveRecord::Type::Boolean.new.cast(row["firsttime_hl"]),
+        how_long_this_time:
+          row["duration_hl"],
+        episodes_last_three_years_fewer_than_four_times:
+          row["sheltersstreets_3yr_ct"] == "Fewer than 4 times",
+        total_how_long_shelters_or_streets:
+          row["duration_sheltersstreets"],
         are_you_working:
-          row['working'],
+          row["working"],
         armed_forces:
-          ActiveRecord::Type::Boolean.new.cast(row['armedforces']),
+          ActiveRecord::Type::Boolean.new.cast(row["armedforces"]),
         active_duty:
-          ActiveRecord::Type::Boolean.new.cast(row['ntlguard_reservist']),
+          ActiveRecord::Type::Boolean.new.cast(row["ntlguard_reservist"]),
         substance_abuse:
-          ActiveRecord::Type::Boolean.new.cast(row['substance_abuse']),
+          ActiveRecord::Type::Boolean.new.cast(row["substance_abuse"]),
         chronic_health_condition:
-          ActiveRecord::Type::Boolean.new.cast(row['chronic_health']),
+          ActiveRecord::Type::Boolean.new.cast(row["chronic_health"]),
         mental_health_disability:
-          ActiveRecord::Type::Boolean.new.cast(row['mental_health']),
+          ActiveRecord::Type::Boolean.new.cast(row["mental_health"]),
         physical_disability:
-          ActiveRecord::Type::Boolean.new.cast(row['physical_disab']),
+          ActiveRecord::Type::Boolean.new.cast(row["physical_disab"]),
         developmental_disability:
-          ActiveRecord::Type::Boolean.new.cast(row['developmtl_disab']),
+          ActiveRecord::Type::Boolean.new.cast(row["developmtl_disab"]),
         fleeing_domestic_violence:
-          ActiveRecord::Type::Boolean.new.cast(row['dom_viol']),
+          ActiveRecord::Type::Boolean.new.cast(row["dom_viol"]),
         last_permanent_residence_county:
-          row['lastperm_county']
+          row["lastperm_county"]
       }
 
       intake = Intake.create(intake_attrs)
@@ -95,19 +94,19 @@ ActiveRecord::Base.transaction do
         client: client,
         user: user,
         where_did_you_sleep_last_night:
-          row['where_last_night'],
+          row["where_last_night"],
         what_city_did_you_sleep_in_last_night:
           nil,
         why_not_shelter:
-          row['reason_noshelter'],
+          row["reason_noshelter"],
         bus_pass:
-          ActiveRecord::Type::Boolean.new.cast(row['buspass']),
+          ActiveRecord::Type::Boolean.new.cast(row["buspass"]),
         king_soopers_card:
-          ActiveRecord::Type::Boolean.new.cast(row['kingsoopers']),
+          ActiveRecord::Type::Boolean.new.cast(row["kingsoopers"]),
         household_composition_changed:
           false,
         family_members:
-          {},
+          {}
       }
 
       short_intake = ShortIntake.create(short_intake_attrs)

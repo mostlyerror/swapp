@@ -1,9 +1,9 @@
 class Admin::ReportsController < Admin::BaseController
   def vouchers
-    remove_attrs = %w( id created_at updated_at )
+    remove_attrs = %w[id created_at updated_at]
 
     csv = CSV.generate(headers: true) do |csv|
-      csv << %w(
+      csv << %w[
         voucher_number
         voucher_check_in
         voucher_check_out
@@ -22,7 +22,7 @@ class Admin::ReportsController < Admin::BaseController
         client_race
         client_ethnicity
         voucher_guests
-      )
+      ]
 
       Voucher.includes(:issuer, :voided_by, :hotel, :client)
         .order(id: :asc)

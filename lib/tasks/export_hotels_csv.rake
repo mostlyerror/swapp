@@ -1,7 +1,7 @@
 namespace :data do
-  desc "write hotels csv to filesystem" 
+  desc "write hotels csv to filesystem"
   task export_hotels_csv: :environment do
-    ts = Time.now.strftime("%Y%m%dT%H%M")
+    ts = Time.zone.now.strftime("%Y%m%dT%H%M")
     file_name = "hotels_#{ts}.csv"
     File.write(file_name, Hotel.to_csv)
   end
@@ -11,7 +11,7 @@ namespace :data do
   task :import_hotels_csv, [:file_name] => :environment do |t, args|
     if !args.key?(:file_name)
       puts "Usage: $ rails data:import_hotels_csv[file_name.csv]"
-      raise ArgumentError.new("must provide file_name arg") 
+      raise ArgumentError.new("must provide file_name arg")
     end
 
     if !File.exist?(args[:file_name])
@@ -21,7 +21,7 @@ namespace :data do
     csv_str = File.read(args[:file_name])
     csv = CSV.parse(csv_str, headers: true)
 
-    ActiveRecord::Base.transaction do 
+    ActiveRecord::Base.transaction do
       csv.each do |row|
         row["address"] = JSON.parse(row["address"]) if row["address"].present?
         row.delete(:created_at)

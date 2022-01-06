@@ -4,13 +4,13 @@ class RoomSupply
     avs = swap.availabilities
       .reload
       .where(
-        date: ([swap.start_date, swap.intake_dates.first].min)..swap.end_date, 
-        created_at: Date.current.beginning_of_day..Date.current.end_of_day
+        date: ([swap.start_date, swap.intake_dates.first].min)..swap.end_date,
+        created_at: Date.current.all_day
       )
     Hotel.active.pluck(:id).reduce({}) do |memo, hotel_id|
-      av = avs.select { |av| av.hotel_id == hotel_id }.first
+      av = avs.find { |av| av.hotel_id == hotel_id }
       vacancy = av.present? ? av.vacant : 0
-      memo.merge(Hash[hotel_id, vacancy])
+      memo.merge({hotel_id => vacancy})
     end
   end
 
@@ -19,7 +19,7 @@ class RoomSupply
     hotel_ids = Hotel.active.pluck(:id)
     hotels = hotel_ids.zip(Array.new(hotel_ids.size, 0)).to_h
     vouchers = swap.vouchers
-      .where(created_at: Date.current.beginning_of_day..Date.current.end_of_day)
+      .where(created_at: Date.current.all_day)
       .group(:hotel_id)
       .count
     hotels.merge(vouchers)
@@ -27,8 +27,8 @@ class RoomSupply
 
   # vacancies - vouchers issued
   def self.vouchers_remaining_today(swap)
-    vac = self.latest_vacancies(swap)
-    vou = self.vouchers_issued_today(swap)
+    vac = latest_vacancies(swap)
+    vou = vouchers_issued_today(swap)
     vac.merge(vou) { |_k, vacancies, vouchers| vacancies - vouchers }
   end
 
@@ -37,22 +37,22 @@ class RoomSupply
   end
 
   def self.by_hotel(swap)
-    supply = Hotel.active.reduce({}) do |memo, hotel| 
+    supply = Hotel.active.reduce({}) do |memo, hotel|
       dates = swap.intake_dates.reduce({}) do |dates, day|
-        dates.merge(Hash[day, {vacant: nil, issued: nil}])
+        dates.merge({day => {vacant: nil, issued: nil}})
       end
-      memo.merge(Hash[hotel.id, dates])
+      memo.merge({hotel.id => dates})
     end
 
     vouchers = swap.vouchers
-      .where(created_at: Date.current.beginning_of_day..Date.current.end_of_day)
+      .where(created_at: Date.current.all_day)
       .group(:hotel_id)
       .count
 
     swap.availabilities
       .where(
         date: ([swap.start_date, swap.intake_dates.first].min)..swap.end_date,
-        created_at: Date.current.beginning_of_day..Date.current.end_of_day,
+        created_at: Date.current.all_day
       )
       .each_with_object(supply) do |av, supply|
         supply[av.hotel_id][av.date][:vacant] = av.vacant

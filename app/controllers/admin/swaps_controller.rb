@@ -3,9 +3,9 @@ class Admin::SwapsController < Admin::BaseController
   add_flash_types :info, :error
 
   def create
-    stay_start = params['stayDates']['from']
-    stay_end = params['stayDates']['to']
-    intake_dates = params['intakeDates'].map(&:to_date)
+    stay_start = params["stayDates"]["from"]
+    stay_end = params["stayDates"]["to"]
+    intake_dates = params["intakeDates"].map(&:to_date)
 
     swap = Swap.new(
       start_date: stay_start,
@@ -14,36 +14,35 @@ class Admin::SwapsController < Admin::BaseController
     )
 
     if swap.save
-      return render json: swap, status: :created
+      render json: swap, status: :created
     else
       render json: {
         errors: swap.errors.as_json(full_messages: true)
-      }, status: 422
+      }, status: :unprocessable_entity
     end
   end
 
   def update
     swap = Swap.find(params[:id])
-    swap.start_date = params['stayDates']['from']
-    swap.end_date = params['stayDates']['to']
-    swap.intake_dates = params['intakeDates'].map(&:to_date)
+    swap.start_date = params["stayDates"]["from"]
+    swap.end_date = params["stayDates"]["to"]
+    swap.intake_dates = params["intakeDates"].map(&:to_date)
     if swap.save
-      return render json: swap, status: :created
+      render json: swap, status: :created
     else
       render json: {
         errors: swap.errors.as_json(full_messages: true)
-      }, status: 422
+      }, status: :unprocessable_entity
     end
   end
 
   def extend
     swap = Swap.find(params[:id])
-    if swap.extend!(params['days'])
-      return redirect_to admin_home_path
+    if swap.extend!(params["days"])
     else
       swap.errors.add(:extend, "Couldn't extend Swap period")
-      return redirect_to admin_home_path
     end
+    redirect_to admin_home_path
   end
 
   def update_room_supply
@@ -53,7 +52,7 @@ class Admin::SwapsController < Admin::BaseController
       swap = Swap.find(params[:id])
       swap.availabilities.destroy_all
       supply_params
-      .reject {|_, v| v.blank? }
+      .reject { |_, v| v.blank? }
       .each do |(hotel_id, vacant)|
         swap.availabilities.create!(
           hotel_id: hotel_id,
@@ -63,14 +62,14 @@ class Admin::SwapsController < Admin::BaseController
       end
     end
 
-    return redirect_to admin_home_path
+    redirect_to admin_home_path
   end
 
   def edit_intake_dates
     swap = Swap.current
-    Swap.transaction do 
-      intake_dates = params[:intake_dates].sort()
-     
+    Swap.transaction do
+      intake_dates = params[:intake_dates].sort
+
       if swap.update(intake_dates: intake_dates)
         return redirect_back(
           info: "Dates successfully saved.",

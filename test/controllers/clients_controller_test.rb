@@ -22,51 +22,51 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #
-require 'test_helper'
+require "test_helper"
 
 class ClientsControllerTest < ActionDispatch::IntegrationTest
-#   setup do
-#     @client = clients(:one)
-#   end
-# 
-#   test "should get index" do
-#     get clients_url
-#     assert_response :success
-#   end
-# 
-#   test "should get new" do
-#     get new_client_url
-#     assert_response :success
-#   end
-# 
-#   test "should create client" do
-#     assert_difference('Client.count') do
-#       post clients_url, params: { client: { date_of_birth: @client.date_of_birth, first_name: @client.first_name, gender: @client.gender, last_name: @client.last_name } }
-#     end
-# 
-#     assert_redirected_to client_url(Client.last)
-#   end
-# 
-#   test "should show client" do
-#     get client_url(@client)
-#     assert_response :success
-#   end
-# 
-#   test "should get edit" do
-#     get edit_client_url(@client)
-#     assert_response :success
-#   end
-# 
-#   test "should update client" do
-#     patch client_url(@client), params: { client: { date_of_birth: @client.date_of_birth, first_name: @client.first_name, gender: @client.gender, last_name: @client.last_name } }
-#     assert_redirected_to client_url(@client)
-#   end
-# 
-#   test "should destroy client" do
-#     assert_difference('Client.count', -1) do
-#       delete client_url(@client)
-#     end
-# 
-#     assert_redirected_to clients_url
-#   end
+  #   setup do
+  #     @client = clients(:one)
+  #   end
+  #
+  #   test "should get index" do
+  #     get clients_url
+  #     assert_response :success
+  #   end
+  #
+  #   test "should get new" do
+  #     get new_client_url
+  #     assert_response :success
+  #   end
+  #
+  #   test "should create client" do
+  #     assert_difference('Client.count') do
+  #       post clients_url, params: { client: { date_of_birth: @client.date_of_birth, first_name: @client.first_name, gender: @client.gender, last_name: @client.last_name } }
+  #     end
+  #
+  #     assert_redirected_to client_url(Client.last)
+  #   end
+  #
+  #   test "should show client" do
+  #     get client_url(@client)
+  #     assert_response :success
+  #   end
+  #
+  #   test "should get edit" do
+  #     get edit_client_url(@client)
+  #     assert_response :success
+  #   end
+  #
+  #   test "should update client" do
+  #     patch client_url(@client), params: { client: { date_of_birth: @client.date_of_birth, first_name: @client.first_name, gender: @client.gender, last_name: @client.last_name } }
+  #     assert_redirected_to client_url(@client)
+  #   end
+  #
+  #   test "should destroy client" do
+  #     assert_difference('Client.count', -1) do
+  #       delete client_url(@client)
+  #     end
+  #
+  #     assert_redirected_to clients_url
+  #   end
 end

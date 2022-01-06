@@ -34,7 +34,7 @@ class Client < ApplicationRecord
     "Trans Male (FTM)",
     "Gender Non-Conforming",
     "Client Doesn't Know",
-    "Client Refused",
+    "Client Refused"
   ]
 
   RACE = [
@@ -42,17 +42,17 @@ class Client < ApplicationRecord
     "Asian",
     "Black or African American",
     "Native Hawaiian or other Pacific Islander",
-    "White",
+    "White"
   ]
 
   ETHNICITY = [
     "Not Hispanic or Latino",
-    "Hispanic or Latino",
+    "Hispanic or Latino"
   ]
 
   auto_strip_attributes :first_name, :last_name, :race, :phone_number, :email
 
-  validates_presence_of :first_name, :last_name, :date_of_birth
+  validates :first_name, :last_name, :date_of_birth, presence: true
   validates :gender, inclusion: { in: Client::GENDER, allow_nil: true }
   validates :ethnicity, inclusion: { in: Client::ETHNICITY, allow_nil: true }
   # validate :accepted_race_values
@@ -63,12 +63,12 @@ class Client < ApplicationRecord
   has_many :short_intakes
   has_many :vouchers
   has_many :incident_reports
-  has_many :red_flags, class_name: 'RedFlag', table_name: :red_flags
+  has_many :red_flags, class_name: "RedFlag", table_name: :red_flags
   has_many :flagged_hotels, through: :red_flags, source: :hotel
 
   # Callbacks
   before_save do
-    self.race = self&.race&.reject {|r| r == "0"}
+    self.race = self&.race&.reject { |r| r == "0" }
   end
 
   def name

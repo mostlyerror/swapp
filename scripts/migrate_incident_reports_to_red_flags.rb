@@ -4,6 +4,6 @@
 IncidentReport.all.each do |ir|
   RedFlag.create!(client: ir.client, hotel: ir.hotel)
   # create red flag record for client & hotel pair
-  # update banned: true 
+  # update banned: true
   # ir.client.update(banned: true)
 end
