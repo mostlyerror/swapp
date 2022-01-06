@@ -8,7 +8,7 @@ class RoomSupply
         created_at: Date.current.all_day
       )
     Hotel.active.pluck(:id).reduce({}) do |memo, hotel_id|
-      av = avs.select { |av| av.hotel_id == hotel_id }.first
+      av = avs.find { |av| av.hotel_id == hotel_id }
       vacancy = av.present? ? av.vacant : 0
       memo.merge({hotel_id => vacancy})
     end

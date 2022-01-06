@@ -51,9 +51,7 @@ class ClientsController < ApplicationController
       client_params["date_of_birth"] = "1600-01-01"
     end
 
-    client_params.merge!(
-      race: client_params[:race].reject { |r| r == "0" }.sort
-    )
+    client_params[:race] = client_params[:race].reject { |r| r == "0" }.sort
 
     if @client.update(client_params)
       return redirect_to @client

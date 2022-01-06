@@ -1,7 +1,7 @@
 namespace :data do
   desc "write hotels csv to filesystem"
   task export_hotels_csv: :environment do
-    ts = Time.now.strftime("%Y%m%dT%H%M")
+    ts = Time.zone.now.strftime("%Y%m%dT%H%M")
     file_name = "hotels_#{ts}.csv"
     File.write(file_name, Hotel.to_csv)
   end
