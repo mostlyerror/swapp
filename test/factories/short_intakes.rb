@@ -1,13 +1,15 @@
 # == Schema Information
-# Schema version: 20220103040727
+# Schema version: 20220110020820
 #
 # Table name: short_intakes
 #
 #  id                                    :bigint           not null, primary key
 #  bus_pass                              :boolean
 #  household_composition_changed         :boolean
+#  identification                        :string
 #  king_soopers_card                     :boolean
 #  pets                                  :string
+#  vehicle                               :boolean
 #  what_city_did_you_sleep_in_last_night :string
 #  where_did_you_sleep_last_night        :string
 #  why_not_shelter                       :string           default([]), is an Array
@@ -36,7 +38,9 @@ FactoryBot.define do
     where_did_you_sleep_last_night { Intake::SLEEP_LAST_NIGHT.choices.sample }
     what_city_did_you_sleep_in_last_night { "Thornton" }
     why_not_shelter { Intake::WHY_NOT_SHELTER.choices.sample }
-    pets { Intake::PETS.sample }
+    pets { Intake::PETS.choices.sample }
+    vehicle { [true, false].sample }
+    identification { Intake::IDENTIFICATION.choices.sample }
     bus_pass { [true, false].sample }
     king_soopers_card { [true, false].sample }
     household_composition_changed { false }

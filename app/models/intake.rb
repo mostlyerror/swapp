@@ -234,6 +234,22 @@ class Intake < ApplicationRecord
     ]
   )
 
+  VEHICLE = OpenStruct.new(
+    key: :vehicle,
+    text: "Do you have a functioning vehicle you can use?",
+    choices: %w[Yes No]
+  )
+
+  IDENTIFICATION = OpenStruct.new(
+    key: :identification,
+    text: "Do you have any form of identification?",
+    choices: [
+      "Yes, State Issued",
+      "Yes, SWAP ID",
+      "No"
+    ]
+  )
+
   HEALTH_INSURANCE = OpenStruct.new(
     key: :health_insurance,
     text: "Are you covered by health insurance?",
