@@ -48,10 +48,6 @@ jobs:
       - name: Install Ruby version specified in `.ruby-version`
         uses: ruby/setup-ruby@v1
 
-      - name: Run tests
-        run: bundle exec rake
-          name: CI
-
       - name: Install required apt packages
         run: |
           sudo apt-get -y install libpq-dev
