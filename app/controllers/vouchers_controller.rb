@@ -74,6 +74,7 @@ class VouchersController < ApplicationController
       @short_intake.client = @client
       @short_intake.user = current_user
       @short_intake.swap = @swap
+      @short_intake.vehicle = !!short_intake_params[:vehicle]
 
       if !@short_intake.save
         return render :new
@@ -138,6 +139,8 @@ class VouchersController < ApplicationController
         :what_city_did_you_sleep_in_last_night,
         {why_not_shelter: []},
         :pets,
+        :vehicle,
+        :identification,
         :bus_pass,
         :king_soopers_card
       ]

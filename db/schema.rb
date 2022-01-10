@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_03_040727) do
+ActiveRecord::Schema.define(version: 2022_01_10_020820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -178,6 +178,8 @@ ActiveRecord::Schema.define(version: 2022_01_03_040727) do
     t.jsonb "log_data"
     t.bigint "swap_id"
     t.string "pets"
+    t.boolean "vehicle"
+    t.string "identification"
     t.index ["client_id"], name: "index_short_intakes_on_client_id"
     t.index ["swap_id"], name: "index_short_intakes_on_swap_id"
     t.index ["user_id"], name: "index_short_intakes_on_user_id"

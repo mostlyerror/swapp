@@ -115,6 +115,34 @@
           </div>
         </div>
       </div>
+
+      <div>
+        <% question = Intake::VEHICLE %>
+        <%= react_component('Toggle',
+          question: question.to_h,
+          name: "voucher[short_intake][#{question.key}]",
+          checked: @short_intake.vehicle
+        ) %>
+      </div>
+
+      <div>
+        <% question = Intake::IDENTIFICATION %>
+        <%= short_intake_form.label question.key, question.text, class: "block leading-tight font-semibold text-base sm:text-lg md:text-xl" %>
+        <div class="mt-2 sm:mt-3 md:mt-4 p-2 sm:p-3 md:p-4 bg-white rounded shadow">
+          <div class="grid grid-cols-1 md:grid-cols-2 space-y-2 sm:space-y-3 md:space-y-4">
+            <% question.choices.each do |choice| %>
+              <div class="flex items-center gap-2 md:gap-3">
+                <%= short_intake_form.radio_button question.key, choice,
+                  class: "h-5 md:h-6 w-5 md:w-6 text-indigo-600",
+                  checked: @short_intake.identification,
+                  required: true
+                %>
+                <%= short_intake_form.label to_radio_htmlfor(question.key, choice), choice, class: "text-base sm:text-lg md:text-xl" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="mt-8 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
