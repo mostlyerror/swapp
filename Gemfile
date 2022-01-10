@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-ruby "2.7.4"
+ruby "2.7.2"
 
 gem "aasm", "~> 5.1"
 gem "amazing_print", "~> 1.3"
