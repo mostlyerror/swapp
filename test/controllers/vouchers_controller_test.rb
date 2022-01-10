@@ -40,8 +40,10 @@ class VouchersControllerTest < ActionDispatch::IntegrationTest
   teardown { Timecop.return }
 
   test 'should create short_intake and voucher' do
-    assert_difference('Voucher.count') do
-      post vouchers_url, params: create_params
+    assert_difference('ShortIntake.count') do
+      assert_difference('Voucher.count') do
+        post vouchers_url, params: create_params
+      end
     end
 
     assert_redirected_to voucher_created_url(Voucher.last)
