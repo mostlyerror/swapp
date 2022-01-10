@@ -51,8 +51,6 @@ class VouchersControllerTest < ActionDispatch::IntegrationTest
 
   def create_params
     {
-      'authenticity_token' =>
-        '+PycsQReoQiMT+kjaAPqu/PO99UHswv7r5hOEhgHYZu9xJ7znVzdsDufMTB7TZKZbhrhI2MdrQo+QMKsE21rXg==',
       'voucher' => {
         'short_intake' => {
           'where_did_you_sleep_last_night' => 'In own home',
