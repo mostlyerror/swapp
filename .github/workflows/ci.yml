@@ -54,12 +54,7 @@ jobs:
 
       - name: Bundle install
         run: |
-          bundle config path vendor/bundle
-          bundle config set gems.contribsys.com ${{ secrets.SIDEKIQ_PRO_INSTALL_SECRET }}
-          bundle update --bundler
           bundle install --jobs 4 --retry 3
-        env:
-          BUNDLE_GEMS__CONTRIBSYS__COM: ${{ secrets.SIDEKIQ_PRO_INSTALL_SECRET }}
 
       - name: Yarn install
         run: yarn install --frozen-lockfile
