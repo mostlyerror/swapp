@@ -17,19 +17,74 @@ jobs:
   test:
 
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11.6-alpine
+        env:
+          POSTGRES_DB: test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     strategy:
       matrix:
         ruby-version: [2.7.2]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby
-    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-    # change this to (see https://github.com/ruby/setup-ruby#versioning):
-    # uses: ruby/setup-ruby@v1
-      uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
-      with:
-        ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Run tests
-      run: bundle exec rake
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Ruby version specified in `.ruby-version`
+        uses: ruby/setup-ruby@v1
+
+      - name: Run tests
+        run: bundle exec rake
+          name: CI
+
+      - name: Install required apt packages
+        run: |
+          sudo apt-get -y install libpq-dev
+
+      - name: Bundle install
+        run: |
+          bundle config path vendor/bundle
+          bundle config set gems.contribsys.com ${{ secrets.SIDEKIQ_PRO_INSTALL_SECRET }}
+          bundle update --bundler
+          bundle install --jobs 4 --retry 3
+        env:
+          BUNDLE_GEMS__CONTRIBSYS__COM: ${{ secrets.SIDEKIQ_PRO_INSTALL_SECRET }}
+
+      - name: Yarn install
+        run: yarn install --frozen-lockfile
+
+      - name: DB setup
+        env:
+          RAILS_ENV: test
+          PG_USER: test
+          PG_PASSWORD: test
+        run: |
+          bundle exec rake db:create
+          bundle exec rake db:migrate
+
+      - name: Precompile Assets
+        run: |
+          bundle exec rails webpacker:compile
+
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          PG_USER: test
+          PG_PASSWORD: test
+        run: |
+          bundle exec rake
