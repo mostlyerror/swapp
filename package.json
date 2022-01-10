@@ -37,8 +37,5 @@
     "@prettier/plugin-ruby": "^2.0.0",
     "prettier": "^2.5.1",
     "webpack-dev-server": "^3.11.2"
-  },
-  "engines": {
-    "node": "14.x"
   }
 }
