@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_10_020820) do
+ActiveRecord::Schema.define(version: 2022_01_13_040804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -63,6 +63,9 @@ ActiveRecord::Schema.define(version: 2022_01_10_020820) do
     t.jsonb "log_data"
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "hotels", force: :cascade do |t|
     t.string "name", null: false
     t.string "phone"
@@ -86,7 +89,7 @@ ActiveRecord::Schema.define(version: 2022_01_10_020820) do
     t.index ["hotel_id"], name: "index_hotels_contacts_on_hotel_id"
   end
 
-  create_table "hotels_users", id: false, force: :cascade do |t|
+  create_table "hotels_users", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "hotel_id", null: false
     t.jsonb "log_data"

@@ -1,8 +1,9 @@
 # == Schema Information
-# Schema version: 20211103053452
+# Schema version: 20220113040804
 #
 # Table name: hotels_users
 #
+#  id       :bigint           not null, primary key
 #  hotel_id :bigint           not null, indexed
 #  user_id  :bigint           not null, indexed
 #
