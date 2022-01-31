@@ -63,13 +63,11 @@ class Client < ApplicationRecord
   has_many :short_intakes
   has_many :vouchers
   has_many :incident_reports
-  has_many :red_flags, class_name: "RedFlag", table_name: :red_flags
+  has_many :red_flags, class_name: 'RedFlag', table_name: :red_flags
   has_many :flagged_hotels, through: :red_flags, source: :hotel
 
   # Callbacks
-  before_save do
-    self.race = self&.race&.reject { |r| r == "0" }
-  end
+  before_save { self.race = self&.race&.reject { |r| r == '0' } }
 
   def name
     "#{first_name} #{last_name}"
@@ -79,17 +77,22 @@ class Client < ApplicationRecord
     vouchers.flat_map(&:guests).uniq
   end
 
+  def ban!
+    update(banned: true)
+  end
+
   def ban_at!(hotel)
     return false if existing_flag = red_flags.find_by(hotel: hotel)
     red_flags.create(hotel: hotel)
   end
 
-  def ban!
-    update(banned: true)
-  end
-
   def unban!
     update(banned: false)
+  end
+
+  def unban_at!(hotel)
+    return false unless existing_flag = red_flags.find_by(hotel: hotel)
+    existing_flag.destroy!
   end
 
   def partial_ban?
