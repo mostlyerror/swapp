@@ -40,8 +40,8 @@
 class Voucher < ApplicationRecord
   has_logidze
   belongs_to :client
-  belongs_to :issuer, class_name: "User", foreign_key: "user_id"
-  belongs_to :voided_by, class_name: "User", optional: true
+  belongs_to :issuer, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :voided_by, class_name: 'User', optional: true
   belongs_to :hotel
   belongs_to :swap
 
@@ -49,14 +49,14 @@ class Voucher < ApplicationRecord
   validates :client_id, uniqueness: { scope: :swap_id }
   validate :dates_must_be_today_or_later_when_issued, on: :create
   validate :order_of_dates, :dates_must_fall_within_swap_period
+
   # num_adults_in_household
   # num_children_in_household
 
   after_create :save_number
 
-  scope :voided, -> {
-    where.not(voided_at: nil)
-  }
+  scope :active, -> { where(voided_at: nil) }
+  scope :voided, -> { where.not(voided_at: nil) }
 
   LOW_SUPPLY_THRESHOLD = 10
 
@@ -95,23 +95,26 @@ class Voucher < ApplicationRecord
   private
 
   def save_number
-    self.number = "%.7d" % id
+    self.number = '%.7d' % id
     save!
   end
 
   def order_of_dates
     if check_out && (check_out < check_in)
-      errors.add(:dates, "check_out: #{check_out} must be same day or later than check_in: #{check_in}")
+      errors.add(
+        :dates,
+        "check_out: #{check_out} must be same day or later than check_in: #{check_in}",
+      )
     end
   end
 
   def dates_must_be_today_or_later_when_issued
     if check_in.blank?
-      return errors.add(:check_in, "Must provide a check in date")
+      return errors.add(:check_in, 'Must provide a check in date')
     end
 
     if check_out.blank?
-      return errors.add(:check_out, "Must provide a check out date")
+      return errors.add(:check_out, 'Must provide a check out date')
     end
 
     if check_in < Date.current
@@ -125,11 +128,17 @@ class Voucher < ApplicationRecord
 
   def dates_must_fall_within_swap_period
     if swap && !(check_in.in? swap.stay_period)
-      errors.add(:check_in, "check_in (#{check_in}) does not fall within swap period: #{swap.stay_period}")
+      errors.add(
+        :check_in,
+        "check_in (#{check_in}) does not fall within swap period: #{swap.stay_period}",
+      )
     end
 
     if swap && !(check_out.in? swap.stay_period)
-      errors.add(:check_out, "check_out (#{check_out}) does not fall within swap period: #{swap.stay_period}")
+      errors.add(
+        :check_out,
+        "check_out (#{check_out}) does not fall within swap period: #{swap.stay_period}",
+      )
     end
   end
 end
