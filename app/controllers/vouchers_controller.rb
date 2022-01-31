@@ -146,8 +146,7 @@ class VouchersController < ApplicationController
     @client = Client.find(params[:client_id] || voucher_params[:client][:id])
     if @swap
       supply = RoomSupply.vouchers_remaining_today(@swap)
-      @disabled = []
-      @client.flagged_hotels.map { |hotel| @disabled.push(hotel) }
+      @disabled = @client.flagged_hotels.pluck(:id).to_set
       @hotels =
         Hotel
           .active
