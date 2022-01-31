@@ -46,7 +46,14 @@ class Voucher < ApplicationRecord
   belongs_to :swap
 
   validates :check_in, :check_out, presence: true
-  validates :client_id, uniqueness: { scope: :swap_id }
+
+  # client can have multiple vouchers, just not in the same hotel and swap period?
+  # use case: client receives a voucher, gets flagged, needs to move to another hotel
+  # validates :client_id, uniqueness: { scope: :swap_id }
+
+  # validates :client_id, uniqueness: { scope: [:swap_id, :hotel_id] } <-- can we do this?
+  # validates :one_active_voucher_per_swap_per_hotel <-- or a fancy validation method?
+
   validate :dates_must_be_today_or_later_when_issued, on: :create
   validate :order_of_dates, :dates_must_fall_within_swap_period
 
