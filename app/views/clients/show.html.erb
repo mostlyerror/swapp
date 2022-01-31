@@ -36,9 +36,11 @@
           <span class="text-red-500">🚩<%= @client.first_name %> has been red-flagged program-wide.</span><span class="block">They are not eligible to receive SWAP hotel vouchers.</span>
         <% elsif @client.partial_ban? %>
           <p class="text-red-500">🚩<%= @client.first_name %> has been red-flagged from these hotels:</p>
+          <ul>
           <% @client.flagged_hotels.each do |hotel| %>
-            <%= hotel.name %>
+            <li><%= hotel.name %></li>
           <% end %>
+          </ul>
         <% end %>
       </div>
     </div>
