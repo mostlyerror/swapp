@@ -27,24 +27,28 @@
         </p>
       </div>
     </div>
-
-    <!-- todo: build workflow for disabling vouchers during non-active swap periods -->
   </section>
 
-  <div>
-    <% if @client.banned? %>
-      <p class="mt-2 md:mt-4 text-base sm:text-lg md:text-xl">
-        <span class="font-semibold text-red-500"><%= @client.first_name %> has been red-flagged program-wide.</span> They are not eligible to receive SWAP hotel vouchers.
-      </p>
-    <% else %>
-      <div class="flex justify-center">
-      <%= button_to new_voucher_path(client_id: @client.id), 
-        { method: :get, params: { client_id: @client.id }, 
-        disabled: !@swap&.intake_active?,
-        class: button_class(!@swap&.intake_active?) } do %>
-          <%= render partial: 'create_voucher_button' %>
-      <% end %>
+  <section class="flex flex-col gap-4 justify-center items-center">
+    <div>
+      <div class="px-4 sm:px-0 text-base sm:text-lg md:text-xl font-semibold max-w-lg sm:max-w-xl md:max-w-2xl">
+        <% if @client.banned? %>
+          <span class="text-red-500">🚩<%= @client.first_name %> has been red-flagged program-wide.</span><span class="block">They are not eligible to receive SWAP hotel vouchers.</span>
+        <% elsif @client.partial_ban? %>
+          <p class="text-red-500">🚩<%= @client.first_name %> has been red-flagged from these hotels:</p>
+          <% @client.flagged_hotels.each do |hotel| %>
+            <%= hotel.name %>
+          <% end %>
+        <% end %>
       </div>
-    <% end %>
-  </div>
+    </div>
+
+    <div>
+      <%= button_to new_voucher_path(client_id: @client.id), { method: :get, params: { client_id: @client.id },
+        disabled: !@swap&.intake_active? || @client.banned?,
+        class: button_class(!@swap&.intake_active? || @client.banned?) } do %>
+        <%= render partial: 'create_voucher_button' %>
+      <% end %>
+    </div>
+  </section>
 </div>
