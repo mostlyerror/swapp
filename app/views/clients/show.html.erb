@@ -28,8 +28,26 @@
       </div>
     </div>
 
+<<<<<<< HEAD
     <!-- todo: build workflow for disabling vouchers during non-active swap periods -->
   </section>
+=======
+  <section class="flex flex-col gap-4 justify-center items-center">
+    <div>
+      <div class="px-4 sm:px-0 text-base sm:text-lg md:text-xl font-semibold max-w-lg sm:max-w-xl md:max-w-2xl">
+        <% if @client.banned? %>
+          <span class="text-red-500">🚩<%= @client.first_name %> has been red-flagged program-wide.</span><span class="block">They are not eligible to receive SWAP hotel vouchers.</span>
+        <% elsif @client.partial_ban? %>
+          <p class="text-red-500">🚩<%= @client.first_name %> has been red-flagged from these hotels:</p>
+          <ul>
+          <% @client.flagged_hotels.each do |hotel| %>
+            <li><%= hotel.name %></li>
+          <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+>>>>>>> 595c9ca (red flags in html list)
 
   <div>
     <% if @client.banned? %>
