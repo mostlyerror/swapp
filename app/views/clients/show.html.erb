@@ -38,7 +38,10 @@
       </p>
     <% else %>
       <div class="flex justify-center">
-      <%= button_to new_voucher_path(client_id: @client.id), { method: :get, params: { client_id: @client.id }, class: button_class(!@swap&.intake_active?) } do %>
+      <%= button_to new_voucher_path(client_id: @client.id), 
+        { method: :get, params: { client_id: @client.id }, 
+        disabled: !@swap&.intake_active?,
+        class: button_class(!@swap&.intake_active?) } do %>
           <%= render partial: 'create_voucher_button' %>
       <% end %>
       </div>
