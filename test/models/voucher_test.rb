@@ -61,20 +61,21 @@ class VoucherTest < ActiveSupport::TestCase
     assert voucher.errors.key?(:nights)
   end
 
-  test "one voucher per period per client" do
-    swap = create(:swap, :future)
-    voucher = create(:voucher, swap: swap)
-    voucher = build(:voucher,
-                    swap: swap,
-                    client: voucher.client,
-                    check_in: swap.start_date,
-                    check_out: swap.end_date)
-    assert_not voucher.valid?
-    assert voucher.errors.key?(:client_id)
-
-    voucher.client = create(:client)
-    assert voucher.valid?
-  end
+  # TODO: this is no longer accurate, client can be relocated mid-swap activation
+  # test "one voucher per period per client" do
+  #   swap = create(:swap, :future)
+  #   voucher = create(:voucher, swap: swap)
+  #   voucher = build(:voucher,
+  #                   swap: swap,
+  #                   client: voucher.client,
+  #                   check_in: swap.start_date,
+  #                   check_out: swap.end_date)
+  #   assert_not voucher.valid?
+  #   assert voucher.errors.key?(:client_id)
+  #
+  #   voucher.client = create(:client)
+  #   assert voucher.valid?
+  # end
 
   test "voucher dates must be in order" do
     swap = build_stubbed(:swap, :future)
