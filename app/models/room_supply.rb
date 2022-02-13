@@ -42,6 +42,7 @@ class RoomSupply
   end
 
   def self.by_hotel(swap)
+    # build data struct {hotel_id => {date => {vacant: int, issued: int}}}
     supply =
       Hotel
         .active
@@ -55,6 +56,8 @@ class RoomSupply
           memo.merge({ hotel.id => dates })
         end
 
+    # build data struct tally of hotel_id => vouchers issued today
+    # {2=>1, 3=>1, 4=>1, 5=>1, 6=>1, 8=>1, 9=>1}
     vouchers =
       swap
         .vouchers
@@ -67,11 +70,18 @@ class RoomSupply
       .availabilities
       .where(
         date: ([swap.start_date, swap.intake_dates.first].min)..swap.end_date,
-        created_at: Date.current.all_day,
       )
       .each_with_object(supply) do |av, supply|
         supply[av.hotel_id][av.date][:vacant] = av.vacant
         supply[av.hotel_id][Date.current][:issued] = vouchers[av.hotel_id].to_i
       end
+  end
+
+  def self.available_room_at?(swap, hotel, date)
+    return false if !by_hotel(swap).key?(hotel.id)
+    rooms = by_hotel(swap)[hotel.id]
+    return false if !rooms.key?(date)
+    rooms_on_date = rooms[Date.today]
+    rooms_on_date[:vacant].to_i > rooms_on_date[:issued].to_i
   end
 end

@@ -1,6 +1,8 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require 'rails-controller-testing'
+Rails::Controller::Testing.install
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods

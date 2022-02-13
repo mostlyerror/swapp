@@ -55,7 +55,9 @@ class Voucher < ApplicationRecord
   # validates :one_active_voucher_per_swap_per_hotel <-- or a fancy validation method?
 
   validate :dates_must_be_today_or_later_when_issued, on: :create
-  validate :order_of_dates, :dates_must_fall_within_swap_period
+  validate :room_is_available, on: :create
+  validate :order_of_dates
+  validate :dates_must_fall_within_swap_period
 
   # num_adults_in_household
   # num_children_in_household
@@ -145,6 +147,15 @@ class Voucher < ApplicationRecord
       errors.add(
         :check_out,
         "check_out (#{check_out}) does not fall within swap period: #{swap.stay_period}",
+      )
+    end
+  end
+
+  def room_is_available
+    if !RoomSupply.available_room_at?(swap, hotel, Date.current)
+      errors.add(
+        :hotel_id,
+        "No rooms available for hotel"
       )
     end
   end
