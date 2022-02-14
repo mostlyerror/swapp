@@ -93,11 +93,6 @@ class VouchersController < ApplicationController
         return render :new
       end
 
-      if @supply[voucher_params[:hotel_id].to_i] < 1
-        @voucher.errors.add(:hotel_id, "No rooms available for hotel")
-        return render :new
-      end
-
       return render :new if !@voucher.save
     end
 
