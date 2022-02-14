@@ -1,11 +1,28 @@
 <%= form_with(model: @voucher, local: true) do |form| %>
-  <div class="mt-4 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
-    <% if @voucher.errors.any? %>
-      <% @voucher.errors.full_messages.each do |message| %>
-        <li class=""><%= message %></li>
-      <% end %>
-    <% end %>
+  <% if @voucher.errors.any? %>
+  <div class="mt-4 rounded-md bg-red-50 p-4">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <h4 class="text-base sm:text-lg md:text-xl font-medium text-red-800">
+          <%= pluralize(@voucher.errors.count, "error") %> prohibited this voucher from being issued:
+        </h4>
+
+        <div class="mt-2 text-base sm:text-lg md:text-xl text-red-700">
+          <ul role="list" class="list-disc pl-5 space-y-1">
+            <% @voucher.errors.each do |attr, message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
+  <% end %>
 
   <div class="mt-8 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto space-y-4 sm:space-y-6 md:space-y-8">
     <%= form.fields_for :short_intake, @short_intake do |short_intake_form| %>
@@ -18,7 +35,8 @@
               <div class="flex items-center gap-2 md:gap-3">
                 <%= short_intake_form.radio_button question.key, choice,
                   class: "h-5 md:h-6 w-5 md:w-6 text-indigo-600",
-                  checked: @short_intake.where_did_you_sleep_last_night,
+                  checked: @short_intake&.where_did_you_sleep_last_night == choice,
+                  value: @short_intake&.where_did_you_sleep_last_night,
                   required: true
                 %>
                 <%= short_intake_form.label to_radio_htmlfor(question.key, choice), choice, class: "text-base sm:text-lg md:text-xl" %>
@@ -106,7 +124,7 @@
               <div class="flex items-center gap-2 md:gap-3">
                 <%= short_intake_form.radio_button question.key, choice,
                   class: "h-5 md:h-6 w-5 md:w-6 text-indigo-600",
-                  checked: @short_intake.pets,
+                  checked: @short_intake.pets == choice,
                   required: true
                 %>
                 <%= short_intake_form.label to_radio_htmlfor(question.key, choice), choice, class: "text-base sm:text-lg md:text-xl" %>
@@ -134,7 +152,7 @@
               <div class="flex items-center gap-2 md:gap-3">
                 <%= short_intake_form.radio_button question.key, choice,
                   class: "h-5 md:h-6 w-5 md:w-6 text-indigo-600",
-                  checked: @short_intake.identification,
+                  checked: @short_intake.identification == choice,
                   required: true
                 %>
                 <%= short_intake_form.label to_radio_htmlfor(question.key, choice), choice, class: "text-base sm:text-lg md:text-xl" %>
@@ -191,7 +209,6 @@
         </div>
       </div>
 
-      <!-- guestshere -->
       <div class="mt-8 md:mt-12 ">
         <div>
           <p class="text-base sm:text-lg md:text-xl font-semibold">Guests</p>

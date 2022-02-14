@@ -1,12 +1,16 @@
-require "test_helper"
+require 'test_helper'
 
 class Vouchers::VoidTest < ActiveSupport::TestCase
   setup do
-    @voucher = create(:voucher)
+    swap = create(:swap)
+    hotel = create(:hotel)
+    swap.availabilities.create(hotel: hotel, vacant: 1, date: Date.current)
+
+    @voucher = create(:voucher, hotel: hotel)
     @user = create(:user)
   end
 
-  test "assigns voided_at and voided_by columns" do
+  test 'assigns voided_at and voided_by columns' do
     assert_equal false, @voucher.voided?
     assert_nil @voucher.voided_at
 
@@ -17,7 +21,7 @@ class Vouchers::VoidTest < ActiveSupport::TestCase
     assert_equal @user, @voucher.voided_by
   end
 
-  test "NOOP if voucher already voided" do
+  test 'NOOP if voucher already voided' do
     @voucher.void!(@user)
     assert_equal true, @voucher.voided?
 

@@ -145,14 +145,14 @@ class VouchersController < ApplicationController
   def set_voucher_supply_for_hotel_dropdown
     @client = Client.find(params[:client_id] || voucher_params[:client][:id])
     if @swap
-      supply = RoomSupply.vouchers_remaining_today(@swap)
+      @supply = RoomSupply.vouchers_remaining_today(@swap)
       @disabled = @client.flagged_hotels.pluck(:id).to_set
       @hotels =
         Hotel
           .active
           .reduce({}) do |memo, hotel|
-            name = "#{hotel.name} (#{supply[hotel.id]})"
-            @disabled << hotel.id if supply[hotel.id].to_i <= 0
+            name = "#{hotel.name} (#{@supply[hotel.id]})"
+            @disabled << hotel.id if @supply[hotel.id].to_i <= 0
             memo.merge({ name => hotel.id })
           end
     end

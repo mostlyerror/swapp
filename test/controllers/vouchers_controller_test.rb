@@ -55,21 +55,38 @@ class VouchersControllerTest < ActionDispatch::IntegrationTest
   teardown { Timecop.return }
 
   test "should create short_intake and voucher" do
+    @swap.availabilities.create(hotel_id: @hotel.id, vacant: 1, date: Date.today)
+
     assert_difference("ShortIntake.count") do
-      assert_difference("Voucher.count") do
-        post vouchers_url, params: create_params
-      end
+      assert_difference("Voucher.count") { post vouchers_url, params: create_params }
     end
 
     assert_redirected_to voucher_created_url(Voucher.last)
   end
 
+  test "should not issue vouchers without correct vacancy" do
+    # no vacancies
+    @swap.availabilities.destroy_all
+    assert_no_difference("Voucher.count") { post vouchers_url, params: create_params }
+
+    # no vacancy for specific hotel
+    @swap.availabilities.create(hotel: create(:hotel), vacant: 1, date: Date.today)
+    assert_no_difference("Voucher.count") { post vouchers_url, params: create_params }
+
+    # vacancy for specific hotel
+    @swap.availabilities.create(hotel: @hotel, vacant: 1, date: Date.today)
+    assert_difference("Voucher.count") { post vouchers_url, params: create_params }
+
+    # vacancy reduced to 0
+    assert_no_difference("Voucher.count") { post vouchers_url, params: create_params }
+  end
+
   test "should default vehicle to false if not received" do
+    @swap.availabilities.create(hotel_id: @hotel.id, vacant: 1, date: Date.today)
     without_vehicle = create_params.dup
     without_vehicle["voucher"]["short_intake"]["vehicle"] = nil
 
-    post vouchers_url, params: without_vehicle
-
+    assert_difference("Voucher.count") { post vouchers_url, params: without_vehicle }
     assert_redirected_to voucher_created_url(Voucher.last)
     assert_equal false, ShortIntake.last.vehicle
   end
