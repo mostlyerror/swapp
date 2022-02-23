@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+
+# path to your application root.
+APP_ROOT = File.expand_path('..', __dir__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+FileUtils.chdir APP_ROOT do
+  # This script is a way to run (or skip) database migrations based on an environment variable.
+  skip_migrations = ENV['SKIP_DB_MIGRATIONS'] == 'true'
+
+  if skip_migrations
+    puts "\n== Skipping database migrations based on value of SKIP_DB_MIGRATIONS environment variable =="
+  else
+    puts "\n== Running database migrations =="
+    system! 'rake db:migrate'
+  end
+end
