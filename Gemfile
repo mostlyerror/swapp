@@ -6,7 +6,6 @@ gem "aasm", "~> 5.1"
 gem "amazing_print", "~> 1.3"
 gem "auto_strip_attributes", "~> 2.6"
 gem "bootsnap", ">= 1.4.2", require: false
-gem "data_migrate", "~> 7.0"
 gem "devise", "~> 4.7"
 gem "jbuilder", "~> 2.7"
 gem "pg", ">= 0.18", "< 2.0"
