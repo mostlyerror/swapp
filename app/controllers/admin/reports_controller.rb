@@ -75,7 +75,7 @@ class Admin::ReportsController < Admin::BaseController
 
         RedFlag
           .includes(:client, :hotel)
-          .order('clients.last_name asc')
+          .order('clients.last_name asc, hotels.id asc')
           .find_each do |red_flag|
             csv << [
               red_flag.client&.last_name,
