@@ -244,6 +244,7 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.5)
+    rollbar (3.3.0)
     rubocop (1.24.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
@@ -362,6 +363,7 @@ DEPENDENCIES
   rails (~> 6.0.3, >= 6.0.3.6)
   ransack!
   react-rails (~> 2.6)
+  rollbar (~> 3.3)
   rubocop (~> 1.24)
   rubocop-performance (~> 1.13)
   rubocop-rails (~> 2.13)
