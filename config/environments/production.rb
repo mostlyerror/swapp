@@ -1,7 +1,9 @@
 Rails.application.configure do
-  ENV["STAGING"] == "true" ?
-    config.hosts << "swapp-staging-1.herokuapp.com" :
-    config.hosts << "swapp-1.herokuapp.com"
+  if ENV['STAGING']
+    config.hosts << 'swapp-staging-1.herokuapp.com'
+  else
+    config.hosts << 'swapp-1.herokuapp.com'
+  end
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -15,7 +17,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
@@ -55,7 +57,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -67,7 +69,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :sendgrid_actionmailer
   config.action_mailer.sendgrid_actionmailer_settings = {
     api_key: ENV['SENDGRID_API_KEY'],
-    raise_delivery_errors: true
+    raise_delivery_errors: true,
   }
 
   config.action_mailer.perform_caching = false
@@ -90,10 +92,10 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
+    logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # Do not dump schema after migrations.
@@ -119,4 +121,9 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  # Secure public twilio endpoints with auth token
+  config.middleware.use Rack::TwilioWebhookAuthentication,
+                        ENV['TWILIO_TOKEN'],
+                        '/twilio'
 end
