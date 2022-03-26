@@ -102,67 +102,69 @@
 #                  rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    sessions: 'sessions/sessions'
-  }
+  devise_for :users, controllers: { sessions: 'sessions/sessions' }
 
-  put "users/:id/settings" => "settings#update"
+  put 'users/:id/settings' => 'settings#update'
 
-  post 'messages/sms'
-  resource :messages do
-    collection do 
-      post 'reply'
-    end
-  end
+  post 'twilio/sms'
 
-  constraints(lambda do |req| 
-    user = req.env["warden"].user(:user)
-    user.active? && (user.intake_user? || user.admin_user?)
-  end) do
-    get "clients/search" => "clients#search", as: :clients_search
+  constraints(
+    lambda do |req|
+      user = req.env['warden'].user(:user)
+      user.active? && (user.intake_user? || user.admin_user?)
+    end,
+  ) do
+    get 'clients/search' => 'clients#search', :as => :clients_search
     resources :clients
     resources :intakes
     resources :vouchers
-    get "vouchers/:id/created" => "vouchers#created", as: :voucher_created
-    post "voucher/:id/send_voucher" => "vouchers#send_voucher", as: :send_voucher
+    get 'vouchers/:id/created' => 'vouchers#created', :as => :voucher_created
+    post 'voucher/:id/send_voucher' => 'vouchers#send_voucher',
+         :as => :send_voucher
     resources :swaps
   end
 
   namespace :hotels do
-    constraints(lambda { |req| 
-      user = req.env["warden"].user(:user)
-      user.active? && (user.hotel_user? || user.admin_user?)
-    }) do
-      get "/", to: "home#index", as: :home
-      get "/vouchers/:id" => "vouchers#show", as: :vouchers
-      post "/incidents" => "incident_reports#create", as: :create_report
+    constraints(
+      lambda do |req|
+        user = req.env['warden'].user(:user)
+        user.active? && (user.hotel_user? || user.admin_user?)
+      end,
+    ) do
+      get '/', to: 'home#index', as: :home
+      get '/vouchers/:id' => 'vouchers#show', :as => :vouchers
+      post '/incidents' => 'incident_reports#create', :as => :create_report
     end
   end
 
   namespace :admin do
-    constraints(lambda { |req| 
-      user = req.env["warden"].user(:user)
-      user.active? && user.admin_user?
-    }) do
-      get "/" => "home#index", as: :home
-      get "/users" => "users#index", as: :users
-      put "users/:id" => "users#update"
-      get "clients/search" => "clients#search", as: :clients_search
-      get "/home/clients/:id" => "clients#show", as: :clients
-      post "swaps" => "swaps#create"
-      put "swaps/:id/update" => "swaps#update"
-      put "swaps/:id/extend" => "swaps#extend", as: :extend_swap
-      put "swaps/:id/room_supply" => "swaps#update_room_supply", as: :update_room_supply
-      get "/reports/vouchers" => "reports#vouchers", as: :vouchers_report
-      get "/reports/red_flags" => "reports#red_flags", as: :red_flags_report
-      put "/guests/:id" => "red_flags#edit_red_flag", as: :edit_red_flag
-      post "clients/:id/incidents" => "incident_reports#create", as: :create_incident_report
+    constraints(
+      lambda do |req|
+        user = req.env['warden'].user(:user)
+        user.active? && user.admin_user?
+      end,
+    ) do
+      get '/' => 'home#index', :as => :home
+      get '/users' => 'users#index', :as => :users
+      put 'users/:id' => 'users#update'
+      get 'clients/search' => 'clients#search', :as => :clients_search
+      get '/home/clients/:id' => 'clients#show', :as => :clients
+      post 'swaps' => 'swaps#create'
+      put 'swaps/:id/update' => 'swaps#update'
+      put 'swaps/:id/extend' => 'swaps#extend', :as => :extend_swap
+      put 'swaps/:id/room_supply' => 'swaps#update_room_supply',
+          :as => :update_room_supply
+      get '/reports/vouchers' => 'reports#vouchers', :as => :vouchers_report
+      get '/reports/red_flags' => 'reports#red_flags', :as => :red_flags_report
+      put '/guests/:id' => 'red_flags#edit_red_flag', :as => :edit_red_flag
+      post 'clients/:id/incidents' => 'incident_reports#create',
+           :as => :create_incident_report
 
-      get "/hotels.csv" => "hotels#index", as: :hotels_csv
-      get "/hotels/importer" => "hotels#importer"
-      post "/hotels/import" => "hotels#import"
+      get '/hotels.csv' => 'hotels#index', :as => :hotels_csv
+      get '/hotels/importer' => 'hotels#importer'
+      post '/hotels/import' => 'hotels#import'
     end
   end
- 
-  root to: "landing#index"
+
+  root to: 'landing#index'
 end
