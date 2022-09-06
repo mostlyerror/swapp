@@ -1,4 +1,4 @@
-<h4 class="font-bold tracking-wide admin-blue text-4xl text-center">Last 20 Issued Vouchers</h4>
+<h4 class="font-bold tracking-wide admin-blue text-4xl text-center">Vouchers</h4>
 
 <div class="mt-5 border rounded-md border-gray-700 p-2 overflow-y-scroll" style="height:630px" >
   <div class="mt-5 grid grid-cols-7">
@@ -14,7 +14,7 @@
       <% @vouchers.each do |voucher| %>
       <div class="zebra grid grid-cols-7">
         <div class="text-center">
-          <%= voucher.number %>
+          <%= link_to voucher.number, voucher, class: "link" %>
         </div>
         <div>
           <%= voucher.hotel.name %>

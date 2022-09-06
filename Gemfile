@@ -57,3 +57,5 @@ gem "acts_as_paranoid", "~> 0.7.3"
 gem "active_interaction", "~> 4.0"
 
 gem "rollbar", "~> 3.3"
+
+gem "pagy", "~> 5.10"

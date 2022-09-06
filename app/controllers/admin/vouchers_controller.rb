@@ -1,5 +1,7 @@
 class Admin::VouchersController < Admin::BaseController
   def void
-    Vouchers::Void.run(params: params.to_h, user: current_user)
+    voucher = Voucher.find(params[:id])
+    voucher.void!(current_user)
+    redirect_to voucher_path(voucher)
   end
 end

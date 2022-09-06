@@ -63,9 +63,6 @@ ActiveRecord::Schema.define(version: 2022_01_13_040804) do
     t.jsonb "log_data"
   end
 
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
-  end
-
   create_table "hotels", force: :cascade do |t|
     t.string "name", null: false
     t.string "phone"
