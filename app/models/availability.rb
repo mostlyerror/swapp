@@ -1,10 +1,11 @@
 # == Schema Information
-# Schema version: 20211106161846
+# Schema version: 20220924214711
 #
 # Table name: availabilities
 #
 #  id         :bigint           not null, primary key
 #  date       :date             not null, indexed => [hotel_id, swap_id]
+#  log_data   :jsonb
 #  vacant     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -19,11 +20,10 @@
 #
 # Foreign Keys
 #
-#  fk_rails_6b15febea0  (hotel_id => hotels.id)
+#  fk_rails_b93457d69c  (hotel_id => hotels.id)
 #  fk_rails_ccaa540134  (swap_id => swaps.id)
 #
 class Availability < ApplicationRecord
-  has_logidze
   belongs_to :hotel
   belongs_to :swap
 

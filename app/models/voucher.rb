@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211223223312
+# Schema version: 20220924214711
 #
 # Table name: vouchers
 #
@@ -7,6 +7,7 @@
 #  check_in                  :date             not null
 #  check_out                 :date             not null
 #  guest_ids                 :integer          default([]), is an Array
+#  log_data                  :jsonb
 #  notes                     :text
 #  num_adults_in_household   :integer
 #  num_children_in_household :integer
@@ -32,13 +33,12 @@
 # Foreign Keys
 #
 #  fk_rails_1a4d6b99f0  (swap_id => swaps.id)
-#  fk_rails_1ea81e504c  (hotel_id => hotels.id)
 #  fk_rails_35b9b0ce9d  (client_id => clients.id)
 #  fk_rails_3e6ca7b204  (user_id => users.id)
+#  fk_rails_4ba6faec0b  (hotel_id => hotels.id)
 #  fk_rails_8c1008a5cb  (voided_by_id => users.id)
 #
 class Voucher < ApplicationRecord
-  has_logidze
   belongs_to :client
   belongs_to :issuer, class_name: 'User', foreign_key: 'user_id'
   belongs_to :voided_by, class_name: 'User', optional: true

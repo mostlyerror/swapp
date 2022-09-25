@@ -10,12 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_040804) do
+ActiveRecord::Schema.define(version: 2022_09_24_214711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "hstore"
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "availabilities", force: :cascade do |t|
     t.bigint "hotel_id", null: false
@@ -242,6 +263,7 @@ ActiveRecord::Schema.define(version: 2022_01_13_040804) do
     t.index ["voided_by_id"], name: "index_vouchers_on_voided_by_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "availabilities", "hotels"
   add_foreign_key "availabilities", "swaps"
   add_foreign_key "incident_reports", "clients"
@@ -264,7 +286,7 @@ ActiveRecord::Schema.define(version: 2022_01_13_040804) do
        RETURNS text
        LANGUAGE sql
        IMMUTABLE STRICT
-      AS $function$ SELECT array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1, E'\\s+')))), ' ') $function$
+      AS $function$ SELECT array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1, E'\s+')))), ' ') $function$
   SQL
   create_function :logidze_logger, sql_definition: <<-SQL
       CREATE OR REPLACE FUNCTION public.logidze_logger()
@@ -637,43 +659,43 @@ ActiveRecord::Schema.define(version: 2022_01_13_040804) do
   SQL
 
 
-  create_trigger :logidze_on_users, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_users BEFORE INSERT OR UPDATE ON public.users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  create_trigger :logidze_on_availabilities, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_availabilities BEFORE INSERT OR UPDATE ON public.availabilities FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
   create_trigger :logidze_on_clients, sql_definition: <<-SQL
       CREATE TRIGGER logidze_on_clients BEFORE INSERT OR UPDATE ON public.clients FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
-  create_trigger :logidze_on_incident_reports, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_incident_reports BEFORE INSERT OR UPDATE ON public.incident_reports FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  create_trigger :logidze_on_contacts, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_contacts BEFORE INSERT OR UPDATE ON public.contacts FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
   create_trigger :logidze_on_hotels, sql_definition: <<-SQL
       CREATE TRIGGER logidze_on_hotels BEFORE INSERT OR UPDATE ON public.hotels FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
-  create_trigger :logidze_on_intakes, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_intakes BEFORE INSERT OR UPDATE ON public.intakes FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_vouchers, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_vouchers BEFORE INSERT OR UPDATE ON public.vouchers FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_swaps, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_swaps BEFORE INSERT OR UPDATE ON public.swaps FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_availabilities, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_availabilities BEFORE INSERT OR UPDATE ON public.availabilities FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
-  SQL
-  create_trigger :logidze_on_short_intakes, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_short_intakes BEFORE INSERT OR UPDATE ON public.short_intakes FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  create_trigger :logidze_on_hotels_contacts, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_hotels_contacts BEFORE INSERT OR UPDATE ON public.hotels_contacts FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
   create_trigger :logidze_on_hotels_users, sql_definition: <<-SQL
       CREATE TRIGGER logidze_on_hotels_users BEFORE INSERT OR UPDATE ON public.hotels_users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
+  create_trigger :logidze_on_incident_reports, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_incident_reports BEFORE INSERT OR UPDATE ON public.incident_reports FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_intakes, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_intakes BEFORE INSERT OR UPDATE ON public.intakes FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
   create_trigger :logidze_on_red_flags, sql_definition: <<-SQL
       CREATE TRIGGER logidze_on_red_flags BEFORE INSERT OR UPDATE ON public.red_flags FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
-  create_trigger :logidze_on_contacts, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_contacts BEFORE INSERT OR UPDATE ON public.contacts FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  create_trigger :logidze_on_short_intakes, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_short_intakes BEFORE INSERT OR UPDATE ON public.short_intakes FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
-  create_trigger :logidze_on_hotels_contacts, sql_definition: <<-SQL
-      CREATE TRIGGER logidze_on_hotels_contacts BEFORE INSERT OR UPDATE ON public.hotels_contacts FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  create_trigger :logidze_on_swaps, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_swaps BEFORE INSERT OR UPDATE ON public.swaps FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_users, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_users BEFORE INSERT OR UPDATE ON public.users FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
+  SQL
+  create_trigger :logidze_on_vouchers, sql_definition: <<-SQL
+      CREATE TRIGGER logidze_on_vouchers BEFORE INSERT OR UPDATE ON public.vouchers FOR EACH ROW WHEN ((COALESCE(current_setting('logidze.disabled'::text, true), ''::text) <> 'on'::text)) EXECUTE FUNCTION logidze_logger('null', 'updated_at')
   SQL
 end

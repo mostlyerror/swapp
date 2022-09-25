@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211223223312
+# Schema version: 20220924214711
 #
 # Table name: intakes
 #
@@ -31,6 +31,7 @@
 #  income_source_unemployment_insurance            :integer
 #  income_source_veteran_service_compensation      :integer
 #  last_permanent_residence_county                 :string
+#  log_data                                        :jsonb
 #  mental_health_condition                         :boolean
 #  mental_health_disability                        :boolean
 #  non_cash_benefits                               :jsonb
@@ -57,7 +58,6 @@
 #  fk_rails_cc14202886  (swap_id => swaps.id)
 #
 class Intake < ApplicationRecord
-  has_logidze
   belongs_to :swap, optional: true
   belongs_to :client
   accepts_nested_attributes_for :client

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211223223312
+# Schema version: 20220924214711
 #
 # Table name: users
 #
@@ -12,6 +12,7 @@
 #  hotel_user             :boolean          default(FALSE), not null
 #  intake_user            :boolean          default(FALSE), not null
 #  last_name              :string           default(""), not null
+#  log_data               :jsonb
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string           indexed
