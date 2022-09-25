@@ -7,7 +7,6 @@
 #  email                    :string
 #  first_name               :string           not null
 #  last_name                :string
-#  log_data                 :jsonb
 #  phone                    :string
 #  preferred_contact_method :string
 #  title                    :string

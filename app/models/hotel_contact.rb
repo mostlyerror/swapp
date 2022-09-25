@@ -4,7 +4,6 @@
 # Table name: hotels_contacts
 #
 #  id         :bigint           not null, primary key
-#  log_data   :jsonb
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  contact_id :bigint           indexed, indexed => [hotel_id]

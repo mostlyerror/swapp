@@ -8,7 +8,6 @@
 #  household_composition_changed         :boolean
 #  identification                        :string
 #  king_soopers_card                     :boolean
-#  log_data                              :jsonb
 #  pets                                  :string
 #  vehicle                               :boolean
 #  what_city_did_you_sleep_in_last_night :string

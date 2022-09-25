@@ -13,7 +13,6 @@
 #  force_intake             :boolean          default(FALSE)
 #  gender                   :string
 #  last_name                :string           not null
-#  log_data                 :jsonb
 #  phone_number             :string
 #  race                     :jsonb
 #  veteran                  :boolean
