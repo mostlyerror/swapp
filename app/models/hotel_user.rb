@@ -4,7 +4,6 @@
 # Table name: hotels_users
 #
 #  id       :bigint           not null, primary key
-#  log_data :jsonb
 #  hotel_id :bigint           not null, indexed
 #  user_id  :bigint           not null, indexed
 #

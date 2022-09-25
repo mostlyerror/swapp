@@ -4,7 +4,6 @@
 # Table name: red_flags
 #
 #  id         :bigint           not null, primary key
-#  log_data   :jsonb
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  client_id  :bigint           indexed

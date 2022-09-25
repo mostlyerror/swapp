@@ -31,7 +31,6 @@
 #  income_source_unemployment_insurance            :integer
 #  income_source_veteran_service_compensation      :integer
 #  last_permanent_residence_county                 :string
-#  log_data                                        :jsonb
 #  mental_health_condition                         :boolean
 #  mental_health_disability                        :boolean
 #  non_cash_benefits                               :jsonb

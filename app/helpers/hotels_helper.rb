@@ -7,7 +7,6 @@
 #  active       :boolean          default(TRUE)
 #  address      :jsonb
 #  deleted_at   :datetime
-#  log_data     :jsonb
 #  name         :string           not null
 #  pet_friendly :boolean          default(FALSE)
 #  phone        :string

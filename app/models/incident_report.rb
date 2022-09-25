@@ -5,7 +5,6 @@
 #
 #  id          :bigint           not null, primary key
 #  description :text
-#  log_data    :jsonb
 #  occurred_at :datetime
 #  red_flag    :boolean          default(FALSE)
 #  created_at  :datetime         not null
