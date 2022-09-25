@@ -74,6 +74,7 @@
 #                     admin_extend_swap PUT    /admin/swaps/:id/extend(.:format)                                                        admin/swaps#extend
 #              admin_update_room_supply PUT    /admin/swaps/:id/room_supply(.:format)                                                   admin/swaps#update_room_supply
 #                 admin_vouchers_report GET    /admin/reports/vouchers(.:format)                                                        admin/reports#vouchers
+#                admin_red_flags_report GET    /admin/reports/red_flags(.:format)                                                       admin/reports#red_flags
 #                   admin_edit_red_flag PUT    /admin/guests/:id(.:format)                                                              admin/red_flags#edit_red_flag
 #          admin_create_incident_report POST   /admin/clients/:id/incidents(.:format)                                                   admin/incident_reports#create
 #                      admin_hotels_csv GET    /admin/hotels.csv(.:format)                                                              admin/hotels#index

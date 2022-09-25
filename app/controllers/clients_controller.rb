@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211103053452
+# Schema version: 20220924214711
 #
 # Table name: clients
 #
@@ -13,6 +13,7 @@
 #  force_intake             :boolean          default(FALSE)
 #  gender                   :string
 #  last_name                :string           not null
+#  log_data                 :jsonb
 #  phone_number             :string
 #  race                     :jsonb
 #  veteran                  :boolean
