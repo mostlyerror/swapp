@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2022_09_24_214711) do
     t.string "preferred_contact_method"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "log_data"
   end
 
   create_table "hotels", force: :cascade do |t|

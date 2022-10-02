@@ -162,6 +162,8 @@ Rails.application.routes.draw do
       get "/hotels.csv" => "hotels#index", as: :hotels_csv
       get "/hotels/importer" => "hotels#importer"
       post "/hotels/import" => "hotels#import"
+
+      put "vouchers/:id/void" => "vouchers#void", as: :vouchers_void
     end
   end
  

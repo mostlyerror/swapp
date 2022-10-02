@@ -57,4 +57,6 @@ gem "active_interaction", "~> 4.0"
 
 gem "rollbar", "~> 3.3"
 
+gem "pagy", "~> 5.10"
+
 gem "image_processing", "~> 1.12"
