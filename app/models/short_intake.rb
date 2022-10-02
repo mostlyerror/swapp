@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220110020820
+# Schema version: 20220924214711
 #
 # Table name: short_intakes
 #
@@ -32,7 +32,6 @@
 #  fk_rails_d42dc07699  (swap_id => swaps.id)
 #
 class ShortIntake < ApplicationRecord
-  has_logidze
   belongs_to :swap, optional: true
   belongs_to :client
   accepts_nested_attributes_for :client

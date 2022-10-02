@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211106161846
+# Schema version: 20220924214711
 #
 # Table name: availabilities
 #

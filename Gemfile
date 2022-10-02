@@ -48,7 +48,6 @@ group :test do
   gem "webdrivers"
 end
 
-gem "logidze", "~> 1.2"
 
 gem "fx", "~> 0.6.2"
 
@@ -59,3 +58,5 @@ gem "active_interaction", "~> 4.0"
 gem "rollbar", "~> 3.3"
 
 gem "pagy", "~> 5.10"
+
+gem "image_processing", "~> 1.12"

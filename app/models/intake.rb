@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211223223312
+# Schema version: 20220924214711
 #
 # Table name: intakes
 #
@@ -57,7 +57,6 @@
 #  fk_rails_cc14202886  (swap_id => swaps.id)
 #
 class Intake < ApplicationRecord
-  has_logidze
   belongs_to :swap, optional: true
   belongs_to :client
   accepts_nested_attributes_for :client

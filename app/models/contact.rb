@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211103053452
+# Schema version: 20220924214711
 #
 # Table name: contacts
 #
@@ -14,7 +14,6 @@
 #  updated_at               :datetime         not null
 #
 class Contact < ApplicationRecord
-  has_logidze
   has_many :hotels_contacts, class_name: "HotelContact", table_name: :hotels_contacts
   has_many :hotels, through: :hotels_contacts
 end

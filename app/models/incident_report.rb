@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211223223312
+# Schema version: 20220924214711
 #
 # Table name: incident_reports
 #
@@ -24,7 +24,6 @@
 #  fk_rails_75542209ab  (client_id => clients.id)
 #
 class IncidentReport < ApplicationRecord
-  has_logidze
   belongs_to :client
   belongs_to :hotel
   belongs_to :reporter, class_name: "User"

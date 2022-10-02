@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211223223312
+# Schema version: 20220924214711
 #
 # Table name: vouchers
 #
@@ -38,7 +38,6 @@
 #  fk_rails_8c1008a5cb  (voided_by_id => users.id)
 #
 class Voucher < ApplicationRecord
-  has_logidze
   belongs_to :client
   belongs_to :issuer, class_name: 'User', foreign_key: 'user_id'
   belongs_to :voided_by, class_name: 'User', optional: true

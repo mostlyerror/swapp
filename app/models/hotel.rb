@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211223223312
+# Schema version: 20220924214711
 #
 # Table name: hotels
 #
@@ -15,7 +15,6 @@
 #
 class Hotel < ApplicationRecord
   include SoftDeletable
-  has_logidze
 
   has_many :availabilities
   has_many :vouchers

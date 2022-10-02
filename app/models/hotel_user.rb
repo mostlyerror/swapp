@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20220113040804
+# Schema version: 20220924214711
 #
 # Table name: hotels_users
 #
@@ -13,7 +13,6 @@
 #  index_hotels_users_on_user_id   (user_id)
 #
 class HotelUser < ApplicationRecord
-  has_logidze
   self.table_name = :hotels_users
   belongs_to :user
   belongs_to :hotel

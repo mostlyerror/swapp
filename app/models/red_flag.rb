@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211103053452
+# Schema version: 20220924214711
 #
 # Table name: red_flags
 #
@@ -20,7 +20,6 @@
 #  fk_rails_974f96e3bd  (client_id => clients.id)
 #
 class RedFlag < ApplicationRecord
-  has_logidze
   self.table_name = :red_flags
   belongs_to :client
   belongs_to :hotel

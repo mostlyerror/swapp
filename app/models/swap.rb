@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20211103053452
+# Schema version: 20220924214711
 #
 # Table name: swaps
 #
@@ -11,7 +11,6 @@
 #  updated_at   :datetime         not null
 #
 class Swap < ApplicationRecord
-  has_logidze
   # include AASM
 
   validates :start_date, :end_date, :intake_dates, presence: true
