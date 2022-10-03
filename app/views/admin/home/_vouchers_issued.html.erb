@@ -2,7 +2,7 @@
 
 <div class="mt-5 border rounded-md border-gray-700 p-2 overflow-y-scroll" style="height:630px" >
   <div class="mt-5 grid grid-cols-7">
-    <div class="font-bold text-center">Voucher No.</div>
+    <div class="font-bold text-left">Voucher No.</div>
     <div class="font-bold text-left">Hotel</div>
     <div class="font-bold text-left">Client</div>
     <div class="font-bold text-center">Check-In</div>
@@ -13,8 +13,13 @@
   <div class="mt-5">
       <% @vouchers.each do |voucher| %>
       <div class="zebra grid grid-cols-7">
-        <div class="text-center">
+        <div class="text-left">
           <%= link_to voucher.number, voucher, class: "link" %>
+          <% if voucher.voided? %>
+            <span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-semibold text-red-800 tracking-wide">
+              VOID
+            </span>
+          <% end %>
         </div>
         <div>
           <%= voucher.hotel.name %>

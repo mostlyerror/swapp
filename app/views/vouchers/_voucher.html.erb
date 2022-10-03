@@ -13,8 +13,11 @@
           </div>
           <span class="flex items-center">
             <% if @voucher.voided? %>
-              <span class="bg-gray-600 text-white text-sm px-2 py-1 mr-2 rounded">VOIDED</span>
-              <span class="line-through bg-gray-200 text-gray-500"><%= @voucher.number %></span>
+              <span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-sm font-semibold text-red-800 tracking-wide">
+                VOID
+              </span>
+              <span class="line-through bg-gray-200 text-gray-500"><%= @voucher.number %></span> <% if voucher.voided? %>
+          <% end %>
             <% else %>
               <%= @voucher.number %>
             <% end %>
