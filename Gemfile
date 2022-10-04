@@ -59,5 +59,3 @@ gem "rollbar", "~> 3.3"
 gem "pagy", "~> 5.10"
 
 gem "image_processing", "~> 1.12"
-
-gem "annotate", "~> 3.1"
