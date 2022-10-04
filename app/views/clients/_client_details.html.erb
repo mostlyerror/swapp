@@ -2,11 +2,7 @@
   <div class="p-2 md:p-6 flex justify-between items-center">
     <div>
       <div class="flex items-center">
-        <% if @client.profile_photo.attached? %>
-          <%= image_tag(@client.profile_photo, class: "inline-block h-16 w-16 mr-2 rounded-full object-cover") %>
-        <% else %>
-          <%= image_tag("default-profile-photo.png", class: "inline-block h-16 w-16 mr-2 rounded-full object-cover") %>
-        <% end %>
+        <span class="mr-2"><%= profile_photo_for(@client) %></span>
         <h3><%= @client.name %></h3>
       </div>
     </div>

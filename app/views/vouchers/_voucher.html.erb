@@ -28,7 +28,10 @@
     <div>
       <div class="flex flex-1 justify-between">
         <strong>Holder</strong>
-        <p><%= link_to @voucher.client.name, client_path(@voucher.client), class: 'underline text-indigo-600' %></p>
+        <div>
+          <%= profile_photo_for(@voucher.client) %>
+          <%= link_to @voucher.client.name, client_path(@voucher.client), class: 'underline text-indigo-600' %>
+        </div>
       </div>
     </div>
     <div class="flex justify-between">

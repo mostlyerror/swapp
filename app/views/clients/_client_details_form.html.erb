@@ -2,11 +2,7 @@
   <div class="bg-white p-4 rounded-t-lg border border-gray-200">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="flex items-center justify-between">
-        <% if @client.profile_photo.attached? %>
-          <%= image_tag(@client.profile_photo, class: "inline-block h-16 w-16 mr-2 rounded-full object-cover") %>
-        <% else %>
-          <%= image_tag("default-profile-photo.png", class: "inline-block h-16 w-16 mr-2 rounded-full object-cover") %>
-        <% end %>
+        <span class="mr-2"><%= profile_photo_for(@client) %></span>
         <%= form.file_field :profile_photo, class: "text-sm" %>
       </div>
       <div>
