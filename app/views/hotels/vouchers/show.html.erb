@@ -1,7 +1,7 @@
 <main class="container md:p-4 xl:p-0 max-w-6xl mx-auto mt-12 pb-24">
   <div class="px-2">
     <%= link_to hotels_home_path, class: "link no-underline" do %>
-      <p class="flex items-center gap-2">
+      <p class="flex items-center gap-2 text-md lg:text-lg">
         <svg width="1em" height="1em" fill="currentColor">
           <path fill-rule="evenodd" d="M15 8a.5.5 0 0
         0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0
@@ -13,7 +13,25 @@
   </div>
   <!-- voucher details -->
   <section>
-    <h2 class="px-2 font-bold tabular-nums">Voucher #<%= @voucher.number %></h2>
+    <h2 class="px-2 font-bold tabular-nums flex items-center justify-between">
+      <% if @voucher.voided? %>
+        <div>
+          <span>Voucher</span>
+          <span class="line-through bg-gray-200 text-gray-500">#<%= @voucher.number %></span>
+        </div>
+        <div>
+          <span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xl lg:text-2xl font-semibold text-red-800 tracking-wide">
+            VOID
+          </span>
+          <span class="font-medium text-xl lg:text-2xl">This voucher has been marked invalid by administrators</span>
+        </div>
+      <% else %>
+        <div>
+          <span>Voucher</span>
+          <span>#<%= @voucher.number %></span>
+        </div>
+      <% end %>
+    </h2>
     <h3 class="mt-6 px-2 py-2 text-xl tracking-wide font-normal bg-gray-900 text-gray-100 rounded-t-lg">Details</h3>
     <div class="flex flex-col lg:flex-row bg-white lg:divide-y-0 lg:divide-x divide-gray-300 border border-gray-300 rounded-b-lg shadow-sm md:shadow-lg">
       <div class="flex flex-2 flex-col lg:w-2/3">

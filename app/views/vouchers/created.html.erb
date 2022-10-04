@@ -3,27 +3,18 @@
     <h1 class="text-center">Hotel Voucher created! 🎉</h1>
     <p class="mt-4 md:mt-8 text-base sm:text-lg md:text-xl text-gray-800 max-w-3xl md:text-center mx-auto">
       This is a digital record of a hotel voucher. <strong>This does NOT replace a
-      physical voucher!</strong> ONLY the paper voucher will be accepted by the
+        physical voucher!</strong> ONLY the paper voucher will be accepted by the
       hotel front desk.  Write down the voucher details on your physical voucher
       slip.  </p>
   </section>
-
   <section class="mx-auto mt-8 md:mt-12 md:max-w-4xl">
     <%= render @voucher %>
   </section>
-
   <section class="px-2 sm:px-4 md:px-8 md:w-11/12 mx-auto my-8 sm:my-12 md:my-24">
-    <div class="flex sm:mt-2 md:mt-4 text-base sm:text-lg md:text-2xl text-center underline text-indigo-600">
-      <div>
-        <%= link_to clients_path, class: 'text-lg sm:text-xl md:text-2xl' do %>
-          Go to client search.
-        <% end %>
-      </div>
-      <div>
-        <% if current_user.admin_user? && !@voucher.voided? %>
-          <%= button_to "VOID", admin_vouchers_void_path(@voucher), { method: :put, params: { id: @voucher.id }, data: { confirm: "Are you sure you want to VOID this voucher?" }, class: "cursor-pointer bg-red-600 hover:bg-red-700 text-white text-sm font-semibold tracking-wide shadow-md px-2 py-1 mr-2 rounded" } %>
-        <% end %>
-      </div>
+    <div class="sm:mt-2 md:mt-4 text-base sm:text-lg md:text-2xl text-center underline text-indigo-600">
+      <%= link_to clients_path, class: 'text-lg sm:text-xl md:text-2xl' do %>
+        Go to client search.
+      <% end %>
     </div>
   </section>
 </div>
