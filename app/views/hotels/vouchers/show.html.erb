@@ -38,7 +38,18 @@
         <div class="flex divide-x divide-gray-300">
           <div class="w-full flex flex-col">
             <p class="px-2 py-1 bg-gray-100 text-gray-400 lg:text-base uppercase font-bold">Name</p>
-            <p class="px-2 py-4 text-xl lg:text-2xl"><%= @voucher.client.name %></p>
+            <div>
+              <span class="px-2 py-4 text-xl lg:text-2xl"><%= @voucher.client.name %></span>
+              <span class="cursor-pointer">
+                <% if @voucher.client.profile_photo.attached? %>
+                  <%= link_to url_for(@voucher.client.profile_photo) do %>
+                    <%= profile_photo_for(@voucher.client) %>
+                  <% end %>
+                <% else %>
+                  <%= profile_photo_for(@voucher.client) %>
+                <% end %>
+              </span>
+            </div>
           </div>
           <div class="w-full flex flex-col">
             <p class="px-2 py-1 bg-gray-100 text-gray-400 lg:text-base uppercase font-bold tracking-wide">Date of Birth</p>
