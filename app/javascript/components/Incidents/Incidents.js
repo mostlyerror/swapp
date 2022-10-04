@@ -49,10 +49,10 @@ const Incidents = (props) => {
         {!formIsShowing && (
           <div className="flex justify-center">
             <button
-              className="mt-4 px-4 md:px-6 lg:px-8 py-2 bg-indigo-600 hover:bg-indigo-700 text-lg text-white font-semibold tracking-wide cursor-pointer rounded"
+              className="mt-4 px-4 cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-semibold tracking-wide uppercase shadow-md px-2 py-1 mr-2 rounded"
               onClick={() => setFormIsShowing(!formIsShowing)}
             >
-              Report An Incident
+              ⚠️ Report An Incident
             </button>
           </div>
         )}
