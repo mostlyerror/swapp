@@ -13,7 +13,7 @@ module ClientsHelper
     classes = "inline-block h-16 w-16 mr-2 rounded-full"
     src = client.profile_photo.attached? ? client.profile_photo : "default-profile-photo.png"
     if client.profile_photo.attached?
-      src = client.profile_photo
+      src = client.profile_photo.variant(resize_to_fit: [100, 100])
       classes += " object-cover"
     else
       src = "default-profile-photo.png"
