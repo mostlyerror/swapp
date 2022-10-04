@@ -105,11 +105,10 @@ const Incidents = (props) => {
             </div>
             <div className="flex justify-center">
               <button
-                className="my-4 py-2 px-4 rounded-3xl border border-black bg-admin-blue shadow-xl
-              font-semibold tracking-wide focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 focus:outline-none"
+                className="mt-4 px-4 cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-semibold tracking-wide uppercase shadow-md px-2 py-1 mr-2 rounded"
                 type="submit"
               >
-                Submit Incident
+                ⚠️ Submit Incident
               </button>
             </div>
           </form>
