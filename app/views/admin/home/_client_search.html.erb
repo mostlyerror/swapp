@@ -11,44 +11,43 @@
       </div>
     </form>
   </div>
-
   <div class="mt-12">
     <% if @searched %>
       <% if @clients.any? %>
-          <p class="text-2xl">
-            <strong><%= @clients.size %> results found for "<%= @searched_term %>."</strong>
-            Click on a row to view a client's program history, update red flags, or modify incident reports.
-          </p>
-          <div class="mt-6 shadow-lg text-2xl">
-            <div class="grid grid-cols-7 bg-white border border-gray-300">
-              <div class="col-span-3 pl-2 pl-4 py-2 py-3 font-semibold tracking-wide">Name</div>
-              <div class="col-span-3 py-2 py-3 font-bold tracking-wide">DOB</div>
-              <div class="py-2"></div>
-            </div>
-            <div class="grid grid-cols-7 bg-white border border-gray-300 block overflow-y-scroll max-h-96">
-              <% @clients.each_with_index do |client, idx| %>
-                <div class="col-span-3 pl-4 py-3 text-left <%= idx.even? && 'bg-gray-200' %>">
-                  <%= link_to(client.name, admin_clients_path(client), class: 'link') %>
-                </div>
-                <div class="col-span-3 py-3 text-left tabular-nums <%= idx.even? && 'bg-gray-200' %>">
-                  <%= formatted_date(client.date_of_birth) %>
-                </div>
-                <div class="pr-4 py-3 text-center <%= idx.even? && 'bg-gray-200' %>">
-                  <% if client.red_flags.any? %>
-                    🚩
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
+        <p class="text-2xl">
+          <strong><%= @clients.size %> results found for "<%= @searched_term %>."</strong>
+          Click on a row to view a client's program history, update red flags, or modify incident reports.
+        </p>
+        <div class="mt-6 shadow-lg text-2xl">
+          <div class="grid grid-cols-7 bg-white border border-gray-300">
+            <div class="col-span-3 pl-2 pl-4 py-2 py-3 font-semibold tracking-wide">Name</div>
+            <div class="col-span-3 py-2 py-3 font-bold tracking-wide">DOB</div>
+            <div class="py-2"></div>
           </div>
+          <div class="grid grid-cols-7 bg-white border border-gray-300 block overflow-y-scroll max-h-96">
+            <% @clients.each_with_index do |client, idx| %>
+              <div class="col-span-3 pl-4 py-3 text-left <%= idx.even? && 'bg-gray-200' %>">
+                <%= link_to(client.name, admin_clients_path(client), class: 'link') %>
+              </div>
+              <div class="col-span-3 py-3 text-left tabular-nums <%= idx.even? && 'bg-gray-200' %>">
+                <%= formatted_date(client.date_of_birth) %>
+              </div>
+              <div class="pr-4 py-3 text-center <%= idx.even? && 'bg-gray-200' %>">
+                <% if client.red_flags.any? %>
+                  🚩
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
       <% else %>
         <p class="mt-8 text-2xl">
           <strong>0 results found for "<%= @searched_term %>"</strong>
         </p>
       <% end %>
-        <p class="mt-8 text-2xl">
-          Still don't see your client? If they have previously participated, try searching for an alternate name.
-        </p>
+      <p class="mt-8 text-2xl">
+        Still don't see your client? If they have previously participated, try searching for an alternate name.
+      </p>
     <% end %>
   </div>
 </section>

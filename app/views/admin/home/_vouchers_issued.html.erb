@@ -1,20 +1,24 @@
 <h4 class="font-bold tracking-wide admin-blue text-4xl text-center">Vouchers</h4>
-
 <div class="mt-5 border rounded-md border-gray-700 p-2 overflow-y-scroll" style="height:630px" >
   <div class="mt-5 grid grid-cols-7">
-    <div class="font-bold text-center">Voucher No.</div>
+    <div class="font-bold text-left">Voucher No.</div>
     <div class="font-bold text-left">Hotel</div>
     <div class="font-bold text-left">Client</div>
     <div class="font-bold text-center">Check-In</div>
     <div class="font-bold text-center">Check-Out</div>
     <div class="font-bold text-center">Issued By</div>
     <div class="font-bold text-center">Issued On</div>
-    </div>
+  </div>
   <div class="mt-5">
-      <% @vouchers.each do |voucher| %>
+    <% @vouchers.each do |voucher| %>
       <div class="zebra grid grid-cols-7">
-        <div class="text-center">
+        <div class="text-left">
           <%= link_to voucher.number, voucher, class: "link" %>
+          <% if voucher.voided? %>
+            <span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-semibold text-red-800 tracking-wide">
+              VOID
+            </span>
+          <% end %>
         </div>
         <div>
           <%= voucher.hotel.name %>
@@ -25,20 +29,19 @@
         <div class="text-center">
           <%= voucher.check_in.to_date.to_formatted_s(:short) %>
         </div>
-        <div class="text-center"> 
+        <div class="text-center">
           <%= voucher.check_out.to_date.to_formatted_s(:short) %>
         </div>
         <div class="text-center">
           <%= voucher.issuer.name %>
         </div>
-        <div class="text-center"> 
+        <div class="text-center">
           <%= voucher.created_at.to_date.to_formatted_s(:short) %>
         </div>
       </div>
-      <% end %>   
+    <% end %>
   </div>
 </div>
-
 <div class="p-12 flex flex-1 gap-y-6 justify-around">
   <button type="button">
     <%= link_to admin_vouchers_report_url(format: :csv), 
@@ -53,7 +56,6 @@
       </div>
     <% end %>
   </button>
-
   <button type="button">
     <%= link_to admin_red_flags_report_url(format: :csv), 
     class: "inline-block py-2 px-8 bg-admin-blue rounded-full text-gray-900 font-bold

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_24_214711) do
+ActiveRecord::Schema.define(version: 2022_10_04_031025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(version: 2022_09_24_214711) do
     t.string "preferred_contact_method"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.jsonb "log_data"
   end
 
   create_table "hotels", force: :cascade do |t|
@@ -240,7 +239,6 @@ ActiveRecord::Schema.define(version: 2022_09_24_214711) do
     t.text "notes"
     t.datetime "voided_at"
     t.bigint "voided_by_id"
-    t.index ["client_id", "swap_id"], name: "index_vouchers_on_client_id_and_swap_id"
     t.index ["client_id"], name: "index_vouchers_on_client_id"
     t.index ["hotel_id"], name: "index_vouchers_on_hotel_id"
     t.index ["swap_id"], name: "index_vouchers_on_swap_id"
