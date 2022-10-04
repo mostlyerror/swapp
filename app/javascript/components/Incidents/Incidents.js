@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 const IncidentList = (props) => {
   return (
     <div className="max-w-lg mx-auto container p-2 md:p-6 text-lg text-gray-800">
-      <h3 className="py-2 font-bold tracking-wide">Incidents</h3>
       {props.incidents.map((incident, idx) => (
         <IncidentReport key={idx} {...incident} />
       ))}
@@ -42,28 +41,23 @@ const Incidents = (props) => {
   const [formIsShowing, setFormIsShowing] = useState(false)
 
   return (
-    <div>
-      <div>
+    <section class="bg-white rounded border border-gray-200 text-lg lg:text-xl text-gray-800">
+      <div class="max-w-3xl mx-auto container p-2 md:p-6">
+        <h4 class="mt-4 font-semibold tracking-normal">Incidents</h4>
         <IncidentList incidents={props.incidents} />
-      </div>
 
-      <div className="max-w-lg mx-auto container p-2 md:p-6 text-lg text-gray-800">
         {!formIsShowing && (
           <div className="flex justify-center">
             <button
-              className="py-2 px-4 rounded-3xl border border-black bg-admin-blue shadow-xl
-          focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 focus:outline-none"
+              className="mt-4 px-4 cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-semibold tracking-wide uppercase shadow-md px-2 py-1 mr-2 rounded"
               onClick={() => setFormIsShowing(!formIsShowing)}
             >
-              Report An Incident
+              ⚠️ Report An Incident
             </button>
           </div>
         )}
         {formIsShowing && (
           <form method="POST" action={props.form_path} className="space-y-4">
-            <h3 className="py-2 admin-blue font-bold tracking-wide text-center">
-              Report an Incident
-            </h3>
             <div>
               <label className="block">When did this occur?</label>
               <input
@@ -111,17 +105,16 @@ const Incidents = (props) => {
             </div>
             <div className="flex justify-center">
               <button
-                className="my-4 py-2 px-4 rounded-3xl border border-black bg-admin-blue shadow-xl
-              font-semibold tracking-wide focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 focus:outline-none"
+                className="mt-4 px-4 cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-semibold tracking-wide uppercase shadow-md px-2 py-1 mr-2 rounded"
                 type="submit"
               >
-                Submit Incident
+                ⚠️ Submit Incident
               </button>
             </div>
           </form>
         )}
       </div>
-    </div>
+    </section>
   )
 }
 

@@ -5,24 +5,24 @@ class Client < ApplicationRecord
                   using: :dmetaphone
 
   GENDER = [
-    'Female',
-    'Male',
-    'Trans Female (MTF)',
-    'Trans Male (FTM)',
-    'Gender Non-Conforming',
+    "Female",
+    "Male",
+    "Trans Female (MTF)",
+    "Trans Male (FTM)",
+    "Gender Non-Conforming",
     "Client Doesn't Know",
-    'Client Refused',
+    "Client Refused"
   ]
 
   RACE = [
-    'American Indian or Alaska Native',
-    'Asian',
-    'Black or African American',
-    'Native Hawaiian or other Pacific Islander',
-    'White',
+    "American Indian or Alaska Native",
+    "Asian",
+    "Black or African American",
+    "Native Hawaiian or other Pacific Islander",
+    "White"
   ]
 
-  ETHNICITY = ['Not Hispanic or Latino', 'Hispanic or Latino']
+  ETHNICITY = ["Not Hispanic or Latino", "Hispanic or Latino"]
 
   auto_strip_attributes :first_name, :last_name, :race, :phone_number, :email
 
@@ -38,11 +38,12 @@ class Client < ApplicationRecord
   has_many :short_intakes
   has_many :vouchers
   has_many :incident_reports
-  has_many :red_flags, class_name: 'RedFlag', table_name: :red_flags
+  has_many :red_flags, class_name: "RedFlag", table_name: :red_flags
   has_many :flagged_hotels, through: :red_flags, source: :hotel
+  has_one_attached :profile_photo
 
   # Callbacks
-  before_save { self.race = self&.race&.reject { |r| r == '0' } }
+  before_save { self.race = self&.race&.reject { |r| r == "0" } }
 
   def name
     "#{first_name} #{last_name}"

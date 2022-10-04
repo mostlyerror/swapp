@@ -17,6 +17,22 @@ class ClientsController < ApplicationController
     @client = Client.find(params[:id])
     @existing_voucher = @client.current_voucher
     @editing = params[:editing]
+    @hotels = Hotel.all
+    @hotel_map = Hotel.all.pluck(:id, :name).to_h
+    @incidents = @client
+      .incident_reports.order(created_at: :desc)
+      .map do |incident|
+        {
+          reportedBy: {
+            firstName: incident.reporter.first_name,
+            lastName: incident.reporter.last_name,
+            email: incident.reporter.email
+          },
+          dateOfIncident: incident.occurred_at,
+          description: incident.description
+        }
+      end
+    @incident_report = IncidentReport.new
   end
 
   def update

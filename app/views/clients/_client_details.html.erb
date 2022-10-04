@@ -1,21 +1,18 @@
 <div class="rounded-lg bg-white shadow">
+  <div class="p-2 md:p-6 flex justify-between items-center">
+    <div>
+      <div class="flex items-center">
+        <span class="mr-2"><%= profile_photo_for(@client) %></span>
+        <h3><%= @client.name %></h3>
+      </div>
+    </div>
+    <div>
+      <p class="text-sm md:text-base lg:text-lg font-italic text-gray-600">
+        Last update: <%= time_ago_in_words(@client.updated_at) %> ago
+      </p>
+    </div>
+  </div>
   <div class="p-2 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-center">
-    <div>
-      <span class="p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600">
-        First Name
-      </span>
-      <span class="p-1 text-base sm:text-lg md:text-xl">
-        <%= @client&.first_name || '- -' %>
-      </span>
-    </div>
-    <div>
-      <span class="p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600">
-        Last Name
-      </span>
-      <span class="p-1 text-base sm:text-lg md:text-xl">
-        <%= @client&.last_name || '- -' %>
-      </span>
-    </div>
     <div>
       <span class="p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600">
         Date of Birth 
@@ -29,7 +26,7 @@
         Gender Identity
       </span>
       <span class="p-1 text-base sm:text-lg md:text-xl">
-        <%= @client&.gender || '- -' %> 
+        <%= @client&.gender || '- -' %>
       </span>
     </div>
     <div>
@@ -49,7 +46,6 @@
       </span>
     </div>
   </div>
-
   <% if current_user.admin_user? || current_user.intake_user? %>
     <div class="flex flex-1 items-center justify-center bg-gray-50 border-t border-gray-200">
       <div class="flex items-center space-x-2 p-2 md:p-6">
