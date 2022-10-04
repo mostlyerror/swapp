@@ -1,27 +1,28 @@
 <section class="bg-white shadow-lg rounded-lg container mx-auto">
- <div class="p-8 border border-4 rounded-lg current-swap-border">
-  <div class="flex justify-between">
-    <h2 class="text-4xl font-bold">
-      <%= @swap.upcoming? ? 'Upcoming' : 'Current' %> 
-      Swap Period
-    </h2>
-    <%= link_to 'Change', request.params.merge(change_swap: true), class: 'text-2xl text-indigo-600 underline' %>
-  </div>
-  <div class="mt-6 space-y-6 text-3xl">
-    <div class="flex gap-8">
-      <div>
-        <div class="text-2xl font-bold tracking-wide">Check In</div>
-        <span class="mt-2"><%= @swap.start_date.to_formatted_s(:short) %></span>
-      </div>
-      <div>
-        <div class="text-2xl font-bold tracking-wide">Check Out</div>
-        <span class="mt-2"><%= @swap.end_date.to_formatted_s(:short) %></span>
-      </div>
+  <div class="p-8 border border-4 rounded-lg current-swap-border">
+    <div class="flex justify-between">
+      <h2 class="text-4xl font-bold">
+        <%= @swap.upcoming? ? 'Upcoming' : 'Current' %>
+        Swap Period
+      </h2>
+      <%= link_to 'Change', request.params.merge(change_swap: true), class: 'text-2xl text-indigo-600 underline' %>
     </div>
-    <div>
-      <div class="text-2xl font-bold tracking-wide">Intake Dates</div>
-      <div class="mt-2">
-        <%= @swap.intake_dates.map {|date| date.to_formatted_s(:short) }.join(", ") %>
+    <div class="mt-6 space-y-6 text-3xl">
+      <div class="flex gap-8">
+        <div>
+          <div class="text-2xl font-bold tracking-wide">Check In</div>
+          <span class="mt-2"><%= @swap.start_date.to_formatted_s(:short) %></span>
+        </div>
+        <div>
+          <div class="text-2xl font-bold tracking-wide">Check Out</div>
+          <span class="mt-2"><%= @swap.end_date.to_formatted_s(:short) %></span>
+        </div>
+      </div>
+      <div>
+        <div class="text-2xl font-bold tracking-wide">Intake Dates</div>
+        <div class="mt-2">
+          <%= @swap.intake_dates.map {|date| date.to_formatted_s(:short) }.join(", ") %>
+        </div>
       </div>
     </div>
   </div>

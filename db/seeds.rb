@@ -1,6 +1,6 @@
 ActiveRecord::Base.transaction do |t|
   # hotels
-  test_hotel = Hotel.create!(
+  test_hotel = Hotel.find_or_create_by(
     name: 'Test Inn (Westminster)',
     address: {
       street: '7151 Federal Boulevard', 
@@ -13,7 +13,7 @@ ActiveRecord::Base.transaction do |t|
   )
 
   # create hotel user
-  test_hotel_user = User.create!(
+  test_hotel_user = User.find_or_create_by(
     email: 'frontdesk@testinn.com',
     first_name: 'Test',
     last_name: 'Inn',
@@ -22,13 +22,13 @@ ActiveRecord::Base.transaction do |t|
     hotel_user: true,
   )
 
-  HotelUser.create!(
+  HotelUser.find_or_create_by(
     user: test_hotel_user,
     hotel: test_hotel,
   )
 
   # create hotel contacts
-  test_hotel.contacts.create!(
+  test_hotel.contacts.find_or_create_by(
     first_name: "Christopher",
     last_name: "Contact",
     phone: "1231234567",
@@ -62,6 +62,6 @@ ActiveRecord::Base.transaction do |t|
       password_confirmation: "password"
     }
   ].each do |data|
-    User.create!(data)
+    User.find_or_create_by(data)
   end
 end
