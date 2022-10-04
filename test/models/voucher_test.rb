@@ -16,17 +16,6 @@ class VoucherTest < ActiveSupport::TestCase
     assert_equal voucher.voided_by, user
   end
 
-  test "voucher has to be for at least one night" do
-    skip("disabled validation for now")
-    swap = create(:swap, start_date: Date.current.yesterday, end_date: Date.current)
-    assert_equal 1, swap.nights
-    assert_equal 0, swap.nights_remaining
-
-    voucher = build_stubbed(:voucher, swap: swap)
-    assert_not voucher.valid?
-    assert voucher.errors.key?(:nights)
-  end
-
   test "one voucher per period per client" do
     swap = create(:swap, :future)
     first_voucher = create(:voucher, swap: swap)
@@ -40,7 +29,6 @@ class VoucherTest < ActiveSupport::TestCase
   end
 
   test "more than one voucher per period per client if other vouchers are voided" do
-    skip("pending changes")
     user = create(:user)
     swap = create(:swap, :future)
     first_voucher = create(:voucher, swap: swap)
