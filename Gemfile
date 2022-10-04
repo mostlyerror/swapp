@@ -32,7 +32,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "annotate", "~> 3.1"
   gem "listen", "~> 3.2"
   gem "rubocop", "~> 1.24"
   gem "rubocop-performance", "~> 1.13"
@@ -60,3 +59,5 @@ gem "rollbar", "~> 3.3"
 gem "pagy", "~> 5.10"
 
 gem "image_processing", "~> 1.12"
+
+gem "annotate", "~> 3.1"

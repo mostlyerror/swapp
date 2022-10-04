@@ -4,7 +4,6 @@
     <p class="mt-4 max-w-3xl text-2xl leading-relaxed tracking-wide">
       To increase the number of available rooms at the hotel, set a total that <strong>includes</strong> the current availability. For example, if you wish to add 5 to the current 15, set "Available" to 20.
     </p>
-
     <div class="mt-6 bg-white border border-black rounded-2xl text-2xl tabular-nums">
       <div class="grid grid-cols-5 text-2xl font-semibold text-center w-full">
         <div class="pl-4 py-4 col-span-2 text-left">Hotel</div>
@@ -12,7 +11,6 @@
         <div class="py-4">Issued</div>
         <div class="pr-4 py-4">Remaining</div>
       </div>
-
       <% @supply.each do |hotel_id, supply| %>
         <div class="grid grid-cols-5 text-2xl text-center items-center w-full">
           <div class="pl-4 py-3 col-span-2 text-left"><%= @hotel_map[hotel_id] %></div>
@@ -33,7 +31,6 @@
         </div>
       <% end %>
     </div>
-
     <div class="mt-12 flex flex-1 justify-center">
       <%= form.submit "Update Voucher Supply",
         data: { confirm: "Warning! You are choosing to update the total voucher supply. As soon as the supply is updated users can immediately issue vouchers." },

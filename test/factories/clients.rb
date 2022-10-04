@@ -1,27 +1,3 @@
-# == Schema Information
-# Schema version: 20220924214711
-#
-# Table name: clients
-#
-#  id                       :bigint           not null, primary key
-#  banned                   :boolean          default(FALSE)
-#  date_of_birth            :date
-#  email                    :string
-#  ethnicity                :string
-#  family_members           :jsonb
-#  first_name               :string           not null
-#  force_intake             :boolean          default(FALSE)
-#  gender                   :string
-#  last_name                :string           not null
-#  phone_number             :string
-#  race                     :jsonb
-#  veteran                  :boolean
-#  veteran_discharge_status :string
-#  veteran_military_branch  :string
-#  veteran_separation_year  :string
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
-#
 FactoryBot.define do
   factory :client do
     first_name { FFaker::Name.first_name }
