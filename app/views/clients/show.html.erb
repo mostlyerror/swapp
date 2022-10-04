@@ -2,15 +2,7 @@
   <section class="mt-4 px-2">
     <%= render partial: 'shared/swap_notices' %>
   </section>
-
   <section class="mt-4 md:mt-8 px-2 text-base sm:text-lg md:text-xl">
-    <div class="flex justify-between items-center">
-      <h2><%= @client.name %></h2>
-      <p class="text-sm md:text-base lg:text-lg font-italic text-gray-600">
-        Last update: <%= time_ago_in_words(@client.updated_at) %> ago
-      </p>
-    </div>
-
     <div class="mt-4 md:mt-8">
       <% if @editing %>
         <%= render partial: 'client_details_form' , client: @client %>
@@ -18,7 +10,6 @@
         <%= render partial: 'client_details' , client: @client %>
       <% end %>
     </div>
-
     <div class="text-base md:text-xl">
       <div class="h-32 flex justify-center items-center">
         <p>
@@ -28,7 +19,6 @@
       </div>
     </div>
   </section>
-
   <section class="flex flex-col gap-4 justify-center items-center">
     <div>
       <div class="px-4 sm:px-0 text-base sm:text-lg md:text-xl font-semibold max-w-lg sm:max-w-xl md:max-w-2xl">
@@ -37,14 +27,13 @@
         <% elsif @client.partial_ban? %>
           <p class="text-red-500">🚩<%= @client.first_name %> has been red-flagged from these hotels:</p>
           <ul>
-          <% @client.flagged_hotels.each do |hotel| %>
-            <li><%= hotel.name %></li>
-          <% end %>
+            <% @client.flagged_hotels.each do |hotel| %>
+              <li><%= hotel.name %></li>
+            <% end %>
           </ul>
         <% end %>
       </div>
     </div>
-
     <div>
       <%= button_to new_voucher_path(client_id: @client.id), { method: :get, params: { client_id: @client.id },
         disabled: !@swap&.intake_active? || @client.banned?,
@@ -53,4 +42,23 @@
       <% end %>
     </div>
   </section>
+  <!-- Admin Only --> 
+  <section class="mt-4 md:mt-8 px-2 text-base sm:text-lg md:text-xl">
+    <div class="bg-white p-4 rounded-t-lg border border-gray-200">
+      <div>
+        <%= render partial: "update_red_flags", client: @client %>
+      </div>
+      <div class="mt-4 md:mt-8">
+        <%= react_component "Incidents/Incidents", 
+          client: @client, 
+          incident_report: @incident_report,
+          incidents: @incidents,
+          hotel_map: @hotel_map, 
+          form_path: admin_create_incident_report_path(@client),
+          red_flag: @red_flag
+        %>
+      </div>
+    </div>
+  </section>
+  <!-- end Admin Only -->
 </div>

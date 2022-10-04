@@ -3,12 +3,18 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.7.4"
 
 gem "aasm", "~> 5.1"
+gem "active_interaction", "~> 4.0"
+gem "acts_as_paranoid", "~> 0.7.3"
 gem "amazing_print", "~> 1.3"
 gem "auto_strip_attributes", "~> 2.6"
+gem "aws-sdk-s3", "~> 1.114"
 gem "bootsnap", ">= 1.4.2", require: false
 gem "data_migrate", "~> 7.0"
 gem "devise", "~> 4.7"
+gem "fx", "~> 0.6.2"
+gem "image_processing", "~> 1.12"
 gem "jbuilder", "~> 2.7"
+gem "pagy", "~> 5.10"
 gem "pg", ">= 0.18", "< 2.0"
 gem "pg_search", "~> 2.3"
 gem "phonelib", "~> 0.6.48"
@@ -16,6 +22,7 @@ gem "puma", "~> 4.3"
 gem "rails", "~> 6.0.3", ">= 6.0.3.6"
 gem "ransack", github: "activerecord-hackery/ransack"
 gem "react-rails", "~> 2.6"
+gem "rollbar", "~> 3.3"
 gem "sass-rails", ">= 6"
 gem "sendgrid-actionmailer", "~> 3.2"
 gem "smarter_csv", "~> 1.2"
@@ -46,16 +53,3 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-
-
-gem "fx", "~> 0.6.2"
-
-gem "acts_as_paranoid", "~> 0.7.3"
-
-gem "active_interaction", "~> 4.0"
-
-gem "rollbar", "~> 3.3"
-
-gem "pagy", "~> 5.10"
-
-gem "image_processing", "~> 1.12"
