@@ -3,6 +3,12 @@
     <%= render partial: 'shared/swap_notices' %>
   </div>
 
+  <% unless @unsheltered_tonight %>
+  <div id="unsheltered-homelessness-verification-container" class="mt-2 w-full">
+    <%= react_component("UnshelteredHomelessnessVerification") %>
+  </div>
+  <% end %>
+
   <div class="mt-4 md:mt-8">
     <h2>Create Voucher</h2>
   </div>

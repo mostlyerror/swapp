@@ -52,7 +52,7 @@ class IntakesController < ApplicationController
       return render :new
     end
 
-    redirect_to new_voucher_path(client_id: @client.id, intake_id: @intake.id)
+    redirect_to new_voucher_path(client_id: @client.id, unsheltered_tonight: true)
   end
 
   private

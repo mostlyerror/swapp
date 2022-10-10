@@ -1,7 +1,13 @@
-<% if ENV["STAGING"] == "true" || Rails.env.development?  %>
+<% if ENV["STAGING"] == "true" %>
   <div class="bg-yellow-300">
-    <div class="p-2 text-lg sm:text-xl md:text-2xl uppercase text-center font-bold max-w-5xl mx-auto">
+    <div class="text-lg md:text-xl uppercase text-center font-bold max-w-5xl mx-auto">
       You are in the test environment
+    </div>
+  </div>
+<% elsif Rails.env.development? %>
+  <div class="bg-yellow-300">
+    <div class="text-lg md:text-xl uppercase text-center font-bold max-w-5xl mx-auto">
+      You are in the dev environment
     </div>
   </div>
 <% end %>

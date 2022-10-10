@@ -29,8 +29,8 @@ class Intake < ApplicationRecord
                         :income_source_retirement,
                         :income_source_alimony,
                         :income_source_veteran_service_compensation,
-                        :income_source_general_assistance
-  :non_cash_benefits
+                        :income_source_general_assistance,
+                        :non_cash_benefits
 
   FIRST_NAME = OpenStruct.new(
     key: :first_name,
