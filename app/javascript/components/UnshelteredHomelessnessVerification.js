@@ -97,7 +97,7 @@ class UnshelteredHomelessnessVerification extends Component {
     this.setState({ answered: true, canProceed: true })
     setTimeout(() => {
       this.closeModal()
-    }, 2000)
+    }, 1600)
   }
 
   handleNo = () => { this.setState({ answered: true, canProceed: false }) }
