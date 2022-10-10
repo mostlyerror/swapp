@@ -17,8 +17,23 @@ class ModalTransition extends Component {
       </Transition>
     )
   }
-
 }
+
+class ModalButton extends Component {
+  render() {
+    return (
+      <button className="flex-1 text-base text-center px-4 py-2 border
+      border-gray-300 shadow-sm text-xs sm:text-base md:text-lg font-medium
+      rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none
+      focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        onClick={this.props.onClick}
+      >
+        {this.props.children}
+      </button>
+    )
+  }
+}
+
 class Proceed extends Component {
   render() {
     return <p>Proceeding with intake...</p>
@@ -31,17 +46,9 @@ class DoNotProceed extends Component {
       <div>
         <p>Vouchers may only be issued to clients that will be unsheltered tonight.</p>
         <div className="mt-4 sm:mt-6 md:mt-8 flex items-center gap-2 sm:gap-3 md:gap-4">
-          <button
-            className="flex-1 text-base text-center px-4 py-2 border
-                border-gray-300 shadow-sm text-xs sm:text-base md:text-lg font-medium rounded
-                text-gray-700 bg-white hover:bg-gray-50 focus:outline-none
-                focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            onClick={() => {
-              setTimeout(() => { history.go(-1) }, 400)
-            }}
-          >
+          <ModalButton onClick={() => { setTimeout(() => { history.go(-1) }, 400) }}>
             Ok, go back.
-          </button>
+          </ModalButton>
         </div>
       </div>
     )
@@ -60,25 +67,12 @@ class UnshelteredHomelessnessQuestion extends Component {
         </Dialog.Description>
         <div className="flex flex-col space-between gap-2 sm:gap-4 md:gap-6">
           <div className="mt-4 sm:mt-6 md:mt-8 flex items-center gap-2 sm:gap-3 md:gap-4">
-            <button
-              className="flex-1 text-base text-center px-4 py-2 border
-                   border-gray-300 shadow-sm text-xs sm:text-base md:text-lg font-medium rounded
-                   text-gray-700 bg-white hover:bg-gray-50 focus:outline-none
-                   focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={this.props.onYes}
-            >
+            <ModalButton onClick={this.props.onYes}>
               Yes
-            </button>
-
-            <button
-              className="flex-1 text-base text-center px-4 py-2 border
-                   border-gray-300 shadow-sm text-xs sm:text-base md:text-lg font-medium rounded
-                   text-gray-700 bg-white hover:bg-gray-50 focus:outline-none
-                   focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              onClick={this.props.onNo}
-            >
+            </ModalButton>
+            <ModalButton onClick={this.props.onNo}>
               No
-            </button>
+            </ModalButton>
           </div>
         </div>
       </div>
@@ -118,7 +112,7 @@ class UnshelteredHomelessnessVerification extends Component {
                 {/* TODO: wrap these using Transition.Child to coordinate
                 multiple transitions and solve for UI jitter */}
                 <ModalTransition appear={true} show={!this.state.answered}>
-                  <UnshelteredHomelessnessQuestion onYes={this.handleYes} onNo={this.handleNo}/>
+                  <UnshelteredHomelessnessQuestion onYes={this.handleYes} onNo={this.handleNo} />
                 </ModalTransition>
                 <ModalTransition show={this.state.answered && this.state.canProceed}>
                   <Proceed />
