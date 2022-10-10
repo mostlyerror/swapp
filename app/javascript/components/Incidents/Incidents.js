@@ -41,9 +41,9 @@ const Incidents = (props) => {
   const [formIsShowing, setFormIsShowing] = useState(false)
 
   return (
-    <section class="bg-white rounded border border-gray-200 text-lg lg:text-xl text-gray-800">
-      <div class="max-w-3xl mx-auto container p-2 md:p-6">
-        <h4 class="mt-4 font-semibold tracking-normal">Incidents</h4>
+    <section className="bg-white rounded border border-gray-200 text-lg lg:text-xl text-gray-800">
+      <div className="max-w-3xl mx-auto container p-2 md:p-6">
+        <h4 className="mt-4 font-semibold tracking-normal">Incidents</h4>
         <IncidentList incidents={props.incidents} />
 
         {!formIsShowing && (
