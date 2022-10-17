@@ -24,12 +24,18 @@
         <%= hidden_field_tag 'intake[client_attributes][id]', @client.id %>
         <div class="bg-white p-4 rounded-t-lg border border-gray-200">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="flex items-center justify-between">
-              <span class="mr-2"><%= profile_photo_for(@client) %></span>
-              <%= client_attributes.file_field :profile_photo, class: "text-sm" %>
+            <div>
+              <%= client_attributes.label "profile_photo", "Profile Photo",
+                class: "p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600"
+              %>
+              <%= form.text_field :camera, class: "hidden" %>
+              <%= react_component("EditableProfilePhoto", editing: true, default_image_source: image_path("default-profile-photo.png")) %>
             </div>
             <div>
               <% question = Intake::FIRST_NAME %>
+              <%= form.label question.key, question.text, 
+                class: "p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600"
+              %>
               <%= client_attributes.text_field question.key, size: 23, value:
               @client.first_name, class: "text-base sm:text-lg md:text-xl p-2
               md:p-3 w-full text-sm border border-gray-300
@@ -38,6 +44,9 @@
             </div>
             <div>
               <% question = Intake::LAST_NAME %>
+              <%= form.label question.key, question.text, 
+                class: "p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600"
+              %>
               <%= client_attributes.text_field question.key, size: 23, value:
               @client.last_name, class: "text-base sm:text-lg md:text-xl p-2
               md:p-3 w-full text-sm border border-gray-300

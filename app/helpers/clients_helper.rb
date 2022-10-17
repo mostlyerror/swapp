@@ -10,10 +10,10 @@ module ClientsHelper
   end
 
   def profile_photo_for(client)
-    classes = "inline-block h-16 w-16 mr-2 rounded-full"
+    classes = "inline-block h-30 w-30"
     src = client.profile_photo.attached? ? client.profile_photo : "default-profile-photo.png"
     if client.profile_photo.attached?
-      src = client.profile_photo.variant(resize_to_fit: [100, 100])
+      src = client.profile_photo.variant(resize_to_fit: [200, 200])
       classes += " object-cover"
     else
       src = "default-profile-photo.png"
@@ -21,4 +21,9 @@ module ClientsHelper
     end
     image_tag(src, class: classes)
   end
+
+  def default_profile_image_url(client)
+    client.profile_photo.attached? ?  url_for(client.profile_photo) : image_path("default-profile-photo.png")
+  end
 end
+
