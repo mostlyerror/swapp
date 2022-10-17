@@ -42,10 +42,23 @@ class ClientsController < ApplicationController
     if client_params["date_of_birth"].blank?
       client_params["date_of_birth"] = "1600-01-01"
     end
-
     client_params[:race] = client_params[:race].reject { |r| r == "0" }.sort
+    data_url = client_params.delete(:camera)
 
     if @client.update(client_params)
+      if data_url.present?
+        # The data is Base64 and coming from the camera.
+        # Use that data to create a file for active storage.
+        # data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD....
+        blob = ActiveStorage::Blob.create_after_upload!(
+          io: StringIO.new((Base64.decode64(data_url.split(",")[1]))),
+          filename: "profile_photo.jpeg",
+          content_type: "image/jpeg"
+        )
+
+        @client.profile_photo.attach(blob)
+      end
+
       return redirect_to @client
     end
 
@@ -56,7 +69,7 @@ class ClientsController < ApplicationController
   # guests form sends xhr request to this endpoint
   # new clients are normally created in conjunction with intakes in intakes#create
   def create
-    client_params = params.require("client").permit(:first_name, :last_name, :date_of_birth)
+    client_params = params.require("client").permit(:first_name, :last_name, :date_of_birth, :profile_photo, :camera)
     if client_params["date_of_birth"].blank?
       client_params["date_of_birth"] = "1600-01-01"
     end

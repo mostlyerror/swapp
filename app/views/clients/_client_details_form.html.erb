@@ -2,24 +2,18 @@
   <div class="bg-white p-4 rounded-t-lg border border-gray-200">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="flex items-center justify-between">
-        <span class="mr-2"><%= profile_photo_for(@client) %></span>
-        <%= form.file_field :profile_photo, class: "text-sm" %>
+        <%= form.text_field :camera, class: "hidden" %>
+        <%= react_component("EditableProfilePhoto", editing: true, default_image_source: default_profile_image_url(@client)) %>
       </div>
       <div>
         <% question = Intake::FIRST_NAME %>
-        <%= form.text_field question.key,
-              size: 23, 
-              value: @client.first_name,
-              class: "text-base sm:text-lg md:text-xl p-2 md:p-3 w-full text-sm border border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
-            %>
+        <%= form.label question.key, question.text, class: "p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600" %>
+        <%= form.text_field question.key, size: 23, value: @client.first_name, class: "text-base sm:text-lg md:text-xl p-2 md:p-3 w-full text-sm border border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded" %>
       </div>
       <div>
         <% question = Intake::LAST_NAME %>
-        <%= form.text_field question.key,
-            size: 23, 
-            value: @client.last_name,
-            class: "text-base sm:text-lg md:text-xl p-2 md:p-3 w-full text-sm border border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
-          %>
+        <%= form.label question.key, question.text, class: "p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600" %>
+        <%= form.text_field question.key, size: 23, value: @client.last_name, class: "text-base sm:text-lg md:text-xl p-2 md:p-3 w-full text-sm border border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded" %>
       </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
