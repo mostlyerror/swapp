@@ -93,6 +93,7 @@ class IntakesController < ApplicationController
       {non_cash_benefits: []},
       client_attributes: [
         :id,
+        :profile_photo,
         :first_name,
         :last_name,
         :date_of_birth,
