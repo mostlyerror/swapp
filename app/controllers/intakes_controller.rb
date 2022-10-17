@@ -21,6 +21,7 @@ class IntakesController < ApplicationController
                 Client.new
               end
 
+    profile_photo_data_url = intake_params.delete(:camera)
     @client.assign_attributes(client_params.merge(
       veteran: !!client_params[:veteran],
       veteran_separation_year: client_params[:veteran_separation_year].presence,
@@ -32,7 +33,20 @@ class IntakesController < ApplicationController
       return render :new
     end
 
-    @intake = Intake.new(intake_params.except(:voucher, :client_attributes).merge(
+    if profile_photo_data_url.present?
+      # The data is Base64 and coming from the camera.
+      # Use that data to create a file for active storage.
+      # data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD....
+      blob = ActiveStorage::Blob.create_after_upload!(
+        io: StringIO.new((Base64.decode64(profile_photo_data_url.split(",")[1]))),
+        filename: "profile_photo.jpeg",
+        content_type: "image/jpeg"
+      )
+
+      @client.profile_photo.attach(blob)
+    end
+
+    @intake = Intake.new(intake_params.except(:camera, :voucher, :client_attributes).merge(
       swap_id: @swap.id,
       user_id: current_user.id,
       client_id: @client.id,
@@ -59,6 +73,7 @@ class IntakesController < ApplicationController
 
   def intake_params
     params.require(:intake).permit(
+      :camera,
       :homelessness_first_time,
       :homelessness_date_began,
       :homelessness_episodes_last_three_years,

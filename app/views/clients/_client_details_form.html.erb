@@ -3,7 +3,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="flex items-center justify-between">
         <%= form.text_field :camera, class: "hidden" %>
-        <%= react_component("EditableProfilePhoto", editing: true, default_image_source: default_profile_image_url(@client)) %>
+        <%= react_component("EditableProfilePhoto", element_id: "client_camera", editing: true, default_image_source: default_profile_image_url(@client)) %>
       </div>
       <div>
         <% question = Intake::FIRST_NAME %>

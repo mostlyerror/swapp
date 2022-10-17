@@ -22,14 +22,15 @@
       <% end %>
       <%= form.fields_for :client, @client do |client_attributes|%>
         <%= hidden_field_tag 'intake[client_attributes][id]', @client.id %>
+
         <div class="bg-white p-4 rounded-t-lg border border-gray-200">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <%= client_attributes.label "profile_photo", "Profile Photo",
                 class: "p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600"
               %>
-              <%= form.text_field :camera, class: "hidden" %>
-              <%= react_component("EditableProfilePhoto", editing: true, default_image_source: image_path("default-profile-photo.png")) %>
+              <%= hidden_field_tag "intake[camera]" %>
+              <%= react_component("EditableProfilePhoto", element_id: "intake_camera", editing: true, default_image_source: image_path("default-profile-photo.png")) %>
             </div>
             <div>
               <% question = Intake::FIRST_NAME %>

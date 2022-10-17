@@ -43,7 +43,7 @@ class EditableProfilePhoto extends Component {
                 capturedImageSrc: imageSrc,
                 camera: false,
               })
-              const $el = document.getElementById("client_camera")
+              const $el = document.getElementById(this.props.element_id)
               $el.setAttribute('value', imageSrc)
             }}
           >
