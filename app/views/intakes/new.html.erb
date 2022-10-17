@@ -94,16 +94,16 @@
         <div class="p-4 md:p-6 lg:p-8">
           <div class="space-y-4 md:space-y-8">
             <%= react_component('FamilyMembers', sub_questions: {
-          first_name: Intake::FIRST_NAME.to_h,
-          last_name: Intake::LAST_NAME.to_h,
-          relationship: Intake::RELATIONSHIP.to_h,
-          date_of_birth: Intake::DATE_OF_BIRTH.to_h,
-          gender: Intake::GENDER.to_h,
-          race: Intake::RACE.to_h,
-          ethnicity: Intake::ETHNICITY.to_h,
-          veteran: Intake::VETERAN.to_h,
-          disabling_condition: Intake::DISABLING_CONDITION.to_h
-        }) %>
+              first_name: Intake::FIRST_NAME.to_h,
+              last_name: Intake::LAST_NAME.to_h,
+              relationship: Intake::RELATIONSHIP.to_h,
+              date_of_birth: Intake::DATE_OF_BIRTH.to_h,
+              gender: Intake::GENDER.to_h,
+              race: Intake::RACE.to_h,
+              ethnicity: Intake::ETHNICITY.to_h,
+              veteran: Intake::VETERAN.to_h,
+              disabling_condition: Intake::DISABLING_CONDITION.to_h
+            }) %>
           </div>
         </div>
       </div>
@@ -111,18 +111,18 @@
         <div>
           <% question = Intake::HOUSEHOLD_TANF %>
           <%= react_component('Toggle', 
-        question: question.to_h,
-        name: "intake[household_tanf]",
-        checked: @intake.household_tanf
-      ) %>
+            question: question.to_h,
+            name: "intake[household_tanf]",
+            checked: @intake.household_tanf
+          ) %>
         </div>
         <div>
           <% question = Intake::HOMELESSNESS_FIRST_TIME %>
           <%= react_component('Toggle', 
-        question: question.to_h,
-        id: "homelessness_first_time",
-        checked: @intake.homelessness_first_time
-      ) %>
+          question: question.to_h,
+          id: "homelessness_first_time",
+          checked: @intake.homelessness_first_time
+        ) %>
         </div>
         <div>
           <% question = Intake::HOMELESSNESS_DATE_BEGAN %>
@@ -248,31 +248,31 @@
         <div>
           <% question = Intake::INCOME_SOURCE %>
           <%= react_component('IncomeSourceToggle', 
-        question: question.to_h,
-        name: "intake[#{question.key}]",
-        checked: @intake.income_source_any
-      ) %>
+            question: question.to_h,
+            name: "intake[#{question.key}]",
+            checked: @intake.income_source_any
+          ) %>
         </div>
         <div>
           <% question = Intake::VETERAN %>
           <%= react_component('VeteranToggle', 
-        question: question.to_h,
-        name: "intake[client_attributes][#{question.key}]",
-        checked: @client.veteran,
-        sub_questions: {
-          veteran_military_branch: Intake::VETERAN_MILITARY_BRANCH.to_h, 
-          veteran_separation_year: Intake::VETERAN_SEPARATION_YEAR.to_h,
-          veteran_discharge_status: Intake::VETERAN_DISCHARGE_STATUS.to_h
-        }
-      ) %>
+            question: question.to_h,
+            name: "intake[client_attributes][#{question.key}]",
+            checked: @client.veteran,
+            sub_questions: {
+              veteran_military_branch: Intake::VETERAN_MILITARY_BRANCH.to_h, 
+              veteran_separation_year: Intake::VETERAN_SEPARATION_YEAR.to_h,
+              veteran_discharge_status: Intake::VETERAN_DISCHARGE_STATUS.to_h
+            }
+          ) %>
         </div>
         <div>
           <% question = Intake::ACTIVE_DUTY %>
           <%= react_component('Toggle',
-        question: question.to_h,
-        name: "intake[#{question.key}]",
-        checked: @intake.active_duty
-      ) %>
+          question: question.to_h,
+          name: "intake[#{question.key}]",
+          checked: @intake.active_duty
+        ) %>
         </div>
         <div>
           <% question = Intake::SUBSTANCE_MISUSE %>
@@ -298,42 +298,42 @@
             <div>
               <% question = Intake::CHRONIC_HEALTH_CONDITION %>
               <%= react_component('Toggle',
-            question: question.to_h,
-            name: "intake[#{question.key}]",
-            checked: @intake.chronic_health_condition
-          ) %>
+                question: question.to_h,
+                name: "intake[#{question.key}]",
+                checked: @intake.chronic_health_condition
+              ) %>
             </div>
             <div>
               <% question = Intake::MENTAL_HEALTH_DISABILITY %>
               <%= react_component('Toggle',
-            question: question.to_h,
-            name: "intake[#{question.key}]",
-            checked: @intake.mental_health_disability
-          ) %>
+                question: question.to_h,
+                name: "intake[#{question.key}]",
+                checked: @intake.mental_health_disability
+              ) %>
             </div>
             <div>
               <% question = Intake::PHYSICAL_DISABILITY %>
               <%= react_component('Toggle',
-            question: question.to_h,
-            name: "intake[#{question.key}]",
-            checked: @intake.physical_disability
-          ) %>
+                question: question.to_h,
+                name: "intake[#{question.key}]",
+                checked: @intake.physical_disability
+              ) %>
             </div>
             <div>
               <% question = Intake::DEVELOPMENTAL_DISABILITY %>
               <%= react_component('Toggle',
-            question: question.to_h,
-            name: "intake[#{question.key}]",
-            checked: @intake.developmental_disability
-          ) %>
+                question: question.to_h,
+                name: "intake[#{question.key}]",
+                checked: @intake.developmental_disability
+              ) %>
             </div>
             <div>
               <% question = Intake::FLEEING_DOMESTIC_VIOLENCE %>
               <%= react_component('Toggle',
-            question: question.to_h,
-            name: "intake[#{question.key}]",
-            checked: @intake.fleeing_domestic_violence
-          ) %>
+                question: question.to_h,
+                name: "intake[#{question.key}]",
+                checked: @intake.fleeing_domestic_violence
+              ) %>
             </div>
           </div>
         </div>
