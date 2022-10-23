@@ -38,7 +38,7 @@ class IntakesController < ApplicationController
       # Use that data to create a file for active storage.
       # data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD....
       blob = ActiveStorage::Blob.create_after_upload!(
-        io: StringIO.new((Base64.decode64(profile_photo_data_url.split(",")[1]))),
+        io: StringIO.new((Base64.decode64(profile_photo_data_url.split(",")[1] || ""))),
         filename: "profile_photo.jpeg",
         content_type: "image/jpeg"
       )

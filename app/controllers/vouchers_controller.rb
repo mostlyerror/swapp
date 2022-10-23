@@ -9,7 +9,7 @@ class VouchersController < ApplicationController
 
     if @swap
       @short_intake = ShortIntake.new(client: @client, user: current_user)
-      @existing_voucher = @swap.vouchers.find_by(client: @client)
+      @existing_voucher = @swap.vouchers.active.find_by(client: @client)
     end
   end
 

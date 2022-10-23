@@ -80,7 +80,7 @@ class Client < ApplicationRecord
   end
 
   def current_voucher
-    vouchers.where(swap: Swap.current).last
+    vouchers.active.where(swap: Swap.current).last
   end
 
   def has_received_voucher_this_swap_period?
