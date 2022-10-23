@@ -1,4 +1,5 @@
 class Admin::HotelsController < Admin::BaseController
+  before_action :set_hotel, only: [:show, :edit, :update, :destroy]
   def index
     respond_to do |format|
       format.json do
@@ -30,8 +31,14 @@ class Admin::HotelsController < Admin::BaseController
     end
   end
 
-  def hotel_params
-    params.require(:hotel).permit(%i[name phone street_address city zip])
+  # PATCH/PUT /admin/hotels/1
+  # PATCH/PUT /admin/hotels/1.json
+  def update
+    if @hotel.update(hotel_params)
+      render json: @hotel, status: :created
+    else
+      render json: @hotel.errors, status: :unprocessable_entity
+    end
   end
 
   def importer
@@ -44,5 +51,16 @@ class Admin::HotelsController < Admin::BaseController
   def import
     Hotel.import(params[:file])
     redirect_to admin_home_path, notice: "Hotel data updated."
+  end
+
+  private
+  
+  def set_hotel
+    @hotel = Hotel.with_deleted.find(params[:id])
+  end
+
+  def hotel_params
+    # params.require(:hotel).permit(%i[name phone street_address city zip address])
+    params.require(:hotel).permit!
   end
 end

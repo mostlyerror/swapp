@@ -60,8 +60,6 @@ const ManageHotels = () => {
 
 
   const handleRowAdd = (newData, resolve) => {
-    console.log(`handleRowAdd`)
-    console.log(newData)
     let errorList = []
     if (newData.name === undefined) { errorList.push("Please enter a name") }
     if (newData.phone === undefined) { errorList.push("Please enter a phone number") }
@@ -102,19 +100,59 @@ const ManageHotels = () => {
     }
   }
 
+  const handleRowUpdate = (newData, oldData, resolve) => {
+    let errorList = []
+    if (newData.name === undefined) { errorList.push("Please enter a name") }
+    if (newData.phone === undefined) { errorList.push("Please enter a phone number") }
+    if (newData.address === undefined) { errorList.push("Please enter a name") }
+    // if (newData.street_address === undefined) { errorList.push("Please enter a street address") }
+    // if (newData.city === undefined) { errorList.push("Please enter a city") }
+    // if (newData.zip === undefined) { errorList.push("Please enter a zip code") }
+
+    console.log(newData)
+
+    if (errorList.length < 1) {
+      // slim down the object payload
+      // remove unnecessary properties
+      // deleted_at, created_at, updated_at
+      fetch(`${newData.id}`, {
+        method: 'PUT',
+        headers: {
+          "X-CSRF-Token": token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newData)
+      })
+        .then(res => {
+          const dataUpdate = [...data];
+          const index = oldData.tableData.id;
+          dataUpdate[index] = newData;
+          setData([...dataUpdate]);
+          resolve()
+          setIsError(false)
+          setErrorMessages([])
+        })
+        .catch(error => {
+          setErrorMessages(["Update failed! Server error"])
+          setIsError(true)
+          resolve()
+        })
+    } else {
+      setErrorMessages(errorList)
+      setIsError(true)
+      resolve()
+    }
+  }
+
   let columns = [
-    { title: "Id", field: "id", type: 'numeric', hidden: true},
+    { title: "Id", field: "id", type: 'numeric', hidden: true },
     { title: "Name", field: "name" },
     { title: "Phone", field: "phone" },
     { title: "Street Address", field: "street_address", render: data => data.address.street || '-' },
     { title: "City", field: "city", render: data => data.address.city || '-' },
-    { title: "Zip", field: "zip", render: data => data.address.zip || '-'},
+    { title: "Zip", field: "zip", render: data => data.address.zip || '-' },
     { title: "Active", field: "active", type: 'boolean', editable: 'onUpdate' },
   ]
-  // { title: 'Department', field: 'department', editable: 'onAdd' },
-  // { title: 'Allocated', field: 'allocated', type: 'numeric' },
-  // { title: 'Used', field: 'used', editable: 'never', emptyValue: '-' }
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -129,6 +167,10 @@ const ManageHotels = () => {
             new Promise((resolve) => {
               handleRowAdd(newData, resolve)
             }),
+          onRowUpdate: (newData) =>
+            new Promise((resolve) => {
+              handleRowUpdate(newData, resolve)
+            })
         }}
       />
     </ThemeProvider>
