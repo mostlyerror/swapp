@@ -41,10 +41,7 @@ const tableIcons = {
 
 const theme = createTheme()
 
-let columns = [
-  {title: "id", field: "id", hidden: true},
-  {title: "Name", field: "name"},
-]
+const token = document.querySelector('meta[name="csrf-token"]').content;
 
 const ManageHotels = () => {
   const [data, setData] = useState([]);
@@ -61,15 +58,63 @@ const ManageHotels = () => {
       })
   }, [])
 
+
+  const handleRowAdd = (newData, resolve) => {
+    console.log(`handleRowAdd`)
+    console.log(newData)
+    let errorList = []
+    if (newData.name === undefined) { errorList.push("Please enter a name") }
+    if (newData.phone === undefined) { errorList.push("Please enter a phone number") }
+    if (newData.street_address === undefined) { errorList.push("Please enter a street address") }
+    if (newData.city === undefined) { errorList.push("Please enter a city") }
+    if (newData.zip === undefined) { errorList.push("Please enter a zip code") }
+
+    if (errorList.length < 1) {
+      fetch("/admin/hotels", {
+        method: 'POST',
+        headers: {
+          "X-CSRF-Token": token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newData)
+      })
+        .then(res => res.json())
+        .then(res => {
+          let dataToAdd = [...data];
+          dataToAdd.push(newData);
+          setData(dataToAdd);
+          resolve()
+          setErrorMessages([])
+          setIsError(false)
+        })
+        .catch(error => {
+          console.log('error caught!')
+          console.log(error)
+          console.error(error)
+          setErrorMessages(["Cannot add data. Server error!"])
+          setIsError(true)
+          resolve()
+        })
+    } else {
+      setErrorMessages(errorList)
+      setIsError(true)
+      resolve()
+    }
+  }
+
   let columns = [
-    {title: "Id", field: "id", hidden: true},
-    {title: "Name", field: "name"},
-    {title: "Phone", field: "phone"},
-    {title: "Street Address", render: data => data.address.street},
-    {title: "City", render: data => data.address.city},
-    {title: "Zip", render: data => data.address.zip},
-    {title: "Active", field: "active"},
+    { title: "Id", field: "id", type: 'numeric', hidden: true},
+    { title: "Name", field: "name" },
+    { title: "Phone", field: "phone" },
+    { title: "Street Address", field: "street_address", render: data => data.address.street || '-' },
+    { title: "City", field: "city", render: data => data.address.city || '-' },
+    { title: "Zip", field: "zip", render: data => data.address.zip || '-'},
+    { title: "Active", field: "active", type: 'boolean', editable: 'onUpdate' },
   ]
+  // { title: 'Department', field: 'department', editable: 'onAdd' },
+  // { title: 'Allocated', field: 'allocated', type: 'numeric' },
+  // { title: 'Used', field: 'used', editable: 'never', emptyValue: '-' }
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -79,6 +124,12 @@ const ManageHotels = () => {
         title="Manage Hotels"
         columns={columns}
         data={data}
+        editable={{
+          onRowAdd: (newData) =>
+            new Promise((resolve) => {
+              handleRowAdd(newData, resolve)
+            }),
+        }}
       />
     </ThemeProvider>
   )
