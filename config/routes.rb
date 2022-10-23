@@ -60,6 +60,9 @@ Rails.application.routes.draw do
       post "/hotels/import" => "hotels#import"
 
       put "vouchers/:id/void" => "vouchers#void", as: :vouchers_void
+
+      get "/hotels/manager" => "hotels#manager", as: :hotels_manager
+      resources :hotels
     end
   end
  

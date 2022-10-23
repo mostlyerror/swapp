@@ -37,6 +37,7 @@ default: &default
     - .jsx
     - .mjs
     - .js
+    - .ts
     - .sass
     - .scss
     - .css

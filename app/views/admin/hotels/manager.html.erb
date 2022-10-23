@@ -1,0 +1,21 @@
+<section class="mt-12 container mx-auto">
+  <%= link_to 'Back', admin_home_path,
+  class: "text-xl admin-blue underline" %>
+</section>
+
+<div class="hidden">
+  <h4>Download CSV</h4>
+  <%= link_to "download", admin_hotels_csv_path, format: :csv %>
+</div>
+
+<div class="hidden">
+  <h4>Upsert from csv</h4>
+  <%= form_tag admin_hotels_import_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import CSV" %>
+  <% end %>
+</div>
+
+<section class="my-24 container mx-auto">
+  <%= react_component('ManageHotels/ManageHotels', current_user: current_user, hotels: @hotels) %>
+</section>
