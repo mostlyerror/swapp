@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container mt-12">
   <p id="notice"><%= notice %></p>
   <h1 class="text-3xl">Hotels</h1>
-  <table>
+  <table class="text-lg mt-8G">
     <thead>
       <tr>
         <th class="text-left">Id</th>
@@ -9,23 +9,27 @@
         <th class="text-left">Name</th>
         <th class="text-left">Phone</th>
         <th class="text-left">Address</th>
-        <th class="text-left">Created At</th>
-        <th class="text-left">Updated At</th>
-        <th class="text-left">Deleted At</th>
         <th colspan="3"></th>
       </tr>
     </thead>
     <tbody>
       <% @hotels.each do |hotel| %>
         <tr>
-          <td><%= hotel.id %></td>
-          <td><%= hotel.active %></td>
-          <td><%= hotel.name %></td>
-          <td><%= hotel.phone %></td>
-          <td><%= hotel.address %></td>
-          <td><%= hotel.created_at %></td>
-          <td><%= hotel.updated_at %></td>
-          <td><%= hotel.deleted_at %></td>
+          <td>
+            <pre><%= hotel.id %></pre>
+          </td>
+          <td>
+            <pre><%= hotel.active %></pre>
+          </td>
+          <td>
+            <pre><%= hotel.name %></pre>
+          </td>
+          <td>
+            <pre><%= hotel.phone %></pre>
+          </td>
+          <td>
+            <pre><%= hotel.address.to_json %></pre>
+          </td>
           <td><%= link_to 'Show', [:admin, hotel] %></td>
           <td><%= link_to 'Edit', edit_admin_hotel_path(hotel) %></td>
           <td><%= link_to 'Destroy', [:admin, hotel], method: :delete, data: { confirm: 'Are you sure?' } %></td>

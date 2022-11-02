@@ -1,12 +1,9 @@
 require 'test_helper'
-
 class Admin::HotelsControllerTest < ActionDispatch::IntegrationTest
-  # include Devise::ControllerHelpers
-
   setup do
     @hotel = create(:hotel)
     @user = create(:user, :admin_user)
-    # sign_in(@user)
+    sign_in(@user)
   end
 
   test "should get index" do

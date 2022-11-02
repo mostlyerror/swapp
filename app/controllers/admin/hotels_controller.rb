@@ -1,11 +1,10 @@
 class Admin::HotelsController < ApplicationController
   layout "layouts/admin/admin"
-
   before_action :set_hotel, only: %i[ show edit update destroy ]
 
   # GET /hotels or /hotels.json
   def index
-    @hotels = Hotel.with_deleted.all
+    @hotels = Hotel.all.order(:id)
 
     respond_to do |format|
       format.html { render :index }

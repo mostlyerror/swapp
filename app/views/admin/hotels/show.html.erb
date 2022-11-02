@@ -1,13 +1,17 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="text-lg">
+    <p id="notice"><%= notice %></p>
 
-<p>Id: <%= @hotel.id %></p>
-<p>Active: <%= @hotel.active %></p>
-<p>Name: <%= @hotel.name %></p>
-<p>Phone: <%= @hotel.phone %></p>
-<p>Address: <%= @hotel.address.to_json %></p>
-<p>Created At: <%= @hotel.created_at %></p>
-<p>Updated At: <%= @hotel.updated_at %></p>
-<p>Deleted At: <%= @hotel.deleted_at %></p>
+    <p>Id: <%= @hotel.id %></p>
+    <p>Active: <%= @hotel.active %></p>
+    <p>Name: <%= @hotel.name %></p>
+    <p>Phone: <%= @hotel.phone %></p>
+    <p>Address: <%= @hotel.address.to_json %></p>
+    <p>Created At: <%= @hotel.created_at %></p>
+    <p>Updated At: <%= @hotel.updated_at %></p>
+    <p>Deleted At: <%= @hotel.deleted_at %></p>
 
-<%= link_to 'Edit', edit_admin_hotel_path(@hotel) %> |
-<%= link_to 'Back', admin_hotels_path %>
+    <%= link_to 'Edit', edit_admin_hotel_path(@hotel) %> |
+    <%= link_to 'Back', admin_hotels_path %>
+  </div>
+</div>
