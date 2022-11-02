@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       put "/guests/:id" => "red_flags#edit_red_flag", as: :edit_red_flag
       post "clients/:id/incidents" => "incident_reports#create", as: :create_incident_report
 
+      resources :hotels
       get "/hotels.csv" => "hotels#index", as: :hotels_csv
       get "/hotels/importer" => "hotels#importer"
       post "/hotels/import" => "hotels#import"
