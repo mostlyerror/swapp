@@ -1,0 +1,39 @@
+<%= form_with(model: [:admin, hotel], local: true) do |form| %>
+  <% if hotel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hotel.errors.count, "error") %> prohibited this hotel from being saved:</h2>
+
+      <ul>
+        <% hotel.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<p>Id: <%= @hotel.id %></p>
+<p>
+  <label for="">Active</label>
+  <%= form.check_box(:active) %>
+</p>
+<p>
+  <label for="">Name</label>
+  <%= form.text_field(:name) %>
+</p>
+<p>
+  <label for="">Phone</label>
+  <%= form.text_field(:phone) %>
+</p>
+<p>
+  <label for="">Address</label>
+  <%= form.text_area(:address, value: hotel.address.to_json) %>
+</p>
+
+<p>Created At: <%= @hotel.created_at %></p>
+<p>Updated At: <%= @hotel.updated_at %></p>
+<p>Deleted At: <%= @hotel.deleted_at %></p>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
