@@ -9,7 +9,7 @@
         <th class="text-left">Name</th>
         <th class="text-left">Phone</th>
         <th class="text-left">Address</th>
-        <th colspan="3"></th>
+        <th>
       </tr>
     </thead>
     <tbody>
@@ -31,8 +31,6 @@
             <pre><%= hotel.address.to_json %></pre>
           </td>
           <td><%= link_to 'Show', [:admin, hotel] %></td>
-          <td><%= link_to 'Edit', edit_admin_hotel_path(hotel) %></td>
-          <td><%= link_to 'Destroy', [:admin, hotel], method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
