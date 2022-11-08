@@ -24,7 +24,6 @@ gem "ransack", github: "activerecord-hackery/ransack"
 gem "react-rails", "~> 2.6"
 gem "rollbar", "~> 3.3"
 gem "sass-rails", ">= 6"
-gem "sendgrid-actionmailer", "~> 3.2"
 gem "smarter_csv", "~> 1.2"
 gem "twilio-ruby"
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -53,3 +52,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "sendgrid-actionmailer", "~> 3.2"
