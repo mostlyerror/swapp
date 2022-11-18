@@ -65,14 +65,15 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "swapp_production"
 
 # sendgrid....
-  # config.action_mailer.delivery_method = :sendgrid_actionmailer
-  # config.action_mailer.sendgrid_actionmailer_settings = {
-  #   api_key: ENV['SENDGRID_API_KEY'],
-  #   raise_delivery_errors: true
-  # }
+  config.action_mailer.delivery_method = :sendgrid_actionmailer
+  config.action_mailer.sendgrid_actionmailer_settings = {
+    api_key: ENV['SENDGRID_API_KEY'],
+    raise_delivery_errors: true
+  }
   # config/environments/production.rb
   # config.action_mailer.delivery_method = :smtp
   # config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }
+
 
   config.action_mailer.perform_caching = false
 
