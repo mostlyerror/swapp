@@ -53,3 +53,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "sendgrid-ruby", "~> 6.6"
