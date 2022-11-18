@@ -7,7 +7,6 @@ class TestMailer < ApplicationMailer
   #
   def send_test(user)
     @greeting = "Hi"
-
-    mail to: user.email
+    mail to: user.email, subject: "heyyyyy test from swappppp"
   end
 end
