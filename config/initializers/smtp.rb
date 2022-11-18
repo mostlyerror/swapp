@@ -1,5 +1,5 @@
 ActionMailer::Base.smtp_settings = {
-  domain: 'herokuapp.com',
+  domain: ENV['STAGING'] == 'true' ? 'swapp-staging-1.herokuapp.com' : 'swapp-1.herokuapp.com',
   address: 'smtp.sendgrid.net',
   port: 587,
   authentication: :plain,
