@@ -1,6 +1,6 @@
 class Admin::HomeController < Admin::BaseController
   def index
-    @vouchers = Voucher.order(created_at: :desc).limit(20)
+    @vouchers = Voucher.order(created_at: :desc).limit(200)
     @q = Client.ransack(params[:q])
     @searched = !params[:q].nil?
     @searched_term = params[:q]&.values&.first
