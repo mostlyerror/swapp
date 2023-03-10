@@ -1,8 +1,4 @@
 Rails.application.configure do
-  ENV["STAGING"] == "true" ?
-    config.hosts << "swapp-staging-1.herokuapp.com" :
-    config.hosts << "swapp-1.herokuapp.com"
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -40,7 +36,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :amazon
+  config.active_storage.service = :local
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -63,12 +59,6 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "swapp_production"
-
-  config.action_mailer.delivery_method = :sendgrid_actionmailer
-  config.action_mailer.sendgrid_actionmailer_settings = {
-    api_key: ENV['SENDGRID_API_KEY'],
-    raise_delivery_errors: true
-  }
 
   config.action_mailer.perform_caching = false
 
