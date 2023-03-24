@@ -1,7 +1,7 @@
 class Hotels::VouchersController < Hotels::BaseController
   def show
     @voucher = Voucher.find(params[:id])
-    @incidents = @voucher.client.incident_reports
+    @incidents = @voucher.client.incident_reports.where(hotel: current_user.hotels)
     @incident_report = IncidentReport.new
 
     @client = @voucher.client
