@@ -24,8 +24,8 @@ default: &default
 development:
   <<: *default
   database: swapp_development
-  username: postgres
-  password: postgres
+  # username: postgres
+  # password: postgres
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -60,8 +60,8 @@ development:
 test:
   <<: *default
   database: swapp_test
-  username: postgres
-  password: postgres
+  # username: postgres
+  # password: postgres
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -85,5 +85,5 @@ test:
 production:
   <<: *default
   database: swapp_production
-  username: swapp
-  password: <%= ENV['swapp_DATABASE_PASSWORD'] %>
+  # username: swapp
+  # password: <%= ENV['swapp_DATABASE_PASSWORD'] %>
