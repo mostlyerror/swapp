@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-ruby "2.7.4"
+ruby "3.1.2"
 
 gem "aasm", "~> 5.1"
 gem "active_interaction", "~> 4.0"
@@ -9,7 +9,6 @@ gem "amazing_print", "~> 1.3"
 gem "auto_strip_attributes", "~> 2.6"
 gem "aws-sdk-s3", "~> 1.114"
 gem "bootsnap", ">= 1.4.2", require: false
-gem "data_migrate", "~> 7.0"
 gem "devise", "~> 4.7"
 gem "fx", "~> 0.6.2"
 gem "image_processing", "~> 1.12"
