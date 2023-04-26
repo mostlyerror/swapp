@@ -1,7 +1,10 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-ruby "2.7.4"
+ruby "3.1.2"
 
+# pin Psych to this older version which remains compatible with Ruby 3.X+
+# Eventually this needs to 'unfrozen' when the two are patched.
+gem "psych", "< 4"
 gem "aasm", "~> 5.1"
 gem "active_interaction", "~> 4.0"
 gem "acts_as_paranoid", "~> 0.7.3"
