@@ -17,6 +17,13 @@ class IntakesTest < ApplicationSystemTestCase
 
     visit new_intake_path
 
+    # answer yes to Unsheltered Homelessness Verification
+    # Are you experiencing unsheltered homelessness or will you be unsheltered
+    # tonight if you do not receive a hotel voucher? Unsheltered homelessness is
+    # sleeping outside, in a tent, or in a vehicle including an RV.
+    click_on("Yes")
+
+
     fill_in(Intake::FIRST_NAME.text, with: client.first_name)
     fill_in(Intake::LAST_NAME.text, with: client.last_name)
     fill_in(Intake::DATE_OF_BIRTH.text, with: client.date_of_birth)
