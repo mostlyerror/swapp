@@ -38,7 +38,7 @@ class Client < ApplicationRecord
   has_many :short_intakes
   has_many :vouchers
   has_many :incident_reports
-  has_many :red_flags, class_name: "RedFlag", table_name: :red_flags
+  has_many :red_flags, class_name: "RedFlag"
   has_many :flagged_hotels, through: :red_flags, source: :hotel
   has_one_attached :profile_photo
 
