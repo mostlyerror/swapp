@@ -12,7 +12,8 @@ class ModalTransition extends Component {
         leave="transition-opacity duration-150"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
-        show={this.props.show}>
+        show={this.props.show}
+      >
         {this.props.children}
       </Transition>
     )
@@ -22,7 +23,8 @@ class ModalTransition extends Component {
 class ModalButton extends Component {
   render() {
     return (
-      <button className="flex-1 text-base text-center px-4 py-2 border
+      <button
+        className="flex-1 text-base text-center px-4 py-2 border
       border-gray-300 shadow-sm text-xs sm:text-base md:text-lg font-medium
       rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none
       focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -44,9 +46,18 @@ class DoNotProceed extends Component {
   render() {
     return (
       <div>
-        <p>Vouchers may only be issued to clients that will be unsheltered tonight.</p>
+        <p>
+          Vouchers may only be issued to clients that will be unsheltered
+          tonight.
+        </p>
         <div className="mt-4 sm:mt-6 md:mt-8 flex items-center gap-2 sm:gap-3 md:gap-4">
-          <ModalButton onClick={() => { setTimeout(() => { history.go(-1) }, 400) }}>
+          <ModalButton
+            onClick={() => {
+              setTimeout(() => {
+                history.go(-1)
+              }, 400)
+            }}
+          >
             Ok, go back.
           </ModalButton>
         </div>
@@ -61,18 +72,14 @@ class UnshelteredHomelessnessQuestion extends Component {
       <div>
         <Dialog.Description className="text-base sm:text-lg md:text-xl text-gray-700">
           Are you experiencing unsheltered homelessness or will you be
-          unsheltered tonight if you do not receive a hotel voucher?
-          Unsheltered homelessness is sleeping outside, in a tent, or in
-          a vehicle including an RV.
+          unsheltered tonight if you do not receive a hotel voucher? Unsheltered
+          homelessness is sleeping outside, in a tent, or in a vehicle including
+          an RV.
         </Dialog.Description>
         <div className="flex flex-col space-between gap-2 sm:gap-4 md:gap-6">
           <div className="mt-4 sm:mt-6 md:mt-8 flex items-center gap-2 sm:gap-3 md:gap-4">
-            <ModalButton onClick={this.props.onYes}>
-              Yes
-            </ModalButton>
-            <ModalButton onClick={this.props.onNo}>
-              No
-            </ModalButton>
+            <ModalButton onClick={this.props.onYes}>Yes</ModalButton>
+            <ModalButton onClick={this.props.onNo}>No</ModalButton>
           </div>
         </div>
       </div>
@@ -91,17 +98,25 @@ class UnshelteredHomelessnessVerification extends Component {
     this.setState({ answered: true, canProceed: true })
     setTimeout(() => {
       this.closeModal()
-    }, 1600)
+    }, 1200)
   }
 
-  handleNo = () => { this.setState({ answered: true, canProceed: false }) }
+  handleNo = () => {
+    this.setState({ answered: true, canProceed: false })
+  }
 
-  closeModal = () => { this.setState({ showModal: false }) }
+  closeModal = () => {
+    this.setState({ showModal: false })
+  }
 
   render() {
     return (
       <div>
-        <Dialog open={this.state.showModal} onClose={() => { }} className="fixed z-10 inset-0 overflow-y-auto">
+        <Dialog
+          open={this.state.showModal}
+          onClose={() => {}}
+          className="fixed z-10 inset-0 overflow-y-auto"
+        >
           <div className="p-2 sm:p-1 flex items-center justify-center min-h-screen">
             <Dialog.Overlay className="fixed inset-0 bg-black opacity-40" />
             <div className="p-2 sm:p-4 md:p-6 z-10 bg-white rounded max-w-3xl mx-auto">
@@ -112,19 +127,26 @@ class UnshelteredHomelessnessVerification extends Component {
                 {/* TODO: wrap these using Transition.Child to coordinate
                 multiple transitions and solve for UI jitter */}
                 <ModalTransition appear={true} show={!this.state.answered}>
-                  <UnshelteredHomelessnessQuestion onYes={this.handleYes} onNo={this.handleNo} />
+                  <UnshelteredHomelessnessQuestion
+                    onYes={this.handleYes}
+                    onNo={this.handleNo}
+                  />
                 </ModalTransition>
-                <ModalTransition show={this.state.answered && this.state.canProceed}>
+                <ModalTransition
+                  show={this.state.answered && this.state.canProceed}
+                >
                   <Proceed />
                 </ModalTransition>
-                <ModalTransition show={this.state.answered && !this.state.canProceed}>
+                <ModalTransition
+                  show={this.state.answered && !this.state.canProceed}
+                >
                   <DoNotProceed />
                 </ModalTransition>
               </div>
             </div>
           </div>
         </Dialog>
-      </div >
+      </div>
     )
   }
 }

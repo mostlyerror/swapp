@@ -112,6 +112,7 @@ class IntakesController < ApplicationController
         :first_name,
         :last_name,
         :date_of_birth,
+        :hmis_id,
         :gender,
         {race: []},
         :ethnicity,
