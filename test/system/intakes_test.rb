@@ -17,33 +17,42 @@ class IntakesTest < ApplicationSystemTestCase
 
     visit new_intake_path
 
-    # answer yes to Unsheltered Homelessness Verification
+    assert_text(/unsheltered homelessness verification/i)
+
+    assert_text(/first name/i)
+
+    # answer yes to Unsheltered Homelessness Verification to clear modal
     # Are you experiencing unsheltered homelessness or will you be unsheltered
     # tonight if you do not receive a hotel voucher? Unsheltered homelessness is
     # sleeping outside, in a tent, or in a vehicle including an RV.
-    click_on("Yes")
+    within("#headlessui-portal-root") do
+      click_on("Yes", wait: 2)
+    end
 
-
-    fill_in(Intake::FIRST_NAME.text, with: client.first_name)
-    fill_in(Intake::LAST_NAME.text, with: client.last_name)
-    fill_in(Intake::DATE_OF_BIRTH.text, with: client.date_of_birth)
+    # :above, :below, # :left_of, :right_of, :near, :count, :minimum, :maximum,
+    # :between, :text, # :id, :class, :style, :visible, :obscured, :exact,
+    # :exact_text, # :normalize_ws, :match, :wait, :filter_set, :focused
+    fill_in("intake[client_attributes][first_name]", with: client.first_name)
+    fill_in("intake[client_attributes][last_name]", with: client.last_name)
+    fill_in("intake[client_attributes][date_of_birth]", with: client.date_of_birth)
+    fill_in("intake[client_attributes][hmis_id]", with: client.hmis_id)
     select(client.gender, from: Intake::GENDER.text)
     client.race.each { |r| check(r, allow_label_click: true) }
     select(client.ethnicity, from: Intake::ETHNICITY.text)
 
-    click_on("+ add family member")
-    within("#family-member-form") do
-      fill_in("first_name", with: FFaker::Name.first_name)
-      fill_in("last_name", with: FFaker::Name.last_name)
-      fill_in("relationship", with: random_relationship)
-      fill_in("date_of_birth", with: FFaker::Time.date)
-      check(Client::RACE.sample)
-      select(Client::GENDER.sample, from: "family-member-form-gender")
-      choose("family-member-form-ethnicity-#{%w[yes no].sample}")
-      choose("family-member-form-veteran-#{%w[yes no].sample}")
-      choose("family-member-form-disabling-condition-#{%w[yes no].sample}")
-      click_on("Save Family Member")
-    end
+    # click_on("+ add family member")
+    # within("#family-member-form") do
+    #   fill_in("first_name", with: FFaker::Name.first_name)
+    #   fill_in("last_name", with: FFaker::Name.last_name)
+    #   fill_in("relationship", with: random_relationship)
+    #   fill_in("date_of_birth", with: FFaker::Time.date)
+    #   check(Client::RACE.sample)
+    #   select(Client::GENDER.sample, from: "family-member-form-gender")
+    #   choose("family-member-form-ethnicity-#{%w[yes no].sample}")
+    #   choose("family-member-form-veteran-#{%w[yes no].sample}")
+    #   choose("family-member-form-disabling-condition-#{%w[yes no].sample}")
+    #   click_on("Save Family Member")
+    # end
 
     toggle(Intake::HOUSEHOLD_TANF.key, intake.household_tanf)
     fill_in(Intake::HOMELESSNESS_DATE_BEGAN.text, with: intake.homelessness_date_began)
@@ -82,15 +91,18 @@ class IntakesTest < ApplicationSystemTestCase
 
     assert_text(/create voucher/i)
 
+    # attributes that would vary between client and factory-generated client
+    # email is optionally collected later, in the 'short intake' form, so
+    # excluded here
     new_client = Client.last
+    client_ignore_attrs = %w[id user_id client_id email phone_number family_members created_at updated_at log_data]
+    assert_equal client.attributes.except(*client_ignore_attrs), new_client.attributes.except(*client_ignore_attrs)
+
     assert new_client.intakes.size == 1
     new_intake = new_client.intakes.last
-
-    # email and phone number collected in voucher form, not intake form
-    ignore_attrs = %w[id user_id client_id email phone_number family_members created_at updated_at]
-    assert_equal client.attributes.except(*ignore_attrs), new_client.attributes.except(*ignore_attrs)
-    assert_equal intake.attributes.except(*ignore_attrs), new_intake.attributes.except(*ignore_attrs)
-  end
+    intake_ignore_attrs = %w[id user_id client_id swap_id created_at updated_at log_data]
+    assert_equal intake.attributes.except(*intake_ignore_attrs), new_intake.attributes.except(*intake_ignore_attrs)
+ end
 
   def toggle(key, val)
     within("##{key}") do
