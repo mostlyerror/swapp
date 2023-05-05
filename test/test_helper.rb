@@ -2,6 +2,9 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
+require 'capybara/rails'
+require 'capybara/minitest'
+
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
@@ -20,5 +23,7 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   include Devise::Test::IntegrationHelpers
-end
 
+  Capybara.default_max_wait_time = 4
+  Capybara.disable_animation = true
+end

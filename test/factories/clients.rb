@@ -3,6 +3,7 @@ FactoryBot.define do
     first_name { FFaker::Name.first_name }
     last_name { FFaker::Name.last_name }
     date_of_birth { FFaker::Time.date }
+    hmis_id { '12345678' }
     gender { Client::GENDER.sample }
     ethnicity { Client::ETHNICITY.sample }
     email { FFaker::Internet.email }

@@ -42,6 +42,11 @@ class Intake < ApplicationRecord
     text: "Last Name"
   )
 
+  HMIS_ID = OpenStruct.new(
+    key: :hmis_id,
+    text: "HMIS ID Number"
+  )
+
   DATE_OF_BIRTH = OpenStruct.new(
     key: :date_of_birth,
     text: "Date of Birth"
