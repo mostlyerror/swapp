@@ -15,6 +15,7 @@ class Admin::ReportsController < Admin::BaseController
           client_first_name
           client_last_name
           client_date_of_birth
+          client_hmis_id
           client_gender
           client_phone_number
           client_email
@@ -25,7 +26,7 @@ class Admin::ReportsController < Admin::BaseController
         ]
 
         Voucher
-          .includes(:issuer, :voided_by, :hotel, :client)
+          .includes(:issuer, :voided_by, :hotel, client: [:short_intakes])
           .order(id: :asc)
           .find_each do |voucher|
             csv << [
@@ -40,6 +41,7 @@ class Admin::ReportsController < Admin::BaseController
               voucher.hotel&.name,
               voucher.client&.first_name,
               voucher.client&.last_name,
+              voucher.client&.hmis_id,
               voucher.client&.date_of_birth,
               voucher.client&.gender,
               voucher.client&.phone_number,
