@@ -1,3 +1,5 @@
+require 'csv'
+
 class Admin::ReportsController < Admin::BaseController
   def vouchers
     csv =
