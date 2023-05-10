@@ -2,10 +2,10 @@
   <div id="unsheltered-homelessness-verification-container" class="mt-2 w-full">
     <%= react_component("UnshelteredHomelessnessVerification") %>
   </div>
+  <div class="mt-4">
+    <%= render partial: 'shared/swap_notices' %>
+  </div>
   <%= form_with(model: @intake, local: true) do |form| %>
-    <div class="mt-4">
-      <%= render partial: 'shared/swap_notices' %>
-    </div>
     <div class="mt-4 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto">
       <h2>Client Intake</h2>
     </div>
