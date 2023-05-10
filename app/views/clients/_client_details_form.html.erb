@@ -3,6 +3,7 @@
     <div class="flex flex-col md:flex-row items-center justify-between">
       <div>
         <div>
+          <label class="p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600">Profile Photo</label>
           <%= form.text_field :camera, class: "hidden" %>
           <%= react_component("EditableProfilePhoto", element_id: "client_camera", editing: true, default_image_source: default_profile_image_url(@client)) %>
         </div>
