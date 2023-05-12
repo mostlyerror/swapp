@@ -37,6 +37,7 @@ class Admin::UsersController < Admin::BaseController
     user.hotel_user = "hotel".in? params["roles"]
 
     if user.save
+      UserNotifierMailer.send_user_update_email(user).deliver
       render json: user, status: :ok
     else
       render json: {
