@@ -410,7 +410,6 @@ DEPENDENCIES
   sass-rails (>= 6)
   selenium-webdriver
   sendgrid-actionmailer (~> 3.2)
-  sendgrid-ruby (~> 6.6)
   smarter_csv (~> 1.2)
   spring
   spring-watcher-listen (~> 2.0.0)
