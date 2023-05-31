@@ -54,3 +54,5 @@ group :test do
 end
 
 gem "sendgrid-ruby", "~> 6.6"
+
+gem "devise_invitable", "~> 2.0"
