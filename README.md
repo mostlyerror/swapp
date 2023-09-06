@@ -1,5 +1,6 @@
 # swapp
 
+
 ## Project Overview
 swapp is a web application that helps SWAP (Severe Weather Action Plan) caseworkers perform intake for people experiencing homelessness, so that they can find shelter during periods of inclement weather.
 
