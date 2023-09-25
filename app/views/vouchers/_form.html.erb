@@ -8,6 +8,10 @@
   </div>
 
   <div class="mt-8 md:mt-12 px-2 md:px-6 md:w-11/12 mx-auto space-y-4 sm:space-y-6 md:space-y-8">
+    <%= form.fields_for :client, @client do |client_form| %>
+      <%= client_form.hidden_field :id, value: @client.id %>
+    <% end %>
+
     <%= form.fields_for :short_intake, @short_intake do |short_intake_form| %>
       <div>
         <% question = Intake::SLEEP_LAST_NIGHT %>
@@ -202,35 +206,6 @@
         </div>
         <div id="guests-form-container" class="mt-2 w-full">
           <%= react_component("GuestsForm", client: @client, prior_guests: @client.prior_guests) %>
-        </div>
-      </div>
-
-      <div class="mt-8 md:mt-12 ">
-        <div>
-          <p class="text-base sm:text-lg md:text-xl font-semibold">Collect contact info</p>
-          <p class="text-base sm:text-lg text-gray-700">
-            Your client can receive voucher details via text/sms or email if they desire.
-          </p>
-          <p class="text-base sm:text-lg text-gray-700">
-            If pre-filled, verify with the client that these are correct.
-          </p>
-        </div>
-        <div class="mt-4">
-          <%= form.fields_for :client, @client do |client_form| %>
-            <%= client_form.hidden_field :id, value: @client.id %>
-
-            <div class="flex flex-col md:flex-row gap-4">
-              <div class="w-full">
-                <%= client_form.label :phone_number, "Phone Number (optional)", class: "text-sm sm:text-base md:text-lg font-semibold block leading-relaxed"  %>
-                <%= client_form.telephone_field :phone_number, class: "p-2 w-full bg-white rounded text-base sm:text-lg md:text-xl border border-gray-300" %>
-              </div>
-
-              <div class="w-full">
-                <%= client_form.label :email, "Email (optional)", class: "text-sm sm:text-base md:text-lg font-semibold block leading-relaxed"  %>
-                <%= client_form.email_field :email, class: "w-full bg-white rounded text-base sm:text-lg md:text-xl border border-gray-300" %>
-              </div>
-            </div>
-          <% end %>
         </div>
       </div>
     </div>
