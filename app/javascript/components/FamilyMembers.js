@@ -1,64 +1,62 @@
-import React, { Component } from "react";
-import FamilyMemberForm from "./FamilyMemberForm";
-import FamilyMember from "./FamilyMember";
+import React, { Component } from 'react'
+import FamilyMemberForm from './FamilyMemberForm'
+import FamilyMember from './FamilyMember'
 
 const createFamilyMember = (id) => {
   return {
     id: id,
-    first_name: "",
-    last_name: "",
-    relationship: "",
-    date_of_birth: "",
-    race: "",
-    ethnicity: "",
-    veteran: "",
-    disabling_condition: "",
-  };
-};
+    first_name: '',
+    last_name: '',
+    relationship: '',
+    date_of_birth: '',
+    veteran: '',
+    disabling_condition: '',
+  }
+}
 
 class FamilyMembers extends Component {
   state = {
     sequence: 0,
     family: [],
     currentFamilyMember: null,
-  };
+  }
 
   addNewFamilyMember = () => {
     this.setState((prevState) => {
       return {
         sequence: prevState.sequence + 1,
         currentFamilyMember: createFamilyMember(prevState.sequence),
-      };
-    });
-  };
+      }
+    })
+  }
 
   handleChange = (event) => {
     this.setState((prevState) => {
-      let f = prevState.currentFamilyMember;
-      if (event.target.name == "race") {
-        let races = new Set(f.race.split(","));
+      let f = prevState.currentFamilyMember
+      if (event.target.name == 'race') {
+        let races = new Set(f.race.split(','))
 
         event.target.checked
           ? races.add(event.target.value)
-          : races.delete(event.target.value);
+          : races.delete(event.target.value)
 
         f.race = Array.from(races)
           .filter((e) => String(e).trim())
           .sort()
-          .join(",");
-        return { currentFamilyMember: f };
+          .join(',')
+        return { currentFamilyMember: f }
       }
 
-      f[event.target.name] = event.target.value;
-      return { currentFamilyMember: f };
-    });
-  };
+      f[event.target.name] = event.target.value
+      return { currentFamilyMember: f }
+    })
+  }
 
   handleEdit = (id) => {
     this.setState({
       currentFamilyMember: this.state.family.find((f) => f.id === id),
-    });
-  };
+    })
+  }
 
   remove = () => {
     this.setState((prevState) => ({
@@ -66,8 +64,8 @@ class FamilyMembers extends Component {
         (f) => f.id !== this.state.currentFamilyMember.id
       ),
       currentFamilyMember: null,
-    }));
-  };
+    }))
+  }
 
   save = (event) => {
     // todo don't allow save without firstName, lastnName, dob, relationship
@@ -77,14 +75,14 @@ class FamilyMembers extends Component {
       ) {
         return {
           currentFamilyMember: null,
-        };
+        }
       }
       return {
         family: [...prevState.family, this.state.currentFamilyMember],
         currentFamilyMember: null,
-      };
-    });
-  };
+      }
+    })
+  }
 
   render() {
     return (
@@ -126,8 +124,8 @@ class FamilyMembers extends Component {
           </div>
         )}
       </div>
-    );
+    )
   }
 }
 
-export default FamilyMembers;
+export default FamilyMembers

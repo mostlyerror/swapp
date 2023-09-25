@@ -1,12 +1,15 @@
-import React, { Component } from "react";
-import { BsTrash } from "react-icons/bs";
-import { HiOutlineSaveAs } from "react-icons/hi";
+import React, { Component } from 'react'
+import { BsTrash } from 'react-icons/bs'
+import { HiOutlineSaveAs } from 'react-icons/hi'
 
 class FamilyMemberForm extends Component {
   render() {
-    let f = this.props.familyMember;
+    let f = this.props.familyMember
     return (
-      <div id="family-member-form" className="flex flex-col bg-white rounded shadow">
+      <div
+        id="family-member-form"
+        className="flex flex-col bg-white rounded shadow"
+      >
         <div class="p-2">
           <h2 className="font-bold text-base sm:text-lg md:text-xl">
             New Family Member
@@ -74,95 +77,8 @@ class FamilyMemberForm extends Component {
               value={f.date_of_birth}
             />
           </div>
-          <div>
-            <label
-              className="block text-base sm:text-lg md:text-xl"
-              htmlFor={this.props.gender.key}
-            >
-              {this.props.gender.text}
-            </label>
-            <select
-              id="family-member-form-gender"
-              className="w-full text-base sm:text-lg md:text-xl border border-gray-200 rounded-sm"
-              name={this.props.gender.key}
-              onChange={this.props.handleChange}
-              value={f.gender}
-            >
-              <option></option>
-              {this.props.gender.choices.map((choice, idx) => (
-                <option key={idx}>{choice}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label
-              className="block text-base sm:text-lg md:text-xl"
-              htmlFor={this.props.race.key}
-            >
-              {this.props.race.text}
-            </label>
-            <ul className="p-1 space-y-1 sm:space-y-2 md:space-y-3">
-              {this.props.race.choices.map((choice, idx) => (
-                <li key={idx}>
-                  <input
-                    multiple
-                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded text-indigo-600
-                  border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-                  focus:ring-offset-0 focus:ring-3"
-                    type="checkbox"
-                    name={this.props.race.key}
-                    value={choice}
-                    checked={f.race.includes(choice)}
-                    id={choice}
-                    onChange={this.props.handleChange}
-                  />
-                  <label
-                    className="ml-2 sm:ml-3 md:ml-4 text-base sm:text-lg md:text-xl"
-                    htmlFor={choice}
-                  >
-                    {choice}
-                  </label>
-                </li>
-              ))}
-            </ul>
-          </div>
+
           <div className="mt-2 p-1 space-y-4">
-            <div className="flex items-center justify-between">
-              <label
-                className="text-base sm:text-lg md:text-xl"
-                htmlFor={this.props.ethnicity.key}
-              >
-                {this.props.ethnicity.text}
-              </label>
-              <div className="flex items-center space-x-8">
-                <span className="inline-flex items-center">
-                  <input
-                    id="family-member-form-ethnicity-yes"
-                    type="radio"
-                    name={this.props.ethnicity.key}
-                    onChange={this.props.handleChange}
-                    value={true}
-                    checked={f.ethnicity === "true"}
-                  />
-                  <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
-                    Yes
-                  </label>
-                </span>
-                <span className="inline-flex items-center">
-                  <input
-                    id="family-member-form-ethnicity-no"
-                    type="radio"
-                    name={this.props.ethnicity.key}
-                    onChange={this.props.handleChange}
-                    value={false}
-                    checked={f.ethnicity === "false"}
-                  />
-                  <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
-                    No
-                  </label>
-                </span>
-              </div>
-            </div>
             <div className="flex items-center justify-between">
               <label
                 className="text-base sm:text-lg md:text-xl"
@@ -178,7 +94,7 @@ class FamilyMemberForm extends Component {
                     name={this.props.veteran.key}
                     onChange={this.props.handleChange}
                     value={true}
-                    checked={f.veteran === "true"}
+                    checked={f.veteran === 'true'}
                   />
                   <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
                     Yes
@@ -191,7 +107,7 @@ class FamilyMemberForm extends Component {
                     name={this.props.veteran.key}
                     onChange={this.props.handleChange}
                     value={false}
-                    checked={f.veteran === "false"}
+                    checked={f.veteran === 'false'}
                   />
                   <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
                     No
@@ -214,7 +130,7 @@ class FamilyMemberForm extends Component {
                     name={this.props.disabling_condition.key}
                     onChange={this.props.handleChange}
                     value={true}
-                    checked={f.disabling_condition === "true"}
+                    checked={f.disabling_condition === 'true'}
                   />
                   <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
                     Yes
@@ -227,7 +143,7 @@ class FamilyMemberForm extends Component {
                     name={this.props.disabling_condition.key}
                     onChange={this.props.handleChange}
                     value={false}
-                    checked={f.disabling_condition === "false"}
+                    checked={f.disabling_condition === 'false'}
                   />
                   <label className="ml-1 md:ml-2 text-base sm:text-lg md:text-xl">
                     No
@@ -262,7 +178,7 @@ class FamilyMemberForm extends Component {
           </button>
         </div>
       </div>
-    );
+    )
   }
 }
-export default FamilyMemberForm;
+export default FamilyMemberForm
