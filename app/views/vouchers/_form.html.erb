@@ -14,40 +14,6 @@
 
     <%= form.fields_for :short_intake, @short_intake do |short_intake_form| %>
       <div>
-        <% question = Intake::SLEEP_LAST_NIGHT %>
-        <%= short_intake_form.label question.key, question.text, class: "block leading-tight font-semibold text-base sm:text-lg md:text-xl" %>
-        <div class="mt-2 sm:mt-3 md:mt-4 p-2 sm:p-3 md:p-4 bg-white rounded shadow">
-          <div class="grid grid-cols-1 md:grid-cols-2 space-y-2 sm:space-y-3 md:space-y-4">
-            <% question.choices.each do |choice| %>
-              <div class="flex items-center gap-2 md:gap-3">
-                <%= short_intake_form.radio_button question.key, choice,
-                  class: "h-5 md:h-6 w-5 md:w-6 text-indigo-600",
-                  checked: @short_intake.where_did_you_sleep_last_night,
-                  required: true
-                %>
-                <%= short_intake_form.label to_radio_htmlfor(question.key, choice), choice, class: "text-base sm:text-lg md:text-xl" %>
-              </div>
-            <% end %>
-          </div>
-          <div class="mt-2 sm:mt-3 md:mt-4 flex items-center gap-2">
-            <%= short_intake_form.radio_button question.key, "other_radio",
-              id: "#{question.key}_other_radio",
-              class: "h-5 md:h-6 w-5 md:w-6 text-indigo-600"
-            %> 
-            <label for="where_did_you_sleep_last_night_other_radio" class="text-base sm:text-lg md:text-xl">
-              Other:
-            </label>
-            <%= short_intake_form.text_field question.key,
-              value: @short_intake&.where_did_you_sleep_last_night&.starts_with?("Other:") && @short_intake&.where_did_you_sleep_last_night,
-              name: "",
-              id: "#{question.key}_other_text_field",
-              class: "w-full p-1 md:p-2 flex-1 focus:ring-indigo-500 focus:border-indigo-500 text-base sm:text-lg md:text-xl border-gray-300 rounded"
-            %>
-          </div>
-        </div>
-      </div>
-
-      <div>
         <% question = Intake::CITY_LAST_NIGHT %>
         <%= short_intake_form.label question.key, question.text, class: "block leading-tight font-semibold text-base sm:text-lg md:text-xl" %>
         <div class="mt-2 sm:mt-3 md:mt-4">
