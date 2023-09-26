@@ -12,5 +12,6 @@ class ShortIntake < ApplicationRecord
                         :identification,
                         :household_composition_changed,
                         :bus_pass,
-                        :king_soopers_card
+                        :king_soopers_card,
+                        :waiver_and_participant_agreement
 end

@@ -208,6 +208,17 @@
           <%= react_component("GuestsForm", client: @client, prior_guests: @client.prior_guests) %>
         </div>
       </div>
+
+      <div class="mt-8 md:mt-12 ">
+        <div>
+          <% question = Intake::WAIVER_AND_PARTICIPANT_AGREEMENT %>
+          <%= react_component('Toggle',
+            question: question.to_h,
+            name: "voucher[short_intake][#{question.key}]",
+            checked: @short_intake.waiver_and_participant_agreement
+          ) %>
+        </div>
+      </div>
     </div>
 
     <div class="mt-8 md:mt-12 py-4 bg-gray-200 text-center text-base sm:text-lg md:text-xl font-semibold tracking-wide">

@@ -98,6 +98,7 @@ class VouchersController < ApplicationController
           { why_not_shelter: [] },
           :pets,
           :vehicle,
+          :waiver_and_participant_agreement,
           :identification,
           :bus_pass,
           :king_soopers_card,

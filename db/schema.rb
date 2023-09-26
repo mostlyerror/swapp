@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_02_164513) do
+ActiveRecord::Schema.define(version: 2023_09_25_212435) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "hstore"
@@ -212,6 +213,7 @@ ActiveRecord::Schema.define(version: 2023_05_02_164513) do
     t.boolean "vehicle"
     t.string "identification"
     t.boolean "unsheltered_tonight"
+    t.boolean "waiver_and_participant_agreement"
     t.index ["client_id"], name: "index_short_intakes_on_client_id"
     t.index ["swap_id"], name: "index_short_intakes_on_swap_id"
     t.index ["user_id"], name: "index_short_intakes_on_user_id"
@@ -663,7 +665,7 @@ ActiveRecord::Schema.define(version: 2023_05_02_164513) do
        RETURNS text
        LANGUAGE sql
        IMMUTABLE STRICT
-      AS $function$ SELECT array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1, E'\\s+')))), ' ') $function$
+      AS $function$ SELECT array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1, E'\s+')))), ' ') $function$
   SQL
 
 

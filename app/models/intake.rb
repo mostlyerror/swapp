@@ -384,4 +384,16 @@ class Intake < ApplicationRecord
       text: 'Are you bringing guests?',
       choices: %w[Yes No],
     )
+
+  # [] Can we add a question that says “The voucher recipient has read and
+  # agreed to the SWAP Informed Consent Waiver and Participant Agreement.” With
+  # a Yes/No dropdown?
+  WAIVER_AND_PARTICIPANT_AGREEMENT =
+    OpenStruct.new(
+      key: :waiver_and_participant_agreement,
+      text:
+        'The voucher recipient has read and agreed to the SWAP Informed Consent
+        Waiver and Participant Agreement.',
+      choices: %w[Yes No],
+    )
 end
