@@ -33,8 +33,9 @@ class VouchersController < ApplicationController
       # For all intakes # prior to 10/2022, this was recorded on a separate,
       # paper "Homelessness # Verification Form"
       @short_intake.unsheltered_tonight = true
-      @short_intake.why_not_shelter =
-        short_intake_params[:why_not_shelter].reject { |r| r == '0' }
+
+      # question removed from form, but may be added back in the future with diff wording
+      # @short_intake.why_not_shelter = short_intake_params[:why_not_shelter].reject { |r| r == '0' }
       @short_intake.client = @client
       @short_intake.user = current_user
       @short_intake.swap = @swap
