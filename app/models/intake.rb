@@ -19,6 +19,7 @@ class Intake < ApplicationRecord
                         :homelessness_total_last_three_years,
                         :are_you_working,
                         :last_permanent_residence_county,
+                        :county_eligibility,
                         :health_insurance,
                         :income_source_earned_income,
                         :income_source_ssdi,
@@ -345,6 +346,13 @@ class Intake < ApplicationRecord
       key: :last_permanent_residence_county,
       text: 'In what county was your last permanent residence?',
       placeholder: 'Adams',
+    )
+
+  COUNTY_ELIGIBILITY =
+    OpenStruct.new(
+      key: :county_eligibility,
+      text: 'In which county is the client eligible for SWAP?',
+      choices: %w[Adams Denver Arapahoe],
     )
 
   CHECK_IN = OpenStruct.new(key: :check_in, text: 'Check In')

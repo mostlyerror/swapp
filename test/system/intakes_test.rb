@@ -71,8 +71,11 @@ class IntakesTest < ApplicationSystemTestCase
       intake.homelessness_total_last_three_years,
       from: Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS.text,
     )
-    fill_in Intake::LAST_PERMANENT_RESIDENCE_COUNTY.text,
-            with: intake.last_permanent_residence_county
+
+    # fill_in Intake::LAST_PERMANENT_RESIDENCE_COUNTY.text,
+    #         with: intake.last_permanent_residence_county
+
+    select(intake.county_eligibility, from: Intake::COUNTY_ELIGIBILITY.text)
     select(intake.health_insurance, from: Intake::HEALTH_INSURANCE.text)
     select(intake.are_you_working, from: Intake::ARE_YOU_WORKING.text)
     intake.non_cash_benefits.each { |b| check(b, allow_label_click: true) }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_25_212435) do
+ActiveRecord::Schema.define(version: 2023_09_28_161157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(version: 2023_09_25_212435) do
     t.boolean "household_tanf"
     t.jsonb "log_data"
     t.bigint "swap_id"
+    t.string "county_eligibility"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["swap_id"], name: "index_intakes_on_swap_id"
     t.index ["user_id"], name: "index_intakes_on_user_id"

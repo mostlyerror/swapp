@@ -79,7 +79,7 @@
       <!-- <div class="mt-8 flex flex-col md:flex-row gap-4"> -->
       <div class="mt-8 md:mt-16 border border-gray-500 rounded-lg">
         <div class="bg-gray-200 p-3 sm:p-5 md:p-8 leading-snug text-base sm:text-lg md:text-xl md:text-center">
-          The following section only pertains to the client's family members/household.
+          This section only pertains to the client's family members/household.
         </div>
         <div class="p-4 md:p-6 lg:p-8">
           <div class="space-y-4 md:space-y-8">
@@ -98,6 +98,62 @@
         </div>
       </div>
       <div class="mt-8 md:mt-16 px-2 md:px-12 space-y-4 md:space-y-8 text-gray-700">
+
+        <!--
+        radio button version
+        <div>
+          <% question = Intake::COUNTY_ELIGIBILITY %>
+          <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+          <div class="mt-2 p-2 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <ul class="flex flex-col w-full space-y-2">
+              <% question.choices.each do |choice| %>
+                <li class="p-1 flex items-center">
+                  <%= form.radio_button question.key, choice,
+                required: true,
+                checked: @intake.county_eligibility == choice,
+                class: "w-5 h-5
+                text-sm text-indigo-600 
+                border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
+              %>
+                  <%= form.label "#{question.key}_#{to_htmlfor(choice)}", choice, class: "ml-4 text-sm sm:text-base md:text-lg" %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        -->
+
+        <div>
+          <% question = Intake::COUNTY_ELIGIBILITY %>
+          <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+          <%= form.select question.key, options_for_select(
+              Intake::COUNTY_ELIGIBILITY.choices, 
+              @intake.county_eligibility || ''
+            ),
+            {include_blank: ''},
+            required: true,
+            class: "mt-2 block w-full text-base sm:text-lg rounded-md
+            border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+            focus:ring-offset-0 focus:ring-3"
+          %>
+        </div>
+
+        <!--
+        <div>
+          <% question = Intake::LAST_PERMANENT_RESIDENCE_COUNTY %>
+          <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
+          <%= form.text_field question.key,
+          value: @intake.last_permanent_residence_county,
+          placeholder: question.placeholder,
+          required: true,
+          class: "mt-2 block w-full text-base sm:text-lg border-gray-300 placeholder-gray-300
+          focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0
+          focus:ring-3 rounded-md"
+        %>
+        </div>
+        -->
+
+
         <div>
           <% question = Intake::HOUSEHOLD_TANF %>
           <%= react_component('Toggle', 
@@ -173,18 +229,8 @@
         focus:ring-offset-0 focus:ring-3"
       %>
         </div>
-        <div>
-          <% question = Intake::LAST_PERMANENT_RESIDENCE_COUNTY %>
-          <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
-          <%= form.text_field question.key,
-          value: @intake.last_permanent_residence_county,
-          placeholder: question.placeholder,
-          required: true,
-          class: "mt-2 block w-full text-base sm:text-lg border-gray-300 placeholder-gray-300
-          focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0
-          focus:ring-3 rounded-md"
-        %>
-        </div>
+
+
         <div>
           <% question = Intake::HEALTH_INSURANCE %>
           <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>

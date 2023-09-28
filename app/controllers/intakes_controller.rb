@@ -114,6 +114,7 @@ class IntakesController < ApplicationController
         :total_how_long_shelters_or_streets,
         :are_you_working,
         :last_permanent_residence_county,
+        :county_eligibility,
         :homelessness_total_last_three_years,
         :health_insurance,
         :income_source_any,
