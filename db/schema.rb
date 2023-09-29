@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_28_161157) do
+ActiveRecord::Schema.define(version: 2023_09_29_072623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -215,6 +215,7 @@ ActiveRecord::Schema.define(version: 2023_09_28_161157) do
     t.string "identification"
     t.boolean "unsheltered_tonight"
     t.boolean "waiver_and_participant_agreement"
+    t.boolean "ada_room_required"
     t.index ["client_id"], name: "index_short_intakes_on_client_id"
     t.index ["swap_id"], name: "index_short_intakes_on_swap_id"
     t.index ["user_id"], name: "index_short_intakes_on_user_id"

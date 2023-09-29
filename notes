@@ -1,0 +1,44 @@
+For the Client Intake:
+[x] Please remove all questions from “Gender Identity” and beyond
+[x] remove from intake form
+[x] remove from client details page
+[x] remove from client details form
+
+[] Add a line for us to verify the client is eligible for the program
+[] "In which county is the client eligible for SWAP?"
+[] county dropdown^ Denver, Adams, Broomfield?
+[] Instead of “In what county was your last permanent residence?” can we keep a county drop-down next to the above-mentioned eligibility verification line so we can indicate which county they are from on their profile?
+
+[x] Need: photo, name, DOB, HMIS # and county
+
+[] Can we add a “BANNED FROM SWAP” option to show up on client’s profiles for when clients get banned from all hotels? It would be great to have this toward the top of the page when workers are doing the voucher intake
+
+For Voucher:
+[x] Can we add a question that says “The voucher recipient has read and agreed to the SWAP Informed Consent Waiver and Participant Agreement.” With a Yes/No dropdown?
+[x] wait, need to move this to the voucher screen, if it's on the intake, quick check
+[x] ensure this is persisted correctly
+later
+[] make it a required field, cannot pass GO without checking "Yes" on this question.
+
+[x] Remove “Where did you sleep last night?”
+[x] Keep “What city did you sleep in last night?”
+
+[x] Remove “Why haven’t you accessed shelter?” or change the wording of the question
+[x] ...to what? removed without any direction to the wording.
+
+[x] Remove phone and email (will put those in HMIS)
+
+Let me know if you have any further questions!
+I just got another suggestion from my team that I thought would be worth adding. Can we include this question to the voucher intake portion?
+[] “Is an ADA room needed?”
+
+Thanks for sending! I spoke with the rest of the team and we landed on the below.
+
+For the Client Intake:
+
+Please remove all questions from “Gender Identity” and beyond
+Add a line for us to verify the client is eligible for the program
+Instead of “In what county was your last permanent residence?” can we keep a county drop-down next to the above-mentioned eligibility verification line so we can indicate which county they are from on their profile?
+Need: photo, name, DOB, HMIS # and county
+Can we add a “BANNED FROM SWAP” option to show up on client’s profiles for when clients get banned from all hotels? It would be great to have this toward the top of the page when workers are doing the voucher intake
+Can we add a question that says “The voucher recipient has read and agreed to the SWAP Informed Consent Waiver and Participant Agreement.” With a Yes/No dropdown?

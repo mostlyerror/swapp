@@ -13,5 +13,6 @@ class ShortIntake < ApplicationRecord
                         :household_composition_changed,
                         :bus_pass,
                         :king_soopers_card,
-                        :waiver_and_participant_agreement
+                        :waiver_and_participant_agreement,
+                        :ada_room_required
 end

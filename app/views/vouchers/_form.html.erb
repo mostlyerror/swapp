@@ -136,6 +136,17 @@
 
       <div class="mt-8 md:mt-12 ">
         <div>
+          <% question = Intake::ADA_ROOM_REQUIRED %>
+          <%= react_component('Toggle',
+            question: question.to_h,
+            name: "voucher[short_intake][#{question.key}]",
+            checked: @short_intake.ada_room_required
+          ) %>
+        </div>
+      </div>
+
+      <div class="mt-8 md:mt-12 ">
+        <div>
           <% question = Intake::WAIVER_AND_PARTICIPANT_AGREEMENT %>
           <%= react_component('Toggle',
             question: question.to_h,

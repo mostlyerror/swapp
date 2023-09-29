@@ -393,6 +393,13 @@ class Intake < ApplicationRecord
       choices: %w[Yes No],
     )
 
+  ADA_ROOM_REQUIRED =
+    OpenStruct.new(
+      key: :ada_room_required,
+      text: 'Is an ADA room required?',
+      choices: %w[Yes No],
+    )
+
   # [] Can we add a question that says “The voucher recipient has read and
   # agreed to the SWAP Informed Consent Waiver and Participant Agreement.” With
   # a Yes/No dropdown?

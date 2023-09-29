@@ -100,6 +100,7 @@ class VouchersController < ApplicationController
           :pets,
           :vehicle,
           :waiver_and_participant_agreement,
+          :ada_room_required,
           :identification,
           :bus_pass,
           :king_soopers_card,
