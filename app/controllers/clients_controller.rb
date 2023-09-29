@@ -44,7 +44,8 @@ class ClientsController < ApplicationController
     if client_params['date_of_birth'].blank?
       client_params['date_of_birth'] = '1600-01-01'
     end
-    client_params[:race] = client_params[:race].reject { |r| r == '0' }.sort
+
+    # client_params[:race] = client_params[:race].reject { |r| r == '0' }.sort
     data_url = client_params.delete(:camera)
 
     if @client.update(client_params)

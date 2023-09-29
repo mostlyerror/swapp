@@ -42,54 +42,6 @@
         </div>
       </div>
     </div>
-    <div class="grid grid-cols-1 gap-4">
-      <div>
-        <% question = Intake::GENDER %>
-        <%= form.label question.key, question.text, 
-          class: "p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600"
-        %>
-        <%= form.select question.key,
-          options_for_select(question.choices, @client.gender),
-          {},
-          class: "text-base sm:text-lg md:text-xl p-2 md:p-3 w-full text-sm border border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
-        %>
-      </div>
-      <div>
-        <% question = Intake::RACE %>
-        <%= form.label question.key, question.text, 
-          class: "p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600"
-        %>
-        <div class="p-2 md:p-3 bg-white border border-gray-300 rounded-lg shadow-sm">
-          <ul class="flex flex-col w-full space-y-2">
-            <% question.choices.each do |race| %>
-              <li class="p-1 md:p-2 flex items-center">
-                <%= form.check_box question.key, { 
-                    multiple: true, 
-                    checked: race.in?(@client.race || []),
-                    class: "w-5 h-5 rounded text-sm text-indigo-600
-                    border-gray-300 focus:border-indigo-500
-                    focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
-                  },
-                  race
-                %>
-                <%= form.label "#{question.key}_#{to_htmlfor(race)}", race, class: "ml-4 text-base md:text-lg" %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <% question = Intake::ETHNICITY %>
-        <%= form.label question.key, question.text, 
-          class: "p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600"
-        %>
-        <%= form.select question.key,
-          options_for_select(question.choices, @client.ethnicity),
-          {},
-          class: "text-base sm:text-lg md:text-xl p-2 md:p-3 w-full text-sm border border-gray-300 focus:border-indigo-500 focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3 rounded"
-        %>
-      </div>
-    </div>
   </div>
 </div>
 <div class="flex items-center justify-center md:justify-end space-x-2 md:space-x-6 p-4 md:p-6 bg-gray-50 rounded-b shadow border-t border-gray-300">
