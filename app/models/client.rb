@@ -5,24 +5,24 @@ class Client < ApplicationRecord
                   using: :dmetaphone
 
   GENDER = [
-    "Female",
-    "Male",
-    "Trans Female (MTF)",
-    "Trans Male (FTM)",
-    "Gender Non-Conforming",
+    'Female',
+    'Male',
+    'Trans Female (MTF)',
+    'Trans Male (FTM)',
+    'Gender Non-Conforming',
     "Client Doesn't Know",
-    "Client Refused"
+    'Client Refused',
   ]
 
   RACE = [
-    "American Indian or Alaska Native",
-    "Asian",
-    "Black or African American",
-    "Native Hawaiian or other Pacific Islander",
-    "White"
+    'American Indian or Alaska Native',
+    'Asian',
+    'Black or African American',
+    'Native Hawaiian or other Pacific Islander',
+    'White',
   ]
 
-  ETHNICITY = ["Not Hispanic or Latino", "Hispanic or Latino"]
+  ETHNICITY = ['Not Hispanic or Latino', 'Hispanic or Latino']
 
   auto_strip_attributes :first_name, :last_name, :race, :phone_number, :email
 
@@ -38,12 +38,12 @@ class Client < ApplicationRecord
   has_many :short_intakes
   has_many :vouchers
   has_many :incident_reports
-  has_many :red_flags, class_name: "RedFlag"
+  has_many :red_flags, class_name: 'RedFlag'
   has_many :flagged_hotels, through: :red_flags, source: :hotel
   has_one_attached :profile_photo
 
   # Callbacks
-  before_save { self.race = self&.race&.reject { |r| r == "0" } }
+  before_save { self.race = self&.race&.reject { |r| r == '0' } }
 
   def name
     "#{first_name} #{last_name}"
@@ -53,19 +53,23 @@ class Client < ApplicationRecord
     vouchers.flat_map(&:guests).uniq
   end
 
+  # ban client from the program entirely
   def ban!
     update(banned: true)
   end
 
+  # remove program-wide ban
+  def unban!
+    update(banned: false)
+  end
+
+  # ban client from specific hotel
   def ban_at!(hotel)
     return false if existing_flag = red_flags.find_by(hotel: hotel)
     red_flags.create(hotel: hotel)
   end
 
-  def unban!
-    update(banned: false)
-  end
-
+  # remove hotel-specific ban
   def unban_at!(hotel)
     return false unless existing_flag = red_flags.find_by(hotel: hotel)
     existing_flag.destroy!
