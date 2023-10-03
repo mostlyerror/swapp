@@ -153,15 +153,6 @@
         </div>
         -->
 
-
-        <div>
-          <% question = Intake::HOUSEHOLD_TANF %>
-          <%= react_component('Toggle', 
-            question: question.to_h,
-            name: "intake[household_tanf]",
-            checked: @intake.household_tanf
-          ) %>
-        </div>
         <div>
           <% question = Intake::HOMELESSNESS_FIRST_TIME %>
           <%= react_component('Toggle', 
@@ -259,6 +250,16 @@
         focus:ring-offset-0 focus:ring-3"
       %>
         </div>
+
+        <div>
+          <% question = Intake::HOUSEHOLD_TANF %>
+          <%= react_component('Toggle', 
+            question: question.to_h,
+            name: "intake[household_tanf]",
+            checked: @intake.household_tanf
+          ) %>
+        </div>
+
         <div>
           <% question = Intake::NON_CASH_BENEFITS %>
           <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
