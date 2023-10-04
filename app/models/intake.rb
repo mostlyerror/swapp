@@ -352,7 +352,7 @@ class Intake < ApplicationRecord
     OpenStruct.new(
       key: :county_eligibility,
       text: 'In which county is the client eligible for SWAP?',
-      choices: %w[Adams Denver Arapahoe],
+      choices: %w[Adams Broomfield],
     )
 
   CHECK_IN = OpenStruct.new(key: :check_in, text: 'Check In')
