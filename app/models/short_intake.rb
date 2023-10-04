@@ -4,6 +4,9 @@ class ShortIntake < ApplicationRecord
   accepts_nested_attributes_for :client
   belongs_to :user
 
+  # normally has_one, but we might need to reissue voucher with the same short intake
+  has_many :vouchers
+
   auto_strip_attributes :where_did_you_sleep_last_night,
                         :what_city_did_you_sleep_in_last_night,
                         :why_not_shelter,

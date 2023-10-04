@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_29_072623) do
+ActiveRecord::Schema.define(version: 2023_10_04_100812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -267,6 +267,7 @@ ActiveRecord::Schema.define(version: 2023_09_29_072623) do
     t.jsonb "log_data"
     t.datetime "voided_at"
     t.bigint "voided_by_id"
+    t.integer "short_intake_id"
     t.index ["client_id"], name: "index_vouchers_on_client_id"
     t.index ["hotel_id"], name: "index_vouchers_on_hotel_id"
     t.index ["swap_id"], name: "index_vouchers_on_swap_id"

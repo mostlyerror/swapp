@@ -44,6 +44,7 @@ class VouchersController < ApplicationController
       return render :new if !@short_intake.save
 
       @voucher.assign_attributes(
+        short_intake_id: @short_intake.id,
         hotel_id: voucher_params[:hotel_id],
         check_in: voucher_params[:check_in],
         check_out: voucher_params[:check_out],

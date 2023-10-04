@@ -1,14 +1,17 @@
 class Voucher < ApplicationRecord
   belongs_to :client
-  belongs_to :issuer, class_name: "User", foreign_key: "user_id"
-  belongs_to :voided_by, class_name: "User", optional: true
+  belongs_to :issuer, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :voided_by, class_name: 'User', optional: true
   belongs_to :hotel
   belongs_to :swap
+  belongs_to :short_intake
 
   validates :check_in, :check_out, presence: true
   validate :one_active_voucher_per_client_per_swap
   validate :dates_must_be_today_or_later_when_issued, on: :create
   validate :order_of_dates, :dates_must_fall_within_swap_period
+
+  delegate :ada_room_required, to: :short_intake
 
   after_create :save_number
 
@@ -52,23 +55,26 @@ class Voucher < ApplicationRecord
   private
 
   def save_number
-    self.number = "%.7d" % id
+    self.number = '%.7d' % id
     save!
   end
 
   def order_of_dates
     if check_out && (check_out < check_in)
-      errors.add(:dates, "check_out: #{check_out} must be same day or later than check_in: #{check_in}")
+      errors.add(
+        :dates,
+        "check_out: #{check_out} must be same day or later than check_in: #{check_in}",
+      )
     end
   end
 
   def dates_must_be_today_or_later_when_issued
     if check_in.blank?
-      return errors.add(:check_in, "Must provide a check in date")
+      return errors.add(:check_in, 'Must provide a check in date')
     end
 
     if check_out.blank?
-      return errors.add(:check_out, "Must provide a check out date")
+      return errors.add(:check_out, 'Must provide a check out date')
     end
 
     if check_in < Date.current
@@ -82,18 +88,28 @@ class Voucher < ApplicationRecord
 
   def dates_must_fall_within_swap_period
     if swap && !(check_in.in? swap.stay_period)
-      errors.add(:check_in, "check_in (#{check_in}) does not fall within swap period: #{swap.stay_period}")
+      errors.add(
+        :check_in,
+        "check_in (#{check_in}) does not fall within swap period: #{swap.stay_period}",
+      )
     end
 
     if swap && !(check_out.in? swap.stay_period)
-      errors.add(:check_out, "check_out (#{check_out}) does not fall within swap period: #{swap.stay_period}")
+      errors.add(
+        :check_out,
+        "check_out (#{check_out}) does not fall within swap period: #{swap.stay_period}",
+      )
     end
   end
 
   def one_active_voucher_per_client_per_swap
     # is there already an active voucher assigned to this client during this swap period?
-    if Voucher.active.where(swap_id: swap_id, client_id: client_id).where.not(id: id).present?
-      errors.add(:client, "max one active voucher per client per swap")
+    if Voucher
+         .active
+         .where(swap_id: swap_id, client_id: client_id)
+         .where.not(id: id)
+         .present?
+      errors.add(:client, 'max one active voucher per client per swap')
     end
   end
 end
