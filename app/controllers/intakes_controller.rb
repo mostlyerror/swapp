@@ -65,8 +65,7 @@ class IntakesController < ApplicationController
             household_tanf: !!intake_params[:household_tanf],
             have_you_ever_experienced_homelessness_before:
               !intake_params[:homelessness_first_time],
-            non_cash_benefits:
-              intake_params[:non_cash_benefits].reject { |r| r == '0' },
+            # non_cash_benefits: intake_params[:non_cash_benefits].reject { |r| r == '0' },
             income_source_any: !!intake_params[:income_source_any],
             active_duty: !!intake_params[:active_duty],
             chronic_health_condition:

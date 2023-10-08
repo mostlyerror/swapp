@@ -15,11 +15,14 @@ class Client < ApplicationRecord
   ]
 
   RACE = [
-    'American Indian or Alaska Native',
-    'Asian',
-    'Black or African American',
-    'Native Hawaiian or other Pacific Islander',
+    'Black, African American, or African',
+    'Hispanic/Latina/e/o',
+    'Middle Eastern or North African',
+    'Native Hawaiian or Pacific Islander',
     'White',
+    "Client doesn't know",
+    'Client prefers not to answer',
+    'Data not collected',
   ]
 
   ETHNICITY = ['Not Hispanic or Latino', 'Hispanic or Latino']

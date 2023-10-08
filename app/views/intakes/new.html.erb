@@ -74,6 +74,29 @@
               </div>
             </div>
           </div>
+
+          <div class="grid grid-cols-1 gap-4">
+            <div>
+              <% question = Intake::RACE %>
+              <%= client_attributes.label question.key, question.text, class: "p-1 text-sm md:text-base lg:text-lg block leading-snug font-semibold text-gray-600" %>
+              <div class="p-2 md:p-3 bg-white border border-gray-300 rounded-lg shadow-sm">
+                <ul class="flex flex-col w-full space-y-2">
+                  <% question.choices.each do |race| %>
+                    <li class="p-1 md:p-2 flex items-center">
+                      <%= client_attributes.check_box question.key, { 
+                      multiple: true, 
+                      checked: race.in?(@client.race || []),
+                      class: "w-5 h-5 rounded text-sm text-indigo-600
+                      border-gray-300 focus:border-indigo-500
+                      focus:ring-indigo-200 focus:ring-offset-0 focus:ring-3"
+                    }, race %>
+                      <%= client_attributes.label "#{question.key}_#{to_htmlfor(race)}", race, class: "ml-4 text-base md:text-lg" %>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
     <% end %>
       <!-- <div class="mt-8 flex flex-col md:flex-row gap-4"> -->
@@ -138,7 +161,6 @@
           %>
         </div>
 
-        <!--
         <div>
           <% question = Intake::LAST_PERMANENT_RESIDENCE_COUNTY %>
           <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
@@ -151,8 +173,8 @@
           focus:ring-3 rounded-md"
         %>
         </div>
-        -->
 
+        <!--
         <div>
           <% question = Intake::HOMELESSNESS_FIRST_TIME %>
           <%= react_component('Toggle', 
@@ -161,6 +183,9 @@
           checked: @intake.homelessness_first_time
         ) %>
         </div>
+        -->
+
+        <!--
         <div>
           <% question = Intake::HOMELESSNESS_DATE_BEGAN %>
           <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
@@ -172,6 +197,9 @@
           rounded-md"
         %>
         </div>
+        -->
+
+        <!--
         <div>
           <% question = Intake::HOMELESSNESS_HOW_LONG_THIS_TIME %>
           <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
@@ -192,20 +220,25 @@
             </ul>
           </div>
         </div>
+        -->
+
+        <!--
         <div>
           <% question = Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS %>
           <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
           <%= form.select question.key, options_for_select(
-          Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS.choices, 
-          @intake.homelessness_episodes_last_three_years || ''
-        ),
-        {include_blank: ''},
-        required: true,
-        class: "mt-2 block w-full text-base sm:text-lg rounded-md
-        border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
-        focus:ring-offset-0 focus:ring-3"
-      %>
+            Intake::HOMELESSNESS_EPISODES_LAST_THREE_YEARS.choices, 
+            @intake.homelessness_episodes_last_three_years || ''
+            ),
+            {include_blank: ''},
+            required: true,
+            class: "mt-2 block w-full text-base sm:text-lg rounded-md
+            border-gray-300 focus:border-indigo-500 focus:ring-indigo-200
+            focus:ring-offset-0 focus:ring-3"
+          %>
         </div>
+        -->
+        <!--
         <div>
           <% question = Intake::HOMELESSNESS_TOTAL_LAST_THREE_YEARS %>
           <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
@@ -220,8 +253,9 @@
         focus:ring-offset-0 focus:ring-3"
       %>
         </div>
+        -->
 
-
+<!--
         <div>
           <% question = Intake::HEALTH_INSURANCE %>
           <%= form.label question.key, question.text, class: "p-1 block leading-normal font-semibold text-sm sm:text-base md:text-xl text-gray-600" %>
@@ -236,6 +270,7 @@
         focus:ring-offset-0 focus:ring-3"
       %>
         </div>
+-->
         <div>
           <% question = Intake::ARE_YOU_WORKING %>
           <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
@@ -260,6 +295,7 @@
           ) %>
         </div>
 
+<!--
         <div>
           <% question = Intake::NON_CASH_BENEFITS %>
           <%= form.label question.key, question.text, class: "pl-1 block leading-snug font-semibold text-sm sm:text-base md:text-xl" %>
@@ -375,6 +411,7 @@
           </div>
         </div>
       </div>
+      -->
       <div class="text-center p-16">
         <input type="submit" name="commit" value="Submit Intake" class="
           mt-4 px-3 md:px-4 py-2 md:py-3 inline-flex items-center
