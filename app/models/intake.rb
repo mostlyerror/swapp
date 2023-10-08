@@ -163,11 +163,11 @@ class Intake < ApplicationRecord
   PETS =
     OpenStruct.new(
       key: :pets,
-      text: 'Do you have a pet?',
+      text: 'Do you have any pets that you need to stay with you in the hotel?',
       choices: [
-        'Yes. A dog that WILL stay with me in the hotel',
-        'Yes. A dog that WILL NOT stay with me in the hotel',
-        'Yes. Cat or exotic pet that WILL NOT stay with me in the hotel',
+        'Service animal',
+        'Emotional support animal',
+        'Other pet',
         'No',
       ],
     )
@@ -175,14 +175,14 @@ class Intake < ApplicationRecord
   VEHICLE =
     OpenStruct.new(
       key: :vehicle,
-      text: 'Do you have a functioning vehicle you can use?',
+      text: 'Do you have a functional personal vehicle to get to the hotel?',
       choices: %w[Yes No],
     )
 
   IDENTIFICATION =
     OpenStruct.new(
       key: :identification,
-      text: 'Do you have any form of identification?',
+      text: 'Do you have a valid ID to show the front desk of the hotel?',
       choices: ['Yes, State Issued', 'Yes, SWAP ID', 'No'],
     )
 
