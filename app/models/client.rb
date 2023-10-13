@@ -15,6 +15,8 @@ class Client < ApplicationRecord
   ]
 
   RACE = [
+    'American Indian, Alaska Native, or Indigenous',
+    'Asian or Asian American',
     'Black, African American, or African',
     'Hispanic/Latina/e/o',
     'Middle Eastern or North African',
