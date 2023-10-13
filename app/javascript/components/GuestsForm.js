@@ -16,6 +16,7 @@ class GuestsForm extends Component {
     newGuestFirstName: '',
     newGuestLastName: '',
     newGuestDateOfBirth: '',
+    newGuestHmisId: '',
     errors: [],
     showModal: false,
   }
@@ -103,23 +104,30 @@ class GuestsForm extends Component {
       id={`add_guest_${item.id}`}
       className={`item ${
         isHighlighted ? 'selected-item' : ''
-      } mt-4 grid grid-cols-11 space-evenly gap-4`}
+      } mt-4 grid grid-cols-10 space-evenly gap-4`}
     >
       <div
         className={`${
           item.red_flag ? 'text-gray-300 font-normal' : 'font-semibold'
-        } col-span-5`}
+        } col-span-3`}
       >
         {`${item.first_name} ${item.last_name}`}
       </div>
       <div
         className={`${
           item.red_flag ? 'text-gray-300 font-normal' : 'font-semibold'
-        } col-span-5`}
+        } col-span-3`}
       >
         {(item.date_of_birth !== NULL_DOB_PLACEHOLDER_VALUE &&
           item.date_of_birth) ||
           '--'}
+      </div>
+      <div
+        className={`${
+          item.red_flag ? 'text-gray-300 font-normal' : 'font-semibold'
+        } col-span-3`}
+      >
+        {`# ${item.hmis_id || '--'}`}
       </div>
       <div className="text-right">
         {item.red_flag ? (
@@ -143,6 +151,7 @@ class GuestsForm extends Component {
       newGuestFirstName: '',
       newGuestLastName: '',
       newGuestDateOfBirth: '',
+      newGuestHmisId: '',
     })
   }
 
@@ -154,6 +163,7 @@ class GuestsForm extends Component {
       newGuestFirstName: '',
       newGuestLastName: '',
       newGuestDateOfBirth: '',
+      newGuestHmisId: '',
       errors: [],
     })
   }
@@ -176,6 +186,7 @@ class GuestsForm extends Component {
       first_name: this.state.newGuestFirstName,
       last_name: this.state.newGuestLastName,
       date_of_birth: this.state.newGuestDateOfBirth,
+      hmis_id: this.state.newGuestHmisId,
     }
 
     this.createClient(newGuest)
@@ -185,6 +196,7 @@ class GuestsForm extends Component {
           'first_name',
           'last_name',
           'date_of_birth',
+          'hmis_id',
           'red_flag',
         ])
 
@@ -211,6 +223,7 @@ class GuestsForm extends Component {
           'first_name',
           'last_name',
           'date_of_birth',
+          'hmis_id',
           'red_flag',
         ])
       })
@@ -255,24 +268,28 @@ class GuestsForm extends Component {
 
           {this.state.selected.length > 0 && (
             <div className="my-4 sm:my-6 md:my-8">
-              <div className="grid grid-cols-11 space-evenly gap-4">
-                <div className="col-span-5 font-semibold">Name</div>
-                <div className="col-span-5 font-semibold">DOB</div>
+              <div className="grid grid-cols-10 space-evenly gap-4">
+                <div className="col-span-3 font-semibold">Name</div>
+                <div className="col-span-3 font-semibold">DOB</div>
+                <div className="col-span-3 font-semibold">HMIS ID</div>
                 <div className="text-right"></div>
               </div>
               {this.state.selected.map((guest, idx) => (
-                <div key={idx} className="grid grid-cols-11 space-evenly gap-4">
+                <div key={idx} className="grid grid-cols-10 space-evenly gap-4">
                   <input
                     className="hidden"
                     type="hidden"
                     name={`voucher[guest_ids][]`}
                     value={guest.id}
                   />
-                  <div className="col-span-5">{`${guest.first_name} ${guest.last_name}`}</div>
-                  <div className="col-span-5 tabular-nums">
+                  <div className="col-span-3">{`${guest.first_name} ${guest.last_name}`}</div>
+                  <div className="col-span-3 tabular-nums">
                     {(guest.date_of_birth !== NULL_DOB_PLACEHOLDER_VALUE &&
                       guest.date_of_birth) ||
                       '--'}
+                  </div>
+                  <div className="col-span-3 tabular-nums">
+                    {guest.hmis_id || '--'}
                   </div>
                   <div
                     className="text-right"
@@ -408,6 +425,25 @@ class GuestsForm extends Component {
                         return {
                           ...prevState,
                           newGuestDateOfBirth: event.target.value,
+                        }
+                      })
+                    }}
+                  />
+                </div>
+                <div>
+                  <label className="block leading-snug text-base sm:text-lg md:text-xl font-semibold">
+                    HMIS ID
+                  </label>
+                  <input
+                    type="text"
+                    maxLength={24}
+                    className="w-full rounded p-2 sm:p-3 md:p-4 text-base sm:text-lg md:text-xl border border-gray-300"
+                    value={this.state.newGuestHmisId}
+                    onChange={(event) => {
+                      this.setState((prevState) => {
+                        return {
+                          ...prevState,
+                          newGuestHmisId: event.target.value,
                         }
                       })
                     }}
