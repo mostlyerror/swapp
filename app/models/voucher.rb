@@ -11,7 +11,7 @@ class Voucher < ApplicationRecord
   validate :dates_must_be_today_or_later_when_issued, on: :create
   validate :order_of_dates, :dates_must_fall_within_swap_period
 
-  delegate :ada_room_required, to: :short_intake
+  delegate :ada_room_required, to: :short_intake, allow_nil: true
 
   after_create :save_number
 
