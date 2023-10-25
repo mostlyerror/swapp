@@ -1,7 +1,12 @@
 <div class="container mt-12">
   <p id="notice"><%= notice %></p>
   <h1 class="text-3xl">Hotels</h1>
-  <table class="text-lg mt-8G">
+  <div class="mt-8">
+    <p class="text-xl">
+      <%= pluralize(Hotel.active.count, "hotel") %> active
+    </p>
+  </div>
+  <table class="text-lg mt-16">
     <thead>
       <tr>
         <th class="text-left">Id</th>
