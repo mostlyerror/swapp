@@ -1,7 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
 class ExtendingSwapTest < ActiveSupport::TestCase
-  test "extending the period" do
+  test 'extending the period' do
     swap = create(:swap, :current)
     assert_equal 2, swap.nights
 
@@ -19,7 +19,7 @@ class ExtendingSwapTest < ActiveSupport::TestCase
     assert_equal duration, swap.duration
   end
 
-  test "extending also extends vouchers" do
+  test 'extending also extends vouchers' do
     swap = create(:swap, :tomorrow)
     duration = swap.duration
     voucher = create(:voucher, swap: swap)
@@ -47,6 +47,19 @@ class ExtendingSwapTest < ActiveSupport::TestCase
     end
 
     assert_no_changes -> { v2.reload.check_out } do
+      s1.extend!(1)
+    end
+  end
+
+  test 'prevent extension failure when a client has multiple vouchers (1 active)' do
+    s1 = create(:swap, :current)
+    admin = create(:user, :admin_user)
+
+    v1 = create(:voucher, swap: s1, check_in: Date.current)
+    v1.void!(admin)
+    v2 = create(:voucher, swap: s1, check_in: Date.current, client: v1.client)
+
+    assert_changes -> { s1.reload.end_date } do
       s1.extend!(1)
     end
   end

@@ -103,7 +103,8 @@ class Voucher < ApplicationRecord
   end
 
   def one_active_voucher_per_client_per_swap
-    # is there already an active voucher assigned to this client during this swap period?
+    return if voided?
+
     if Voucher
          .active
          .where(swap_id: swap_id, client_id: client_id)
