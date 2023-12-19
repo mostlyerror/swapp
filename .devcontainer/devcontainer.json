@@ -12,10 +12,10 @@
       "version": "latest"
     },
     "ghcr.io/devcontainers/features/ruby:1": {
-      "version": "2.7"
+      "version": "3.2.2"
     },
     "ghcr.io/devcontainers/features/node:1": {
-      "version": 14
+      "version": 20
     },
     "ghcr.io/devcontainers/features/common-utils:2": {
       "username": "vscode",
@@ -25,18 +25,17 @@
       "installOhMyZsh": true,
       "configureZshAsDefaultShell": true,
       "upgradePackages": true
+    },
+    "ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+      "username": "vscode",
+      "plugins": "bundler rails ruby yarn"
     }
   },
 
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
-      "extensions": [
-        "Shopify.ruby-lsp",
-        "esbenp.prettier-vscode",
-        "ms-vscode.vscode-typescript-tslint-plugin",
-        "ms-vscode.vscode-types"
-      ]
+      "extensions": ["Shopify.ruby-lsp", "EditorConfig.EditorConfig"]
     }
   },
 
