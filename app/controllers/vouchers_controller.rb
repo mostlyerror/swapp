@@ -123,7 +123,8 @@ class VouchersController < ApplicationController
         Hotel
           .active
           .reduce({}) do |memo, hotel|
-            name = "#{hotel.name} (#{supply[hotel.id]})"
+            name =
+              "#{hotel.name} (#{supply[hotel.id]}) - #{hotel.street_address} #{hotel.address['city']}, #{hotel.address['state']} #{hotel.address['zip']}"
             @disabled << hotel.id if supply[hotel.id].to_i <= 0
             memo.merge({ name => hotel.id })
           end
