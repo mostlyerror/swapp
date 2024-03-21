@@ -164,7 +164,7 @@ class Intake < ApplicationRecord
     OpenStruct.new(
       key: :pets,
       text: 'Do you have any pets that you need to stay with you in the hotel?',
-      choices: ['Service animal', 'Emotional support animal', 'No'],
+      choices: ['Yes', 'Yes, service animal', 'Yes, emotional support animal', 'No'],
     )
 
   VEHICLE =
