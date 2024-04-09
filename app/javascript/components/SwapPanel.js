@@ -5,12 +5,15 @@ const VoucherSupplyItem = (props) => (
   <li className="flex flex-1 justify-between items-center">
     <p className="tabular-nums font-semibold">{props.numVouchers}</p>
     <p className="">
-      {props.hotel.name}{' '}
+      <span className="font-semibold">{props.hotel.name}{' '}</span>
       {props.hotel.pet_friendly && (
         <span className="text-xs bg-yellow-200 px-1 py-1 rounded-md">
           dogs ok
         </span>
       )}
+      {
+        `${props.hotel.address.street}, ${props.hotel.address.city}, ${props.hotel.address.state} ${props.hotel.address.zip_code}`
+      }
     </p>
   </li>
 )
