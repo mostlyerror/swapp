@@ -12,7 +12,7 @@ const VoucherSupplyItem = (props) => (
         </span>
       )}
       {
-        `${props.hotel.address.street}, ${props.hotel.address.city}, ${props.hotel.address.state} ${props.hotel.address.zip_code}`
+        `${props.hotel.address.street}, ${props.hotel.address.city}, ${props.hotel.address.state} ${props.hotel.address.zip}`
       }
     </p>
   </li>
