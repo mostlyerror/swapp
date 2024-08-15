@@ -51,6 +51,12 @@ ActiveRecord::Base.transaction do |t|
       admin_user: true,
     },
     {
+      first_name: 'Jacob',
+      last_name: 'Valore',
+      email: 'jvalore@adcogov.org',
+      admin_user: true,
+    },
+    {
       first_name: 'Intake',
       last_name: 'User',
       email: 'intakeuser@adcogov.org',
