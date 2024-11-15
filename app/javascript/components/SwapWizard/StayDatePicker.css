@@ -33,6 +33,42 @@
   color: black !important;
 }
 
+.StayDayPicker .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--end):nth-child(1){
+  background: repeating-linear-gradient(
+    45deg,hotpink,hotpink 10px,#ff83c1 10px,#ff83c1 15px);
+  color: black !important;
+}
+.StayDayPicker .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--end):nth-child(2){
+  background: repeating-linear-gradient(
+    45deg,hotpink,hotpink 8px,#ff83c1 8px,#ff83c1 13px,hotpink 13px,hotpink 15px);
+  color: black !important;
+}
+.StayDayPicker .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--end):nth-child(3){
+  background: repeating-linear-gradient(
+    45deg,hotpink,hotpink 6px,#ff83c1 6px,#ff83c1 11px,hotpink 11px,hotpink 15px);
+  color: black !important;
+}
+.StayDayPicker .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--end):nth-child(4){
+  background: repeating-linear-gradient(
+    45deg,hotpink,hotpink 4px,#ff83c1 4px,#ff83c1 9px,hotpink 9px,hotpink 15px);
+  color: black !important;
+}
+.StayDayPicker .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--end):nth-child(5){
+  background: repeating-linear-gradient(
+    45deg,hotpink,hotpink 2px,#ff83c1 2px,#ff83c1 7px,hotpink 7px,hotpink 15px);
+  color: black !important;
+}
+.StayDayPicker .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--end):nth-child(6){
+  background: repeating-linear-gradient(
+    45deg,#ff83c1,#ff83c1 5px,hotpink 5px,hotpink 15px);
+  color: black !important;
+}
+.StayDayPicker .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--end):nth-child(7){
+  background: repeating-linear-gradient(
+    45deg,#ff83c1,#ff83c1 3px,hotpink 3px,hotpink 13px,#ff83c1 13px,#ff83c1 15px);
+  color: black !important;
+}
+
 .StayDayPicker .DayPicker-Day {
   border-radius: 0 !important;
 }

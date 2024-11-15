@@ -28,9 +28,9 @@ export default class StayDatePicker extends React.Component {
         .endOf('month')
     )
     const allCalendarDays = getDaysArray(firstCalendarDay, lastCalendarDay)
-    const disabledDays = allCalendarDays.filter((date, idx) =>
-      DateUtils.isPastDay(date)
-    )
+    const disabledDays = allCalendarDays.filter((date, idx) => {
+      return DateUtils.isPastDay(date) || (this.props.preventEditingFromDate && DateUtils.isDayBefore(date, this.props.to))
+    })
 
     return {
       from: this.props.from,
