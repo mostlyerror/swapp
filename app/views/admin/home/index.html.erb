@@ -13,7 +13,7 @@
   <section class="mt-12">
     <% if @swap %>
       <% if @change_swap %>
-        <%= react_component("SwapWizard/SwapWizard", swap: @swap) %>
+        <%= react_component("SwapWizard/SwapWizard", swap: @swap, has_a_voucher: @has_a_voucher) %>
       <% else %>
         <%= render partial: 'current_swap_activation'%>
       <% end %>

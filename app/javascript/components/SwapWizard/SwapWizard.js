@@ -17,6 +17,7 @@ class SwapWizard extends React.Component {
     if (props.swap) {
       this.state = {
         swap: props.swap,
+        hasVoucher: props.has_a_voucher,
         currentStep: 2,
         stayDates: {
           from: new Date(props.swap.start_date.split('-')),
@@ -31,6 +32,7 @@ class SwapWizard extends React.Component {
       }
     } else {
       this.state = {
+        hasVoucher: props.has_a_voucher,
         currentStep: 1,
         stayDates: { from: null, to: null },
         stayDatesValid: false,
@@ -121,7 +123,7 @@ class SwapWizard extends React.Component {
                 canAdvance={this.state.stayDatesValid}
                 from={this.state.stayDates.from}
                 to={this.state.stayDates.to}
-                swapActive={this.state.swap}
+                preventEditingFromDate={this.state.hasVoucher}
               />
             </SwapWizardTransition>
           )}
