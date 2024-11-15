@@ -121,6 +121,7 @@ class SwapWizard extends React.Component {
                 canAdvance={this.state.stayDatesValid}
                 from={this.state.stayDates.from}
                 to={this.state.stayDates.to}
+                swapActive={this.state.swap}
               />
             </SwapWizardTransition>
           )}

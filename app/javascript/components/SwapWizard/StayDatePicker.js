@@ -36,11 +36,16 @@ export default class StayDatePicker extends React.Component {
       from: this.props.from,
       to: this.props.to,
       disabledDays,
+      swapActive: this.props.swapActive,
+      swapFrom: this.props.from,
+      swapTo: this.props.to
     }
   }
 
   handleDayClick(day) {
     if (DateUtils.isPastDay(day)) return false
+    else if (this.state.swapActive && DateUtils.isDayBefore(day, this.state.swapTo)) return false
+    else if (this.state.swapActive && DateUtils.isSameDay(day, this.state.to)) return false
 
     const range = DateUtils.addDayToRange(day, this.state)
     this.setState(range)
@@ -48,7 +53,8 @@ export default class StayDatePicker extends React.Component {
   }
 
   handleResetClick() {
-    const stayDates = { from: undefined, to: undefined }
+    const stayDates = { from: this.state.swapActive ? this.state.swapFrom : undefined, 
+      to: this.state.swapActive ? this.state.swapTo : undefined }
     this.setState(stayDates)
     this.props.onStayDatesChange(stayDates)
   }
