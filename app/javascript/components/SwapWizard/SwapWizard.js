@@ -24,6 +24,10 @@ class SwapWizard extends React.Component {
           to: new Date(props.swap.end_date.split('-')),
         },
         stayDatesValid: true,
+        originalStayDates: {
+          from: new Date(props.swap.start_date.split('-')),
+          to: new Date(props.swap.end_date.split('-')),
+        },
         intakeDates: props.swap.intake_dates.map(
           (date) => new Date(date.split('-'))
         ),
@@ -41,6 +45,10 @@ class SwapWizard extends React.Component {
         errors: [],
       }
     }
+  }
+
+  refresh = () => {
+    window.location.replace(window.location.href.split(/[?#]/)[0])
   }
 
   back = (event) => {
@@ -108,15 +116,10 @@ class SwapWizard extends React.Component {
               />
             </SwapWizardTransition>
           )}
-          {/* {this.state.currentStep === 2 && (
-            <SwapWizardTransition>
-              <SwappyAnimation advance={this.advance} />
-            </SwapWizardTransition>
-          )} */}
           {this.state.currentStep === 2 && (
             <SwapWizardTransition>
               <Step2
-                back={this.back}
+                back={this.refresh}
                 advance={this.advance}
                 currentStep={this.state.currentStep}
                 onStayDatesChange={this.handleStayDatesChange}
@@ -124,6 +127,8 @@ class SwapWizard extends React.Component {
                 from={this.state.stayDates.from}
                 to={this.state.stayDates.to}
                 preventEditingFromDate={this.state.hasVoucher}
+                originalFrom={this.state.originalStayDates.from}
+                originalTo={this.state.originalStayDates.to}
               />
             </SwapWizardTransition>
           )}
