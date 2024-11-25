@@ -52,7 +52,8 @@ export default class StayDatePicker extends React.Component {
     this.props.onStayDatesChange(range)
   }
 
-  handleResetClick() {
+  handleResetClick(event) {
+    event.preventDefault()
     const stayDates = { from: this.state.preventEditingFromDate ? this.state.originalFrom : undefined, 
                           to: this.state.preventEditingFromDate ? this.state.originalTo : undefined }
     this.setState(stayDates)

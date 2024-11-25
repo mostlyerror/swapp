@@ -32,6 +32,9 @@ class SwapWizard extends React.Component {
           (date) => new Date(date.split('-'))
         ),
         intakeDatesValid: true,
+        originalIntakeDates: props.swap.intake_dates.map(
+          (date) => new Date(date.split('-'))
+        ),
         errors: [],
       }
     } else {
@@ -67,8 +70,8 @@ class SwapWizard extends React.Component {
     this.setState({
       stayDates,
       stayDatesValid: _.indexOf(Object.values(stayDates), undefined) === -1,
-      intakeDates: [],
-      intakeDatesValid: false,
+      intakeDates: this.state.originalIntakeDates,
+      intakeDatesValid: this.state.originalIntakeDates.length >= 1,
     })
   }
 
