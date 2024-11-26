@@ -40,8 +40,17 @@ class Voucher < ApplicationRecord
     [(check_out - Date.current).to_i, 0].max
   end
 
+  #todo check if this is used anywhere else
+  #todo ask ben if there's a reason nights isn't just a number
   def extend!(nights)
     nights = nights.to_i
+    raise :cannot_extend_voucher_by_negative_number_of_days if nights.negative?
+
+    self.check_out = check_out + nights
+    save!
+  end
+
+  def new_extend!(nights)
     raise :cannot_extend_voucher_by_negative_number_of_days if nights.negative?
 
     self.check_out = check_out + nights

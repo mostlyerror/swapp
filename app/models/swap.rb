@@ -53,6 +53,7 @@ class Swap < ApplicationRecord
     nights_remaining <= 0
   end
 
+  #todo delete?
   def extend!(nights)
     nights = nights.to_i
     raise :cannot_extend_swap_by_negative_number_of_days if nights.negative?
@@ -63,6 +64,13 @@ class Swap < ApplicationRecord
       vouchers.each { |voucher| voucher.extend!(nights) }
     end
     self
+  end
+
+  def extend_vouchers!(nights)
+    raise :cannot_extend_swap_by_negative_number_of_days if nights.negative?
+    transaction do
+      vouchers.each { |voucher| voucher.new_extend!(nights) }
+    end
   end
 
   def to_s

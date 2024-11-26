@@ -24,25 +24,37 @@ class Admin::SwapsController < Admin::BaseController
 
   # def update2
   #   swap = Swap.find(params[:id])
+  #   swap.start_date = params["stayDates"]["from"]
+  #   swap.end_date = params["stayDates"]["to"]
   #   swap.intake_dates = params["intakeDates"].map(&:to_date)
-  #   days_to_extend = calc()
-  #   transaction do
-  #     if swap.save! && swap.extend!(days_to_extend)
-  #       render json: swap, status: :created
-  #     else
-  #       render json: {
-  #         errors: swap.errors.as_json(full_messages: true)
-  #       }, status: :unprocessable_entity
-  #     end
+  #   if swap.save
+  #     render json: swap, status: :created
+  #   else
+  #     render json: {
+  #       errors: swap.errors.as_json(full_messages: true)
+  #     }, status: :unprocessable_entity
   #   end
   # end
 
   def update
     swap = Swap.find(params[:id])
+    days_to_extend = (Date.parse(params["stayDates"]["to"]) - swap.end_date).to_i
     swap.start_date = params["stayDates"]["from"]
     swap.end_date = params["stayDates"]["to"]
     swap.intake_dates = params["intakeDates"].map(&:to_date)
-    if swap.save
+    if days_to_extend > 0
+      Swap.transaction do
+        if swap.save! && swap.extend_vouchers!(days_to_extend)
+          #should probably use the following line here somewhere
+          #swap.errors.add(:extend, "Couldn't extend Swap period")
+          render json: swap, status: :created
+        else
+          render json: {
+            errors: swap.errors.as_json(full_messages: true)
+          }, status: :unprocessable_entity
+        end
+      end
+    elsif swap.save
       render json: swap, status: :created
     else
       render json: {
@@ -51,6 +63,7 @@ class Admin::SwapsController < Admin::BaseController
     end
   end
 
+  #todo remove this
   def extend
     swap = Swap.find(params[:id])
     if swap.extend!(params["days"])
