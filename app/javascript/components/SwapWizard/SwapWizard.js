@@ -9,6 +9,7 @@ import { Step4 } from './Step4'
 import { Step5 } from './Step5'
 // import SwappyAnimation from './SwappyAnimation'
 import { sortDatesArray } from '../utils'
+import { DateUtils } from 'react-day-picker'
 
 class SwapWizard extends React.Component {
   constructor(props) {
@@ -32,9 +33,6 @@ class SwapWizard extends React.Component {
           (date) => new Date(date.split('-'))
         ),
         intakeDatesValid: true,
-        originalIntakeDates: props.swap.intake_dates.map(
-          (date) => new Date(date.split('-'))
-        ),
         errors: [],
       }
     } else {
@@ -46,7 +44,6 @@ class SwapWizard extends React.Component {
         originalStayDates: { from: null, to: null },
         intakeDates: [],
         intakeDatesValid: false,
-        originalIntakeDates: [],
         errors: [],
       }
     }
@@ -69,11 +66,15 @@ class SwapWizard extends React.Component {
   }
 
   handleStayDatesChange = (stayDates) => {
+    const validIntakeStartDate = new Date(Math.min(stayDates.from, new Date().setHours(0,0,0,0))-1)
+    const intakeDates = this.state.intakeDates.filter((date, idx) => {
+      return DateUtils.isDayBetween(date, validIntakeStartDate, stayDates.to)
+    })
     this.setState({
       stayDates,
       stayDatesValid: _.indexOf(Object.values(stayDates), undefined) === -1,
-      intakeDates: this.state.originalIntakeDates,
-      intakeDatesValid: this.state.originalIntakeDates.length >= 1,
+      intakeDates: intakeDates,
+      intakeDatesValid: intakeDates.length >= 1,
     })
   }
 
