@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
       @vouchers_remaining_today = RoomSupply.vouchers_remaining_today(@swap)
       @num_vouchers_remaining_today = RoomSupply.num_vouchers_remaining_today(@swap)
       @supply = RoomSupply.by_hotel(@swap)
-      @has_a_voucher = @swap.vouchers.size > 0
+      @has_active_vouchers = @swap.vouchers.active.size > 0
     end
   end
 end
