@@ -43,8 +43,10 @@ class SwapWizard extends React.Component {
         currentStep: 1,
         stayDates: { from: null, to: null },
         stayDatesValid: false,
+        originalStayDates: { from: null, to: null },
         intakeDates: [],
         intakeDatesValid: false,
+        originalIntakeDates: [],
         errors: [],
       }
     }
