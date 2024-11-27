@@ -48,15 +48,6 @@ class Voucher < ApplicationRecord
     save!
   end
 
-  # def extend!(nights)
-  #   nights = nights.to_i
-  #   raise :cannot_extend_voucher_by_negative_number_of_days if nights.negative?
-  #   raise :cannot_extend_a_voided_voucher if self.voided?
-
-  #   self.check_out = check_out + nights
-  #   save!
-  # end
-
   def guests
     Client.where(id: guest_ids)
   end
