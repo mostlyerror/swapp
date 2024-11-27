@@ -66,9 +66,8 @@ class SwapWizard extends React.Component {
   }
 
   handleStayDatesChange = (stayDates) => {
-    const validIntakeStartDate = new Date(Math.min(stayDates.from, new Date().setHours(0,0,0,0))-1)
     const intakeDates = this.state.intakeDates.filter((date, idx) => {
-      return DateUtils.isDayBetween(date, validIntakeStartDate, stayDates.to)
+      return DateUtils.isDayBefore(date, stayDates.to)
     })
     this.setState({
       stayDates,
