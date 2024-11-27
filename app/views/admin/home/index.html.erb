@@ -23,9 +23,6 @@
           <%= render partial: 'todays_voucher_supply' %>
         </div>
       <% end %>
-      <div class="mt-24 container mx-auto">
-        <%= render partial: 'extend_swap' %>
-      </div>
     <% else %>
       <%= react_component("SwapWizard/SwapWizard") %>
     <% end %>
