@@ -82,3 +82,8 @@
   border-top-right-radius: 50% !important;
   border-bottom-right-radius: 50% !important;
 }
+
+.DayPicker-Day--today.DayPicker-Day--disabled {
+  color: #e07682;
+  font-weight: 700;
+}
