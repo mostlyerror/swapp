@@ -18,7 +18,7 @@ class SwapWizard extends React.Component {
     if (props.swap) {
       this.state = {
         swap: props.swap,
-        hasActiveVouchers: props.has_active_vouchers,
+        numActiveVouchers: props.num_active_vouchers,
         currentStep: 2,
         stayDates: {
           from: new Date(props.swap.start_date.split('-')),
@@ -37,7 +37,7 @@ class SwapWizard extends React.Component {
       }
     } else {
       this.state = {
-        hasActiveVouchers: props.has_active_vouchers,
+        numActiveVouchers: props.num_active_vouchers,
         currentStep: 1,
         stayDates: { from: null, to: null },
         stayDatesValid: false,
@@ -86,7 +86,19 @@ class SwapWizard extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
+
+    console.log(this.state.stayDates.to)
+    console.log(this.state.originalStayDates.to)
+    //This confirms that the user is aware they are changing voucher stay dates.
+    let conf = true
+    if (!DateUtils.isSameDay(this.state.stayDates.to,this.state.originalStayDates.to)) {
+      conf = window.confirm(`⚠️ This action will extend ${this.state.numActiveVouchers} vouchers to ${this.state.stayDates.to.toDateString()}. Are you sure? ⚠️`)
+    }
+    if (!conf)
+      return false
+
     if (this.state.swap) {
+      //This updates a swap period that already exists
       const updateAdminSwapPeriodURL = `/admin/swaps/${this.state.swap.id}/update`
       axios
         .put(updateAdminSwapPeriodURL, this.state)
@@ -97,6 +109,7 @@ class SwapWizard extends React.Component {
           this.setState({ errors: error.response.data.errors })
         })
     } else {
+      //This creates a swap period when none exists yet
       const createAdminSwapPeriodURL = `/admin/swaps`
       axios
         .post(createAdminSwapPeriodURL, this.state)
@@ -131,7 +144,7 @@ class SwapWizard extends React.Component {
                 canAdvance={this.state.stayDatesValid}
                 from={this.state.stayDates.from}
                 to={this.state.stayDates.to}
-                preventEditingFromDate={this.state.hasActiveVouchers}
+                preventEditingFromDate={this.state.numActiveVouchers > 0}
                 originalFrom={this.state.originalStayDates.from}
                 originalTo={this.state.originalStayDates.to}
               />
