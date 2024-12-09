@@ -87,8 +87,6 @@ class SwapWizard extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    console.log(this.state.stayDates.to)
-    console.log(this.state.originalStayDates.to)
     //This confirms that the user is aware they are changing voucher stay dates.
     let conf = true
     if (!DateUtils.isSameDay(this.state.stayDates.to,this.state.originalStayDates.to)) {
