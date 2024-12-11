@@ -28,27 +28,34 @@ export default class StayDatePicker extends React.Component {
         .endOf('month')
     )
     const allCalendarDays = getDaysArray(firstCalendarDay, lastCalendarDay)
-    const disabledDays = allCalendarDays.filter((date, idx) =>
-      DateUtils.isPastDay(date)
-    )
+    const disabledDays = allCalendarDays.filter((date, idx) => {
+      return DateUtils.isPastDay(date) || (this.props.preventEditingFromDate && DateUtils.isDayBefore(date, this.props.originalTo))
+    })
 
     return {
       from: this.props.from,
       to: this.props.to,
       disabledDays,
+      preventEditingFromDate: this.props.preventEditingFromDate,
+      originalFrom: this.props.originalFrom,
+      originalTo: this.props.originalTo
     }
   }
 
   handleDayClick(day) {
     if (DateUtils.isPastDay(day)) return false
+    else if (this.state.preventEditingFromDate && DateUtils.isDayBefore(day, this.state.originalTo)) return false
+    else if (this.state.preventEditingFromDate && DateUtils.isSameDay(day, this.state.to)) return false
 
     const range = DateUtils.addDayToRange(day, this.state)
     this.setState(range)
     this.props.onStayDatesChange(range)
   }
 
-  handleResetClick() {
-    const stayDates = { from: undefined, to: undefined }
+  handleResetClick(event) {
+    event.preventDefault()
+    const stayDates = { from: this.state.preventEditingFromDate ? this.state.originalFrom : undefined, 
+                          to: this.state.preventEditingFromDate ? this.state.originalTo : undefined }
     this.setState(stayDates)
     this.props.onStayDatesChange(stayDates)
   }

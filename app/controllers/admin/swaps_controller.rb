@@ -24,25 +24,21 @@ class Admin::SwapsController < Admin::BaseController
 
   def update
     swap = Swap.find(params[:id])
+
+    # true if the end date is being extended
+    extend_vouchers = swap.end_date.before?(Date.parse(params["stayDates"]["to"]))
+    
     swap.start_date = params["stayDates"]["from"]
     swap.end_date = params["stayDates"]["to"]
     swap.intake_dates = params["intakeDates"].map(&:to_date)
-    if swap.save
+
+    if swap.update!(extend_vouchers)
       render json: swap, status: :created
     else
       render json: {
         errors: swap.errors.as_json(full_messages: true)
       }, status: :unprocessable_entity
     end
-  end
-
-  def extend
-    swap = Swap.find(params[:id])
-    if swap.extend!(params["days"])
-    else
-      swap.errors.add(:extend, "Couldn't extend Swap period")
-    end
-    redirect_to admin_home_path
   end
 
   def update_room_supply
@@ -65,6 +61,7 @@ class Admin::SwapsController < Admin::BaseController
     redirect_to admin_home_path
   end
 
+  # I believe this function is not used, remove this?
   def edit_intake_dates
     swap = Swap.current
     Swap.transaction do

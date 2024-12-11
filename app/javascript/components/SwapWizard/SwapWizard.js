@@ -9,6 +9,7 @@ import { Step4 } from './Step4'
 import { Step5 } from './Step5'
 // import SwappyAnimation from './SwappyAnimation'
 import { sortDatesArray } from '../utils'
+import { DateUtils } from 'react-day-picker'
 
 class SwapWizard extends React.Component {
   constructor(props) {
@@ -17,12 +18,17 @@ class SwapWizard extends React.Component {
     if (props.swap) {
       this.state = {
         swap: props.swap,
+        numActiveVouchers: props.num_active_vouchers,
         currentStep: 2,
         stayDates: {
           from: new Date(props.swap.start_date.split('-')),
           to: new Date(props.swap.end_date.split('-')),
         },
         stayDatesValid: true,
+        originalStayDates: {
+          from: new Date(props.swap.start_date.split('-')),
+          to: new Date(props.swap.end_date.split('-')),
+        },
         intakeDates: props.swap.intake_dates.map(
           (date) => new Date(date.split('-'))
         ),
@@ -31,14 +37,20 @@ class SwapWizard extends React.Component {
       }
     } else {
       this.state = {
+        numActiveVouchers: props.num_active_vouchers,
         currentStep: 1,
         stayDates: { from: null, to: null },
         stayDatesValid: false,
+        originalStayDates: { from: null, to: null },
         intakeDates: [],
         intakeDatesValid: false,
         errors: [],
       }
     }
+  }
+
+  refresh = () => {
+    window.location.replace(window.location.href.split(/[?#]/)[0])
   }
 
   back = (event) => {
@@ -54,11 +66,14 @@ class SwapWizard extends React.Component {
   }
 
   handleStayDatesChange = (stayDates) => {
+    const intakeDates = this.state.intakeDates.filter((date, idx) => {
+      return DateUtils.isDayBefore(date, stayDates.to)
+    })
     this.setState({
       stayDates,
       stayDatesValid: _.indexOf(Object.values(stayDates), undefined) === -1,
-      intakeDates: [],
-      intakeDatesValid: false,
+      intakeDates: intakeDates,
+      intakeDatesValid: intakeDates.length >= 1,
     })
   }
 
@@ -71,7 +86,17 @@ class SwapWizard extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
+
+    //This confirms that the user is aware they are changing voucher stay dates.
+    let conf = true
+    if (!DateUtils.isSameDay(this.state.stayDates.to,this.state.originalStayDates.to)) {
+      conf = window.confirm(`⚠️ This action will extend ${this.state.numActiveVouchers} vouchers to ${this.state.stayDates.to.toDateString()}. Are you sure? ⚠️`)
+    }
+    if (!conf)
+      return false
+
     if (this.state.swap) {
+      //This updates a swap period that already exists
       const updateAdminSwapPeriodURL = `/admin/swaps/${this.state.swap.id}/update`
       axios
         .put(updateAdminSwapPeriodURL, this.state)
@@ -82,6 +107,7 @@ class SwapWizard extends React.Component {
           this.setState({ errors: error.response.data.errors })
         })
     } else {
+      //This creates a swap period when none exists yet
       const createAdminSwapPeriodURL = `/admin/swaps`
       axios
         .post(createAdminSwapPeriodURL, this.state)
@@ -106,21 +132,19 @@ class SwapWizard extends React.Component {
               />
             </SwapWizardTransition>
           )}
-          {/* {this.state.currentStep === 2 && (
-            <SwapWizardTransition>
-              <SwappyAnimation advance={this.advance} />
-            </SwapWizardTransition>
-          )} */}
           {this.state.currentStep === 2 && (
             <SwapWizardTransition>
               <Step2
-                back={this.back}
+                back={this.refresh}
                 advance={this.advance}
                 currentStep={this.state.currentStep}
                 onStayDatesChange={this.handleStayDatesChange}
                 canAdvance={this.state.stayDatesValid}
                 from={this.state.stayDates.from}
                 to={this.state.stayDates.to}
+                preventEditingFromDate={this.state.numActiveVouchers > 0}
+                originalFrom={this.state.originalStayDates.from}
+                originalTo={this.state.originalStayDates.to}
               />
             </SwapWizardTransition>
           )}

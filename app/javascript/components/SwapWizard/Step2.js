@@ -27,6 +27,9 @@ export const Step2 = (props) => {
           from={props.from}
           to={props.to}
           onStayDatesChange={props.onStayDatesChange}
+          preventEditingFromDate={props.preventEditingFromDate}
+          originalFrom={props.originalFrom}
+          originalTo={props.originalTo}
         />
       </div>
       <div className="p-8 flex justify-center gap-8">
