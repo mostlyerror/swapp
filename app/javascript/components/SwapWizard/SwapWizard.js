@@ -89,7 +89,7 @@ class SwapWizard extends React.Component {
 
     //This confirms that the user is aware they are changing voucher stay dates.
     let conf = true
-    if (!DateUtils.isSameDay(this.state.stayDates.to,this.state.originalStayDates.to)) {
+    if (this.state.numActiveVouchers > 0 && !DateUtils.isSameDay(this.state.stayDates.to,this.state.originalStayDates.to)) {
       conf = window.confirm(`⚠️ This action will extend ${this.state.numActiveVouchers} vouchers to ${this.state.stayDates.to.toDateString()}. Are you sure? ⚠️`)
     }
     if (!conf)
